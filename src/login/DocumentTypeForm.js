@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class PurchaseTypeForm extends Component {
+class DocumentTypeForm extends Component {
 
   render() {
     return (
@@ -23,4 +23,4 @@ class PurchaseTypeForm extends Component {
   }
 }
 
-export default PurchaseTypeForm
+export default DocumentTypeForm
