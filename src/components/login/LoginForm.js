@@ -10,6 +10,8 @@ class LoginForm extends Component {
     handleLogin(val) {
         console.log("Id: " + this.state.identification); 
         console.log("Password: " + this.state.password); 
+
+        this.props.history.push('/desktop');
         
     }
     handleIdChange(e) { 
