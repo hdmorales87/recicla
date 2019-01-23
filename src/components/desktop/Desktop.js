@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
+import NameUser from './NameUser';
+import OptionMenu from './OptionMenu';
+import Container from './Container';
+import ReactDOM from 'react-dom';
+import './desktop.css';
 
-class Desktop extends Component {	
+class Desktop extends Component {
+	actualizarContainer(){
+		console.log("hola:mundo");
+	}	
   	render() {
   	  	return (  	  		  
   	  		<div className="App">                 
-	 		    <div id="pestanas" class="navigationDesk">
-	 		    	<div class="LogoCabecera"></div>
-	 		    	<ul id="lista"></ul>
+	 		    <div id="pestanas" className="navigationDesk">
+	 		    	<div className="LogoCabecera"></div>
+	 		    	<OptionMenu />
 	 		    </div>
-	 		    <div id="cabeceraDesk" class="cabeceraDesk">
-	 		    	<div id="ContentUser" class="ContentUser"> 
-	 		    		<div class="FotoUsuario"></div>
-	 		    		<div class="NombreUsuario">HECTOR  DAVID MORALES </div>
-	 		    		<div class="OptionUsuario">
-	 		    			<i class="material-icons">keyboard_arrow_down</i>
- 		    			</div>
-	    			</div>
-	    		</div>
-	    		<div id="contenidopestanas" class="contentDesk"></div>	 		     
+	 		    <div id="cabeceraDesk" className="cabeceraDesk">
+	 		    	<NameUser className="ContentUser" />  	    		
+	 		    </div>
+	    		<div id="contenidopestanas" className="contentDesk">
+	    			<Container componente="Purchases" actualizaContainer={this.actualizarContainer.bind(this)}/>
+	    		</div>	 		     
 	        </div>   	
 		);
   	}
