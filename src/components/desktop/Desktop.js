@@ -6,21 +6,29 @@ import ReactDOM from 'react-dom';
 import './desktop.css';
 
 class Desktop extends Component {
-	actualizarContainer(){
-		console.log("hola:mundo");
+	constructor(props, context) { 
+    	super(props, context); 
+    	this.state = { 
+    	 	componente: "WelcomePage" 
+	    }; 
+	    this.actualizarContainer = this.actualizarContainer.bind(this);
+	} 	
+	actualizarContainer(val){
+		//if(val == )
+		this.setState({ componente: val });		
 	}	
-  	render() {
+  	render() {		 		
   	  	return (  	  		  
   	  		<div className="App">                 
 	 		    <div id="pestanas" className="navigationDesk">
 	 		    	<div className="LogoCabecera"></div>
-	 		    	<OptionMenu />
+	 		    	<OptionMenu funcionClick = {this.actualizarContainer}/>
 	 		    </div>
 	 		    <div id="cabeceraDesk" className="cabeceraDesk">
 	 		    	<NameUser className="ContentUser" />  	    		
 	 		    </div>
 	    		<div id="contenidopestanas" className="contentDesk">
-	    			<Container componente="Purchases" actualizaContainer={this.actualizarContainer.bind(this)}/>
+	    			<Container componente={this.state.componente}/>
 	    		</div>	 		     
 	        </div>   	
 		);

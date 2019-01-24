@@ -8,8 +8,8 @@ class Purchases extends Component {
   	render() {
   	  	return (  	  		  
   	  		  <div className="App">                 
-  	  	 		     <div id="div_documentos" onClick={this.handleClick.bind(this)}>Compras</div>  	  	 		       
- 			      </div> 	
+  	 		     <div>Compras</div>  	  	 		       
+		      </div> 	
   	  	);
   	}
 }
