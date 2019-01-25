@@ -24,10 +24,8 @@ class Container extends Component {
 		} 
 		
   		let ChildComponent = componentList[this.props.componente];		
-  	  	return (  	  		  
-  	  		<div>
-  	  			<ChildComponent />
-  	  		</div>     
+  	  	return (  		  
+  	  		<ChildComponent />  	  		    
 	    );
   	}
 }

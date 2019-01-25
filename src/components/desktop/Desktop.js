@@ -3,6 +3,8 @@ import NameUser from './NameUser';
 import OptionMenu from './OptionMenu';
 import Container from './Container';
 import ReactDOM from 'react-dom';
+import logo_login from '../../images/logo_login.png?v1.0';
+import LogoLogin from '../login/LogoLogin';
 import './desktop.css';
 
 class Desktop extends Component {
@@ -21,7 +23,9 @@ class Desktop extends Component {
   	  	return (  	  		  
   	  		<div className="App">                 
 	 		    <div id="pestanas" className="navigationDesk">
-	 		    	<div className="LogoCabecera"></div>
+	 		    	<div className="LogoCabecera">
+	 		    		<img src={ logo_login } alt="Acecolombia" />
+	 		    	</div>
 	 		    	<OptionMenu funcionClick = {this.actualizarContainer}/>
 	 		    </div>
 	 		    <div id="cabeceraDesk" className="cabeceraDesk">

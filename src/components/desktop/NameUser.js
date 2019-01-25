@@ -3,8 +3,10 @@ import './desktop.css';
 
 class NameUser extends Component {	
   	render() {
-  	  	return (	  		  
-  	  		<div className="NombreUsuario">HECTOR  DAVID MORALES </div>		    		
+  	  	return (	
+  	  		<div id="ContentUser" class="ContentUser">  		  
+  	  			<div className="NombreUsuario">HECTOR  DAVID MORALES </div>	
+  			</div>	    		
 	    );
   	}
 }
