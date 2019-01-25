@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './login.css';
+import usuario_login from '../../images/usuario_login.png?v1.0';
 
 class LoginForm extends Component {
 
@@ -22,17 +24,32 @@ class LoginForm extends Component {
     } 
     render() {
         return (
-            <form>
-                <label for="nya">Identificacion</label>
-                <br />
-                <input type="text" name="identification" id="identification" required onChange={this.handleIdChange.bind(this)}/>
-                <br /><br />
-                <label for="email">Password</label>
-                <br />
-                <input type="text" name="password" id="password" required onChange={this.handlePasswordChange.bind(this)}/> 
-                <br />
-                <button className="btn" onClick={this.handleLogin.bind(this)}>Entrar</button>
-            </form>
+            <form className="DivLogin">
+                <div className="ContentField">
+                    <div className="FieldImage">
+                        <img alt="Usuario" src={ usuario_login } />
+                    </div>
+                    <div className="FieldDiv">
+                        <input type="text" className="mytext" name="usuario" id="usuario" placeholder="Usuario" tabindex="1" required onChange={this.handleIdChange.bind(this)} />
+                    </div>
+                </div>
+                <div className="ContentField" styles= {{marginTop: '20px'}}>
+                    <div className="FieldImage">
+                        <img alt="Contraseña" src="login/images/password.png?v1.0" />
+                    </div>
+                    <div className="FieldDiv">
+                        <input type="password" className="mytext" name="password" id="password" placeholder="Contraseña" tabindex="2" required onChange={this.handlePasswordChange.bind(this)} />
+                    </div>
+                </div>
+                <div className="ContentField" styles={{padding:'5px 15px 10px', margin:'0px', textAlign:'right'}}>
+                    <div style={{color:'#FFF'}}>
+                        <input id="recordarme" name="recordarme" type="checkbox" value="true" style={{height:'auto'}} />Recordar mi Usuario
+                    </div>
+                </div>
+                <div className="DivBoton">
+                    <input type="button" id="validateUser" onClick={this.handleLogin.bind(this)} value=" " />
+                </div>
+            </form>           
         );
     }
 }

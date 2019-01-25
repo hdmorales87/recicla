@@ -1,0 +1,101 @@
+#table_login {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    width:100%;
+    height:100%;    
+}
+* {
+    box-sizing: border-box;
+    font-size: 14px;
+    font-family: tahoma,arial,helvetica,sans-serif;
+}
+
+.LogoLogin {
+    color: #FFF;
+    height: 130px;
+    z-index: 100;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #333;
+    font-family: Verdana,sans-serif,Tahoma;
+    background-color: #FFF;
+}
+
+.DivLogin {
+    width: 300px;
+    position: relative;
+    padding-top: 35px;
+}
+
+.ContentField {
+    width: 100%;
+    display: table;
+    padding: 5px;
+    margin-left: 3px;
+}
+
+.DivBoton {
+    top: 50%;
+    left: 275px;
+    width: 44px;
+    height: 44px;
+    position: absolute;
+    margin-top: -22px;
+    border-radius: 50%;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    font-family: Verdana,sans-serif,Tahoma;
+}
+
+body, html {
+    margin: 0;
+    height: 100%;
+    padding: 0;
+    overflow: visible;
+    font-size: 11px;
+}
+
+body {
+    display: table;
+    background: -webkit-gradient(radial, center center, 0, center center, 460, from(#0081d1), to(#0057BD));
+    background: -webkit-radial-gradient(circle, #0081d1, #0057BD);
+    background: -moz-radial-gradient(circle, #0081d1, #0057BD);
+    background: -o-radial-gradient(circle, #0081d1, #0057BD);
+    background: -ms-radial-gradient(circle, #0081d1, #0057BD);
+    background: radial-gradient(circle, #0081d1, #0057BD);
+    background-color: #0081d1;
+}
+
+#table_login > div {
+    margin: 0 auto;
+    display: inline-block;
+    background-color: #2e3641;
+}
+
+#root {
+	width: 100%;
+    height: 100%;
+    margin: 0px;
+    font-family: Verdana,sans-serif,Tahoma;
+}
+
+#root > div{
+	width: 100%;
+    height: 100%;
+    margin: 0px;
+    font-family: Verdana,sans-serif,Tahoma;
+}
+
+#root > div #table_login{
+	width: 100%;
+    height: 100%;
+    margin: 0px;
+    font-family: Verdana,sans-serif,Tahoma;
+}
+
