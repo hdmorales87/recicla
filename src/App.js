@@ -12,19 +12,17 @@ import ControlPanel from './components/control_panel/ControlPanel';
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <div>       
+      <BrowserRouter>               
           <Switch>
-            <Route exact path="/" component={Login} />    
-            <Route exact path="/desktop" component={Desktop} /> 
-            <Route exact path="/costumers" component={Costumers} /> 
-            <Route exact path="/reciclators" component={Reciclators} /> 
-            <Route exact path="/purchases" component={Purchases} /> 
-            <Route exact path="/control_panel" component={ControlPanel} />             
-            <Route path="*" component={Login}/>                 
-            <Route component={Login} />
-          </Switch>
-        </div>
+              <Route exact path="/" component={Login} />    
+              <Route exact path="/desktop" component={Desktop} /> 
+              <Route exact path="/costumers" component={Costumers} /> 
+              <Route exact path="/reciclators" component={Reciclators} /> 
+              <Route exact path="/purchases" component={Purchases} /> 
+              <Route exact path="/control_panel" component={ControlPanel} />             
+              <Route path="*" component={Login}/>                 
+              <Route component={Login} />
+          </Switch>        
       </BrowserRouter>
     );
   }

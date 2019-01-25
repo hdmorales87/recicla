@@ -23,6 +23,12 @@
     background-color: #FFF;
 }
 
+.LogoLogin > img {
+   /* width: 120px;*/
+    margin-top: 15px;
+    /*padding-top: 15px;*/
+}
+
 .DivLogin {
     width: 300px;
     position: relative;
@@ -34,6 +40,11 @@
     display: table;
     padding: 5px;
     margin-left: 3px;
+}
+
+.ContentField > div {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .DivBoton {
@@ -50,16 +61,17 @@ html, body {
     width: 100%;
     height: 100%;
     margin: 0px;
+    display: table;
     font-family: Verdana,sans-serif,Tahoma;
 }
 
-body, html {
+/*body, html {
     margin: 0;
     height: 100%;
     padding: 0;
     overflow: visible;
     font-size: 11px;
-}
+}*/
 
 body {
     display: table;
@@ -74,7 +86,7 @@ body {
 
 #table_login > div {
     margin: 0 auto;
-    display: inline-block;
+    display: table;
     background-color: #2e3641;
 }
 
@@ -82,20 +94,69 @@ body {
 	width: 100%;
     height: 100%;
     margin: 0px;
+    display: table;
     font-family: Verdana,sans-serif,Tahoma;
 }
 
-#root > div{
+#root #table_login{
+	width: 100%;
+    height: 100%;
+    margin: 0px;    
+    font-family: Verdana,sans-serif,Tahoma;
+    margin-top: calc(50% - 136px);
+}
+
+/*#root > div #table_login{
 	width: 100%;
     height: 100%;
     margin: 0px;
     font-family: Verdana,sans-serif,Tahoma;
+}*/
+
+input[type=text], input[type=password] {
+    color: #333;
+    width: 100%;
+    border: 0;
+    height: 30px;
+    padding: 0 10px 0 20px;
+    font-size: 14px;
+    background: #BFBFBF;
+    margin-left: -20px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
 }
 
-#root > div #table_login{
-	width: 100%;
-    height: 100%;
-    margin: 0px;
+.DivBoton > input {
+    width: 44px !important;
+    height: 44px !important;
+    border: 0 !important;
+    cursor: pointer;
+    padding: 0px !important;
+    z-index: 2;
+    background: #2E3641 url(../../images/flecha_login.png?v1.0);
+    border-radius: 50%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.mytext {
+    color: #333;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #FFF;
     font-family: Verdana,sans-serif,Tahoma;
+}
+
+.FieldImage {
+    width: 32px;
+    position: relative;
+}
+
+.FieldImage > img {
+    top: 0;
+    left: 0;
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    margin-top: -6px;
 }
 

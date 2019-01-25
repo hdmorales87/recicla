@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './login.css';
 import usuario_login from '../../images/usuario_login.png?v1.0';
+import password_login from '../../images/password_login.png?v1.0';
 
 class LoginForm extends Component {
 
@@ -8,11 +9,12 @@ class LoginForm extends Component {
         super(props);
         this.state = {identification: ''};
         this.state = {password: ''}; 
+        this.handleLogin = this.handleLogin.bind(this);
     }
     handleLogin(val) {
         console.log("Id: " + this.state.identification); 
-        console.log("Password: " + this.state.password); 
-
+        console.log("Password: " + this.state.password);
+       
         this.props.history.push('/desktop');
         
     }
@@ -30,15 +32,15 @@ class LoginForm extends Component {
                         <img alt="Usuario" src={ usuario_login } />
                     </div>
                     <div className="FieldDiv">
-                        <input type="text" className="mytext" name="usuario" id="usuario" placeholder="Usuario" tabindex="1" required onChange={this.handleIdChange.bind(this)} />
+                        <input type="text" className="mytext" name="usuario" id="usuario" placeholder="Usuario" required onChange={this.handleIdChange.bind(this)} />
                     </div>
                 </div>
                 <div className="ContentField" styles= {{marginTop: '20px'}}>
                     <div className="FieldImage">
-                        <img alt="Contraseña" src="login/images/password.png?v1.0" />
+                        <img alt="Contraseña" src={ password_login } />
                     </div>
                     <div className="FieldDiv">
-                        <input type="password" className="mytext" name="password" id="password" placeholder="Contraseña" tabindex="2" required onChange={this.handlePasswordChange.bind(this)} />
+                        <input type="password" className="mytext" name="password" id="password" placeholder="Contraseña" required onChange={this.handlePasswordChange.bind(this)} />
                     </div>
                 </div>
                 <div className="ContentField" styles={{padding:'5px 15px 10px', margin:'0px', textAlign:'right'}}>
