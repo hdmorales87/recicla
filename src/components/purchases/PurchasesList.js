@@ -13,7 +13,8 @@ class PurchasesList extends React.Component {
                                            tipo_compra={ purchases.tipo_compra }
                                            reciclador={ purchases.reciclador }
                                            peso={ purchases.peso }
-                                           fecha={ purchases.fecha } />
+                                           fecha={ purchases.fecha }
+                                           funcionClick={this.props.funcionClick} />
                   })
               }
           </tbody>

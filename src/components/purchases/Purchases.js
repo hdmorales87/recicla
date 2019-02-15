@@ -3,9 +3,10 @@ import PurchasesContainer from './PurchasesContainer';
 import Button from 'react-bootstrap/Button';
 
 class Purchases extends Component {    
-  	handleClick(val) {
-  	  	this.setState({ justClicked: val });
-  	}    
+  	handleNewButton(){
+        this.props.funcionClick('FormPurchase');
+        //console.log(this.props.funcionClick);
+    }    
   	render() {
         //if (this.state.empleados.length > 0) {
         return (
@@ -16,10 +17,10 @@ class Purchases extends Component {
                     </div>
                     <hr />
                     <div className="table-responsive mb-3">
-                        <Button variant="primary">AGREGAR NUEVO</Button>
+                        <Button variant="primary" onClick={this.handleNewButton.bind(this)}>AGREGAR NUEVO</Button>
                     </div>                    
                     <div className="table-responsive">
-                        <PurchasesContainer />
+                        <PurchasesContainer funcionClick={this.props.funcionClick}/>
                     </div>                    
                 </div>
             </div>             

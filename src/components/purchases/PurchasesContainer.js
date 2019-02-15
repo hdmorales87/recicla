@@ -51,10 +51,10 @@ class PurchasesContainer extends Component {
                             <th>Reciclador</th>
                             <th>Peso</th>
                             <th>Fecha</th>
-                            <th>Acciones</th>
+                            <th style= {{width: '180px'}}>Acciones</th>
                         </tr>
                     </thead>      
-                    <PurchasesList listado={this.state.purchases} />                                       
+                    <PurchasesList listado={this.state.purchases} funcionClick={this.props.funcionClick}/>                                       
                 </Table>
             )
         } else {

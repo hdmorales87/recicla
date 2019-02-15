@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Reciclators from '../reciclators/Reciclators';
 import Costumers from '../costumers/Costumers';
 import Purchases from '../purchases/Purchases';
+import FormPurchase from '../purchases/FormPurchase';
 import ControlPanel from '../control_panel/ControlPanel'
 import WelcomePage from './WelcomePage';
 
@@ -20,12 +21,13 @@ class Container extends Component {
 			Reciclators  : Reciclators,
 			Costumers    : Costumers,
 			Purchases    : Purchases,
-			ControlPanel : ControlPanel,	    
+			ControlPanel : ControlPanel,
+			FormPurchase : FormPurchase	    
 		} 
 		
   		let ChildComponent = componentList[this.props.componente];		
   	  	return (  		  
-  	  		<ChildComponent />  	  		    
+  	  		<ChildComponent funcionClick={this.props.funcionClick} parametro={this.props.parametro} />  	  		    
 	    );
   	}
 }

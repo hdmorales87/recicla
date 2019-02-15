@@ -11,13 +11,14 @@ class Desktop extends Component {
 	constructor(props, context) { 
     	super(props, context); 
     	this.state = { 
-    	 	componente: "WelcomePage" 
-	    }; 
+    	 	componente: "WelcomePage",
+    	 	parametro : "" 
+	    }; 	     
 	    this.actualizarContainer = this.actualizarContainer.bind(this);
 	} 	
-	actualizarContainer(val){
-		//if(val == )
-		this.setState({ componente: val });		
+	actualizarContainer(val,param){	
+		this.setState({ componente: val });
+		this.setState({ parametro : param });		
 	}	
   	render() {		 		
   	  	return (  	  		  
@@ -32,7 +33,7 @@ class Desktop extends Component {
 	 		    	<NameUser className="ContentUser" />  	    		
 	 		    </div>
 	    		<div id="contenidopestanas" className="contentDesk">
-	    			<Container componente={this.state.componente}/>
+	    			<Container componente={this.state.componente} funcionClick = {this.actualizarContainer} parametro={this.state.parametro}/>
 	    		</div>	 		     
 	        </div>   	
 		);

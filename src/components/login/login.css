@@ -113,7 +113,7 @@ body {
     font-family: Verdana,sans-serif,Tahoma;
 }*/
 
-input[type=text], input[type=password] {
+#table_login input[type=text], input[type=password] {
     color: #333;
     width: 100%;
     border: 0;
