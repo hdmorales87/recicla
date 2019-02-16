@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './login.css';
 import usuario_login from '../../images/usuario_login.png?v1.0';
 import password_login from '../../images/password_login.png?v1.0';
+import axios from 'axios';
+import alertify from 'alertifyjs';
+import '../../css/alertify.css';
 
 class LoginForm extends Component {
 
@@ -11,12 +14,21 @@ class LoginForm extends Component {
         this.state = {password: ''}; 
         this.handleLogin = this.handleLogin.bind(this);
     }
-    handleLogin(val) {
-        console.log("Id: " + this.state.identification); 
-        console.log("Password: " + this.state.password);
-       
-        this.props.history.push('/desktop');
-        
+    handleLogin(val) {       
+        //consulta si el usuario existe con los datos ingresados
+        axios.get('http://localhost:5000/login/'+this.state.identification+'/'+this.state.password)
+        .then(res => {
+          var response = res.data;
+          //response = response.json();
+          console.log(response.msg);
+          if(response.msg == 'notExist'){
+                alertify.error('Datos de ingreso incorrectos!'); 
+          }
+          else{
+               this.props.history.push('/desktop'); 
+          }
+          
+        }) 
     }
     handleIdChange(e) { 
         this.setState({identification: e.target.value}); 
