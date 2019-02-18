@@ -13,13 +13,11 @@ class FormPurchase extends Component {
         //GUARDAR/EDITAR LA INFORMACION
     }
   	render() {
-  		{
-  			var titulo = 'Nueva';
-  			if(this.props.parametro > 0){
-  				titulo = 'Editar';
-  			}  			
-  		}
-  	  	return (  	  		  	  	
+  		  var titulo = 'Nueva';
+  		  if(this.props.parametro > 0){
+  		  	  titulo = 'Editar';
+  		  } 			
+  		  return (  	  		  	  	
   	  		<div className="container">
                 <div className="content">
                     <div className="table-responsive mt-4">

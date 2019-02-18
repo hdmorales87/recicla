@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './components/login/Login';
 import Desktop from './components/desktop/Desktop';
 import Reciclators from './components/reciclators/Reciclators';

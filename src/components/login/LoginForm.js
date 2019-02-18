@@ -14,21 +14,30 @@ class LoginForm extends Component {
         this.state = {password: ''}; 
         this.handleLogin = this.handleLogin.bind(this);
     }
-    handleLogin(val) {       
+    handleLogin(val) {    
+        //validacion de datos       
+        if(this.state.username === undefined || this.state.username === ''){
+            alertify.error('Digite el nombre de usuario!'); 
+            return;
+        }   
+        else if(this.state.username === undefined || this.state.password === ''){
+            alertify.error('Digite el password!'); 
+            return;
+        }
         //consulta si el usuario existe con los datos ingresados
         axios.get('http://localhost:5000/login/'+this.state.username+'/'+this.state.password)
         .then(res => {
             var response = res.data; 
             console.log(response.msg);           
             //response = response.json();            
-            if(response.msg == 'notExist'){
+            if(response.msg === 'notExist'){
                 alertify.error('Datos de ingreso incorrectos!'); 
             }
-            else if(response.msg == 'error'){
+            else if(response.msg === 'error'){
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
             }
             else{
-                 this.props.history.push('/desktop'); 
+                this.props.history.push({pathname: '/desktop', state : { usuario : response }}); 
             }          
         }) 
         .catch( err => {            

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import Reciclators from '../reciclators/Reciclators';
 import Costumers from '../costumers/Costumers';
 import Purchases from '../purchases/Purchases';

@@ -18,7 +18,8 @@ class PurchasesRow extends React.Component {
         //console.log(this.props.funcionClick);
     }
     handleDeleteButton(param){
-        alert(param);
+        this.handleConfirmShow();
+        //alert(param);
         //this.props.funcionClick('FormPurchase',param);
         //console.log(this.props.funcionClick);
     }
@@ -47,7 +48,7 @@ class PurchasesRow extends React.Component {
                         <Button variant="primary" onClick={this.handleEditButton.bind(this,this.props.id)}>EDITAR</Button>
                     </div>
                     <div className="float-left">
-                        <Button variant="danger" onClick={this.handleDeleteButton.bind(this,this.props.id)} onClick={this.handleConfirmShow}>ELIMINAR</Button>
+                        <Button variant="danger" onClick={this.handleDeleteButton.bind(this,this.props.id)}>ELIMINAR</Button>
                         <Modal show={this.state.show} onHide={this.handleConfirmClose}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Confirmar Borrado</Modal.Title>
