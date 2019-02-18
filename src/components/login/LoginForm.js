@@ -10,28 +10,33 @@ class LoginForm extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {identification: ''};
+        this.state = {username: ''};
         this.state = {password: ''}; 
         this.handleLogin = this.handleLogin.bind(this);
     }
     handleLogin(val) {       
         //consulta si el usuario existe con los datos ingresados
-        axios.get('http://localhost:5000/login/'+this.state.identification+'/'+this.state.password)
+        axios.get('http://localhost:5000/login/'+this.state.username+'/'+this.state.password)
         .then(res => {
-          var response = res.data;
-          //response = response.json();
-          console.log(response.msg);
-          if(response.msg == 'notExist'){
+            var response = res.data; 
+            console.log(response.msg);           
+            //response = response.json();            
+            if(response.msg == 'notExist'){
                 alertify.error('Datos de ingreso incorrectos!'); 
-          }
-          else{
-               this.props.history.push('/desktop'); 
-          }
-          
+            }
+            else if(response.msg == 'error'){
+                alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
+            }
+            else{
+                 this.props.history.push('/desktop'); 
+            }          
         }) 
+        .catch( err => {            
+            alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
+        })
     }
     handleIdChange(e) { 
-        this.setState({identification: e.target.value}); 
+        this.setState({username: e.target.value}); 
     }
     handlePasswordChange(e) { 
         this.setState({password: e.target.value}); 
