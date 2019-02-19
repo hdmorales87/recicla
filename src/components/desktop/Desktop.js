@@ -25,7 +25,7 @@ class Desktop extends Component {
 	     // console.log(usuario);
 	  } 
 	  componentDidMount() {       
-      	axios.get('http://localhost:5000/checkSession')
+      	axios.get('http://localhost:5000/checkSession', {withCredentials: true})
       	  	.then(res => {
                 var response = res.data; 
       	  	  	if (response.session === "true") {
@@ -45,6 +45,7 @@ class Desktop extends Component {
 	  }	
   	render() {
   		  const { loading, redirect } = this.state;
+        console.log(loading);
   		  if (loading) {
         	  return null;
       	}
