@@ -25,11 +25,10 @@ class LoginForm extends Component {
             return;
         }
         //consulta si el usuario existe con los datos ingresados
-        axios.get('http://localhost:5000/login/'+this.state.username+'/'+this.state.password)
+        axios.get('http://localhost:5000/login/'+this.state.username+'/'+this.state.password, {withCredentials: true})
         .then(res => {
             var response = res.data; 
-            console.log(response.msg);           
-            //response = response.json();            
+                      
             if(response.msg === 'notExist'){
                 alertify.error('Datos de ingreso incorrectos!'); 
             }

@@ -5,16 +5,25 @@ import NameUser from './NameUser';
 import OptionMenu from './OptionMenu';
 import Container from './Container';
 import logo_login from '../../images/logo_login.png?v1.0';
+import alertify from 'alertifyjs';
+import '../../css/alertify.css';
 import './desktop.css';
 
 class Desktop extends Component {
 	  constructor(props, context) { 		
       	super(props, context);
-      	const username = this.props.location.state.usuario; 
+
+        var usuario = {};
+        var username = '';
+
+        if(this.props.location.state){
+            usuario = this.props.location.state.usuario;
+            username = usuario[0].name.toUpperCase();
+        }
       	this.state = { 
       		  loading: true,
           	redirect: false,
-	 		    username: username[0].name.toUpperCase(), 
+	 		      username: username, 
       	 	  componente: "WelcomePage",
       	 	  parametro : "" 
 	     }; 	 
@@ -50,6 +59,7 @@ class Desktop extends Component {
         	  return null;
       	}
       	if (redirect) {
+            alert('Su sesion ha finalizado, debe registrarse de nuevo!');
         	  return <Redirect to="/" />;
       	}  			 		
   	  	return (  	  		  
@@ -61,7 +71,7 @@ class Desktop extends Component {
 	 		          	  <OptionMenu funcionClick = {this.actualizarContainer}/>
 	 		          </div>
 	 		          <div id="cabeceraDesk" className="cabeceraDesk">
-	 		          	  <NameUser className="ContentUser" username = { this.state.username } />  	    		
+	 		          	  <NameUser className="ContentUser" username = { this.state.username } history={this.props.history}/>  	    		
 	 		          </div>
 	    		      <div id="contenidopestanas" className="contentDesk">
 	    		 	        <Container componente={this.state.componente} funcionClick = {this.actualizarContainer} parametro={this.state.parametro}/>

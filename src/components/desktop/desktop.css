@@ -104,7 +104,7 @@
 
 .NombreUsuario {
     float: left;
-    width: 185px;
+    width: 195px;
     margin: 20px 5px 0 5px;
     font-size: 12px;
     white-space: nowrap;
@@ -113,8 +113,19 @@
     color: #fff;
 }
 
+.OptionUsuario {
+    float: left;
+    width: 35px;
+    margin: 6px 5px 0 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+}
+
 .ContentUser {
-    width: 240px;
+    width: 290px;
     height: 60px;
     float: right;
     padding: 0 10px;
