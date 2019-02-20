@@ -3,7 +3,10 @@ import Reciclators from '../reciclators/Reciclators';
 import Costumers from '../costumers/Costumers';
 import Purchases from '../purchases/Purchases';
 import FormPurchase from '../purchases/FormPurchase';
-import ControlPanel from '../control_panel/ControlPanel'
+import ControlPanel from '../control_panel/ControlPanel';
+import DocumentTypes from '../control_panel/document_types/DocumentTypes';
+import PurchaseTypes from '../control_panel/purchase_types/PurchaseTypes';
+
 import WelcomePage from './WelcomePage';
 
 
@@ -16,12 +19,14 @@ class Container extends Component {
 	// } 		
   	render() {
   		let componentList = {
-  			WelcomePage  : WelcomePage,
-			Reciclators  : Reciclators,
-			Costumers    : Costumers,
-			Purchases    : Purchases,
-			ControlPanel : ControlPanel,
-			FormPurchase : FormPurchase	    
+			WelcomePage   : WelcomePage,
+			Reciclators   : Reciclators,
+			Costumers     : Costumers,
+			Purchases     : Purchases,
+			ControlPanel  : ControlPanel,
+			FormPurchase  : FormPurchase,
+			DocumentTypes : DocumentTypes,
+			PurchaseTypes : PurchaseTypes	    
 		} 
 		
   		let ChildComponent = componentList[this.props.componente];		

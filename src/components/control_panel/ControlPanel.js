@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-import DocumentTypeForm from './forms/DocumentTypeForm';
-import PurchaseTypeForm from './forms/PurchaseTypeForm';
+import Option from './Option';
+import './controlpanel.css';
 
 class ControlPanel extends Component {
 
   	handleClick(val) {
-  	  	this.setState({ justClicked: val });
+  	  	alert('hola');
   	}
   	render() {
   	  	return (  	  		  
-  	  		  <div className="App">                 
-  	  	 		     <div id="div_documentos" onClick={this.handleClick.bind(this)}>Tipos de Documento</div>
-  	  	 		     <div id="div_productos" onClick={this.handleClick.bind(this)}>Tipos de Producto</div>
-  	  	 		     <div id="div_usuarios" onClick={this.handleClick.bind(this)}>Usuarios</div>    
- 			      </div> 	
+  	  		  <div id="ContentPaneldeControl" className="EstiloIconosMenuDashboard" ostype="desktop">
+                <div className="titulo">Maestros</div>
+                <ul>
+                    <Option tab="config0" titulo='Administracion Tipos de Compra' icono="shopping_cart" funcionClick={this.props.funcionClick} componente="PurchaseTypes" />  
+                    <Option tab="config1" titulo='Administracion Tipos de Documento' icono="credit_card" funcionClick={this.props.funcionClick} componente="DocumentTypes" />  
+                    <Option tab="config2" titulo='Administracion de Usuarios' icono="perm_identity" funcionClick={this.props.funcionClick} componente="Users" />  
+                </ul>
+            </div> 	
   	  	);
   	}
 }

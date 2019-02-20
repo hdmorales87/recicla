@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PurchasesContainer from './PurchasesContainer';
 import Button from 'react-bootstrap/Button';
-import './purchases.css';
 
 class Purchases extends Component {    
   	handleNewButton(){
@@ -14,7 +13,7 @@ class Purchases extends Component {
             <div className="container">
                 <div className="content">
                     <div className="table-responsive mt-4">
-                        <div className="titulo">Compras</div>
+                        <h2>Compras</h2>
                     </div>
                     <hr />
                     <div className="table-responsive mb-3">

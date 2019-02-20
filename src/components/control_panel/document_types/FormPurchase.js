@@ -21,7 +21,7 @@ class FormPurchase extends Component {
   	  		<div className="container">
                 <div className="content">
                     <div className="table-responsive mt-4">
-                        <div className="titulo">{titulo} Compra</div>
+                        <h2>{titulo} Compra</h2>
                     </div>
                     <hr />
                     <div className="table-responsive mb-3">	
