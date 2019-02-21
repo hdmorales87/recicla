@@ -5,7 +5,7 @@ import './purchases.css';
 
 class Purchases extends Component {    
   	handleNewButton(){
-        this.props.funcionClick('FormPurchase');
+        this.props.funcionClick('FormPurchases');
         //console.log(this.props.funcionClick);
     }    
   	render() {

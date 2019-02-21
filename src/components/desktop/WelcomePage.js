@@ -5,8 +5,8 @@ import logo_fondo from '../../images/logo_fondo.png?v1.0';
 class WelcomePage extends Component {	
   	render() {
   	  	return (
-  	  		<div className="LogoFondo">  	  					  
-  	  			<img src={ logo_fondo } alt="" />
+  	  		<div className="WelcomeFondo" style={{backgroundImage: `url(${ logo_fondo })`}}>  	  					  
+  	  			
   	  		</div>		    		
 	    );
   	}

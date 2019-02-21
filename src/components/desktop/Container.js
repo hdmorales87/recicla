@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import Reciclators from '../reciclators/Reciclators';
 import Costumers from '../costumers/Costumers';
 import Purchases from '../purchases/Purchases';
-import FormPurchase from '../purchases/FormPurchase';
+import FormPurchases from '../purchases/FormPurchases';
 import ControlPanel from '../control_panel/ControlPanel';
 import DocumentTypes from '../control_panel/document_types/DocumentTypes';
 import PurchaseTypes from '../control_panel/purchase_types/PurchaseTypes';
+import FormPurchaseTypes from '../control_panel/purchase_types/FormPurchaseTypes';
+
 
 import WelcomePage from './WelcomePage';
 
@@ -24,9 +26,10 @@ class Container extends Component {
 			Costumers     : Costumers,
 			Purchases     : Purchases,
 			ControlPanel  : ControlPanel,
-			FormPurchase  : FormPurchase,
+			FormPurchases  : FormPurchases,
 			DocumentTypes : DocumentTypes,
-			PurchaseTypes : PurchaseTypes	    
+			PurchaseTypes : PurchaseTypes,
+			FormPurchaseTypes : FormPurchaseTypes	    
 		} 
 		
   		let ChildComponent = componentList[this.props.componente];		

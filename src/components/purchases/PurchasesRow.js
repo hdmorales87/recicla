@@ -14,7 +14,7 @@ class PurchasesRow extends React.Component {
         };
     }
     handleEditButton(param){      
-        this.props.funcionClick('FormPurchase',param);
+        this.props.funcionClick('FormPurchases',param);
         //console.log(this.props.funcionClick);
     }
     handleDeleteButton(param){
