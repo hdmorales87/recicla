@@ -18,7 +18,7 @@ class Desktop extends Component {
 
         if(this.props.location.state){
             usuario = this.props.location.state.usuario;
-            username = usuario[0].name.toUpperCase();
+            username = usuario[0].nombre.toUpperCase();
         }
       	this.state = { 
       		  loading: true,

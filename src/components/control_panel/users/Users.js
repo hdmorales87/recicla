@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import DocumentTypesContainer from './DocumentTypesContainer';
+import UsersContainer from './UsersContainer';
 import Button from 'react-bootstrap/Button';
 
-class DocumentTypes extends Component {    
+class Users extends Component {    
   	handleNewButton(){
-        this.props.funcionClick('FormDocumentTypes');
+        this.props.funcionClick('FormUsers');
         //console.log(this.props.funcionClick);
     }    
   	render() {
@@ -13,14 +13,14 @@ class DocumentTypes extends Component {
             <div className="container">
                 <div className="content">
                     <div className="table-responsive mt-4">
-                        <div className="titulo">Típos de Documento</div>
+                        <div className="titulo">Usuarios</div>
                     </div>
                     <hr />
                     <div className="table-responsive mb-3">
                         <Button variant="primary" onClick={this.handleNewButton.bind(this)}>AGREGAR NUEVO</Button>
                     </div>                    
                     <div className="table-responsive" style={{height:'500px'}}>
-                        <DocumentTypesContainer funcionClick={this.props.funcionClick}/>
+                        <UsersContainer funcionClick={this.props.funcionClick}/>
                     </div>                    
                 </div>
             </div>             
@@ -28,4 +28,4 @@ class DocumentTypes extends Component {
     } 
 }
 
-export default DocumentTypes
+export default Users

@@ -6,7 +6,10 @@ import FormPurchases from '../purchases/FormPurchases';
 import ControlPanel from '../control_panel/ControlPanel';
 import DocumentTypes from '../control_panel/document_types/DocumentTypes';
 import PurchaseTypes from '../control_panel/purchase_types/PurchaseTypes';
+import Users from '../control_panel/users/Users';
 import FormPurchaseTypes from '../control_panel/purchase_types/FormPurchaseTypes';
+import FormDocumentTypes from '../control_panel/document_types/FormDocumentTypes';
+import FormUsers from '../control_panel/users/FormUsers';
 
 
 import WelcomePage from './WelcomePage';
@@ -26,10 +29,13 @@ class Container extends Component {
 			Costumers     : Costumers,
 			Purchases     : Purchases,
 			ControlPanel  : ControlPanel,
-			FormPurchases  : FormPurchases,
+			FormPurchases : FormPurchases,
 			DocumentTypes : DocumentTypes,
 			PurchaseTypes : PurchaseTypes,
-			FormPurchaseTypes : FormPurchaseTypes	    
+			Users 		  : Users,
+			FormUsers 	  : FormUsers,
+			FormPurchaseTypes : FormPurchaseTypes,
+			FormDocumentTypes : FormDocumentTypes			  
 		} 
 		
   		let ChildComponent = componentList[this.props.componente];		
