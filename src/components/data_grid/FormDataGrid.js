@@ -45,7 +45,6 @@ class FormDataGrid extends Component {
         var arrayData = {};
         var errors = 0;
 
-        arrayData['id'] = id;//mandar el ID
 
         this.props.parametro.formFields.map((formFields,i) => {
             if((this.state[formFields.field] === undefined || this.state[formFields.field] === '') && formFields.required === 'true'){
@@ -65,7 +64,8 @@ class FormDataGrid extends Component {
         var method = '';
 
         if(id>0){           
-            method = 'put';            
+            method = 'put';
+            arrayData['id'] = id;//mandar el ID
         }
         else{            
             method = 'post';
