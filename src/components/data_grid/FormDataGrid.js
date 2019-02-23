@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import ComboBoxFormDataGrid from './ComboBoxFormDataGrid';
 import axios from 'axios';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
@@ -13,11 +14,21 @@ class FormDataGrid extends Component {
         this.state = {};
         
         this.props.parametro.formFields.map((formFields,i) => {
-            if(this.props.parametro.idRow != 0){
-                this.state[formFields.field] = this.props.parametro.idRow[formFields.field];              
+            if(this.props.parametro.idRow != 0){                
+                if(this.props.parametro.idRow[formFields.field] === '' || this.props.parametro.idRow[formFields.field] === undefined || this.props.parametro.idRow[formFields.field] === null){
+                    this.state[formFields.field] = '';
+                }
+                else{
+                    this.state[formFields.field] = this.props.parametro.idRow[formFields.field];             
+                }
             }
             else{
-                this.state[formFields.field] = '';                
+                if(formFields.type==='select'){
+                    this.state[formFields.field] = 1;            
+                }
+                else{
+                    this.state[formFields.field] = '';         
+                }                
             }
         });        
         
@@ -33,6 +44,8 @@ class FormDataGrid extends Component {
         //recorrido dinamico de los campos y cargar dinamicamente el arrayData
         var arrayData = {};
         var errors = 0;
+
+        arrayData['id'] = id;//mandar el ID
 
         this.props.parametro.formFields.map((formFields,i) => {
             if((this.state[formFields.field] === undefined || this.state[formFields.field] === '') && formFields.required === 'true'){
@@ -56,7 +69,7 @@ class FormDataGrid extends Component {
         }
         else{            
             method = 'post';
-        } 
+        }        
 
         axios({
             method: method,
@@ -88,8 +101,8 @@ class FormDataGrid extends Component {
           var id = 0;
   		  if(this.props.parametro.idRow != 0){
   		  	  titulo = 'Editar';
-            id = this.props.parametro.id;
-  		  } 			
+              id = this.props.parametro.idRow.id;
+  		  }          			
   		  return (  	  		  	  	
   	  		<div className="container">
                 <div className="content">
@@ -102,10 +115,19 @@ class FormDataGrid extends Component {
                             {
                                 //cargar dinamicamente los campos
                                 this.props.parametro.formFields.map((formFields,i) => {                                    
-                                    return <Form.Group key= {i} controlId="formBasicTipoCompra">
-                                                <Form.Label>{formFields.label}</Form.Label>
-                                                <Form.Control name = {formFields.field} type={formFields.type} onChange={this.handleStateChange.bind(this)} value={this.state[formFields.field]}/>                               
-                                            </Form.Group>
+                                    if(formFields.type === 'text'){
+                                        return <Form.Group key= {i} controlId="formBasicTipoCompra">
+                                                    <Form.Label>{formFields.label}</Form.Label>
+                                                    <Form.Control name = {formFields.field} type={formFields.type} onChange={this.handleStateChange.bind(this)} value={this.state[formFields.field]}/>                               
+                                               </Form.Group>
+                                    }
+                                    else if(formFields.type == 'select'){
+                                        return <Form.Group key= {i} controlId="formBasicTipoCompra">
+                                                    <Form.Label>{formFields.label}</Form.Label>
+                                                    <ComboBoxFormDataGrid valueName = {formFields.valueName} options = {formFields.options} apiUrl={formFields.apiUrl} dinamic={formFields.dinamic} name = {formFields.field} type={formFields.type} functionChange={this.handleStateChange.bind(this)} value={this.state[formFields.field]}/>                               
+                                               </Form.Group>
+                                    }                                    
+                                    
                                 })
                             }						  							  						  	
 						  	<Button className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)}>

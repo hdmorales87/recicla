@@ -6,7 +6,7 @@ import FormPurchases from '../purchases/FormPurchases';
 import ControlPanel from '../control_panel/ControlPanel';
 import DocumentTypes from '../control_panel/DocumentTypes';
 import PurchaseTypes from '../control_panel/PurchaseTypes';
-import Users from '../control_panel/users/Users';
+import Users from '../control_panel/Users';
 import FormDataGrid from '../data_grid/FormDataGrid';
 
 import WelcomePage from './WelcomePage';
