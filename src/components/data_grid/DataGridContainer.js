@@ -19,12 +19,13 @@ class DataGridContainer extends Component {
     
     cargaFilas(){
         let searchWord = '';
+        let showRecords = 5;
         if(this.props.parametro !== undefined){
-            searchWord = this.props.parametro.searchWord;            
-        }
+            searchWord = this.props.parametro.searchWord; 
+            showRecords = this.props.parametro.showRecords;           
+        }        
         
-        console.log(this.props.parametro);
-        axios.get(this.props.apiUrl, {withCredentials: true, params: { searchWord : searchWord } })
+        axios.get(this.props.apiUrl, {withCredentials: true, params: { searchWord : searchWord,showRecords : showRecords } })
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {

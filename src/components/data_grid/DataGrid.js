@@ -6,6 +6,10 @@ class DataGrid extends Component {
     constructor(props, context) {
         super(props, context);           
         //this.handleSearchField = this.handleSearchField.bind(this);
+        this.state = {
+            showRecords : 5,
+            searchWord  : ''
+        }
     }    
   	handleNewButton(){
         console.log(this.props.funcionClick);
@@ -16,10 +20,18 @@ class DataGrid extends Component {
         let key = event.keyCode;
         if(key === 13){            
             console.log(this.props.mainContainer);
-            let searchWord = event.target.value;            
-            this.props.funcionClick(this.props.mainContainer,{ searchWord: searchWord }); 
+            let searchWord = event.target.value;  
+            this.setState({ searchWord: searchWord }, () => {           
+                this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords }); 
+            });
         }        
-    }  
+    } 
+    handleComboShow(event){        
+        let showRecords = event.target.value;       
+        this.setState({ showRecords: showRecords }, () => {            
+            this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords });
+        });      
+    } 
   	render() {
         //if (this.state.empleados.length > 0) {
         return (
@@ -35,7 +47,7 @@ class DataGrid extends Component {
                     <div className="table-responsive mb-3">
                         <div style={{float:'left',width:'70px'}}>Mostrar:</div> 
                         <div style={{float:'left'}}>
-                            <select style={{border:'1px solid #dee2e6'}}>
+                            <select style={{border:'1px solid #dee2e6'}} defaultValue="5" onChange={this.handleComboShow.bind(this)}>
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>
