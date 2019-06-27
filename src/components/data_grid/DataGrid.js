@@ -75,6 +75,14 @@ class DataGrid extends Component {
                                            parametro={this.props.parametro}/>
                     </div> 
                     <div className="table-responsive mb-3">
+                        <div style={{float:'left'}} >
+                            <div style={{float:'left',width:'90px'}}>Mostrando</div> 
+                            <div style={{float:'left',width:'20px'}}></div> 
+                            <div style={{float:'left',width:'20px'}}>a</div> 
+                            <div style={{float:'left',width:'30px'}}></div>
+                            <div style={{float:'left',width:'20px'}}>de</div>
+                            <div style={{float:'left',width:'30px'}}></div>
+                        </div>
                         <div style={{float:'right'}} >
                             <Button variant="default" onClick={this.handleNewButton.bind(this)}>Anterior</Button>
                             <Button variant="default" onClick={this.handleNewButton.bind(this)}>Siguiente</Button>
