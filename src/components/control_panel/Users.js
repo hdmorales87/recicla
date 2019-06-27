@@ -8,11 +8,12 @@ class Users extends Component {
         //console.log(this.props.funcionClick);
     }    
   	render() {
-        const path = 'http://localhost:5000/';
+        const path = 'http://localhost:5000/';        
         //if (this.state.empleados.length > 0) {
         return (            
             <DataGrid titulo='Usuarios' 
-                      funcionClick={this.props.funcionClick}                       
+                      funcionClick={this.props.funcionClick}  
+                      parametro={this.props.parametro}                     
                       colsHeaders={[ 'Tipo Documento','Documento','Nombre','Email','Username','Direccion','Telefono' ]}
                       colsData={[ 'tipo_documento','documento','nombre','email','username','direccion','telefono' ]} 
                       formFields={[

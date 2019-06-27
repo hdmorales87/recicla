@@ -15,7 +15,8 @@ class DataGridList extends React.Component {
                                                colsData={this.props.colsData}
                                                apiUrl={this.props.apiUrl}
                                                formFields={this.props.formFields}
-                                               mainContainer={this.props.mainContainer}/>
+                                               mainContainer={this.props.mainContainer}
+                                               parametro={this.props.parametro}/>
                   })
               }
           </tbody>
