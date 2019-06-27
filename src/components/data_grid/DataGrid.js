@@ -16,10 +16,8 @@ class DataGrid extends Component {
         let key = event.keyCode;
         if(key === 13){            
             console.log(this.props.mainContainer);
-            let searchWord = event.target.value;
-            this.props.funcionClick('Purchases'); 
-            //this.props.funcionClick('Purchases');
-            //this.props.funcionClick(this.props.mainContainer,{ searchWord: 'searchWord'}); 
+            let searchWord = event.target.value;            
+            this.props.funcionClick(this.props.mainContainer,{ searchWord: searchWord }); 
         }        
     }  
   	render() {

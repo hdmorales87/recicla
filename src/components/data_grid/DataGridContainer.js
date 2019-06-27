@@ -16,11 +16,15 @@ class DataGridContainer extends Component {
   	handleClick(val) {
   	  	this.setState({ justClicked: val });
   	}
-    componentWillMount() {
+    
+    cargaFilas(){
+        let searchWord = '';
+        if(this.props.parametro !== undefined){
+            searchWord = this.props.parametro.searchWord;            
+        }
+        
         console.log(this.props.parametro);
-        //alert('hola');
-        //obtener el listado de tipos de compra
-        axios.get(this.props.apiUrl, {withCredentials: true})
+        axios.get(this.props.apiUrl, {withCredentials: true, params: { searchWord : searchWord } })
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
@@ -31,8 +35,18 @@ class DataGridContainer extends Component {
         })
         .catch( err => {            
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
-        });        
+        });
     }
+
+    componentWillMount() {
+        this.cargaFilas();        
+    }
+
+    componentDidUpdate(prevProps){        
+        if (this.props.parametro !== prevProps.parametro) {           
+           this.cargaFilas(); 
+        }       
+    }    
 
   	render() {    
         //console.log(this.props.parametro); 
