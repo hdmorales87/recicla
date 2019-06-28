@@ -11,7 +11,8 @@ class DocumentTypes extends Component {
         //if (this.state.empleados.length > 0) {
         return (            
             <DataGrid titulo='Típos de Documento' 
-                      funcionClick={this.props.funcionClick}                       
+                      funcionClick={this.props.funcionClick} 
+                      parametro={this.props.parametro}                      
                       colsHeaders={[ 'Nombre' ]}
                       colsData={[ 'nombre']} 
                       formFields={[

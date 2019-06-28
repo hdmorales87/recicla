@@ -1,38 +1,97 @@
 import React, { Component } from 'react';
 import DataGridContainer from './DataGridContainer';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
+import alertify from 'alertifyjs';
+import '../../css/alertify.css';
 
 class DataGrid extends Component {
     constructor(props, context) {
         super(props, context);           
         //this.handleSearchField = this.handleSearchField.bind(this);
         this.state = {
-            showRecords : 5,
-            searchWord  : ''
+            showRecords  : 5,
+            searchWord   : '',
+            offsetRecord : 0,
+            resultRows   : 0
         }
     }    
-  	handleNewButton(){
+  	handleNewButton(){//Boton nuevo registro
         console.log(this.props.funcionClick);
         this.props.funcionClick('FormDataGrid',{ idRow:0,mainContainer:this.props.mainContainer,titulo:this.props.titulo,apiUrl:this.props.apiUrl,formFields:this.props.formFields});
         //console.log(this.props.funcionClick);
     }  
-    handleSearchField(event){        
+    handleSearchField(event){//Boton de Busqueda        
         let key = event.keyCode;
         if(key === 13){            
             console.log(this.props.mainContainer);
             let searchWord = event.target.value;  
             this.setState({ searchWord: searchWord }, () => {           
-                this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords }); 
+                this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords, offsetRecord: this.state.offsetRecord }); 
             });
         }        
     } 
-    handleComboShow(event){        
+    handleComboShow(event){//Combo de registros por pagina       
         let showRecords = event.target.value;       
         this.setState({ showRecords: showRecords }, () => {            
-            this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords });
+            this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords, offsetRecord: this.state.offsetRecord});
+        });      
+    }
+    handlePrevButton(event){//Retroceder
+        let prevOffsetRecord = this.state.offsetRecord;    
+        let offsetRecord = prevOffsetRecord-this.state.showRecords;  
+        if(offsetRecord < 0){//tope inferior
+            offsetRecord = 0;
+        }      
+        this.setState({ offsetRecord: offsetRecord }, () => {            
+            this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords, offsetRecord: this.state.offsetRecord });
+        });      
+    }
+    handleNextButton(event){ //Avanzar 
+        let prevOffsetRecord = this.state.offsetRecord;  
+        let offsetRecord = prevOffsetRecord+this.state.showRecords; 
+        if(offsetRecord > this.state.resultRows){//tope superior
+            offsetRecord = prevOffsetRecord;
+        }    
+        this.setState({ offsetRecord: offsetRecord }, () => {            
+            this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords, offsetRecord: this.state.offsetRecord });
         });      
     } 
+    consultaFilas(){//Cuenta Filas    
+        axios.get(this.props.apiUrl+'Rows', {
+            withCredentials: true, 
+            params: { 
+                searchWord : this.state.searchWord,                
+            } 
+        })
+        .then(res => {
+            var response = res.data; 
+            if (response.msg === "error") {
+                alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
+            } else {
+                console.log(response[0].total);
+                this.setState({ resultRows: response[0].total })
+            }
+        })
+        .catch( err => {            
+            alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
+        });
+    }
+    componentWillMount() {
+        this.consultaFilas();        
+    }
+    componentDidUpdate(prevProps){        
+        if (this.props.parametro !== prevProps.parametro) {           
+           this.consultaFilas(); 
+        }       
+    }
   	render() {
+        {//los topes
+            var lastRecord = this.state.offsetRecord+this.state.showRecords;
+            if(lastRecord > this.state.resultRows){
+                lastRecord = this.state.resultRows;
+            }
+        }
         //if (this.state.empleados.length > 0) {
         return (
             <div className="container ContenedorDataGrid">
@@ -77,15 +136,15 @@ class DataGrid extends Component {
                     <div className="table-responsive mb-3">
                         <div style={{float:'left'}} >
                             <div style={{float:'left',width:'90px'}}>Mostrando</div> 
-                            <div style={{float:'left',width:'20px'}}></div> 
-                            <div style={{float:'left',width:'20px'}}>a</div> 
-                            <div style={{float:'left',width:'30px'}}></div>
-                            <div style={{float:'left',width:'20px'}}>de</div>
-                            <div style={{float:'left',width:'30px'}}></div>
+                            <div style={{float:'left',width:'20px'}}>{(this.state.offsetRecord*1)+1}</div> 
+                            <div style={{float:'left',width:'20px',paddingLeft:'5px'}}>a</div> 
+                            <div style={{float:'left',width:'25px',paddingLeft:'5px'}}>{lastRecord*1}</div>
+                            <div style={{float:'left',width:'25px',paddingLeft:'5px'}}>de</div>
+                            <div style={{float:'left',width:'35px',paddingLeft:'5px'}}>{this.state.resultRows}</div>
                         </div>
                         <div style={{float:'right'}} >
-                            <Button variant="default" onClick={this.handleNewButton.bind(this)}>Anterior</Button>
-                            <Button variant="default" onClick={this.handleNewButton.bind(this)}>Siguiente</Button>
+                            <Button variant="default" onClick={this.handlePrevButton.bind(this)}><span style={{fontSize:'14px'}}>Anterior</span></Button>
+                            <Button variant="default" onClick={this.handleNextButton.bind(this)}><span style={{fontSize:'14px'}}>Siguiente</span></Button>
                         </div>
                     </div>                   
                 </div>
