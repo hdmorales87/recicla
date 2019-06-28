@@ -8,7 +8,8 @@ class PurchaseTypes extends Component {
         //if (this.state.empleados.length > 0) {
         return (
             <DataGrid titulo='Tipos de Compra' 
-                      funcionClick={this.props.funcionClick}                       
+                      funcionClick={this.props.funcionClick}   
+                      parametro={this.props.parametro}                    
                       colsHeaders={[ 'Nombre','Precio' ]}
                       colsData={[ 'nombre','precio' ]} 
                       formFields={[
