@@ -16,17 +16,14 @@ class DataGrid extends Component {
             resultRows   : 0
         }
     }    
-  	handleNewButton(){//Boton nuevo registro
-        console.log(this.props.funcionClick);
+  	handleNewButton(){//Boton nuevo registro        
         this.props.funcionClick('FormDataGrid',{ idRow:0,mainContainer:this.props.mainContainer,titulo:this.props.titulo,apiUrl:this.props.apiUrl,formFields:this.props.formFields});
-        //console.log(this.props.funcionClick);
     }  
     handleSearchField(event){//Boton de Busqueda        
         let key = event.keyCode;
-        if(key === 13){            
-            console.log(this.props.mainContainer);
+        if(key === 13){  
             let searchWord = event.target.value;  
-            this.setState({ searchWord: searchWord }, () => {           
+            this.setState({ searchWord: searchWord,offsetRecord: 0 }, () => {           
                 this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords, offsetRecord: this.state.offsetRecord }); 
             });
         }        
@@ -68,8 +65,7 @@ class DataGrid extends Component {
             var response = res.data; 
             if (response.msg === "error") {
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
-            } else {
-                console.log(response[0].total);
+            } else {                
                 this.setState({ resultRows: response[0].total })
             }
         })

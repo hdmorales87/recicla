@@ -51,8 +51,7 @@ class DataGridContainer extends Component {
         }       
     }    
 
-  	render() {    
-        //console.log(this.props.parametro); 
+  	render() {  
         if (this.state.content.length > 0) {
             return (
                 <Table striped bordered hover>

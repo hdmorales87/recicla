@@ -53,8 +53,7 @@ class Desktop extends Component {
 		    this.setState({ parametro : param });		
 	  }	
   	render() {
-  		  const { loading, redirect } = this.state;
-        console.log(loading);
+  		  const { loading, redirect } = this.state;        
   		  if (loading) {
         	  return null;
       	}
