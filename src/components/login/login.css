@@ -24,13 +24,13 @@
 }
 
 .LogoLogin > img {
-   /* width: 120px;*/
+    width: 320px;
     margin-top: 15px;
     /*padding-top: 15px;*/
 }
 
 .DivLogin {
-    width: 300px;
+    width: 310px;
     position: relative;
     padding-top: 35px;
 }
@@ -49,7 +49,7 @@
 
 .DivBoton {
     top: 50%;
-    left: 275px;
+    left: 270px;
     width: 44px;
     height: 44px;
     position: absolute;
