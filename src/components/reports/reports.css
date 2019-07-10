@@ -1,0 +1,67 @@
+.reportTbar {
+    overflow: hidden;
+    display: table;
+    background-color: #2a80b9;
+    width: 100%;
+    margin: 0;
+    padding: 0 10px 0 10px;
+}
+
+.reportTbar div, .reportTbar button {
+    color: #fff;
+}
+
+.reportTbar > div {
+    display: table-cell;
+}
+
+.reportBtn {
+    padding: 2px;
+    vertical-align: top;
+    background-color: rgba(0,0,0,0);
+    min-height: 50px;
+    min-width: 50px;
+    cursor: pointer;
+    background-color: #2a80b9 !important;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.reportBtn button {
+    width: 100%;
+    background-color: rgba(0,0,0,0);
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center top;
+    min-height: 30px;
+    min-width: 40px;
+    cursor: pointer;
+    padding: 26px 0 0 0;
+    font-size: 11px;
+    border: 1px solid transparent;
+    text-decoration: none;
+    outline: none;
+}
+
+.reportBtn button {
+    padding: 0;
+}
+
+.ContentReport {
+    width: 290px;
+    height: 60px;
+    float: right;
+    padding: 0 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.reportContainer {
+    width: 900px;
+    height: 800px;  
+    background-color: #ccc;
+}

@@ -10,7 +10,8 @@ class OptionMenu extends Component {
   				<Option tab="pestana0" titulo='Compras' subtitulo="Compra de Chatarra" icono="shopping_cart" funcionClick={this.props.funcionClick} componente="Purchases" />  
   				<Option tab="pestana1" titulo='Clientes' subtitulo="Compradores de Chatarra" icono="person" funcionClick={this.props.funcionClick} componente="Costumers" />
   				<Option tab="pestana2" titulo='Recicladores' subtitulo="Vendedores de Chatarra" icono="person" funcionClick={this.props.funcionClick} componente="Reciclators"/>
-  				<Option tab="pestana3" titulo='Administracion' subtitulo="Administracion del Sistema" icono="settings" funcionClick={this.props.funcionClick} componente="ControlPanel"/>  								
+          <Option tab="pestana3" titulo='Informes' subtitulo="Informes" icono="poll" funcionClick={this.props.funcionClick} componente="Reports"/>                 
+  				<Option tab="pestana4" titulo='Administracion' subtitulo="Administracion del Sistema" icono="settings" funcionClick={this.props.funcionClick} componente="ControlPanel"/>  								
 			</ul>   	
 		);
   	}
