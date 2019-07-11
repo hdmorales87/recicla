@@ -47,8 +47,8 @@ class NameUser extends Component {
 					</div>					
 				</Dropdown.Toggle>
 				<Dropdown.Menu  style={{ marginTop: '50px'}}>
-				  	<Dropdown.Item eventKey="1">Datos del Usuario</Dropdown.Item>
-				  	<Dropdown.Item eventKey="1" onClick={this.btnLogoutSession.bind(this)}>Cerrar Sesi&oacute;n</Dropdown.Item>				  	
+				  	<Dropdown.Item eventKey="1"><MaterialIcon size={24} icon="account_circle" />Datos del Usuario</Dropdown.Item>
+				  	<Dropdown.Item eventKey="1" onClick={this.btnLogoutSession.bind(this)}><MaterialIcon size={24} icon="close" />Cerrar Sesi&oacute;n</Dropdown.Item>				  	
 				</Dropdown.Menu>
 			</Dropdown>			    		
 	    );

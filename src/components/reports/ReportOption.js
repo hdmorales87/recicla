@@ -13,8 +13,9 @@ class ReportOption extends Component {
     }
 
   	render() {
+        let position = this.props.position*120;
   	  	return (
-            <Dropdown id={this.props.tab} className="reportBtn" style={{width:'120px',position:'absolute'}}>  
+            <Dropdown id={this.props.tab} className="reportBtn" style={{width:'120px',position:'absolute',height:'60px',left:position+'px'}}>  
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components"> 
                     <div style={{width:'120px'}} data-role="win-btn" data-state="enable"> 
                         <div style={{width:'100%',textAlign:'center'}}> 
@@ -23,8 +24,8 @@ class ReportOption extends Component {
                         <button className="save" os="windows">{this.props.titulo}</button>
                     </div>
                 </Dropdown.Toggle>
-                <Dropdown.Menu  style={{ marginTop: '-50px'}}>
-                    <Dropdown.Item eventKey="1">Datos del Usuario</Dropdown.Item>
+                <Dropdown.Menu  style={{ marginTop: '0px'}}>
+                    <Dropdown.Item eventKey="1"><MaterialIcon size={24} icon="poll" /> Datos del Usuario</Dropdown.Item>
                     <Dropdown.Item eventKey="1" onClick={this.handleMenuItem.bind(this)}>Cerrar Sesi&oacute;n</Dropdown.Item>           
                 </Dropdown.Menu>
             </Dropdown>
