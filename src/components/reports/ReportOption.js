@@ -8,14 +8,14 @@ import './reports.css';
 
 class ReportOption extends Component {
     constructor(props, context) {
-        super(props, context);         
+        super(props, context); 
+        this.handleReportContainerChange = this.handleReportContainerChange.bind(this);         
+    }    
+    handleReportContainerChange(table){//CALLBACK PARA ACTUALIZAR EL CONTENEDOR DE REPORTE        
+        this.props.funcionClick(table);        
     }
-    handleMenuItem(){
-        this.props.funcionClick(this.props.componente);
-        //console.log(this.props.funcionClick);
-    }
+  	render() {      
 
-  	render() {
         let position = this.props.position*120;        
   	  	return (
             <Dropdown id={this.props.tab} className="reportBtn" style={{width:'120px',position:'absolute',height:'60px',left:position+'px'}}>  
@@ -24,14 +24,14 @@ class ReportOption extends Component {
                         <div style={{width:'100%',textAlign:'center'}}> 
                             <MaterialIcon size={24} icon="poll" invert />  
                         </div>             
-                        <button className="save" os="windows">{this.props.titulo}</button>
+                        <button className="save" os="windows">{this.props.title}</button>
                     </div>
                 </Dropdown.Toggle>
-                <Dropdown.Menu  style={{ marginTop: '0px',width:'230px'}}>
+                <Dropdown.Menu  style={{ marginTop: '0px',width:this.props.optionWidth}}>
                     {   
                         this.props.optionMenu ? 
                             this.props.optionMenu.map((optionMenu,i) => {
-                                return (<Dropdown.Item eventKey="1" key={i} onClick={this.handleMenuItem.bind(this)}>
+                                return (<Dropdown.Item eventKey="1" key={i} onClick={this.handleReportContainerChange.bind(this,optionMenu.table)}>
                                     <div style={{height:'25px'}}>
                                         <div style={{width:'30px',float:'left'}}>
                                             <MaterialIcon size={24} icon="poll" /> 

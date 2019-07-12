@@ -66,3 +66,86 @@
     height: 800px;  
     background-color: #ccc;
 }
+
+.tbarReportContainer {
+    width: 100%;
+    background: linear-gradient(to bottom,#9c9c9c 0%,#ddd 2%,#ddd 100%);
+    padding: 15px 5px 5px 5px;
+    overflow: hidden;
+}
+
+.panelFieldReport {
+    float: left;
+    width: 420px;
+    padding: 7px 0 0 0;
+}
+
+.formContentField {
+    float: left;
+    margin: 0 0 2px 10px;
+}
+
+.panelFieldReport > .formContentField > .formLabelReport {
+    float: left;
+    width: 70px !important;
+    font-size: 11px;
+}
+
+.formFieldReport {
+    float: left;
+}
+
+.panelFieldReport > .formContentField > .formFieldReport > input, .panelFieldReport > .formContentField > .formFieldReport > select, .panelFieldReport > .formContentField > .formFieldReport > textarea {
+    float: left;
+    height: 23px;
+    width: 130px !important;
+    box-shadow: 1px 1px 3px 0 #aaa;
+    background-color: #fff;
+    font-size: 12px;
+}
+
+input[data-required="true"], select[data-required="true"], textarea[data-required="true"] {
+    border-left: 2px solid #ff7676;
+}
+
+.PanelBotonesReport {
+    float: left;
+    width: 240px;
+    padding: 0 15px 0 15px;
+}
+
+.PanelBotonesReport > .reportBtn {
+    float: left;
+}
+
+.reportBtn {
+    color: #fff;
+    padding: 2px;
+    vertical-align: top;
+    background-color: rgba(0,0,0,0);
+    min-height: 50px;
+    min-width: 50px;
+    cursor: pointer;
+}
+
+.btnReportContainer {
+    background-color: rgba(0,0,0,0) !important;
+}
+
+.PanelReport {
+    width: 100%;
+    background-color: #ddd;
+    overflow: auto;
+}
+
+.ReportContainer {
+    width: calc(100% - 30px);
+    min-height: calc(100% - 30px);
+    height: auto;
+    background-color: #fff;
+    margin: 15px;
+    padding: 15px;
+    float: left;
+    box-shadow: 2px 2px 5px #999;
+    overflow: hidden;
+}
