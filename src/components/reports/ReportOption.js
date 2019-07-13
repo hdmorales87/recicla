@@ -11,8 +11,8 @@ class ReportOption extends Component {
         super(props, context); 
         this.handleReportContainerChange = this.handleReportContainerChange.bind(this);         
     }    
-    handleReportContainerChange(table){//CALLBACK PARA ACTUALIZAR EL CONTENEDOR DE REPORTE        
-        this.props.funcionClick(table);        
+    handleReportContainerChange(optionMenu){//CALLBACK PARA ACTUALIZAR EL CONTENEDOR DE REPORTE        
+        this.props.funcionClick(optionMenu);        
     }
   	render() {      
 
@@ -31,7 +31,7 @@ class ReportOption extends Component {
                     {   
                         this.props.optionMenu ? 
                             this.props.optionMenu.map((optionMenu,i) => {
-                                return (<Dropdown.Item eventKey="1" key={i} onClick={this.handleReportContainerChange.bind(this,optionMenu.table)}>
+                                return (<Dropdown.Item eventKey="1" key={i} onClick={this.handleReportContainerChange.bind(this,optionMenu)}>
                                     <div style={{height:'25px'}}>
                                         <div style={{width:'30px',float:'left'}}>
                                             <MaterialIcon size={24} icon="poll" /> 

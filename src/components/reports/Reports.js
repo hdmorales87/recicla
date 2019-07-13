@@ -7,18 +7,15 @@ class Reports extends Component {
     constructor(props, context) {
         super(props, context);     
         this.state = { 
-            table : 'blank',
-            parameter : ""
+            optionMenu : ''            
         }
         this.actualizarReportContainer = this.actualizarReportContainer.bind(this);
     }
   	handleClick(val) {
   	  	alert('hola');
   	}
-    actualizarReportContainer(table,param){ 
-        console.log(table);
-        this.setState({ table: table });
-        this.setState({ parameter : param });   
+    actualizarReportContainer(optionMenu){        
+        this.setState({ optionMenu: optionMenu });           
     }
   	render() {
         let apiUrl = 'http://localhost:5000/';
@@ -35,7 +32,9 @@ class Reports extends Component {
                                         {
                                             label : 'Informe de Compras',
                                             table : 'purchases',                                            
-                                            dateFilter : 'true',                                                                                       
+                                            dateFilter : 'true', 
+                                            btnExcel : 'true',
+                                            btnPDF : 'true'                                                                                      
                                         },                                        
                                     ]}
                         apiUrl={apiUrl}
@@ -50,7 +49,9 @@ class Reports extends Component {
                                         {
                                             label : 'Informe de Ventas',
                                             table : 'sales',                                            
-                                            dateFilter : 'true',                                                                                     
+                                            dateFilter : 'true',
+                                            btnExcel : 'true',
+                                            btnPDF : 'true'                                                                                     
                                         },                                        
                                     ]}
                     />
@@ -64,7 +65,9 @@ class Reports extends Component {
                                         {
                                             label : 'Informe de Recicladores',
                                             table : 'reciclators',                                            
-                                            dateFilter : 'false',                                                                                   
+                                            dateFilter : 'false',
+                                            btnExcel : 'true',
+                                            btnPDF : 'true'                                                                                   
                                         },                                        
                                     ]}
                     /> 
@@ -78,7 +81,9 @@ class Reports extends Component {
                                         {
                                             label : 'Informe de Clientes',
                                             table : 'customers',                                            
-                                            dateFilter : 'false',                                                                                     
+                                            dateFilter : 'false', 
+                                            btnExcel : 'true',
+                                            btnPDF : 'true'                                                                                    
                                         },                                        
                                     ]}
                     />
@@ -92,7 +97,9 @@ class Reports extends Component {
                                         {
                                             label : 'Informe de Usuarios',
                                             table : 'usuarios',                                            
-                                            dateFilter : 'false',                                                                                      
+                                            dateFilter : 'false',
+                                            btnExcel : 'true',
+                                            btnPDF : 'true'                                                                                      
                                         },                                        
                                     ]}
                     /> 
@@ -106,18 +113,22 @@ class Reports extends Component {
                                         {
                                             label : 'Informe de Tipos de Documento',
                                             table : 'document_types',                                            
-                                            dateFilter : 'false',                                                                                     
+                                            dateFilter : 'false',
+                                            btnExcel : 'false',
+                                            btnPDF : 'true'                                                                                     
                                         },
                                         {
                                             label : 'Informe de Tipos de Compra',
                                             table : 'purchase_types',                                            
-                                            dateFilter : 'false',                                                                                       
+                                            dateFilter : 'false',   
+                                            btnExcel : 'true',
+                                            btnPDF : 'false'                                                                                    
                                         },                                                                                
                                     ]}
                     />             
                 </div>	
                 <div id="reportContainer" className="reportContainer" data-role="winTbar" os="windows" >
-                    <ReportContainer table={this.state.table}/>
+                    <ReportContainer optionMenu={this.state.optionMenu}/>
                 </div>
             </div>
   	  	);
