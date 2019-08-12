@@ -20,7 +20,7 @@ class Reports extends Component {
   	render() {
         let apiUrl = 'http://localhost:5000/';
   	  	return ( 
-            <div style={{width:'100%'}}>
+            <div style={{width:'100%',height:'100%'}}>
                 <div id="reportTbar" className="reportTbar" data-role="winTbar" os="windows" >
                     <ReportOption 
                         tab="ReportOption0" 

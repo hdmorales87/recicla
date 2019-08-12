@@ -63,7 +63,7 @@
 
 .reportContainer {
     width: 900px;
-    height: 800px;  
+    height: calc(100% - 60px) !important; 
     background-color: #ccc;
 }
 
@@ -92,7 +92,12 @@
 }
 
 .formFieldReport {
-    float: left;
+    float: left;    
+}
+
+.formDateReport {
+    float: left;  
+    position: absolute;      
 }
 
 .panelFieldReport > .formContentField > .formFieldReport > input, .panelFieldReport > .formContentField > .formFieldReport > select, .panelFieldReport > .formContentField > .formFieldReport > textarea {
