@@ -18,7 +18,7 @@ class Reports extends Component {
         this.setState({ optionMenu: optionMenu });           
     }
   	render() {
-        let apiUrl = 'http://localhost:5000/';
+        var apiUrl = 'http://localhost:5000/';
   	  	return ( 
             <div style={{width:'100%',height:'100%'}}>
                 <div id="reportTbar" className="reportTbar" data-role="winTbar" os="windows" >
@@ -36,8 +36,7 @@ class Reports extends Component {
                                             btnExcel : 'true',
                                             btnPDF : 'true'                                                                                      
                                         },                                        
-                                    ]}
-                        apiUrl={apiUrl}
+                                    ]}                        
                     />
                     <ReportOption 
                         tab="ReportOption1" 
@@ -53,7 +52,7 @@ class Reports extends Component {
                                             btnExcel : 'true',
                                             btnPDF : 'true'                                                                                     
                                         },                                        
-                                    ]}
+                                    ]}                        
                     />
                     <ReportOption 
                         tab="ReportOption2" 
@@ -69,7 +68,7 @@ class Reports extends Component {
                                             btnExcel : 'true',
                                             btnPDF : 'true'                                                                                   
                                         },                                        
-                                    ]}
+                                    ]}                        
                     /> 
                     <ReportOption 
                         tab="ReportOption2" 
@@ -85,7 +84,7 @@ class Reports extends Component {
                                             btnExcel : 'true',
                                             btnPDF : 'true'                                                                                    
                                         },                                        
-                                    ]}
+                                    ]}                        
                     />
                     <ReportOption 
                         tab="ReportOption2" 
@@ -96,12 +95,12 @@ class Reports extends Component {
                         optionMenu={[
                                         {
                                             label : 'Informe de Usuarios',
-                                            table : 'usuarios',                                            
+                                            table : 'users',                                            
                                             dateFilter : 'false',
                                             btnExcel : 'true',
                                             btnPDF : 'true'                                                                                      
                                         },                                        
-                                    ]}
+                                    ]}                        
                     /> 
                     <ReportOption 
                         tab="ReportOption2" 
@@ -124,11 +123,11 @@ class Reports extends Component {
                                             btnExcel : 'true',
                                             btnPDF : 'false'                                                                                    
                                         },                                                                                
-                                    ]}
+                                    ]}                        
                     />             
                 </div>	
                 <div id="reportContainer" className="reportContainer" data-role="winTbar" os="windows" >
-                    <ReportContainer optionMenu={this.state.optionMenu}/>
+                    <ReportContainer optionMenu={this.state.optionMenu} apiUrl={apiUrl}/>
                 </div>
             </div>
   	  	);

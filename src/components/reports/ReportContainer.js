@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import DataReportContainer from './DataReportContainer';
 import MaterialIcon from 'material-icons-react';
 import DatePicker from 'react-date-picker';
+import axios from 'axios';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 
@@ -11,8 +13,9 @@ class ReportContainer extends Component {
      	super(props, context);  
 
         this.state = {
-            date1: new Date(),
-            date2: new Date(),
+            date1 : new Date(),
+            date2 : new Date(),
+            dataObject : ''
         }
 	} 
     //manejadores de los datepicker
@@ -38,7 +41,26 @@ class ReportContainer extends Component {
         fecha1 = new Date(fecha1.getTime() - (fecha1.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
         fecha2 = new Date(fecha2.getTime() - (fecha2.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
 
-        //generacion del reporte
+        //generacion del reporte     
+        axios.get(this.props.apiUrl+this.props.optionMenu.table+'Report', {
+            withCredentials: true, 
+            params: { 
+                                
+            } 
+        })
+        .then(res => {
+            var response = res.data; 
+            if (response.msg === "error") {
+                alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
+            } else {                
+                this.setState({ dataObject: response[0].total })
+            }
+        })
+        .catch( err => {            
+            alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
+        });
+
+        //this
 
         console.log(fecha1+'-->'+fecha2);
 
@@ -106,7 +128,9 @@ class ReportContainer extends Component {
                              </div>
                          </div>
                          <div id="PanelInforme_Reports_Infotipri" className="PanelReport" style={{height: 'calc(100% - 91px)'}}>
-                             <div id="InformeFile_Reports_Infotipri" className="ReportContainer" tamano="letter" orientacion="V" style={{maxWidth: '812px', minWidth: '812px'}}></div>
+                             <div id="InformeFile_Reports_Infotipri" className="ReportContainer" tamano="letter" orientacion="V" style={{maxWidth: '812px', minWidth: '812px'}}>
+                                 <DataReportContainer dataObject={this.state.dataObject}/>
+                             </div>
                          </div>
                      </div>
                 : ''

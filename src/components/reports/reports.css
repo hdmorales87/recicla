@@ -97,7 +97,8 @@
 
 .formDateReport {
     float: left;  
-    position: absolute;      
+    position: absolute;
+    background-color: white;      
 }
 
 .panelFieldReport > .formContentField > .formFieldReport > input, .panelFieldReport > .formContentField > .formFieldReport > select, .panelFieldReport > .formContentField > .formFieldReport > textarea {
