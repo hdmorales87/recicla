@@ -120,7 +120,7 @@ class ReportContainer extends Component {
                                                     id="test-table-xls-button"
                                                     className="download-table-xls-button"
                                                     table="table-to-xls"
-                                                    filename="tablexls"
+                                                    filename={"informe_"+this.props.optionMenu.table}
                                                     sheet="tablexls"
                                                     buttonText="Generar Excel"/>                                                
                                             </div>
@@ -133,7 +133,7 @@ class ReportContainer extends Component {
                                                 <div style={{textAlign:'center'}}>
                                                     <MaterialIcon size={24} icon="picture_as_pdf" />
                                                 </div>
-                                                <ReactToPdf targetRef={divPDF} filename="div-blue.pdf">
+                                                <ReactToPdf targetRef={divPDF} filename={"informe_"+this.props.optionMenu.table+".pdf"}>
                                                     {
                                                         ({toPdf}) => (
                                                             <button onClick={toPdf} className="save" os="windows">Generar PDF</button>
