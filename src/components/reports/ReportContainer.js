@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import DataReportContainer from './DataReportContainer';
 import MaterialIcon from 'material-icons-react';
+import ReactToPdf from 'react-to-pdf';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import DatePicker from 'react-date-picker';
 import axios from 'axios';
 import alertify from 'alertifyjs';
@@ -15,6 +17,8 @@ class ReportContainer extends Component {
         this.state = {
             date1 : new Date(),
             date2 : new Date(),
+            showPDF : false,
+            showXLS : false,
             dataRow : ''
         }
 	} 
@@ -55,6 +59,8 @@ class ReportContainer extends Component {
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
             } else {                
                 this.setState({ dataRow: response })
+                this.setState({ showXLS: true })
+                this.setState({ showPDF: true })
             }
         })
         .catch( err => {            
@@ -67,6 +73,7 @@ class ReportContainer extends Component {
 
     }		
   	render() {
+        const divPDF = React.createRef();
         //console.log(this.props.optionMenu);
   	  	return ( 
             <div id="BodyReportContainer" style={{height: '100%'}}>
@@ -104,23 +111,35 @@ class ReportContainer extends Component {
                                      </div>
                                      <div data-role="div-empty"></div>
                                      {
-                                        this.props.optionMenu.btnExcel === 'true' ?
+                                        this.props.optionMenu.btnExcel === 'true' && this.state.showXLS === true ?
                                             <div id="win-btn-2" className="reportBtn btnReportContainer" style={{width:'65px',backgroundColor: '#FFF !important'}} data-role="win-btn" data-state="enable">                                 
                                                 <div style={{textAlign:'center'}}>
-                                                    <MaterialIcon size={24} icon="arrow_downward" />
+                                                    <MaterialIcon size={24} icon="library_books" />
                                                 </div>
-                                                <button className="save" os="windows">Generar Excel</button>
+                                                <ReactHTMLTableToExcel
+                                                    id="test-table-xls-button"
+                                                    className="download-table-xls-button"
+                                                    table="table-to-xls"
+                                                    filename="tablexls"
+                                                    sheet="tablexls"
+                                                    buttonText="Generar Excel"/>                                                
                                             </div>
                                         : ''
                                      }
                                      <div data-role="div-empty"></div>
                                      {
-                                        this.props.optionMenu.btnPDF === 'true' ?
+                                        this.props.optionMenu.btnPDF === 'true' && this.state.showPDF === true ?
                                             <div id="win-btn-3" className="reportBtn btnReportContainer" style={{width:'65px',backgroundColor: '#FFF !important'}} data-role="win-btn" data-state="enable">                                 
                                                 <div style={{textAlign:'center'}}>
                                                     <MaterialIcon size={24} icon="picture_as_pdf" />
                                                 </div>
-                                                <button className="save" os="windows">Generar PDF</button>
+                                                <ReactToPdf targetRef={divPDF} filename="div-blue.pdf">
+                                                    {
+                                                        ({toPdf}) => (
+                                                            <button onClick={toPdf} className="save" os="windows">Generar PDF</button>
+                                                        )
+                                                    }
+                                                </ReactToPdf>
                                             </div>
                                         : ''
                                      }
@@ -130,7 +149,7 @@ class ReportContainer extends Component {
                          </div>
                          <div id="PanelInforme_Reports_Infotipri" className="PanelReport" style={{height: 'calc(100% - 91px)'}}>
                              <div id="InformeFile_Reports_Infotipri" className="ReportContainer" tamano="letter" orientacion="V" style={{maxWidth: '812px', minWidth: '812px'}}>
-                                 <DataReportContainer dataRow={this.state.dataRow} colsHeaders = {this.props.optionMenu.colsHeaders} colsData = {this.props.optionMenu.colsData} />
+                                 <DataReportContainer divPDF = {divPDF} dataRow={this.state.dataRow} colsHeaders = {this.props.optionMenu.colsHeaders} colsData = {this.props.optionMenu.colsData} />
                              </div>
                          </div>
                      </div>
@@ -140,6 +159,6 @@ class ReportContainer extends Component {
             </div>
         );
   	}
-}
+}           
 
 export default ReportContainer
