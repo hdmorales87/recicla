@@ -15,7 +15,7 @@ class ReportContainer extends Component {
         this.state = {
             date1 : new Date(),
             date2 : new Date(),
-            dataObject : ''
+            dataRow : ''
         }
 	} 
     //manejadores de los datepicker
@@ -45,7 +45,8 @@ class ReportContainer extends Component {
         axios.get(this.props.apiUrl+this.props.optionMenu.table+'Report', {
             withCredentials: true, 
             params: { 
-                                
+                fecha1 : fecha1,
+                fecha2 : fecha2            
             } 
         })
         .then(res => {
@@ -53,7 +54,7 @@ class ReportContainer extends Component {
             if (response.msg === "error") {
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
             } else {                
-                this.setState({ dataObject: response[0].total })
+                this.setState({ dataRow: response })
             }
         })
         .catch( err => {            
@@ -62,7 +63,7 @@ class ReportContainer extends Component {
 
         //this
 
-        console.log(fecha1+'-->'+fecha2);
+        //console.log(fecha1+'-->'+fecha2);
 
     }		
   	render() {
@@ -129,7 +130,7 @@ class ReportContainer extends Component {
                          </div>
                          <div id="PanelInforme_Reports_Infotipri" className="PanelReport" style={{height: 'calc(100% - 91px)'}}>
                              <div id="InformeFile_Reports_Infotipri" className="ReportContainer" tamano="letter" orientacion="V" style={{maxWidth: '812px', minWidth: '812px'}}>
-                                 <DataReportContainer dataObject={this.state.dataObject}/>
+                                 <DataReportContainer dataRow={this.state.dataRow} colsHeaders = {this.props.optionMenu.colsHeaders} colsData = {this.props.optionMenu.colsData} />
                              </div>
                          </div>
                      </div>

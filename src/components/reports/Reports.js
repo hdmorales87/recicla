@@ -31,7 +31,7 @@ class Reports extends Component {
                         optionMenu={[
                                         {
                                             label : 'Informe de Compras',
-                                            table : 'purchases',                                            
+                                            table : 'purchases',                                                                                        
                                             dateFilter : 'true', 
                                             btnExcel : 'true',
                                             btnPDF : 'true'                                                                                      
@@ -94,8 +94,10 @@ class Reports extends Component {
                         optionWidth='230px'
                         optionMenu={[
                                         {
-                                            label : 'Informe de Usuarios',
-                                            table : 'users',                                            
+                                            label  : 'Informe de Usuarios',
+                                            table  : 'users',   
+                                            colsHeaders : ['Documento','Nombre','Email','Direccion','Telefono'],
+                                            colsData : ['documento','nombre','email','direccion','telefono'],                                          
                                             dateFilter : 'false',
                                             btnExcel : 'true',
                                             btnPDF : 'true'                                                                                      
