@@ -1,3 +1,11 @@
+/**
+* reports.css
+*
+* Contiene los estilos del generador de informes
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 .reportTbar {
     overflow: hidden;
     display: table;

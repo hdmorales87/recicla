@@ -1,3 +1,11 @@
+/**
+* CLASS DataGridList
+*
+* Contiene el cuerpo de la tabla del datagrid
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React from 'react'
 import DataGridRow from './DataGridRow'
 

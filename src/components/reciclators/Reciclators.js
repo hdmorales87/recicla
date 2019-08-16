@@ -1,15 +1,19 @@
+/**
+* CLASS Reciclators
+*
+* Contiene el contenedor principal de los Recicladores
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
+import DataGrid from '../data_grid/DataGrid';
 
-class Reciclators extends Component {
-
-  	handleClick(val) {
-  	  	this.setState({ justClicked: val });
-  	}
+class Reciclators extends Component {  	
   	render() {
   	  	return (  	  		  
-  	  		  <div className="App">                 
-  	  	 		     <div id="div_documentos" onClick={this.handleClick.bind(this)}>Recicladores</div>  	  	 		     
- 			      </div> 	
+  	  		  <div className="App">      
+ 			  </div> 	
   	  	);
   	}
 }

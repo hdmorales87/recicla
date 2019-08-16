@@ -1,15 +1,17 @@
+/**
+* CLASS DocumentTypes
+*
+* Contiene el contenedor principal de tipos de documento
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
-import Button from 'react-bootstrap/Button';
 
-class DocumentTypes extends Component {    
-  	handleNewButton(){
-        this.props.funcionClick('FormDocumentTypes');
-        //console.log(this.props.funcionClick);
-    }    
-  	render() {
-        //if (this.state.empleados.length > 0) {
-        return (            
+class DocumentTypes extends Component {
+  	render() {       
+        return (//carga el componente que contiene la grilla de datos            
             <DataGrid titulo='Típos de Documento' 
                       funcionClick={this.props.funcionClick} 
                       parametro={this.props.parametro}                      

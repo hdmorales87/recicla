@@ -1,3 +1,11 @@
+/**
+* CLASS Reports
+*
+* Contiene el contenedor principal del generador de informes
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import ReportOption from './ReportOption';
 import ReportContainer from './ReportContainer';
@@ -10,10 +18,7 @@ class Reports extends Component {
             optionMenu : ''            
         }
         this.actualizarReportContainer = this.actualizarReportContainer.bind(this);
-    }
-  	handleClick(val) {
-  	  	alert('hola');
-  	}
+    }  	
     actualizarReportContainer(optionMenu){        
         this.setState({ optionMenu: optionMenu });           
     }

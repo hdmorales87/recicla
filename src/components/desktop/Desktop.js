@@ -1,3 +1,11 @@
+/**
+* CLASS Desktop
+*
+* Contiene el escritorio de la aplicacion
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
@@ -5,12 +13,10 @@ import NameUser from './NameUser';
 import OptionMenu from './OptionMenu';
 import Container from './Container';
 import logo_login from '../../images/logo_login.png?v1.0';
-import alertify from 'alertifyjs';
-import '../../css/alertify.css';
 import './desktop.css';
 
 class Desktop extends Component {
-	  constructor(props, context) { 		
+	  constructor(props, context) {//al cargarse trae los datos del usuario 		
       	super(props, context);
 
         var usuario = {};
@@ -26,14 +32,10 @@ class Desktop extends Component {
 	 		      username: username, 
       	 	  componente: "WelcomePage",
       	 	  parametro : "" 
-	     }; 	 
-  
-	     this.actualizarContainer = this.actualizarContainer.bind(this);	  
-	    
-	     // var usuario = this.props.location.state.usuario;
-	     // console.log(usuario);
+	      }; 
+	      this.actualizarContainer = this.actualizarContainer.bind(this);	
 	  } 
-	  componentDidMount() {       
+	  componentDidMount() {//cada que se monte el escritorio debe validar la sesion       
       	axios.get('http://localhost:5000/checkSession', {withCredentials: true})
       	  	.then(res => {
                 var response = res.data; 
@@ -48,7 +50,7 @@ class Desktop extends Component {
       	  	  	this.setState({ loading: false, redirect: true });
       	  	});            
     }	
-	  actualizarContainer(val,param){	
+	  actualizarContainer(val,param){//carga dinamica del lado derecho	
 		    this.setState({ componente: val });
 		    this.setState({ parametro : param });		
 	  }	
@@ -57,15 +59,15 @@ class Desktop extends Component {
   		  if (loading) {
         	  return null;
       	}
-      	if (redirect) {
+      	if (redirect) {//sesion inexistente, cargar login
             alert('Su sesion ha finalizado, debe registrarse de nuevo!');
         	  return <Redirect to="/" />;
       	}  			 		
-  	  	return (  	  		  
+  	  	return (//carga el entorno del escritorio, barra de menu, barra superior y contenedor 	  		  
   	  		  <div className="App">                 
 	 		          <div id="pestanas" className="navigationDesk">
 	 		          	  <div className="LogoCabecera">
-	 		          	  	  <img src={ logo_login } alt="Acecolombia" />
+	 		          	  	  <img src={ logo_login } alt="Recicla" />
 	 		          	  </div>
 	 		          	  <OptionMenu funcionClick = {this.actualizarContainer}/>
 	 		          </div>

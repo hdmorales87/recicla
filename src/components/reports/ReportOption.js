@@ -1,10 +1,16 @@
+/**
+* CLASS ReportOption
+*
+* Contiene las opciones del menu de informes
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import MaterialIcon from 'material-icons-react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import CustomToggle from './CustomToggleDropdown';
-import CustomMenu from './CustomMenuDropdown';
 import './reports.css';
-//import Container from './Container';
 
 class ReportOption extends Component {
     constructor(props, context) {
@@ -14,10 +20,9 @@ class ReportOption extends Component {
     handleReportContainerChange(optionMenu){//CALLBACK PARA ACTUALIZAR EL CONTENEDOR DE REPORTE        
         this.props.funcionClick(optionMenu);        
     }
-  	render() {      
-
+  	render() { 
         let position = this.props.position*120;        
-  	  	return (
+  	  	return (//contenedor de las opciones del menu de informes
             <Dropdown id={this.props.tab} className="reportBtn" style={{width:'120px',position:'absolute',height:'60px',left:position+'px'}}>  
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components"> 
                     <div style={{width:'120px'}} data-role="win-btn" data-state="enable"> 
@@ -47,10 +52,8 @@ class ReportOption extends Component {
                 </Dropdown.Menu>
             </Dropdown>
   				    				
-			  );
+		);
   	}
 }
 
 export default ReportOption
-
-//<th key={ optionMenu }>{optionMenu}</th>

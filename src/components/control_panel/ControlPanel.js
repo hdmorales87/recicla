@@ -1,12 +1,16 @@
+/**
+* CLASS ControlPanel
+*
+* Contiene el contenedor principal del panel de control
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import Option from './Option';
 import './controlpanel.css';
 
-class ControlPanel extends Component {
-
-  	handleClick(val) {
-  	  	alert('hola');
-  	}
+class ControlPanel extends Component {  	
   	render() {
   	  	return (  	  		  
   	  		  <div id="ContentPaneldeControl" className="EstiloIconosMenuDashboard" ostype="desktop">

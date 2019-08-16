@@ -1,12 +1,18 @@
+/**
+* CLASS Option
+*
+* Contiene el contenedor de las opciones de panel de control
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import MaterialIcon from 'material-icons-react';
 import './controlpanel.css';
-//import Container from './Container';
 
 class Option extends Component {
-    handleContainerChange(){
-        this.props.funcionClick(this.props.componente);
-        //console.log(this.props.funcionClick);
+    handleContainerChange(){//Un callback para cargar el datagrid
+        this.props.funcionClick(this.props.componente);        
     }
     render() {
         return (

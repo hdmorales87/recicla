@@ -1,12 +1,17 @@
+/**
+* CLASS PurchaseTypes
+*
+* Contiene el contenedor principal de los tipos de compra
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
-import Button from 'react-bootstrap/Button';
 
-class PurchaseTypes extends Component {    
-  	  
-  	render() {        
-        //if (this.state.empleados.length > 0) {
-        return (
+class PurchaseTypes extends Component {     	  
+  	render() {                
+        return (//carga el componente que contiene la grilla de datos   
             <DataGrid titulo='Tipos de Compra' 
                       funcionClick={this.props.funcionClick}   
                       parametro={this.props.parametro}                    

@@ -1,3 +1,11 @@
+/**
+* CLASS DataGrid
+*
+* Contiene el contenedor principal del data grid
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import DataGridContainer from './DataGridContainer';
 import Button from 'react-bootstrap/Button';
@@ -7,9 +15,8 @@ import '../../css/alertify.css';
 
 class DataGrid extends Component {
     constructor(props, context) {
-        super(props, context);           
-        //this.handleSearchField = this.handleSearchField.bind(this);
-        this.state = {
+        super(props, context); 
+        this.state = {//las opciones de filtrado
             showRecords  : 5,
             searchWord   : '',
             offsetRecord : 0,
@@ -82,14 +89,13 @@ class DataGrid extends Component {
         }       
     }
   	render() {
-        {//los topes
-            var lastRecord = this.state.offsetRecord+this.state.showRecords;
-            if(lastRecord > this.state.resultRows){
-                lastRecord = this.state.resultRows;
-            }
+        //los topes
+        var lastRecord = this.state.offsetRecord+this.state.showRecords;
+        if(lastRecord > this.state.resultRows){
+            lastRecord = this.state.resultRows;
         }
-        //if (this.state.empleados.length > 0) {
-        return (
+                
+        return (//El cuerpo del datagrid
             <div className="container ContenedorDataGrid">
                 <div className="content">
                     <div className="table-responsive mt-4">

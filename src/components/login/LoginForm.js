@@ -1,3 +1,11 @@
+/**
+* CLASS LoginForm
+*
+* Contiene el formulario del login de la aplicacion
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import './login.css';
 import usuario_login from '../../images/usuario_login.png?v1.0';
@@ -56,11 +64,11 @@ class LoginForm extends Component {
         .then(res => {
             var response = res.data; 
                       
-            if(response.msg === 'notExist'){
+            if(response.msg === 'notExist'){//aqui no me dejara continuar si la empresa noe xiste
                 alertify.error('La empresa no existe!'); 
                 this.inputEmpresa.current.focus();
             }
-            else if(response.msg === 'error'){
+            else if(response.msg === 'error'){//aqui no me dejara continuar si hay un error
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
                 this.inputEmpresa.current.focus();
             }
@@ -73,7 +81,7 @@ class LoginForm extends Component {
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
             this.inputEmpresa.current.focus();
         })
-    }
+    }//actualizacion de los datos del formulario
     handleNitChange(e) { 
         this.setState({empresa: e.target.value}); 
     }
@@ -84,7 +92,7 @@ class LoginForm extends Component {
         this.setState({password: e.target.value}); 
     } 
     render() {
-        return (
+        return (//carga del formulario
             <form className="DivLogin">
                 <div className="ContentField">
                     <div className="FieldImage">

@@ -1,11 +1,17 @@
+/**
+* CLASS CustomMenuDropdown
+*
+* Contiene el cuerpo del menu desplegable del usuario
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 
-class CustomMenuDropdown extends React.Component {
+class CustomMenuDropdown extends Component {
   constructor(props, context) {
     super(props, context);
-
     this.handleChange = this.handleChange.bind(this);
-
     this.state = { value: '' };
   }
 

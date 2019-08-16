@@ -1,16 +1,18 @@
+/**
+* CLASS Users
+*
+* Contiene el contenedor principal de los usuarios
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
-import Button from 'react-bootstrap/Button';
 
-class Users extends Component {    
-  	handleNewButton(){
-        this.props.funcionClick('FormUsers');
-        //console.log(this.props.funcionClick);
-    }    
+class Users extends Component {  
   	render() {
-        const path = 'http://localhost:5000/';        
-        //if (this.state.empleados.length > 0) {
-        return (            
+        const path = 'http://localhost:5000/';      
+        return (//carga el componente que contiene la grilla de datos             
             <DataGrid titulo='Usuarios' 
                       funcionClick={this.props.funcionClick}  
                       parametro={this.props.parametro}                     

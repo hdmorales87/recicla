@@ -1,14 +1,18 @@
+/**
+* CLASS DataReportContainer
+*
+* Contiene la tabla que arroja la informacion recibida de la API para generar el informe
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
-import ReactToPdf from 'react-to-pdf';
 import Table from 'react-bootstrap/Table';
 import './reports.css';
 
-class DataReportContainer extends Component {
-	constructor(props, context) { 
-     	super(props, context);         
-	}     
+class DataReportContainer extends Component {	   
     render() {     	
-    	//generador del reporte
+    	//generador de la tabla con el reporte
     	var dataRow = this.props.dataRow;    	
         return (        	
         	dataRow !== '' ?

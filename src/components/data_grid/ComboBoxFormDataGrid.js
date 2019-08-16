@@ -1,3 +1,11 @@
+/**
+* CLASS ComboBoxFormDataGrid
+*
+* Contiene el contenedor del combobox para el formulario del data grid
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
@@ -13,7 +21,7 @@ class ComboBoxFormDataGrid extends Component {
                      }
     }
     componentWillMount() {
-        //obtener el listado de tipos de compra
+        //llenado dinamico del combobox
         if(this.props.dinamic === 'true'){
             axios.get(this.props.apiUrl, {withCredentials: true})
                 .then(res => {
@@ -37,12 +45,11 @@ class ComboBoxFormDataGrid extends Component {
   	render() {   
         var valueText = this.props.value;    
         if(valueText > 0){
-            //this.props.value = 1;
+            //...
         }
         else{
             valueText = 1;
-        }
-        //if (this.state.empleados.length > 0) {
+        }       
         return (
             <Form.Control as="select" name = {this.props.name} onChange={this.props.functionChange} value={valueText}>
                 {

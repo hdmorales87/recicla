@@ -1,3 +1,11 @@
+/**
+* CLASS OptionMenu
+*
+* Contiene el menu de opciones de la barra de menu del escritorio
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import Option from './Option';
 import './desktop.css';

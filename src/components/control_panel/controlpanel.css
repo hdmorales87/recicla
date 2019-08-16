@@ -1,3 +1,11 @@
+/**
+* controlpanel.css
+*
+* Contiene los estilos del modulo panel de control* 
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 .EstiloIconosMenuDashboard li {
     float: left;
     width: 150px;

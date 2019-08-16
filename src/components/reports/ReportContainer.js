@@ -1,3 +1,11 @@
+/**
+* CLASS ReportContainer
+*
+* Contiene el contenedor del generador del reporte
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import DataReportContainer from './DataReportContainer';
 import MaterialIcon from 'material-icons-react';
@@ -13,7 +21,6 @@ import './reports.css';
 class ReportContainer extends Component {
 	constructor(props, context) { 
      	super(props, context);  
-
         this.state = {
             date1 : new Date(),
             date2 : new Date(),
@@ -29,7 +36,7 @@ class ReportContainer extends Component {
     changeDate2(val){        
         this.setState({ date2 : val });        
     }
-    generaReport(val){
+    generaReport(val){//generador del reporte
         let fecha1 = this.state.date1;
         let fecha2 = this.state.date2;        
 
@@ -41,7 +48,7 @@ class ReportContainer extends Component {
             alertify.error("Favor ingrese fecha final!");  
             return;
         }
-
+        //formato de la fecha
         fecha1 = new Date(fecha1.getTime() - (fecha1.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
         fecha2 = new Date(fecha2.getTime() - (fecha2.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
 
@@ -59,6 +66,7 @@ class ReportContainer extends Component {
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
             } else {                
                 this.setState({ dataRow: response })
+                //permite visualizar los botones de excel y pdf
                 this.setState({ showXLS: true })
                 this.setState({ showPDF: true })
             }
@@ -66,15 +74,9 @@ class ReportContainer extends Component {
         .catch( err => {            
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
         });
-
-        //this
-
-        //console.log(fecha1+'-->'+fecha2);
-
     }		
-  	render() {
-        const divPDF = React.createRef();
-        //console.log(this.props.optionMenu);
+  	render() {//cargar los controles dinamicos del generador del reporte
+        const divPDF = React.createRef();        
   	  	return ( 
             <div id="BodyReportContainer" style={{height: '100%'}}>
             {                
@@ -153,8 +155,7 @@ class ReportContainer extends Component {
                              </div>
                          </div>
                      </div>
-                : ''
-                                                            
+                : ''                                                            
             }
             </div>
         );

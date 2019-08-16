@@ -1,3 +1,12 @@
+/**
+* CLASS DataGridContainer
+*
+* Contiene el contenedor de la tabla de datos
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
+
 import React, { Component } from 'react';
 import DataGridList from './DataGridList';
 import Table from 'react-bootstrap/Table';
@@ -28,7 +37,7 @@ class DataGridContainer extends Component {
                 offsetRecord = this.props.parametro.offsetRecord; 
             }        
         }        
-        
+        //Ajax a la API que trae los registros
         axios.get(this.props.apiUrl, {withCredentials: true, params: { searchWord : searchWord,showRecords : showRecords,offsetRecord : offsetRecord } })
         .then(res => {
             var response = res.data; 
@@ -55,7 +64,7 @@ class DataGridContainer extends Component {
 
   	render() {  
         if (this.state.content.length > 0) {
-            return (
+            return (//carga dinamica de la cabecera y del listado
                 <Table striped bordered hover>
                     <thead>
                         <tr>

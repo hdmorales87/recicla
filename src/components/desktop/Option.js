@@ -1,12 +1,18 @@
+/**
+* CLASS Option
+*
+* Contiene el componente opcion de la barra de menu del escritorio
+*
+* @author Hector Morales <warrior1987@gmail.com>
+*/
+
 import React, { Component } from 'react';
 import MaterialIcon from 'material-icons-react';
 import './desktop.css';
-//import Container from './Container';
 
 class Option extends Component {
     handleContainerChange(){
-        this.props.funcionClick(this.props.componente);
-        //console.log(this.props.funcionClick);
+        this.props.funcionClick(this.props.componente);        
     }
   	render() {
   	  	return (
