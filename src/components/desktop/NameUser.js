@@ -10,10 +10,13 @@ import React, { Component } from 'react';
 import MaterialIcon from 'material-icons-react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import CustomToggle from './CustomToggleDropdown';
+import configJson from '../configuration/configuration.json';
 import axios from 'axios';
 import alertify from 'alertifyjs';
 import './desktop.css';
 import '../../css/alertify.css';
+
+const path = configJson.apiPath;  
 
 class NameUser extends Component {
 	  constructor(props) {
@@ -24,7 +27,7 @@ class NameUser extends Component {
 	  	  alertify.confirm('Confirmacion', 'Desea cerrar la sesion?', this.logoutSession.bind(this), function(){});
 	  }
 	  logoutSession(){//llamar a cerrar sesion en la API
-	 	    axios.get('http://localhost:5000/logout', {withCredentials: true})
+	 	    axios.get(path+'logout', {withCredentials: true})
             .then(res => {
                 var response = res.data; 
               	if (response.msg === "error") {      	  	  	  	

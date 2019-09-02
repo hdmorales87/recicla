@@ -8,10 +8,11 @@
 
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
+import configJson from '../configuration/configuration.json';
 
 class Users extends Component {  
   	render() {
-        const path = 'http://localhost:5000/';      
+        const path = configJson.apiPath;      
         return (//carga el componente que contiene la grilla de datos             
             <DataGrid titulo='Usuarios' 
                       funcionClick={this.props.funcionClick}  

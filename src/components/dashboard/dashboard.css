@@ -1,0 +1,93 @@
+#DashboardContenedor {
+    background: #F7F7F7;
+    color: #333;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    float: left;
+    overflow: auto;
+}
+
+#Indicador {
+    min-width: 322px;
+    float: left;
+    background: #FFF;
+    width: calc(100% - 20px);
+    margin: 10px;
+    border: 1px solid #E4E4E4;
+}
+
+@media only screen and (min-width: 1318px){
+	#Indicador {
+   		width: calc(33% - 20px);
+	} 
+}
+
+.NombreIndicador {
+    margin: 3px;
+    width: 100%;
+    text-align: center;
+}
+
+.Cifra {
+	/*width : 100%;
+	text-align: center;*/
+	font-size: 50px;
+    width: calc(50% - 20px);
+    padding: 5px 0 0 0;
+    margin: 10px 0 -5px 20px;
+    float: left;
+    font-weight: bold;
+    color: #333;
+}
+
+#Indicador .titulo1 {
+    font-size: 14px;
+    width: calc(100% - 40px);
+    height: 20px;
+    padding: 0 20px 0 20px;
+    float: left;
+    color: #069;
+    margin-bottom:20px;
+    /* border-radius: 0 0 10px 10px; */
+}
+
+.titulo1 {
+    text-indent: 1px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-weight: bolder;
+    border-right: 1px solid #d4d4d4;
+    width: calc((100% - 40px - 28% - 30% - 95px) / 5);
+    padding-bottom:10px;
+}
+
+#Indicador .ok {
+    background: url(../../images/dashboard_ok.png?v1.0);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#Indicador .imagen {
+    font-size: 50px;
+    width:40px;
+    height: 48px;
+    padding: 5px 0 0 0;
+    margin: 20px 0 -5px 20px;
+    float: left;
+    font-weight: bold;
+    color: #333;
+    background-repeat: no-repeat;
+    text-align: left;
+}
+
+.DashIndicador1 .indicador {
+    font-size: 50px;
+    width: calc(50% - 20px);
+    padding: 5px 0 0 0;
+    margin: 10px 0 -5px 20px;
+    float: left;
+    font-weight: bold;
+    color: #333;
+}

@@ -29,16 +29,6 @@
     font-size: 14px;
 }
 
-/*.cabeceraDesk {
-    min-height: 60px;
-    max-height: 60px;
-    max-width: calc(100% - 290px);
-    width: 100%;
-    position: relative;
-    top: 0;
-    left: 290px;
-}*/
-
 .cabeceraDesk {
     float: left;
     font-size: 11px;

@@ -10,12 +10,14 @@ import React, { Component } from 'react';
 import './login.css';
 import usuario_login from '../../images/usuario_login.png?v1.0';
 import password_login from '../../images/password_login.png?v1.0';
+import configJson from '../configuration/configuration.json';
 import axios from 'axios';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 
-class LoginForm extends Component {
+const path = configJson.apiPath;  
 
+class LoginForm extends Component {    
     constructor(props) {
         super(props);
         this.inputEmpresa = React.createRef();
@@ -25,7 +27,8 @@ class LoginForm extends Component {
         this.state = {password: ''}; 
         this.handleLogin = this.handleLogin.bind(this);
     }
-    handleLogin(val) {    
+    handleLogin(val) {   
+        
         //validacion de datos       
         if(this.state.empresa === undefined || this.state.empresa === ''){
             alertify.error('Digite la empresa!'); 
@@ -40,7 +43,7 @@ class LoginForm extends Component {
             return;
         }         
         //consulta si el usuario existe con los datos ingresados
-        axios.get('http://localhost:5000/login/'+this.state.id_empresa+'/'+this.state.username+'/'+this.state.password, {withCredentials: true})
+        axios.get(path+'login/'+this.state.id_empresa+'/'+this.state.username+'/'+this.state.password, {withCredentials: true})
         .then(res => {
             var response = res.data; 
                       
@@ -60,7 +63,7 @@ class LoginForm extends Component {
     }
     validacionEmpresa(val) { 
         //consulta si el usuario existe con los datos ingresados
-        axios.get('http://localhost:5000/validaEmpresa/'+this.state.empresa, {withCredentials: true})
+        axios.get(path+'validaEmpresa/'+this.state.empresa, {withCredentials: true})
         .then(res => {
             var response = res.data; 
                       

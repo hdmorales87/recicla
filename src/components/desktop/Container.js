@@ -7,6 +7,7 @@
 */
 
 import React, { Component } from 'react';
+import Dashboard from '../dashboard/Dashboard';
 import Reciclators from '../reciclators/Reciclators';
 import Costumers from '../costumers/Costumers';
 import Purchases from '../purchases/Purchases';
@@ -24,6 +25,7 @@ class Container extends Component {
   	render() {
   		let componentList = {
 			WelcomePage   : WelcomePage,
+			Dashboard     : Dashboard,
 			Reciclators   : Reciclators,
 			Costumers     : Costumers,
 			Purchases     : Purchases,

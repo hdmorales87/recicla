@@ -8,9 +8,11 @@
 
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
+import configJson from '../configuration/configuration.json';
 
 class DocumentTypes extends Component {
-  	render() {       
+  	render() {
+        const path = configJson.apiPath;              
         return (//carga el componente que contiene la grilla de datos            
             <DataGrid titulo='Típos de Documento' 
                       funcionClick={this.props.funcionClick} 
@@ -26,7 +28,7 @@ class DocumentTypes extends Component {
                                         required : 'true'
                                     }                                    
                                 ]}                     
-                      apiUrl='http://localhost:5000/document_types'
+                      apiUrl={path+'document_types'}
                       mainContainer='DocumentTypes'/>              
         )
     } 

@@ -9,7 +9,10 @@
 import React, { Component } from 'react';
 import ReportOption from './ReportOption';
 import ReportContainer from './ReportContainer';
+import configJson from '../configuration/configuration.json';
 import './reports.css';
+
+const apiUrl = configJson.apiPath; 
 
 class Reports extends Component {
     constructor(props, context) {
@@ -22,8 +25,7 @@ class Reports extends Component {
     actualizarReportContainer(optionMenu){        
         this.setState({ optionMenu: optionMenu });           
     }
-  	render() {
-        var apiUrl = 'http://localhost:5000/';
+  	render() {        
   	  	return ( 
             <div style={{width:'100%',height:'100%'}}>
                 <div id="reportTbar" className="reportTbar" data-role="winTbar" os="windows" >

@@ -11,9 +11,12 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import NameUser from './NameUser';
 import OptionMenu from './OptionMenu';
+import configJson from '../configuration/configuration.json';
 import Container from './Container';
 import logo_login from '../../images/logo_login.png?v1.0';
 import './desktop.css';
+
+const path = configJson.apiPath;  
 
 class Desktop extends Component {
 	  constructor(props, context) {//al cargarse trae los datos del usuario 		
@@ -36,7 +39,7 @@ class Desktop extends Component {
 	      this.actualizarContainer = this.actualizarContainer.bind(this);	
 	  } 
 	  componentDidMount() {//cada que se monte el escritorio debe validar la sesion       
-      	axios.get('http://localhost:5000/checkSession', {withCredentials: true})
+      	axios.get(path+'checkSession', {withCredentials: true})
       	  	.then(res => {
                 var response = res.data; 
       	  	  	if (response.session === "true") {
