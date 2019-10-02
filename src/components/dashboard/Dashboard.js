@@ -13,8 +13,8 @@ import './dashboard.css';
 
 class Dashboard extends Component {
   	render() {
-        const path = configJson.apiPath; 
-        console.log(path);       
+        //LOS TIPOS DE GRAFICO SON PieChart y ColumnChart
+        const path = configJson.apiPath;              
         return (            
             <div id="DashboardContenedor">
                 <ul>
@@ -43,8 +43,29 @@ class Dashboard extends Component {
                         tab="dash2" 
                         titulo='Solicitudes' 
                         icono="shopping_cart" 
-                        tipo="grafico" 
-                        valor="200"
+                        tipo="grafico"                                                 
+                        chartProps= {[
+                                        {
+                                            chartType : "PieChart",
+                                            width     : '500px',
+                                            height    : '300px',
+                                            loader    : 'Cargando...',
+                                            data      :  [
+                                                             ['Task', 'Hours per Day'],
+                                                             ['Work', 11],
+                                                             ['Eat', 2],
+                                                             ['Commute', 2],
+                                                             ['Watch TV', 2],
+                                                             ['Sleep', 7],
+                                                         ],
+                                            options    : {
+                                                             title: 'My Daily Activities',
+                                                         },
+                                            rootProps  : { 
+                                                             'data-testid': '1' 
+                                                         }
+                                        }    
+                                     ]}  
                     />                    
                 </ul>
             </div>  

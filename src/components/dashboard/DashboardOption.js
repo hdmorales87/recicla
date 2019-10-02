@@ -1,20 +1,17 @@
 /**
-* CLASS Dashboard
+* CLASS DashboardOption
 *
-* Contiene los indicadores de la dashboard
+* Contiene el contenedor de cada uno de los indicadores
 *
 * @author Hector Morales <warrior1987@gmail.com>
 */
 
 import React, { Component } from 'react';
 import Chart from 'react-google-charts';
-/*import configJson from '../configuration/configuration.json';*/
 import './dashboard.css';
 
-class DashboardOption extends Component {
-  	render() {
-        //const path = configJson.apiPath; 
-        //console.log(path);       
+class DashboardOption extends Component {	
+  	render() {  		     
         return (
 			<div id="Indicador">
 				{
@@ -29,22 +26,13 @@ class DashboardOption extends Component {
 				 		<div className="Cifra">{this.props.valor}</div>
 				 		<div className="imagen ok"></div>
 				 		<Chart
-						  	width={'500px'}
-						  	height={'300px'}
-						  	chartType="PieChart"
-						  	loader={<div>Loading Chart</div>}
-						  	data={[
-						  	  ['Task', 'Hours per Day'],
-						  	  ['Work', 11],
-						  	  ['Eat', 2],
-						  	  ['Commute', 2],
-						  	  ['Watch TV', 2],
-						  	  ['Sleep', 7],
-						  	]}
-						  	options={{
-						  	  title: 'My Daily Activities',
-						  	}}
-						  	rootProps={{ 'data-testid': '1' }}
+						  	width={this.props.chartProps[0].width}
+						  	height={this.props.chartProps[0].height}
+						  	chartType={this.props.chartProps[0].chartType}
+						  	loader={this.props.chartProps[0].loader}
+						  	data={this.props.chartProps[0].data}
+						  	options={this.props.chartProps[0].options}
+						  	rootProps={this.props.chartProps[0].rootProps}
 						/>
 			 		</div>
 				}
