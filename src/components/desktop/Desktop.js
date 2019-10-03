@@ -14,9 +14,7 @@ import OptionMenu from './OptionMenu';
 import configJson from '../configuration/configuration.json';
 import Container from './Container';
 import logo_login from '../../images/logo_login.png?v1.0';
-import './desktop.css';
-
-const path = configJson.apiPath;  
+import './desktop.css'; 
 
 class Desktop extends Component {
 	  constructor(props, context) {//al cargarse trae los datos del usuario 		
@@ -68,13 +66,13 @@ class Desktop extends Component {
       	}  			 		
   	  	return (//carga el entorno del escritorio, barra de menu, barra superior y contenedor 	  		  
   	  		  <div className="App">                 
-	 		          <div id="pestanas" className="navigationDesk">
+	 		          <div id="pestanas" className="navigationDesk" style={{backgroundColor:configJson.fondoMenu}}>
 	 		          	  <div className="LogoCabecera">
 	 		          	  	  <img src={ logo_login } alt="Recicla" />
 	 		          	  </div>
 	 		          	  <OptionMenu funcionClick = {this.actualizarContainer}/>
 	 		          </div>
-	 		          <div id="cabeceraDesk" className="cabeceraDesk">
+	 		          <div id="cabeceraDesk" className="cabeceraDesk" style={{backgroundColor:configJson.fondoCabecera}}>
 	 		          	  <NameUser className="ContentUser" username = { this.state.username } history={this.props.history}/>  	    		
 	 		          </div>
 	    		      <div id="contenidopestanas" className="contentDesk">
