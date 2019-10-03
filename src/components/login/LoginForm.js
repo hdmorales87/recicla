@@ -18,10 +18,25 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.inputEmpresa = React.createRef();
-        this.state = {empresa: ''};
-        this.state = {id_empresa: 0};
-        this.state = {username: ''};
-        this.state = {password: ''}; 
+        //traer los datos de inicio si ya estan en localstorage 
+        let empresa = '';
+        if(localStorage.empresa > 0){
+            empresa = localStorage.empresa;
+        }           
+        let id_empresa = '';
+        if(localStorage.id_empresa > 0){
+            id_empresa = localStorage.id_empresa;
+        } 
+        let username = '';
+        if(localStorage.username !== ''){
+            username = localStorage.username;
+        } 
+        this.state = {
+            empresa: empresa,
+            id_empresa: id_empresa,
+            username: username,
+            password: ''
+        };  
         this.handleLogin = this.handleLogin.bind(this);
     }
     handleLogin(val) {   
@@ -51,6 +66,10 @@ class LoginForm extends Component {
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
             }
             else{
+                //almacenar en localstorage los datos del login
+                localStorage.id_empresa = this.state.id_empresa;
+                localStorage.empresa    = this.state.empresa;
+                localStorage.username   = this.state.username;
                 this.props.history.push({pathname: '/desktop', state : { usuario : response }}); 
             }          
         }) 
@@ -99,7 +118,7 @@ class LoginForm extends Component {
                         <img alt="Empresa" src={ usuario_login } />
                     </div>
                     <div className="FieldDiv">
-                        <input type="text" className="mytext" name="empresa" id="empresa" placeholder="NIT Empresa" required onBlur={this.validacionEmpresa.bind(this)} onChange={this.handleNitChange.bind(this)}  ref={this.inputEmpresa}/>
+                        <input type="text" value={this.state.empresa} className="mytext" name="empresa" id="empresa" placeholder="NIT Empresa" required onBlur={this.validacionEmpresa.bind(this)} onChange={this.handleNitChange.bind(this)}  ref={this.inputEmpresa}/>
                     </div>
                 </div>
                 <div className="ContentField">
@@ -107,10 +126,10 @@ class LoginForm extends Component {
                         <img alt="Usuario" src={ usuario_login } />
                     </div>
                     <div className="FieldDiv">
-                        <input type="text" className="mytext" name="usuario" id="usuario" placeholder="Usuario" required onChange={this.handleUserChange.bind(this)}/>
+                        <input type="text" value={this.state.username} className="mytext" name="usuario" id="usuario" placeholder="Usuario" required onChange={this.handleUserChange.bind(this)}/>
                     </div>
                 </div>
-                <div className="ContentField" styles= {{marginTop: '20px'}}>
+                <div className="ContentField" styles= {{marginTop: '20px',marginBottom: '20px'}}>
                     <div className="FieldImage">
                         <img alt="Contraseña" src={ password_login } />
                     </div>
@@ -120,7 +139,7 @@ class LoginForm extends Component {
                 </div>
                 <div className="ContentField" styles={{padding:'5px 15px 10px', margin:'0px', textAlign:'right'}}>
                     <div style={{color:'#FFF',textAlign:'right',paddingRight:'10px'}}>
-                        <input id="recordarme" name="recordarme" type="checkbox" value="true" style={{height:'auto'}} />Recordar mi Usuario
+                        Olvide mi Contrase&ntilde;a
                     </div>
                 </div>
                 <div className="DivBoton">
