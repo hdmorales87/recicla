@@ -50,7 +50,13 @@ class NameUser extends Component {
         .catch(err => {
           	alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);      	  	  
         });
-	  }    
+	  }   
+    functionUpdateUser(){
+        alert('hola');
+    } 
+    functionChangePassword(){
+        alert('jejeje');
+    } 
     render() {
     	  	return (//carga el menu de opciones del usuario  	  		
         			<Dropdown  id="ContentUser" className="ContentUser">	
@@ -93,7 +99,7 @@ class NameUser extends Component {
                                   width : '100px',
                                   height : '60px',
                                   title : 'Actualizar Datos',
-                                  function : 'hola'
+                                  function : this.functionUpdateUser.bind(this)
                               },
                               {
                                   type : 'boton',
@@ -101,7 +107,7 @@ class NameUser extends Component {
                                   width : '100px',
                                   height : '60px',
                                   title : 'Cambiar Password',
-                                  function : 'hola'
+                                  function : this.functionChangePassword.bind(this)
                               }    
                            ]}
                   />                 

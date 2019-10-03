@@ -60,7 +60,7 @@ class Window extends Component {
                         this.props.tbar.map((tbar,i) => {
                                     return (   
                                         <div className="windowButton" key={i} style={{width:tbar.width,height:tbar.height}}>                                    
-                                            <div style={{width:'calc(100% - 5px)',float:'left'}}> 
+                                            <div style={{width:'calc(100% - 5px)',float:'left'}} onClick={tbar.function}> 
                                                 <MaterialIcon size={24} icon={tbar.icon} invert/>
                                                 <button className="save">{tbar.title}</button>                                             
                                             </div>
