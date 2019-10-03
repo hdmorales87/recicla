@@ -1,7 +1,7 @@
 /**
 * CLASS Option
 *
-* Contiene el componente opcion de la barra de menu del escritorio
+* Contiene el componente formulario de datos de usuario
 *
 * @author Hector Morales <warrior1987@gmail.com>
 */
@@ -17,7 +17,7 @@ class FormDataUser extends Component {
   	render() {
   	  	return (
   				  <div>
-                <button onClick={this.handleCloseModal}>Close Modal</button>
+                Formulario de Empleado
             </div>  				
 			  );
   	}

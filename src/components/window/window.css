@@ -1,0 +1,43 @@
+.windowTitle {
+    background-color: #2a80b9;
+    color: #fff;
+    text-align: left;
+}
+
+.windowTitle {
+    width: 100%;
+    height: 27px;
+    color: #fff;
+    font-size: 12px;
+    overflow: hidden;
+    /*text-align: center;*/
+    cursor: move;
+}
+
+.windowTitle > div {
+    padding: 6px;
+}
+
+.windowTitleBoton {
+    height: 100%;
+    width: 30px;
+    float: left;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.windowTitleText {
+    font-size: 14px;
+}
+
+.windowTitleText {
+    width: calc(100% - 30px);
+    float: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#iconClose {
+     top: -4px;
+}

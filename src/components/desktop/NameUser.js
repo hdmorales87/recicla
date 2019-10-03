@@ -3,7 +3,7 @@
 *
 * Contiene el contenedor del nombre del usuario
 *
-* @author Hector Morales <warrior1987@gmail.com>
+* @author Hector Morales <warriorimport FormDataUser from './FormDataUser';1987@gmail.com>
 */
 
 import React, { Component } from 'react';
@@ -12,45 +12,30 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import CustomToggle from './CustomToggleDropdown';
 import FormDataUser from './FormDataUser';
 import configJson from '../configuration/configuration.json';
+import Window from '../window/Window';
 import axios from 'axios';
-import Modal from 'react-modal';
 import alertify from 'alertifyjs';
 import './desktop.css';
 import '../../css/alertify.css';
 
-const path = configJson.apiPath;  
-
-Modal.setAppElement('#root');
-
-const customStyles = {
-  content : {
-    top         : '50%',
-    left        : '50%',
-    right       : 'auto',
-    bottom      : 'auto',
-    marginRight : '-50%',
-    padding     : '0px',
-    transform   : 'translate(-50%, -50%)',
-    width       : '310px'
-  }
-};
+const path = configJson.apiPath;
 
 class NameUser extends Component {
 	  constructor(props) {
         super(props); 
-        this.btnLogoutSession = this.btnLogoutSession.bind(this);  
-
+        this.btnLogoutSession = this.btnLogoutSession.bind(this);
         this.state = {
           showModal: false
         };
-        
-        this.handleOpenModal = this.handleOpenModal.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);     
     }
     //evento cerrar sesion
 	  btnLogoutSession(){//boton de cerrar sesion
 	  	  alertify.confirm('Confirmacion', 'Desea cerrar la sesion?', this.logoutSession.bind(this), function(){});
-	  }    
+	  } 
+    //abrir la modal
+    handleOpenModal(){//boton de abrir modal
+        this.setState({ showModal: true });
+    }       
     //metodo cerrar sesion
 	  logoutSession(){//llamar a cerrar sesion en la API
 	 	    axios.get(path+'logout', {withCredentials: true})
@@ -65,14 +50,7 @@ class NameUser extends Component {
             .catch(err => {
               	alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);      	  	  
             });
-	  }	
-    //controles de la modal
-    handleOpenModal(){//boton de abrir modal
-        this.setState({ showModal: true });
-    }       
-    handleCloseModal () {
-        this.setState({ showModal: false });
-    }
+	  }    
     render() {
     	  	return (//carga el menu de opciones del usuario  	  		
         			<Dropdown  id="ContentUser" className="ContentUser">	
@@ -103,21 +81,13 @@ class NameUser extends Component {
                                </div>
                           </div>
                       </Dropdown.Item>				  	
-      				    </Dropdown.Menu>
-                  <Modal 
-                     isOpen={this.state.showModal}
-                     contentLabel="Minimal Modal Example"
-                     style={customStyles}
-                  >
-                      <div className="win-title" os="windows" id="win-title-Win_LogicalCloud">
-                          <div id="win-title-text-Win_LogicalCloud" className="win-title-txt" os="windows">Datos del Usuario</div>
-                          <div className="win-title-btn" style={{ top: '-4px',left:'-2px'}} os="windows" id="btn_close_ventana_Win_LogicalCloud" onClick={this.handleCloseModal}>
-                              <MaterialIcon size={24} icon="close" invert id="iconClose"/>
-                          </div> 
-                      </div>                      
-                      <FormDataUser />
-                  </Modal>
-      			  </Dropdown>			    		
+      				    </Dropdown.Menu>   
+                  <Window 
+                      showModal={this.state.showModal}
+                      title='Datos del Usuario'
+                      width='310px'
+                  />                 
+      			  </Dropdown>	              	    		
 	     );
     }
 }
