@@ -85,7 +85,25 @@ class NameUser extends Component {
                   <Window 
                       showModal={this.state.showModal}
                       title='Datos del Usuario'
-                      width='310px'
+                      width='315px'
+                      tbar={[
+                              {
+                                  type : 'boton',
+                                  icon : 'save',
+                                  width : '100px',
+                                  height : '60px',
+                                  title : 'Actualizar Datos',
+                                  function : 'hola'
+                              },
+                              {
+                                  type : 'boton',
+                                  icon : 'settings',
+                                  width : '100px',
+                                  height : '60px',
+                                  title : 'Cambiar Password',
+                                  function : 'hola'
+                              }    
+                           ]}
                   />                 
       			  </Dropdown>	              	    		
 	     );

@@ -41,3 +41,59 @@
 #iconClose {
      top: -4px;
 }
+
+.windowTbar {
+    padding: 0 10px 0 10px;
+    background-color: #2a80b9;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    display: table;
+}
+
+.windowTbar > div {
+    display: table-cell;
+}
+
+.windowTbar div, .windowTbar button {
+    color: #fff;
+}
+
+.windowButton {
+    padding: 2px;
+    vertical-align: top;
+    background-color: rgba(0,0,0,0);
+    min-height: 50px;
+    min-width: 50px;
+    cursor: pointer;
+    text-align: center;    
+}
+
+.windowButton button {
+    padding: 0;
+}
+
+.windowButton button {
+    width: 100%;
+    background-color: rgba(0,0,0,0);
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center top;
+    min-height: 20px;
+    min-width: 40px;
+    cursor: pointer;
+    padding: 0px 0 0 0;
+    font-size: 11px;
+    border: 1px solid transparent;
+    text-decoration: none;
+    outline: none;    
+}
+
+.windowSeparator {
+    border-color: #fff;
+    width: 1px;
+    border-right: 1px solid;
+    opacity: .2;
+    padding: 2px;
+    float:left;
+}

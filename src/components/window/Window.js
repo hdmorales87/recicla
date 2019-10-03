@@ -35,8 +35,7 @@ class Window extends Component {
         this.handleCloseModal = this.handleCloseModal.bind(this); 
         customStyles.content.width = this.props.width;   
     }    
-    componentWillReceiveProps(next_props){
-        console.log('componentWillReceiveProps', next_props);
+    componentWillReceiveProps(next_props){        
         this.setState({ showModal: next_props.showModal });
     }       
     handleCloseModal () {
@@ -54,7 +53,29 @@ class Window extends Component {
                     <div className="windowTitleBoton" style={{ top: '-4px',left:'-2px'}} os="windows" id="btnCloseVentanaFrame" onClick={this.handleCloseModal}>
                         <MaterialIcon size={24} icon="close" invert id="iconClose"/>
                     </div> 
-                </div>                      
+                </div> 
+                <div className="windowTbar" >
+                {
+                    this.props.tbar !== 'false' ?                                             
+                        this.props.tbar.map((tbar,i) => {
+                                    return (   
+                                        <div className="windowButton" key={i} style={{width:tbar.width,height:tbar.height}}>                                    
+                                            <div style={{width:'calc(100% - 5px)',float:'left'}}> 
+                                                <MaterialIcon size={24} icon={tbar.icon} invert/>
+                                                <button className="save">{tbar.title}</button>                                             
+                                            </div>
+                                            {//la barra separadora
+                                               i < this.props.tbar.length-1 ? 
+                                                  <div className="windowSeparator" style={{height:tbar.height}}></div>
+                                               : ''
+                                            }
+                                            
+                                        </div>
+                                    )
+                        })                       
+                    : ''
+                }
+                </div>                     
                 <WindowContainer componente="FormDataUser"/>
             </Modal>  				
 			  );
