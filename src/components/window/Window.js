@@ -7,6 +7,7 @@
 */
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import WindowContainer from './WindowContainer';
 import MaterialIcon from 'material-icons-react';
@@ -27,6 +28,7 @@ const customStyles = {
 };
 
 class Window extends Component {
+
     constructor(props) {
         super(props); 
         this.state = {
@@ -35,8 +37,10 @@ class Window extends Component {
         this.handleCloseModal = this.handleCloseModal.bind(this); 
         customStyles.content.width = this.props.width;   
     }    
-    componentWillReceiveProps(next_props){        
+    componentWillReceiveProps(next_props){ 
+        console.log(next_props.showModal);       
         this.setState({ showModal: next_props.showModal });
+        //console.log(store.getState());
     }       
     handleCloseModal () {
         this.setState({ showModal: false });
@@ -79,7 +83,31 @@ class Window extends Component {
                 <WindowContainer componente="FormDataUser"/>
             </Modal>  				
 			  );
-  	}
+  	}    
+}
+
+function mapStateToProps(state) {
+    return {
+         
+                isHidden : state.ui.isAddContactFormHidden,
+                newContact: state.contacts.newContact
+            }
+}
+     
+function mapDispatchToProps(dispatch) {
+    return {
+        onFormSubmit: (newContact) => {
+           dispatch(addContact(newContact));
+        },
+        onInputChange: (name,value) => {
+     
+            dispatch(handleInputChange(name,value));
+        },
+ 
+        onToggle: () => {
+            dispatch(toggleContactForm());
+        }
+    }
 }
 
 export default Window

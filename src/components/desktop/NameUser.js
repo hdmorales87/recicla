@@ -35,7 +35,7 @@ class NameUser extends Component {
     //abrir la modal
     handleOpenModal(){//boton de abrir modal
         this.setState({ showModal: true });
-    }       
+    }          
     //metodo cerrar sesion
 	  logoutSession(){//llamar a cerrar sesion en la API
 	 	    logout()
