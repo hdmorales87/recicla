@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import DataGridContainer from './DataGridContainer';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';
+import {consultarFilas} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 
@@ -61,13 +61,8 @@ class DataGrid extends Component {
             this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords, offsetRecord: this.state.offsetRecord });
         });      
     } 
-    consultaFilas(){//Cuenta Filas    
-        axios.get(this.props.apiUrl+'Rows', {
-            withCredentials: true, 
-            params: { 
-                searchWord : this.state.searchWord,                
-            } 
-        })
+    consultaFilas(){//Cuenta Filas 
+        consultarFilas(this.props.apiUrl,this.state.searchWord)
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {

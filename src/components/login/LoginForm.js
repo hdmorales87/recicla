@@ -10,12 +10,9 @@ import React, { Component } from 'react';
 import './login.css';
 import usuario_login from '../../images/usuario_login.png?v1.0';
 import password_login from '../../images/password_login.png?v1.0';
-import configJson from '../configuration/configuration.json';
-import axios from 'axios';
+import {login,validaEmpresa} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
-
-const path = configJson.apiPath;  
 
 class LoginForm extends Component {    
     constructor(props) {
@@ -43,7 +40,7 @@ class LoginForm extends Component {
             return;
         }         
         //consulta si el usuario existe con los datos ingresados
-        axios.get(path+'login/'+this.state.id_empresa+'/'+this.state.username+'/'+this.state.password, {withCredentials: true})
+        login(this.state.id_empresa,this.state.username,this.state.password)        
         .then(res => {
             var response = res.data; 
                       
@@ -61,9 +58,9 @@ class LoginForm extends Component {
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);            
         })
     }
-    validacionEmpresa(val) { 
-        //consulta si el usuario existe con los datos ingresados
-        axios.get(path+'validaEmpresa/'+this.state.empresa, {withCredentials: true})
+    validacionEmpresa(val) {        
+        //consulta si la empresa existe        
+        validaEmpresa(this.state.empresa)        
         .then(res => {
             var response = res.data; 
                       

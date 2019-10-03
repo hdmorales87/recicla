@@ -8,7 +8,7 @@
 
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';
+import {eliminarFilas} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 
@@ -24,11 +24,8 @@ class DataGridRow extends React.Component {
         alertify.confirm('Confirmacion', 'Esta seguro(a) de eliminar este item?', this.handleConfirmAction.bind(this,id), function(){});
     }   
     handleConfirmAction(id) {        
-        //CODIGO PARA ELIMINAR LA FILA
-        axios.delete(this.props.apiUrl,{            
-            data: {id : id},
-            withCredentials: true
-        })
+        //CODIGO PARA ELIMINAR LA FILA        
+        eliminarFilas(this.props.apiUrl,id)
         .then(response => {            
             response = response.data;
             if(response.msg === 'error'){

@@ -10,7 +10,7 @@
 import React, { Component } from 'react';
 import DataGridList from './DataGridList';
 import Table from 'react-bootstrap/Table';
-import axios from 'axios';
+import {cargarFilas} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 
@@ -38,7 +38,7 @@ class DataGridContainer extends Component {
             }        
         }        
         //Ajax a la API que trae los registros
-        axios.get(this.props.apiUrl, {withCredentials: true, params: { searchWord : searchWord,showRecords : showRecords,offsetRecord : offsetRecord } })
+        cargarFilas(this.props.apiUrl,searchWord,showRecords,offsetRecord)        
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {

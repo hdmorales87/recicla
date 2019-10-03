@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
-import axios from 'axios';
+import {loadComboBoxDataGrid} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 
@@ -23,18 +23,18 @@ class ComboBoxFormDataGrid extends Component {
     componentWillMount() {
         //llenado dinamico del combobox
         if(this.props.dinamic === 'true'){
-            axios.get(this.props.apiUrl, {withCredentials: true})
-                .then(res => {
-                    var response = res.data; 
-                    if (response.msg === "error") {
-                        alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
-                    } else {
-                        this.setState({ content: response })
-                    }
-                })
-                .catch( err => {            
-                    alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
-                });
+            loadComboBoxDataGrid(this.props.apiUrl)
+            .then(res => {
+                var response = res.data; 
+                if (response.msg === "error") {
+                    alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
+                } else {
+                    this.setState({ content: response })
+                }
+            })
+            .catch( err => {            
+                alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
+            });
         }
         else{
             this.setState({ content: this.props.options });

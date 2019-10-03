@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ComboBoxFormDataGrid from './ComboBoxFormDataGrid';
-import axios from 'axios';
+import {insertarActualizarFila} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 
@@ -77,13 +77,8 @@ class FormDataGrid extends Component {
         else{            
             method = 'post';
         }        
-        //ajax que llama a la API para insertar o actualizar
-        axios({
-            method: method,
-            url: this.props.parametro.apiUrl,
-            data: arrayData,
-            withCredentials: true
-        })
+        //ajax que llama a la API para insertar o actualizar        
+        insertarActualizarFila(method,this.props.parametro.apiUrl,arrayData)
         .then(response => {
             response = response.data;
             if(response.msg === 'error'){

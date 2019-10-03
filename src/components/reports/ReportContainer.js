@@ -12,7 +12,7 @@ import MaterialIcon from 'material-icons-react';
 import ReactToPdf from 'react-to-pdf';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import DatePicker from 'react-date-picker';
-import axios from 'axios';
+import {cargarDatosReporte} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 
@@ -53,13 +53,7 @@ class ReportContainer extends Component {
         fecha2 = new Date(fecha2.getTime() - (fecha2.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
 
         //generacion del reporte     
-        axios.get(this.props.apiUrl+this.props.optionMenu.table+'Report', {
-            withCredentials: true, 
-            params: { 
-                fecha1 : fecha1,
-                fecha2 : fecha2            
-            } 
-        })
+        cargarDatosReporte(this.props.apiUrl,this.props.optionMenu.table,fecha1,fecha2)
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {

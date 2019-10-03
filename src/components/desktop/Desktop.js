@@ -7,7 +7,7 @@
 */
 
 import React, { Component } from 'react';
-import axios from 'axios';
+import {checkSession} from '../api_calls/ApiCalls';
 import { Redirect } from 'react-router-dom';
 import NameUser from './NameUser';
 import OptionMenu from './OptionMenu';
@@ -39,19 +39,19 @@ class Desktop extends Component {
 	      this.actualizarContainer = this.actualizarContainer.bind(this);	
 	  } 
 	  componentDidMount() {//cada que se monte el escritorio debe validar la sesion       
-      	axios.get(path+'checkSession', {withCredentials: true})
-      	  	.then(res => {
-                var response = res.data; 
-      	  	  	if (response.session === "true") {
-      	  	  	  	this.setState({ loading: false });
-      	  	  	} else {
-      	  	  	  	this.setState({ loading: false, redirect: true });
-      	  	  	}
-      	  	})
-      	  	.catch(err => {
-      	  	  	console.error(err);
-      	  	  	this.setState({ loading: false, redirect: true });
-      	  	});            
+      	checkSession()
+  	  	.then(res => {
+            var response = res.data; 
+  	  	  	if (response.session === "true") {
+  	  	  	  	this.setState({ loading: false });
+  	  	  	} else {
+  	  	  	  	this.setState({ loading: false, redirect: true });
+  	  	  	}
+  	  	})
+  	  	.catch(err => {
+  	  	  	console.error(err);
+  	  	  	this.setState({ loading: false, redirect: true });
+  	  	});            
     }	
 	  actualizarContainer(val,param){//carga dinamica del lado derecho	
 		    this.setState({ componente: val });

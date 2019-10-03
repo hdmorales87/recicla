@@ -13,7 +13,7 @@ import CustomToggle from './CustomToggleDropdown';
 import FormDataUser from './FormDataUser';
 import configJson from '../configuration/configuration.json';
 import Window from '../window/Window';
-import axios from 'axios';
+import {logout} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import './desktop.css';
 import '../../css/alertify.css';
@@ -38,18 +38,18 @@ class NameUser extends Component {
     }       
     //metodo cerrar sesion
 	  logoutSession(){//llamar a cerrar sesion en la API
-	 	    axios.get(path+'logout', {withCredentials: true})
-            .then(res => {
-                var response = res.data; 
-              	if (response.msg === "error") {      	  	  	  	
-              		alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+response.detail);  	  	  	  	
-              	} else if (response.msg === "success"){
-              	  	this.props.history.push('/');//me devuelve al login       	  	  	  	
-              	}
-            })
-            .catch(err => {
-              	alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);      	  	  
-            });
+	 	    logout()
+        .then(res => {
+            var response = res.data; 
+          	if (response.msg === "error") {      	  	  	  	
+          		alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+response.detail);  	  	  	  	
+          	} else if (response.msg === "success"){
+          	  	this.props.history.push('/');//me devuelve al login       	  	  	  	
+          	}
+        })
+        .catch(err => {
+          	alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);      	  	  
+        });
 	  }    
     render() {
     	  	return (//carga el menu de opciones del usuario  	  		
