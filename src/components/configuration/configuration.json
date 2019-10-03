@@ -1,5 +1,6 @@
 {
-	"apiPath"       : "http://localhost:5000/",
-	"fondoMenu"     : "#2a3f54",
-	"fondoCabecera" : "#2a3f54"
+	"apiPath"          : "http://localhost:5000/",
+	"fondoMenu"        : "#2a3f54",
+	"fondoCabecera"    : "#2a3f54",
+	"fondoBotonGrilla" : "#007bff"
 }

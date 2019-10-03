@@ -9,6 +9,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import {eliminarFilas} from '../api_calls/ApiCalls';
+import configJson from '../configuration/configuration.json';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 
@@ -53,7 +54,7 @@ class DataGridRow extends React.Component {
                 }                                 
                 <td>
                     <div className="float-left mr-3">
-                        <Button variant="primary" onClick={this.handleEditButton.bind(this,dataRow)}>EDITAR</Button>
+                        <Button variant="primary" onClick={this.handleEditButton.bind(this,dataRow)} style={{backgroundColor:configJson.fondoBotonGrilla}}>EDITAR</Button>
                     </div>
                     <div className="float-left">
                         <Button variant="danger" onClick={this.handleDeleteButton.bind(this,dataRow.id)}>ELIMINAR</Button>                        

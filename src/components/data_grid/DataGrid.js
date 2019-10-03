@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import DataGridContainer from './DataGridContainer';
 import Button from 'react-bootstrap/Button';
 import {consultarFilas} from '../api_calls/ApiCalls';
+import configJson from '../configuration/configuration.json';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 
@@ -98,7 +99,7 @@ class DataGrid extends Component {
                     </div>
                     <hr />
                     <div className="table-responsive mb-3">
-                        <Button variant="primary" onClick={this.handleNewButton.bind(this)}>AGREGAR NUEVO</Button>
+                        <Button variant="primary" onClick={this.handleNewButton.bind(this)} style={{backgroundColor:configJson.fondoBotonGrilla}}>AGREGAR NUEVO</Button>
                     </div>
                     <div className="table-responsive mb-3">
                         <div style={{float:'left',width:'70px'}}>Mostrar:</div> 

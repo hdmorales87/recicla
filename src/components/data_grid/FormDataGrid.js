@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ComboBoxFormDataGrid from './ComboBoxFormDataGrid';
+import configJson from '../configuration/configuration.json';
 import {insertarActualizarFila} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
@@ -131,7 +132,7 @@ class FormDataGrid extends Component {
                                     
                                 })
                             }						  							  						  	
-						  	<Button className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)}>
+						  	<Button className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)} style={{backgroundColor:configJson.fondoBotonGrilla}}>
 						  	  	Guardar
 						  	</Button>
 						  	<Button variant="secondary" onClick={this.handleCancelButton.bind(this)}>
