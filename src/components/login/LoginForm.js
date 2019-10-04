@@ -134,7 +134,7 @@ class LoginForm extends Component {
                         <img alt="Contraseña" src={ password_login } />
                     </div>
                     <div className="FieldDiv">
-                        <input type="password" value={this.state.password} className="mytext" name="password" id="password" placeholder="Contraseña" required onChange={this.handlePasswordChange.bind(this)} />
+                        <input type="password" className="mytext" name="password" id="password" placeholder="Contraseña" required onChange={this.handlePasswordChange.bind(this)} />
                     </div>
                 </div>
                 <div className="ContentField" styles={{padding:'5px 15px 10px', margin:'0px', textAlign:'right'}}>

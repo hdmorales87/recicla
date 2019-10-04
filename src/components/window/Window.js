@@ -7,8 +7,8 @@
 */
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Modal from 'react-modal';
+import globalState from '../configuration/GlobalState';
 import WindowContainer from './WindowContainer';
 import MaterialIcon from 'material-icons-react';
 import './window.css';
@@ -36,18 +36,23 @@ class Window extends Component {
         };        
         this.handleCloseModal = this.handleCloseModal.bind(this); 
         customStyles.content.width = this.props.width;   
-    }    
-    componentWillReceiveProps(next_props){ 
-        console.log(next_props.showModal);       
-        this.setState({ showModal: next_props.showModal });
-        //console.log(store.getState());
-    }       
+        //control de la modal
+        globalState.subscribe( ()=>{           
+            if(globalState.getState().type==="windowOpen"){               
+                this.setState({ showModal: globalState.getState().windowOpen });                
+            }
+        });
+    } 
+     
     handleCloseModal () {
-        this.setState({ showModal: false });
+        globalState.dispatch({
+                type   : "windowOpen",
+                params : false
+            });
     }    
   	render() {
   	  	return (
-  				  <Modal 
+  			<Modal 
                isOpen={this.state.showModal}
                contentLabel="Minimal Modal Example"
                style={customStyles}
@@ -84,30 +89,6 @@ class Window extends Component {
             </Modal>  				
 			  );
   	}    
-}
-
-function mapStateToProps(state) {
-    return {
-         
-                isHidden : state.ui.isAddContactFormHidden,
-                newContact: state.contacts.newContact
-            }
-}
-     
-function mapDispatchToProps(dispatch) {
-    return {
-        onFormSubmit: (newContact) => {
-           dispatch(addContact(newContact));
-        },
-        onInputChange: (name,value) => {
-     
-            dispatch(handleInputChange(name,value));
-        },
- 
-        onToggle: () => {
-            dispatch(toggleContactForm());
-        }
-    }
 }
 
 export default Window

@@ -12,6 +12,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import CustomToggle from './CustomToggleDropdown';
 import FormDataUser from './FormDataUser';
 import configJson from '../configuration/configuration.json';
+import globalState from '../configuration/GlobalState';
 import Window from '../window/Window';
 import {logout} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
@@ -33,8 +34,11 @@ class NameUser extends Component {
 	  	  alertify.confirm('Confirmacion', 'Desea cerrar la sesion?', this.logoutSession.bind(this), function(){});
 	  } 
     //abrir la modal
-    handleOpenModal(){//boton de abrir modal
-        this.setState({ showModal: true });
+    handleOpenModal(){//boton de abrir modal        
+        globalState.dispatch({
+                type   : "windowOpen",
+                params : true
+            });
     }          
     //metodo cerrar sesion
 	  logoutSession(){//llamar a cerrar sesion en la API
@@ -88,8 +92,7 @@ class NameUser extends Component {
                           </div>
                       </Dropdown.Item>				  	
       				    </Dropdown.Menu>   
-                  <Window 
-                      showModal={this.state.showModal}
+                  <Window                       
                       title='Datos del Usuario'
                       width='315px'
                       tbar={[
