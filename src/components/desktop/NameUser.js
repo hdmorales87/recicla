@@ -99,7 +99,7 @@ class NameUser extends Component {
                                   width : '100px',
                                   height : '60px',
                                   title : 'Actualizar Datos',
-                                  function : this.functionUpdateUser.bind(this)
+                                  function : this.functionUpdateUser.bind(this,this.props.username)
                               },
                               {
                                   type : 'boton',
