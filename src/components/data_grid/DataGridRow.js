@@ -19,14 +19,14 @@ class DataGridRow extends React.Component {
         this.handleConfirmAction = this.handleConfirmAction.bind(this);
     }
     handleEditButton(param){//boton editar      
-        this.props.funcionClick('FormDataGrid',{ idRow:param,mainContainer:this.props.mainContainer,titulo:this.props.titulo,apiUrl:this.props.apiUrl,formFields:this.props.formFields});        
+        this.props.funcionClick('FormDataGrid',{ idRow:param,mainContainer:this.props.mainContainer,titulo:this.props.titulo,apiField:this.props.apiField,formFields:this.props.formFields});        
     }
     handleDeleteButton(id){//boton eliminar
         alertify.confirm('Confirmacion', 'Esta seguro(a) de eliminar este item?', this.handleConfirmAction.bind(this,id), function(){});
     }   
     handleConfirmAction(id) {        
         //CODIGO PARA ELIMINAR LA FILA        
-        eliminarFilas(this.props.apiUrl,id)
+        eliminarFilas(this.props.apiField,id)
         .then(response => {            
             response = response.data;
             if(response.msg === 'error'){

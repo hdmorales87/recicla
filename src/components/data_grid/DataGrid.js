@@ -25,7 +25,7 @@ class DataGrid extends Component {
         }
     }    
   	handleNewButton(){//Boton nuevo registro        
-        this.props.funcionClick('FormDataGrid',{ idRow:0,mainContainer:this.props.mainContainer,titulo:this.props.titulo,apiUrl:this.props.apiUrl,formFields:this.props.formFields});
+        this.props.funcionClick('FormDataGrid',{ idRow:0,mainContainer:this.props.mainContainer,titulo:this.props.titulo,apiField:this.props.apiField,formFields:this.props.formFields});
     }  
     handleSearchField(event){//Boton de Busqueda        
         let key = event.keyCode;
@@ -63,7 +63,7 @@ class DataGrid extends Component {
         });      
     } 
     consultaFilas(){//Cuenta Filas 
-        consultarFilas(this.props.apiUrl,this.state.searchWord)
+        consultarFilas(this.props.apiField,this.state.searchWord)
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
@@ -126,7 +126,7 @@ class DataGrid extends Component {
                                            titulo={this.props.titulo}
                                            colsHeaders={this.props.colsHeaders} 
                                            colsData={this.props.colsData}
-                                           apiUrl={this.props.apiUrl}
+                                           apiField={this.props.apiField}
                                            formFields={this.props.formFields}
                                            mainContainer={this.props.mainContainer}
                                            parametro={this.props.parametro}/>

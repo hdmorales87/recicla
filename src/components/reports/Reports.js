@@ -9,10 +9,7 @@
 import React, { Component } from 'react';
 import ReportOption from './ReportOption';
 import ReportContainer from './ReportContainer';
-import configJson from '../configuration/configuration.json';
 import './reports.css';
-
-const apiUrl = configJson.apiPath; 
 
 class Reports extends Component {
     constructor(props, context) {
@@ -136,7 +133,7 @@ class Reports extends Component {
                     />             
                 </div>	
                 <div id="reportContainer" className="reportContainer" data-role="winTbar" os="windows" >
-                    <ReportContainer optionMenu={this.state.optionMenu} apiUrl={apiUrl}/>
+                    <ReportContainer optionMenu={this.state.optionMenu} />
                 </div>
             </div>
   	  	);

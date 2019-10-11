@@ -8,11 +8,9 @@
 
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
-import configJson from '../configuration/configuration.json';
 
 class PurchaseTypes extends Component {     	  
-  	render() { 
-        const path = configJson.apiPath;                
+  	render() {                      
         return (//carga el componente que contiene la grilla de datos   
             <DataGrid titulo='Tipos de Compra' 
                       funcionClick={this.props.funcionClick}   
@@ -35,7 +33,7 @@ class PurchaseTypes extends Component {
                                         required : 'true'
                                     }
                                 ]}                     
-                      apiUrl={path+'document_types'}
+                      apiField={'document_types'}
                       mainContainer='PurchaseTypes'/>             
         )
     } 

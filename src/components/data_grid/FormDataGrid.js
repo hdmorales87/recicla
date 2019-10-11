@@ -79,7 +79,7 @@ class FormDataGrid extends Component {
             method = 'post';
         }        
         //ajax que llama a la API para insertar o actualizar        
-        insertarActualizarFila(method,this.props.parametro.apiUrl,arrayData)
+        insertarActualizarFila(method,this.props.parametro.apiField,arrayData)
         .then(response => {
             response = response.data;
             if(response.msg === 'error'){
@@ -126,7 +126,7 @@ class FormDataGrid extends Component {
                                     else if(formFields.type === 'select'){
                                         return <Form.Group key= {i} controlId="formBasicTipoCompra">
                                                     <Form.Label>{formFields.label}</Form.Label>
-                                                    <ComboBoxFormDataGrid valueName = {formFields.valueName} options = {formFields.options} apiUrl={formFields.apiUrl} dinamic={formFields.dinamic} name = {formFields.field} type={formFields.type} functionChange={this.handleStateChange.bind(this)} value={this.state[formFields.field]}/>                               
+                                                    <ComboBoxFormDataGrid valueName = {formFields.valueName} options = {formFields.options} apiField={formFields.apiField} dinamic={formFields.dinamic} name = {formFields.field} type={formFields.type} functionChange={this.handleStateChange.bind(this)} value={this.state[formFields.field]}/>                               
                                                </Form.Group>
                                     }                                    
                                     

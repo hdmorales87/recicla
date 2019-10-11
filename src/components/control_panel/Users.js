@@ -8,11 +8,9 @@
 
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
-import configJson from '../configuration/configuration.json';
 
 class Users extends Component {  
-  	render() {
-        const path = configJson.apiPath;      
+  	render() {             
         return (//carga el componente que contiene la grilla de datos             
             <DataGrid titulo='Usuarios' 
                       funcionClick={this.props.funcionClick}  
@@ -27,7 +25,7 @@ class Users extends Component {
                                         validation : '',
                                         required : 'true',
                                         dinamic : 'true',
-                                        apiUrl : path+'document_types',
+                                        apiField : 'document_types',
                                         valueName : 'nombre'
                                     },                                    
                                     {
@@ -87,7 +85,7 @@ class Users extends Component {
                                         required : 'true'
                                     }
                                 ]}                     
-                      apiUrl = {path+'users'}
+                      apiField = {'users'}
                       mainContainer='Users'/>
 
         )

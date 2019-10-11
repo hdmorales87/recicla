@@ -53,7 +53,7 @@ class ReportContainer extends Component {
         fecha2 = new Date(fecha2.getTime() - (fecha2.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
 
         //generacion del reporte     
-        cargarDatosReporte(this.props.apiUrl,this.props.optionMenu.table,fecha1,fecha2)
+        cargarDatosReporte(this.props.optionMenu.table,fecha1,fecha2)
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {

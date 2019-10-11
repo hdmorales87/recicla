@@ -32,14 +32,14 @@ export function logout(){
 	return axios.get(path+'logout', {withCredentials: true});
 }
 
-export function loadComboBoxDataGrid(apiUrl){
+export function loadComboBoxDataGrid(apiField){
 	//carga el combobox dinamico 
-	return axios.get(apiUrl, {withCredentials: true});
+	return axios.get(path+apiField, {withCredentials: true});
 }
 
-export function consultarFilas(apiUrl,searchWord){
+export function consultarFilas(apiField,searchWord){
 	//consulta el numero de filas de la grilla
-	return axios.get(apiUrl+'Rows', {
+	return axios.get(path+apiField+'Rows', {
     		    withCredentials: true, 
     		    params: { 
     		        searchWord : searchWord,                
@@ -47,9 +47,9 @@ export function consultarFilas(apiUrl,searchWord){
     		});
 }
 
-export function cargarFilas(apiUrl,searchWord,showRecords,offsetRecord){
+export function cargarFilas(apiField,searchWord,showRecords,offsetRecord){
 	//trae las filas filas de la grilla
-	return axios.get(apiUrl, {
+	return axios.get(path+apiField, {
 				withCredentials: true, 
 				params: { 
 					searchWord : searchWord,
@@ -59,31 +59,35 @@ export function cargarFilas(apiUrl,searchWord,showRecords,offsetRecord){
 			});
 }
 
-export function eliminarFilas(apiUrl,id){
+export function eliminarFilas(apiField,id){
 	//elimina una fila de la grilla
-	return axios.delete(apiUrl,{            
+	return axios.delete(path+apiField,{            
         	    data: {id : id},
         	    withCredentials: true
         	});
 }
 
-export function insertarActualizarFila(method,apiUrl,arrayData){
+export function insertarActualizarFila(method,apiField,arrayData){
 	//inserta actualiza una fila en la grilla
 	return axios({
         	    method: method,
-        	    url: apiUrl,
+        	    url: path+apiField,
         	    data: arrayData,
         	    withCredentials: true
         	});	
 }
 
-export function cargarDatosReporte(apiUrl,table,fecha1,fecha2){
+export function cargarDatosReporte(table,fecha1,fecha2){
 	//cargar los datos del reporte
-	return axios.get(apiUrl+table+'Report', {
+	return axios.get(path+table+'Report', {
 	            withCredentials: true, 
 	            params: { 
 	                fecha1 : fecha1,
 	                fecha2 : fecha2            
 	            } 
 	        });
+}
+
+export function loadFormDataUser(id_usuario){
+
 }

@@ -11,15 +11,12 @@ import MaterialIcon from 'material-icons-react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import CustomToggle from './CustomToggleDropdown';
 import FormDataUser from './FormDataUser';
-import configJson from '../configuration/configuration.json';
 import globalState from '../configuration/GlobalState';
 import Window from '../window/Window';
 import {logout} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import './desktop.css';
 import '../../css/alertify.css';
-
-const path = configJson.apiPath;
 
 class NameUser extends Component {
 	  constructor(props) {
