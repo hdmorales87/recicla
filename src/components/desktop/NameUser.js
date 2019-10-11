@@ -92,6 +92,7 @@ class NameUser extends Component {
                   <Window                       
                       title='Datos del Usuario'
                       width='315px'
+                      params={{ 'username' : this.props.username }}
                       tbar={[
                               {
                                   type : 'boton',

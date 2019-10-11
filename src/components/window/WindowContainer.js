@@ -18,7 +18,7 @@ class WindowContainer extends Component {
         }     
         let ChildComponent = componentList[this.props.componente];    
         return (        
-            <ChildComponent />              
+            <ChildComponent params={this.props.params}/>              
         );  	
   	}
 }

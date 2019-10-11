@@ -25,6 +25,7 @@ class FormDataUser extends Component {
                      }
     }
     componentWillMount() {
+        console.log(this.props.params);
         loadFormDataUser()
         .then(res => {
             var response = res.data; 

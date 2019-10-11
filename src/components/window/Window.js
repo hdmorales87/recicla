@@ -85,7 +85,7 @@ class Window extends Component {
                     : ''
                 }
                 </div>                     
-                <WindowContainer componente="FormDataUser"/>
+                <WindowContainer componente="FormDataUser" params={this.props.params}/>
             </Modal>  				
 			  );
   	}    

@@ -22,15 +22,18 @@ class Desktop extends Component {
 
         var usuario = {};
         var username = '';
+        var idUsuario = '';
 
         if(this.props.location.state){
             usuario = this.props.location.state.usuario;
+            idUser  = usuario[0].id;
             username = usuario[0].nombre.toUpperCase();
         }
       	this.state = { 
       		  loading: true,
           	redirect: false,
 	 		      username: username, 
+            idUser  : idUser,
       	 	  componente: "WelcomePage",
       	 	  parametro : "" 
 	      }; 
