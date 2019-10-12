@@ -20,10 +20,12 @@ import '../../css/alertify.css';
 
 class NameUser extends Component {
 	  constructor(props) {
-        super(props); 
+        super(props);         
+        var userData = globalState.getState().userData;        
         this.btnLogoutSession = this.btnLogoutSession.bind(this);
         this.state = {
-          showModal: false
+            showModal : false,
+            username  : userData[0].nombre.toUpperCase()
         };
     }
     //evento cerrar sesion
@@ -62,7 +64,7 @@ class NameUser extends Component {
     	  	return (//carga el menu de opciones del usuario  	  		
         			<Dropdown  id="ContentUser" className="ContentUser">	
         				  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">  	  					 		  
-      				    	  <div className="NombreUsuario">{this.props.username}</div>	
+      				    	  <div className="NombreUsuario">{this.state.username}</div>	
       				    	  <div className="OptionUsuario">
       				    	  	<MaterialIcon size={30} icon="keyboard_arrow_down" invert />
       				    	  </div>					

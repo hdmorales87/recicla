@@ -65,7 +65,7 @@ class LoginForm extends Component {
             else if(response.msg === 'error'){
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
             }
-            else{
+            else{                
                 //almacenar en localstorage los datos del login
                 localStorage.id_empresa = this.state.id_empresa;
                 localStorage.empresa    = this.state.empresa;
@@ -81,8 +81,7 @@ class LoginForm extends Component {
         //consulta si la empresa existe        
         validaEmpresa(this.state.empresa)        
         .then(res => {
-            var response = res.data; 
-                      
+            var response = res.data;                       
             if(response.msg === 'notExist'){//aqui no me dejara continuar si la empresa noe xiste
                 alertify.error('La empresa no existe!'); 
                 this.inputEmpresa.current.focus();

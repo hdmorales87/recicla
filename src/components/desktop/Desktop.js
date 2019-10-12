@@ -12,31 +12,24 @@ import { Redirect } from 'react-router-dom';
 import NameUser from './NameUser';
 import OptionMenu from './OptionMenu';
 import configJson from '../configuration/configuration.json';
+import globalState from '../configuration/GlobalState';
 import Container from './Container';
 import logo_login from '../../images/logo_login.png?v1.0';
 import './desktop.css'; 
 
 class Desktop extends Component {
 	  constructor(props, context) {//al cargarse trae los datos del usuario 		
-      	super(props, context);
-
-        var usuario = {};
-        var username = '';
-        var idUsuario = '';
-
-        if(this.props.location.state){
-            usuario = this.props.location.state.usuario;
-            idUser  = usuario[0].id;
-            username = usuario[0].nombre.toUpperCase();
-        }
+      	super(props, context);  
+        globalState.dispatch({//cargamos lo datos del usuario y los dejamos disponibles en toda la sesion
+            type   : "userData",
+            params : this.props.location.state.usuario
+        });        
       	this.state = { 
       		  loading: true,
-          	redirect: false,
-	 		      username: username, 
-            idUser  : idUser,
+          	redirect: false,	 		                
       	 	  componente: "WelcomePage",
       	 	  parametro : "" 
-	      }; 
+	      };         
 	      this.actualizarContainer = this.actualizarContainer.bind(this);	
 	  } 
 	  componentDidMount() {//cada que se monte el escritorio debe validar la sesion       
@@ -76,7 +69,7 @@ class Desktop extends Component {
 	 		          	  <OptionMenu funcionClick = {this.actualizarContainer}/>
 	 		          </div>
 	 		          <div id="cabeceraDesk" className="cabeceraDesk" style={{backgroundColor:configJson.fondoCabecera}}>
-	 		          	  <NameUser className="ContentUser" username = { this.state.username } history={this.props.history}/>  	    		
+	 		          	  <NameUser className="ContentUser" history={this.props.history}/>  	    		
 	 		          </div>
 	    		      <div id="contenidopestanas" className="contentDesk">
 	    		 	        <Container componente={this.state.componente} funcionClick = {this.actualizarContainer} parametro={this.state.parametro}/>
