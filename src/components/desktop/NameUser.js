@@ -56,6 +56,8 @@ class NameUser extends Component {
 	  }   
     functionUpdateUser(){
         alert('hola');
+        var formDataUser = globalState.getState().formDataUser;
+        console.log(formDataUser);
     } 
     functionChangePassword(){
         alert('jejeje');
@@ -93,8 +95,7 @@ class NameUser extends Component {
       				    </Dropdown.Menu>   
                   <Window                       
                       title='Datos del Usuario'
-                      width='315px'
-                      params={{ 'username' : this.props.username }}
+                      width='315px'                      
                       tbar={[
                               {
                                   type : 'boton',
@@ -102,7 +103,7 @@ class NameUser extends Component {
                                   width : '100px',
                                   height : '60px',
                                   title : 'Actualizar Datos',
-                                  function : this.functionUpdateUser.bind(this,this.props.username)
+                                  function : this.functionUpdateUser.bind(this)
                               },
                               {
                                   type : 'boton',

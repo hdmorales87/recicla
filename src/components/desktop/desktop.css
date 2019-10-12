@@ -57,6 +57,10 @@
     left: 290px;
 }
 
+#lista{
+    margin-top:20px;
+}
+
 #pestanas {
     overflow: hidden;
     overflow-y: auto;
