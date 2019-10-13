@@ -14,9 +14,7 @@ import ComboBoxFormDataGrid from '../data_grid/ComboBoxFormDataGrid';
 import globalState from '../configuration/GlobalState';
 import Form from 'react-bootstrap/Form';
 import {loadFormDataUser} from '../api_calls/ApiCalls';
-import './desktop.css';
-
-const path = configJson.apiPath; 
+import './desktop.css'; 
 
 class FormDataUser extends Component {
     constructor(props) {        
