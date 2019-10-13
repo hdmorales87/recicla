@@ -35,7 +35,8 @@ class Window extends Component {
             showModal: false
         };        
         this.handleCloseModal = this.handleCloseModal.bind(this); 
-        customStyles.content.width = this.props.width;   
+        customStyles.content.width  = this.props.width;   
+        customStyles.content.height = this.props.height; 
         //control de la modal
         globalState.subscribe( ()=>{           
             if(globalState.getState().type==="windowOpen"){               
@@ -85,7 +86,7 @@ class Window extends Component {
                     : ''
                 }
                 </div>                     
-                <WindowContainer componente="FormDataUser" params={this.props.params}/>
+                <WindowContainer componente="FormDataUser" params={this.props.params} />
             </Modal>  				
 			  );
   	}    

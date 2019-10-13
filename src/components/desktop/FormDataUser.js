@@ -66,7 +66,7 @@ class FormDataUser extends Component {
   	render() {
         
   	  	return (
-  				  <div className="container">
+  				  <div className="container" style={{ height:'calc(100% - 92px)',overflowY : 'auto' }}>
                 <div className="content"> 
                     <br />
                     <div className="table-responsive mb-3">

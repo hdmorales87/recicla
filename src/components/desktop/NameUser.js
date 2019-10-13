@@ -95,7 +95,8 @@ class NameUser extends Component {
       				    </Dropdown.Menu>   
                   <Window                       
                       title='Datos del Usuario'
-                      width='315px'                      
+                      width='315px' 
+                      height='80%'                     
                       tbar={[
                               {
                                   type : 'boton',
