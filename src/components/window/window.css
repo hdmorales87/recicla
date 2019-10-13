@@ -1,5 +1,4 @@
-.windowTitle {
-    background-color: #2a80b9;
+.windowTitle {    
     color: #fff;
     text-align: left;
 }
@@ -43,8 +42,7 @@
 }
 
 .windowTbar {
-    padding: 0 10px 0 10px;
-    background-color: #2a80b9;
+    padding: 0 10px 0 10px;    
     width: 100%;
     margin: 0;
     overflow: hidden;

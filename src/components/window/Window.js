@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import globalState from '../configuration/GlobalState';
+import configJson from '../configuration/configuration.json';
 import WindowContainer from './WindowContainer';
 import MaterialIcon from 'material-icons-react';
 import './window.css';
@@ -58,13 +59,13 @@ class Window extends Component {
                contentLabel="Minimal Modal Example"
                style={customStyles}
             >
-                <div className="windowTitle" os="windows" id="windowTitleFrame">
+                <div style={{backgroundColor : configJson.windowColor }} className="windowTitle" os="windows" id="windowTitleFrame">
                     <div id="windowTitleTextFrame" className="windowTitleText" os="windows">{this.props.title}</div>
                     <div className="windowTitleBoton" style={{ top: '-4px',left:'-2px'}} os="windows" id="btnCloseVentanaFrame" onClick={this.handleCloseModal}>
                         <MaterialIcon size={24} icon="close" invert id="iconClose"/>
                     </div> 
                 </div> 
-                <div className="windowTbar" >
+                <div style={{backgroundColor : configJson.windowColor }} className="windowTbar" >
                 {
                     this.props.tbar !== 'false' ?                                             
                         this.props.tbar.map((tbar,i) => {
