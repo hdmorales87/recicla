@@ -11,7 +11,8 @@ import MaterialIcon from 'material-icons-react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import CustomToggle from './CustomToggleDropdown';
 import FormDataUser from './FormDataUser';
-import globalState from '../configuration/GlobalState';
+import globalState from '../configuration/GlobalState'
+import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import Window from '../window/Window';
 import {logout} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
@@ -64,7 +65,7 @@ class NameUser extends Component {
     } 
     render() {
     	  	return (//carga el menu de opciones del usuario  	  		
-        			<Dropdown  id="ContentUser" className="ContentUser">	
+        			<Dropdown  id="ContentUser" className="ContentUser" onMouseOut={divMouseOut.bind(this,'ContentUser')} onMouseOver={divMouseOver.bind(this,'ContentUser')}>	
         				  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">  	  					 		  
       				    	  <div className="NombreUsuario">{this.state.username}</div>	
       				    	  <div className="OptionUsuario">
