@@ -20,15 +20,13 @@
 }
 
 .LogoLogin {
-    color: #FFF;
-    height: 130px;
+    color: #FFF;    
     z-index: 100;
     font-size: 14px;
     text-align: center;
     font-weight: bold;
     text-shadow: 1px 1px 1px #333;
-    font-family: Verdana,sans-serif,Tahoma;
-    background-color: #FFF;
+    font-family: Verdana,sans-serif,Tahoma;    
 }
 
 .LogoLogin > img {
@@ -39,8 +37,7 @@
 
 .DivLogin {
     width: 310px;
-    position: relative;
-    padding-top: 35px;
+    position: relative;   
 }
 
 .ContentField {
@@ -56,13 +53,17 @@
 }
 
 .DivBoton {
-    top: 50%;
-    left: 270px;
-    width: 44px;
-    height: 44px;
     position: absolute;
-    margin-top: -22px;
+    top: 45%;
+    left: 280px;
+    width: 67px;
+    height: 67px;
+    padding: 11px;
+    background: #CCC;
     border-radius: 50%;
+    margin-top: -22px;
+    -webkit-box-shadow: inset 0 1px 4px #FFF, 1px 1px 3px #333;
+    box-shadow: inset 0 1px 4px #FFF, 1px 1px 3px #333;
 }
 
 html, body {
@@ -83,7 +84,8 @@ body {
 #table_login > div {
     margin: 0 auto;
     display: table;
-    background-color: #2e3641;
+    background-color: #CCC;
+    border-radius: 5px;
 }
 
 #root {
@@ -102,30 +104,37 @@ body {
     margin-top: calc(50% - 136px);
 }
 
-#table_login input[type=text], input[type=password] {
-    color: #333;
-    width: 100%;
-    border: 0;
-    height: 30px;
-    padding: 0 10px 0 20px;
+#table_login input[type=text], input[type=password] {    
+    color: #848484;
+    padding: 0 10px 0 10px;
+    width: 260px;
+    height: 40px;
+    background: #DDD;
     font-size: 14px;
-    background: #BFBFBF;
-    margin-left: -20px;
-    -moz-appearance: none;
-    -webkit-appearance: none;
+    border: 0;
+    border-radius: 0px 5px 5px 0;
+    -webkit-box-shadow: inset 0 1px 4px #333, 0 1px #999;
+    box-shadow: inset 0 1px 4px #999, 0 1px #999;
 }
 
-.DivBoton > input {
-    width: 44px !important;
-    height: 44px !important;
-    border: 0 !important;
-    cursor: pointer;
-    padding: 0px !important;
+.DivBoton > input {    
+    position: relative;
     z-index: 2;
-    background: #2E3641 url(../../images/flecha_login.png?v1.0);
-    border-radius: 50%;
-    background-size: 100%;
+    width: 45px;
+    height: 45px;
+    padding: 0px;
+    background: #09C url(../../images/flecha_login.png);
     background-repeat: no-repeat;
+    background-position: 7px 7px;
+    background-size: 32px 32px;
+    text-indent: 120%;
+    white-space: nowrap;
+    overflow: hidden;
+    border: 0;
+    border-radius: 24px;
+    cursor: pointer;
+    -webkit-box-shadow: inset 1px 1px 2px #FFF, 1px 1px 2px #333;
+    box-shadow: inset 1px 1px 2px #FFF, 1px 1px 2px #333;
 }
 
 .mytext {
@@ -136,15 +145,28 @@ body {
 }
 
 .FieldImage {
-    width: 32px;
-    position: relative;
+    position: relative;    
+    width: 35px;
+    height: 40px;
+    padding: 5px 5px 0 5px;
+    background: #DDD;
+    border: 0;
+    border-radius: 5px 0 0 5px;
+    -webkit-box-shadow: inset 0 1 4px #333, 0 1px #999;
+    box-shadow: inset 0 1px 4px #999, 0 1px #999;
 }
 
 .FieldImage > img {
     top: 0;
     left: 0;
-    width: 42px;
-    height: 42px;
-    position: absolute;
-    margin-top: -6px;
+    width: 32px;
+    height: 32px;  
 }
+
+.FieldDiv {    
+    top: 0;
+    left: 40px;
+    width: 250px;
+    height: 40px;
+}
+

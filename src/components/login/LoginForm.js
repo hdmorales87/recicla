@@ -8,6 +8,7 @@
 
 import React, { Component } from 'react';
 import './login.css';
+import empresa_login from '../../images/empresa_login.png?v1.0';
 import usuario_login from '../../images/usuario_login.png?v1.0';
 import password_login from '../../images/password_login.png?v1.0';
 import {login,validaEmpresa} from '../api_calls/ApiCalls';
@@ -114,7 +115,7 @@ class LoginForm extends Component {
             <form className="DivLogin">
                 <div className="ContentField">
                     <div className="FieldImage">
-                        <img alt="Empresa" src={ usuario_login } />
+                        <img alt="Empresa" src={ empresa_login } />
                     </div>
                     <div className="FieldDiv">
                         <input type="text" value={this.state.empresa} className="mytext" name="empresa" id="empresa" placeholder="NIT Empresa" required onBlur={this.validacionEmpresa.bind(this)} onChange={this.handleNitChange.bind(this)}  ref={this.inputEmpresa}/>
@@ -137,7 +138,7 @@ class LoginForm extends Component {
                     </div>
                 </div>
                 <div className="ContentField" styles={{padding:'5px 15px 10px', margin:'0px', textAlign:'right'}}>
-                    <div style={{color:'#FFF',textAlign:'right',paddingRight:'10px'}}>
+                    <div style={{fontSize:'11px',fontWeight:'bold',color:'#848484',textAlign:'right',paddingRight:'10px'}}>
                         Olvide mi Contrase&ntilde;a
                     </div>
                 </div>
