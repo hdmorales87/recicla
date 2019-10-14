@@ -8,6 +8,7 @@
 
 import React, { Component } from 'react';
 import MaterialIcon from 'material-icons-react';
+import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import './controlpanel.css';
 
 class Option extends Component {
@@ -16,7 +17,7 @@ class Option extends Component {
     }
     render() {
         return (
-            <li id={this.props.tab} onClick={this.handleContainerChange.bind(this)}>
+            <li id={this.props.tab} onClick={this.handleContainerChange.bind(this)} onMouseOut={divMouseOut.bind(this,this.props.tab,'#FFFFFF')} onMouseOver={divMouseOver.bind(this,this.props.tab,'#d1d1d1')} >
                 <div className="icono"><MaterialIcon size={50} icon={this.props.icono} /></div>
                 <div className="data">{this.props.titulo}</div>
             </li>                   
