@@ -99,7 +99,7 @@ class ReportContainer extends Component {
                                     : ''
                                  }                                    
                                  <div id="PanelBotones_Reports_Infotipri" className="PanelBotonesReport">
-                                     <div id="win-btn-1" className="reportBtn btnReportContainer" style={{width:'65px',backgroundColor: '#FFF !important'}} data-role="win-btn" data-state="enable"> 
+                                     <div id="reportButtonHTML" className="reportBtn btnReportContainer" style={{width:'65px',backgroundColor: '#FFF !important'}} data-role="reportButton" data-state="enable"> 
                                          <div style={{textAlign:'center'}}>
                                              <MaterialIcon size={24} icon="flash_on" />
                                          </div>                              
@@ -108,7 +108,7 @@ class ReportContainer extends Component {
                                      <div data-role="div-empty"></div>
                                      {
                                         this.props.optionMenu.btnExcel === 'true' && this.state.showXLS === true ?
-                                            <div id="win-btn-2" className="reportBtn btnReportContainer" style={{width:'65px',backgroundColor: '#FFF !important'}} data-role="win-btn" data-state="enable">                                 
+                                            <div id="reportButtonXLS" className="reportBtn btnReportContainer" style={{width:'65px',backgroundColor: '#FFF !important'}} data-role="reportButton" data-state="enable">                                 
                                                 <div style={{textAlign:'center'}}>
                                                     <MaterialIcon size={24} icon="library_books" />
                                                 </div>
@@ -125,7 +125,7 @@ class ReportContainer extends Component {
                                      <div data-role="div-empty"></div>
                                      {
                                         this.props.optionMenu.btnPDF === 'true' && this.state.showPDF === true ?
-                                            <div id="win-btn-3" className="reportBtn btnReportContainer" style={{width:'65px',backgroundColor: '#FFF !important'}} data-role="win-btn" data-state="enable">                                 
+                                            <div id="reportButtonPDF" className="reportBtn btnReportContainer" style={{width:'65px',backgroundColor: '#FFF !important'}} data-role="reportButton" data-state="enable">                                 
                                                 <div style={{textAlign:'center'}}>
                                                     <MaterialIcon size={24} icon="picture_as_pdf" />
                                                 </div>

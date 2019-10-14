@@ -9,6 +9,8 @@
 import React, { Component } from 'react';
 import MaterialIcon from 'material-icons-react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
+import configJson from '../configuration/configuration.json';
 import CustomToggle from './CustomToggleDropdown';
 import './reports.css';
 
@@ -25,7 +27,7 @@ class ReportOption extends Component {
   	  	return (//contenedor de las opciones del menu de informes
             <Dropdown id={this.props.tab} className="reportBtn" style={{width:'120px',position:'absolute',height:'60px',left:position+'px'}}>  
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components"> 
-                    <div style={{width:'120px'}} data-role="win-btn" data-state="enable"> 
+                    <div id={'div'+this.props.tab} style={{width:'120px'}} data-role="reportOptionButton" data-state="enable" onMouseOut={divMouseOut.bind(this,'div'+this.props.tab,configJson.windowColor)} onMouseOver={divMouseOver.bind(this,'div'+this.props.tab,configJson.windowColor)} > 
                         <div style={{width:'100%',textAlign:'center'}}> 
                             <MaterialIcon size={24} icon="poll" invert />  
                         </div>             

@@ -6,24 +6,22 @@
 *
 */
 
-import configJson from '../configuration/configuration.json';
-
-export function divMouseOver(field,e){
-	//cambia el color al pasar por encima	
-	if(e.target.id){ 
-		if(e.target.id=== field){
-			e.target.style.cursor = 'pointer';
-			e.target.style.backgroundColor = LightenDarkenColor(configJson.fondoMenu,20);
+export function divMouseOver(field,color,e){
+	//cambia el color al pasar por encima		
+	if(e.currentTarget.id){ 
+		if(e.currentTarget.id=== field){
+			e.currentTarget.style.cursor = 'pointer';
+			e.currentTarget.style.backgroundColor = LightenDarkenColor(color,20);
 		}
 	}
 }
 
-export function divMouseOut(field,e){
+export function divMouseOut(field,color,e){	
 	//cambia el color al salir del div
-	if(e.target.id){ 
-		if(e.target.id=== field){
-			e.target.style.cursor = 'default';
-			e.target.style.backgroundColor = configJson.fondoMenu;
+	if(e.currentTarget.id){ 
+		if(e.currentTarget.id=== field){
+			e.currentTarget.style.cursor = 'default';
+			e.currentTarget.style.backgroundColor = color;
 		}
 	}	
 }

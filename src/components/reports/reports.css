@@ -8,8 +8,7 @@
 
 .reportTbar {
     overflow: hidden;
-    display: table;
-    background-color: #2a80b9 !important;
+    display: table;    
     width: 100%;
     height: 60px !important;
     margin: 0;

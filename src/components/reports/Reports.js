@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import ReportOption from './ReportOption';
 import ReportContainer from './ReportContainer';
+import configJson from '../configuration/configuration.json';
 import './reports.css';
 
 class Reports extends Component {
@@ -25,7 +26,7 @@ class Reports extends Component {
   	render() {        
   	  	return ( 
             <div style={{width:'100%',height:'100%'}}>
-                <div id="reportTbar" className="reportTbar" data-role="winTbar" os="windows" >
+                <div id="reportTbar" className="reportTbar" data-role="reportTbar" os="windows" style={{backgroundColor : configJson.windowColor}}>
                     <ReportOption 
                         tab="ReportOption0" 
                         title='Compras' 
@@ -132,7 +133,7 @@ class Reports extends Component {
                                     ]}                        
                     />             
                 </div>	
-                <div id="reportContainer" className="reportContainer" data-role="winTbar" os="windows" >
+                <div id="reportContainer" className="reportContainer" data-role="reportTbar" os="windows" >
                     <ReportContainer optionMenu={this.state.optionMenu} />
                 </div>
             </div>
