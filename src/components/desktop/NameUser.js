@@ -75,7 +75,7 @@ class NameUser extends Component {
       				    </Dropdown.Toggle>
       				    <Dropdown.Menu  style={{ marginTop: '50px'}}>
       				      	<Dropdown.Item eventKey="1" onClick={this.handleOpenModal.bind(this)}>
-                          <div style={{height:'25px'}}>
+                          <div id="dropdownUserData" style={{height:'25px'}} onMouseOut={divMouseOut.bind(this,'dropdownUserData','#ffffff')} onMouseOver={divMouseOver.bind(this,'dropdownUserData','#c6c6c6')}>
                               <div style={{width:'30px',float:'left'}}>
                                   <MaterialIcon size={24} icon="account_circle" />
                               </div>
@@ -85,7 +85,7 @@ class NameUser extends Component {
                           </div>
                       </Dropdown.Item>
       				      	<Dropdown.Item eventKey="1" onClick={this.btnLogoutSession.bind(this)}>
-                          <div style={{height:'25px'}}>
+                          <div id="dropdownLogout" style={{height:'25px'}} onMouseOut={divMouseOut.bind(this,'dropdownLogout','#ffffff')} onMouseOver={divMouseOver.bind(this,'dropdownLogout','#c6c6c6')}>
                               <div style={{width:'30px',float:'left'}}>
                                   <MaterialIcon size={24} icon="close" />
                               </div>

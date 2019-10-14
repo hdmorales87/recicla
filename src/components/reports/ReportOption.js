@@ -39,7 +39,7 @@ class ReportOption extends Component {
                         this.props.optionMenu ? 
                             this.props.optionMenu.map((optionMenu,i) => {
                                 return (<Dropdown.Item eventKey="1" key={i} onClick={this.handleReportContainerChange.bind(this,optionMenu)}>
-                                    <div style={{height:'25px'}}>
+                                    <div id={'divDropdown'+i} style={{height:'25px'}}  onMouseOut={divMouseOut.bind(this,'divDropdown'+i,'#ffffff')} onMouseOver={divMouseOver.bind(this,'divDropdown'+i,'#c6c6c6')}>
                                         <div style={{width:'30px',float:'left'}}>
                                             <MaterialIcon size={24} icon="poll" /> 
                                         </div>
