@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import globalState from '../configuration/GlobalState';
 import configJson from '../configuration/configuration.json';
+import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import WindowContainer from './WindowContainer';
 import MaterialIcon from 'material-icons-react';
 import './window.css';
@@ -70,7 +71,7 @@ class Window extends Component {
                     this.props.tbar !== 'false' ?                                             
                         this.props.tbar.map((tbar,i) => {
                                     return (   
-                                        <div className="windowButton" key={i} style={{width:tbar.width,height:tbar.height}}>                                    
+                                        <div id={"windowButton"+i} className="windowButton" key={i} style={{width:tbar.width,height:tbar.height}}  onMouseOut={divMouseOut.bind(this,"windowButton"+i,configJson.windowColor)} onMouseOver={divMouseOver.bind(this,"windowButton"+i,configJson.windowColor)}>                                    
                                             <div style={{width:'calc(100% - 5px)',float:'left'}} onClick={tbar.function}> 
                                                 <MaterialIcon size={24} icon={tbar.icon} invert/>
                                                 <button className="save">{tbar.title}</button>                                             
