@@ -8,9 +8,9 @@
 
 import React, { Component } from 'react';
 import './login.css';
-import empresa_login from '../../images/empresa_login.png?v1.0';
-import usuario_login from '../../images/usuario_login.png?v1.0';
-import password_login from '../../images/password_login.png?v1.0';
+import empresa_login from './../../images/empresa_login.png?v1.0';
+import usuario_login from './../../images/usuario_login.png?v1.0';
+import password_login from './../../images/password_login.png?v1.0';
 import {login,validaEmpresa} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
