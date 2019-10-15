@@ -3,14 +3,13 @@
 *
 * Contiene el contenedor del nombre del usuario
 *
-* @author Hector Morales <warriorimport FormDataUser from './FormDataUser';1987@gmail.com>
+* @author Hector Morales <warrior1987@gmail.com>
 */
 
 import React, { Component } from 'react';
 import MaterialIcon from 'material-icons-react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import CustomToggle from './CustomToggleDropdown';
-import FormDataUser from './FormDataUser';
 import globalState from '../configuration/GlobalState';
 import configJson from '../configuration/configuration.json';
 import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';

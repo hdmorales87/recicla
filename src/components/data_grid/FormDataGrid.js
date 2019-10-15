@@ -15,6 +15,7 @@ import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import {insertarActualizarFila} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
+import './dataGrid.css'; 
 
 class FormDataGrid extends Component {
   	
@@ -117,20 +118,19 @@ class FormDataGrid extends Component {
   	 		    		<Form>
                             {
                                 //cargar dinamicamente los campos, dependiendo si es input o select
-                                this.props.parametro.formFields.forEach((formFields,i) => {                                    
+                                this.props.parametro.formFields.map((formFields,i) => {                                    
                                     if(formFields.type === 'text'){
-                                        return <Form.Group key= {i} controlId="formBasicTipoCompra">
+                                        return (<Form.Group key= {i} controlId="formBasicTipoCompra">
                                                     <Form.Label>{formFields.label}</Form.Label>
                                                     <Form.Control name = {formFields.field} type={formFields.type} onChange={this.handleStateChange.bind(this)} value={this.state[formFields.field]}/>                               
-                                               </Form.Group>
+                                               </Form.Group>)
                                     }
                                     else if(formFields.type === 'select'){
-                                        return <Form.Group key= {i} controlId="formBasicTipoCompra">
+                                        return (<Form.Group key= {i} controlId="formBasicTipoCompra">
                                                     <Form.Label>{formFields.label}</Form.Label>
                                                     <ComboBoxFormDataGrid valueName = {formFields.valueName} options = {formFields.options} apiField={formFields.apiField} dinamic={formFields.dinamic} name = {formFields.field} type={formFields.type} functionChange={this.handleStateChange.bind(this)} value={this.state[formFields.field]}/>                               
-                                               </Form.Group>
-                                    }                                    
-                                    
+                                               </Form.Group>)
+                                    }
                                 })
                             }						  							  						  	
 						  	<Button id="formGridBtnSave" className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>

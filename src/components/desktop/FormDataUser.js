@@ -7,13 +7,9 @@
 */
 
 import React, { Component } from 'react';
-import MaterialIcon from 'material-icons-react';
-import configJson from '../configuration/configuration.json';
-import alertify from 'alertifyjs';
 import ComboBoxFormDataGrid from '../data_grid/ComboBoxFormDataGrid';
 import globalState from '../configuration/GlobalState';
 import Form from 'react-bootstrap/Form';
-import {loadFormDataUser} from '../api_calls/ApiCalls';
 import './desktop.css'; 
 
 class FormDataUser extends Component {

@@ -14,6 +14,7 @@ import configJson from '../configuration/configuration.json';
 import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
+import './dataGrid.css'; 
 
 class DataGrid extends Component {
     constructor(props, context) {
