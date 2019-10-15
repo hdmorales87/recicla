@@ -15,7 +15,7 @@ class Login extends Component {
     render() {   		
         return (
             <div id="table_login"> 
-            	<div>               
+            	<div style={{width: '320px'}}>               
                 	<LogoLogin />
                 	<LoginForm history={this.props.history}/>
             	</div>                

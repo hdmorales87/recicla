@@ -11,6 +11,7 @@ import DataGridContainer from './DataGridContainer';
 import Button from 'react-bootstrap/Button';
 import {consultarFilas} from '../api_calls/ApiCalls';
 import configJson from '../configuration/configuration.json';
+import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 
@@ -99,7 +100,7 @@ class DataGrid extends Component {
                     </div>
                     <hr />
                     <div className="table-responsive mb-3">
-                        <Button variant="primary" onClick={this.handleNewButton.bind(this)} style={{backgroundColor:configJson.fondoBotonGrilla}}>AGREGAR NUEVO</Button>
+                        <Button id="dataGridBtnNew" variant="primary" onClick={this.handleNewButton.bind(this)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'dataGridBtnNew',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'dataGridBtnNew',configJson.fondoBotonGrilla)}>AGREGAR NUEVO</Button>
                     </div>
                     <div className="table-responsive mb-3">
                         <div style={{float:'left',width:'70px'}}>Mostrar:</div> 

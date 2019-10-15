@@ -11,6 +11,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ComboBoxFormDataGrid from './ComboBoxFormDataGrid';
 import configJson from '../configuration/configuration.json';
+import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import {insertarActualizarFila} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
@@ -132,11 +133,11 @@ class FormDataGrid extends Component {
                                     
                                 })
                             }						  							  						  	
-						  	<Button className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)} style={{backgroundColor:configJson.fondoBotonGrilla}}>
-						  	  	Guardar
+						  	<Button id="formGridBtnSave" className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>
+						  	  	GUARDAR
 						  	</Button>
 						  	<Button variant="secondary" onClick={this.handleCancelButton.bind(this)}>
-						  	  	Cancelar
+						  	  	CANCELAR
 						  	</Button>
 						</Form>
 					</div> 
