@@ -7,12 +7,12 @@
 */
 
 import React, { Component } from 'react';
-import {checkSession} from '../api_calls/ApiCalls';
 import { Redirect } from 'react-router-dom';
 import NameUser from './NameUser';
 import OptionMenu from './OptionMenu';
 import configJson from '../configuration/configuration.json';
 import globalState from '../configuration/GlobalState';
+import {checkSession,cargarFilas} from '../api_calls/ApiCalls';
 import Container from './Container';
 import logo_login from '../../images/logo_login.png?v1.0';
 import './desktop.css'; 
@@ -20,16 +20,31 @@ import './desktop.css';
 class Desktop extends Component {
 	  constructor(props, context) {//al cargarse trae los datos del usuario 		
       	super(props, context);  
-        globalState.dispatch({//cargamos lo datos del usuario y los dejamos disponibles en toda la sesion
-            type   : "userData",
-            params : this.props.location.state.usuario
-        });        
+        var usuario = this.props.location.state.usuario;              
       	this.state = { 
       		  loading: true,
           	redirect: false,	 		                
       	 	  componente: "WelcomePage",
       	 	  parametro : "" 
-	      };         
+	      }; 
+        cargarFilas('users',usuario,1,0).then(res => {
+            var response = res.data; 
+            if (response.msg === "error") {
+                //alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
+            } else { 
+                //globalState.getState().userData[0] =
+                globalState.dispatch({
+                    type   : "userData",
+                    params : response
+                });
+                console.log(globalState.getState().userData);              
+                //this.setState({ resultRows: response[0].total })
+            }
+        })
+        .catch( err => {            
+            //alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
+        });
+
 	      this.actualizarContainer = this.actualizarContainer.bind(this);	
 	  } 
 	  componentDidMount() {//cada que se monte el escritorio debe validar la sesion       
