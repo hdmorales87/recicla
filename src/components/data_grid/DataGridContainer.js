@@ -65,7 +65,7 @@ class DataGridContainer extends Component {
   	render() {  
         if (this.state.content.length > 0) {
             return (//carga dinamica de la cabecera y del listado
-                <Table striped bordered hover>
+                <Table responsive>
                     <thead>
                         <tr>
                             <th>No</th>

@@ -14,7 +14,7 @@ import globalState from '../configuration/GlobalState';
 import configJson from '../configuration/configuration.json';
 import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import Window from '../window/Window';
-import {logout} from '../api_calls/ApiCalls';
+import {logout,insertarActualizarFila} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import './desktop.css';
 import '../../css/alertify.css';
@@ -56,9 +56,26 @@ class NameUser extends Component {
         });
 	  }   
     functionUpdateUser(){
-        alert('hola');
+        //actualizacion de datos de usuario
         var formDataUser = globalState.getState().formDataUser;
-        console.log(formDataUser);
+        insertarActualizarFila('put','users',formDataUser)
+        .then(response => {
+            response = response.data;
+            if(response.msg === 'error'){
+                alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail); 
+            }
+            else {                
+                globalState.dispatch({
+                    type   : "windowOpen",
+                    params : false
+                });
+                //ACTUALIZAR EL GLOBAL STORE  
+                globalState.getState().userData[0] = formDataUser;                          
+            }
+        })
+        .catch(function (error) {
+            alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
+        });
     } 
     functionChangePassword(){
         alert('jejeje');
