@@ -12,11 +12,13 @@
 /**************************cambiar el fondo del escritorio****************/
 
 @media only screen and (max-width: 1024px){
-    body {
-        display: table;
-        background: rgb(42, 63, 84) !important;
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
+    .navigationTrigger:checked ~ .menuNavegacion {
+        body {
+            display: table;
+            background: rgb(42, 63, 84) !important;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
     }
 }
 
