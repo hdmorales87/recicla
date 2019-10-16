@@ -32,7 +32,7 @@ class NameUser extends Component {
         globalState.subscribe( ()=>{ 
             if(globalState.getState().type==="userData"){        
                 var userData = globalState.getState().userData;       
-                this.setState({username  : userData[0].nombre.toUpperCase()})                
+                this.setState({username  : userData[0].primer_nombre.toUpperCase()+userData[0].primer_apellido.toUpperCase()})                
             }
         });  
     }
@@ -89,14 +89,17 @@ class NameUser extends Component {
     } 
     render() {
     	  	return (//carga el menu de opciones del usuario  	  		
-        			<Dropdown  id="ContentDataUser" className="ContentUser" onMouseOut={divMouseOut.bind(this,'ContentDataUser',configJson.fondoMenu)} onMouseOver={divMouseOver.bind(this,'ContentDataUser',configJson.fondoMenu)}>	
+        			<Dropdown  id="ContenidoDataUser" className="ContenidoUser" onMouseOut={divMouseOut.bind(this,'ContenidoDataUser',configJson.fondoMenu)} onMouseOver={divMouseOver.bind(this,'ContenidoDataUser',configJson.fondoMenu)}>	
         				  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">  	  					 		  
-      				    	  <div className="NombreUsuario">{this.state.username}</div>	
+      				    	  <div className="FotoUsuario">
+                          <img src="https://cloud.logicalsoft.co/cloud/photo/ABCDEFGH0123456789.png" />
+                      </div>
+                      <div className="NombreUsuario">{this.state.username}</div>	
       				    	  <div className="OptionUsuario">
-      				    	  	<MaterialIcon size={30} icon="keyboard_arrow_down" invert />
+      				    	  	<MaterialIcon size={24} icon="keyboard_arrow_down" invert />
       				    	  </div>					
       				    </Dropdown.Toggle>
-      				    <Dropdown.Menu  style={{ marginTop: '50px'}}>
+      				    <Dropdown.Menu  style={{ marginTop: '54px',marginLeft: '5px',width:'300px'}}>
       				      	<Dropdown.Item eventKey="1" onClick={this.handleOpenModal.bind(this)}>
                           <div id="dropdownUserData" style={{height:'25px'}} onMouseOut={divMouseOut.bind(this,'dropdownUserData','#ffffff')} onMouseOver={divMouseOver.bind(this,'dropdownUserData','#c6c6c6')}>
                               <div style={{width:'30px',float:'left'}}>
