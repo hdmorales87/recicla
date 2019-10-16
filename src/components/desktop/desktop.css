@@ -122,11 +122,38 @@
     }
 }
 
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    label[for="navigationTrigger"] {
+        position: fixed;
+        left: 95px;
+        top: 6px;
+        z-index: 2;
+        height: 30px;
+        width: 30px;
+        cursor: pointer;
+        background-size: contain;
+    }
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger + label, .menuNavegacion {
+        transition: width .1s;
+    }
+}
+
 @media only screen and (max-width: 1024px){
-    .navigationTrigger:checked ~ .ContenedorDerechoEscritorio {
-        transform: translate3d(290px,0,0) rotateY(-30deg);
+    .navigationTrigger:checked ~ .ContenedorDerechoEscritorio { 
+        transform: translate3d(170px,0,0) rotateY(-30deg);
         box-shadow: 0 0 10px -1px rgba(0,0,0,0.5);
     } 
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger + label > i {
+        color: #fff;
+        font-size: 24px;
+        top: 0;
+    }
 }
 
 @media only screen and (max-width: 1024px){
