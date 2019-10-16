@@ -64,7 +64,7 @@ class NameUser extends Component {
 	  }   
     functionUpdateUser(){
         //actualizacion de datos de usuario
-        var formDataUser = globalState.getState().formDataUser;
+        var formDataUser = globalState.getState().formDataUser; 
         insertarActualizarFila('put','users',formDataUser)
         .then(response => {
             response = response.data;
@@ -73,7 +73,7 @@ class NameUser extends Component {
             }
             else {                
                 globalState.dispatch({
-                    type   : "windowOpen",
+                    type   : "windowOpen", 
                     params : false
                 });
                 //ACTUALIZAR EL GLOBAL STORE  

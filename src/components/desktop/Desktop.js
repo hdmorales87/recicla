@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import NameUser from './NameUser';
 import OptionMenu from './OptionMenu';
+import MaterialIcon from 'material-icons-react';
 import configJson from '../configuration/configuration.json';
 import globalState from '../configuration/GlobalState';
 import {checkSession,cargarFilas} from '../api_calls/ApiCalls';
@@ -17,7 +18,7 @@ import Container from './Container';
 import logo_login from '../../images/logo_login.png?v1.0';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
-import './desktop.css'; 
+import './desktop.css?v1.2'; 
 
 class Desktop extends Component {
 	  constructor(props) {//al cargarse trae los datos del usuario 		
@@ -88,8 +89,12 @@ class Desktop extends Component {
         	  return <Redirect to="/" />;
       	}  			 		
   	  	return (//carga el entorno del escritorio, barra de menu, barra superior y contenedor 	  		  
-  	  		  <div className="App">                 
-	 		          <div id="pestanas" className="navigationDesk" style={{backgroundColor:configJson.fondoMenu}}>
+  	  		  <div className="App">
+                <input type="checkbox" id="navigationTrigger" className="navigationTrigger" />     
+                <label id="labelnavigationTrigger" for="navigationTrigger">
+                    <MaterialIcon size={24} icon="menu" invert/>                    
+                </label>            
+	 		          <div id="pestanas" className="menuNavegacion" style={{backgroundColor:configJson.fondoMenu}}>
 	 		          	  <div className="LogoCabecera">
 	 		          	  	  <img src={ logo_login } alt="Recicla" />
 	 		          	  </div>
@@ -98,7 +103,7 @@ class Desktop extends Component {
 	 		          <div id="cabeceraDesk" className="cabeceraDesk" style={{backgroundColor:configJson.fondoCabecera}}>
 	 		          	  <NameUser className="ContentUser" history={this.props.history}/>  	    		
 	 		          </div>
-	    		      <div id="contenidopestanas" className="contentDesk">
+	    		      <div id="contenidopestanas" className="contenidoEscritorio">
 	    		 	        <Container componente={this.state.componente} funcionClick = {this.actualizarContainer} parametro={this.state.parametro}/>
 	    		      </div>	 		     
 	          </div>   	

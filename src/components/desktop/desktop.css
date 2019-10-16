@@ -7,13 +7,185 @@
 */
 
 
-.navigationDesk {
+/*.menuNavegacion {
     width: 290px;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
+}*/
+
+@media only screen and (min-width: 1115px){
+    .menuNavegacion {
+        width: 290px;
+        height: 100%;
+        position: absolute; 
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+}
+
+@media only screen and (min-width: 1115px){
+    .navigationTrigger:checked ~ .menuNavegacion {
+        width: 90px;
+    }
+}
+
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .menuNavegacion {
+        width: 90px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;   
+    }
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger:checked ~ .menuNavegacion {
+        width: 290px;
+        box-shadow: 0 0 5px 5px rgba(0,0,0,0.5);
+    }
+}
+
+@media only screen and (max-width: 1024px){
+    .menuNavegacion {
+        width: 290px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: -290px;
+        z-index: 1;
+    }
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger:not(checked) ~ #pestanas .LogoCabecera {
+        width: 90px;
+    }
+}
+
+@media only screen and (min-width: 1115px){
+    .navigationTrigger:checked ~ #pestanas .LiTitle {
+        width: 100%;
+        font-size: 10px;
+        margin: 0;
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 1115px){
+    .navigationTrigger:not(checked) ~ #pestanas .LiTitle {
+        width: calc(100% - 80px);
+        font-size: 16px;
+        margin: 15px 0 0 0;
+        text-align: left;
+    } 
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+   .navigationTrigger:not(checked) ~ #pestanas .LiTitle {
+        width: 100%;
+        font-size: 10px;
+        margin: 0;
+        text-align: center;
+    } 
+}
+
+@media only screen and (min-width: 1115px){
+    .navigationTrigger:not(checked) ~ #pestanas .LiDescrip {
+        width: calc(100% - 80px);
+        height: 25px;
+        font-size: 11px;
+    }
+}
+
+@media only screen and (min-width: 1115px){
+   .navigationTrigger:checked ~ #pestanas .LiDescrip {
+        width: 0;
+        height: 0;
+        font-size: 0;
+    } 
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger:not(checked) ~ #pestanas .LiDescrip {
+        width: 0;
+        height: 0;
+        font-size: 0; 
+    }
+}
+
+@media only screen and (min-width: 1115px){
+    .navigationTrigger {
+        position: absolute;
+        top: 0;
+        left: 0;
+        clip: rect(0,0,0,0);
+    }
+}
+
+@media only screen and (min-width: 1115px){
+    label[for="navigationTrigger"] {
+        position: fixed;
+        left: 255px;
+        top: 6px;
+        z-index: 2;
+        height: 0;
+        width: 0;
+        cursor: pointer;
+        background-size: contain;
+    }
+}
+
+@media only screen and (min-width: 1115px){
+    .navigationTrigger + label > i {
+        color: #fff;
+        font-size: 24px;
+        top: 0;
+    }    
+}
+
+input[type=checkbox] {
+    box-shadow: none;
+    width: 16px;
+}
+
+@media only screen and (min-width: 1115px){
+    .contenidoEscritorio {
+        min-height: calc(100% - 60px);
+        max-height: calc(100% - 60px);
+        width: 100%;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .contenidoEscritorio {
+        min-height: calc(100% - 60px);
+        max-height: calc(100% - 60px);
+        max-width: calc(100% - 90px);
+        width: 100%;
+        position: relative;
+        top: 0;
+        left: 90px;
+    }
+}
+
+@media only screen and (max-width: 1024px){
+    .contenidoEscritorio {
+        min-height: calc(100% - 60px);
+        min-width: 100%;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
 }
 
 * {
@@ -46,7 +218,7 @@
     left: 290px;
 }
 
-.contentDesk {
+.contenidoEscritorio {
     height: calc(100% - 60px);
     /*min-height: calc(100% - 60px);*/
     max-height: calc(100% - 60px);
@@ -192,16 +364,15 @@
 
 .LogoCabecera {
     margin: 5px 0;
-    width: 290px;
+    width: 250px;
     height: 58px;
     background-repeat: no-repeat;
 }
 
 .LogoCabecera > img{    
-    width: 240px;
-    height: 78px;
-    margin-left: 20px;
-    padding-top: 7px;
+    width: 230px;
+    height: 68px;
+    margin-left: 10px;   
 }
 
 body, html {
