@@ -15,6 +15,8 @@ import globalState from '../configuration/GlobalState';
 import {checkSession,cargarFilas} from '../api_calls/ApiCalls';
 import Container from './Container';
 import logo_login from '../../images/logo_login.png?v1.0';
+import alertify from 'alertifyjs';
+import '../../css/alertify.css';
 import './desktop.css'; 
 
 class Desktop extends Component {
@@ -34,19 +36,16 @@ class Desktop extends Component {
                 cargarFilas('users',usuario,1,0).then(res => {
                     var response = res.data; 
                     if (response.msg === "error") {
-                        //alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
-                    } else { 
-                        //globalState.getState().userData[0] =
+                        alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
+                    } else {                         
                         globalState.dispatch({
                             type   : "userData",
                             params : response
-                        });
-                        console.log('holalala');
-                        console.log(globalState.getState().userData);            
+                        });                                  
                     }
                 })
                 .catch( err => {            
-                    //alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
+                    alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
                 });
                 this.setState({ loading: false });
             } else {

@@ -21,21 +21,20 @@ import '../../css/alertify.css';
 
 class NameUser extends Component {
 	  constructor(props) {
-        super(props); 
-              
-        // var userData = globalState.getState().userData;
-        // console.log(userData);
-        // console.log(userData[0].nombre.toUpperCase());         
+        super(props);    
         this.btnLogoutSession = this.btnLogoutSession.bind(this);
         this.state = {
             showModal : false,
-            //username  : userData[0].nombre.toUpperCase()
+            username  : ''
         };
     }
-    componentDidMount(){
-        var userData = globalState.getState().userData;
-        console.log(userData);
-        this.setState({username  : userData[0].nombre.toUpperCase()})
+    componentDidMount(){//traer los datos del store
+        globalState.subscribe( ()=>{ 
+            if(globalState.getState().type==="userData"){        
+                var userData = globalState.getState().userData;       
+                this.setState({username  : userData[0].nombre.toUpperCase()})                
+            }
+        });  
     }
     //evento cerrar sesion
 	  btnLogoutSession(){//boton de cerrar sesion
