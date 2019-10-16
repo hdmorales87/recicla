@@ -7,7 +7,6 @@
 */
 
 import React, { Component } from 'react';
-import MaterialIcon from 'material-icons-react';
 import FormDataUser from '../desktop/FormDataUser';
 
 class WindowContainer extends Component {    

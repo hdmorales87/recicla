@@ -7,14 +7,12 @@
 */
 
 import React, { Component } from 'react';
-import configJson from '../configuration/configuration.json';
 import DashboardOption from './DashboardOption';
 import './dashboard.css';
 
 class Dashboard extends Component {
   	render() {
-        //LOS TIPOS DE GRAFICO SON PieChart y ColumnChart
-        const path = configJson.apiPath;              
+        //LOS TIPOS DE GRAFICO SON PieChart y ColumnChart                    
         return (            
             <div id="DashboardContenedor">
                 <ul>

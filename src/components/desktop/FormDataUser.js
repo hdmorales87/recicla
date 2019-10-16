@@ -7,13 +7,9 @@
 */
 
 import React, { Component } from 'react';
-import MaterialIcon from 'material-icons-react';
-import configJson from '../configuration/configuration.json';
-import alertify from 'alertifyjs';
 import ComboBoxFormDataGrid from '../data_grid/ComboBoxFormDataGrid';
 import globalState from '../configuration/GlobalState';
 import Form from 'react-bootstrap/Form';
-import {loadFormDataUser} from '../api_calls/ApiCalls';
 import './desktop.css'; 
 
 class FormDataUser extends Component {
@@ -21,8 +17,8 @@ class FormDataUser extends Component {
         super(props);
         var userData = globalState.getState().userData; 
         this.state = {  
-                        
-                        username : userData[0].email,
+                        id : userData[0].id,
+                        email : userData[0].email,
                         primer_nombre : userData[0].primer_nombre,
                         segundo_nombre : userData[0].segundo_nombre,
                         primer_apellido : userData[0].primer_apellido,
@@ -36,7 +32,8 @@ class FormDataUser extends Component {
         globalState.dispatch({//cargamos lo datos del formulario y los dejamos disponibles en toda la sesion
             type   : "formDataUser",
             params : {  
-                        username : userData[0].email,
+                        id : userData[0].id,
+                        email : userData[0].email,
                         primer_nombre : userData[0].primer_nombre,
                         segundo_nombre : userData[0].segundo_nombre,
                         primer_apellido : userData[0].primer_apellido,
@@ -53,13 +50,11 @@ class FormDataUser extends Component {
     }
     changeTipoIdentificacion(e){
         this.setState({ id_tipo_documento : e.target.value });
+        globalState.getState().formDataUser['id_tipo_documento'] = e.target.value;
     }
-    handleStateChange(e) {       
+    handleStateChange(e) {     //CARGAR AL ESTADO GLOBAL LOS DATOS DEL FUNCIONARIO  
         this.setState({ [e.target.name]: e.target.value }); 
-        globalState.dispatch({//cargamos lo datos del usuario y los dejamos disponibles en toda la sesion
-            type   : "formDataUser",
-            params : { [e.target.name] : e.target.value }
-        });         
+        globalState.getState().formDataUser[e.target.name] = e.target.value;                        
     }    
   	render() {
         
@@ -71,7 +66,7 @@ class FormDataUser extends Component {
                         <Form>
                             <Form.Group controlId="formBasicUsername">
                                  <Form.Label>Usuario</Form.Label>
-                                 <Form.Control name = "username" type="email" readOnly defaultValue={this.state.username}/>                               
+                                 <Form.Control name = "email" type="email" readOnly defaultValue={this.state.email}/>                               
                             </Form.Group>                        
                             <Form.Group controlId="formBasicFirstname">
                                  <Form.Label>Primer Nombre</Form.Label>

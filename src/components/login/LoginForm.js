@@ -8,9 +8,9 @@
 
 import React, { Component } from 'react';
 import './login.css';
-import empresa_login from '../../images/empresa_login.png?v1.0';
-import usuario_login from '../../images/usuario_login.png?v1.0';
-import password_login from '../../images/password_login.png?v1.0';
+import empresa_login from './../../images/empresa_login.png?v1.0';
+import usuario_login from './../../images/usuario_login.png?v1.0';
+import password_login from './../../images/password_login.png?v1.0';
 import {login,validaEmpresa} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
@@ -71,7 +71,7 @@ class LoginForm extends Component {
                 localStorage.id_empresa = this.state.id_empresa;
                 localStorage.empresa    = this.state.empresa;
                 localStorage.username   = this.state.username;
-                this.props.history.push({pathname: '/desktop', state : { usuario : response }}); 
+                this.props.history.push({pathname: '/desktop', state : { usuario : this.state.username }}); 
             }          
         }) 
         .catch( err => {            

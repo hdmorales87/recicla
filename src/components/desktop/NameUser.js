@@ -3,27 +3,28 @@
 *
 * Contiene el contenedor del nombre del usuario
 *
-* @author Hector Morales <warriorimport FormDataUser from './FormDataUser';1987@gmail.com>
+* @author Hector Morales <warrior1987@gmail.com>
 */
 
 import React, { Component } from 'react';
 import MaterialIcon from 'material-icons-react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import CustomToggle from './CustomToggleDropdown';
-import FormDataUser from './FormDataUser';
 import globalState from '../configuration/GlobalState';
 import configJson from '../configuration/configuration.json';
 import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import Window from '../window/Window';
-import {logout} from '../api_calls/ApiCalls';
+import {logout,insertarActualizarFila} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import './desktop.css';
 import '../../css/alertify.css';
 
 class NameUser extends Component {
 	  constructor(props) {
-        super(props);         
-        var userData = globalState.getState().userData;        
+        super(props); 
+              
+        var userData = globalState.getState().userData;
+        console.log(userData[0].nombre.toUpperCase());         
         this.btnLogoutSession = this.btnLogoutSession.bind(this);
         this.state = {
             showModal : false,
@@ -57,16 +58,33 @@ class NameUser extends Component {
         });
 	  }   
     functionUpdateUser(){
-        alert('hola');
+        //actualizacion de datos de usuario
         var formDataUser = globalState.getState().formDataUser;
-        console.log(formDataUser);
+        insertarActualizarFila('put','users',formDataUser)
+        .then(response => {
+            response = response.data;
+            if(response.msg === 'error'){
+                alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail); 
+            }
+            else {                
+                globalState.dispatch({
+                    type   : "windowOpen",
+                    params : false
+                });
+                //ACTUALIZAR EL GLOBAL STORE  
+                globalState.getState().userData[0] = formDataUser;                          
+            }
+        })
+        .catch(function (error) {
+            alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
+        });
     } 
     functionChangePassword(){
         alert('jejeje');
     } 
     render() {
     	  	return (//carga el menu de opciones del usuario  	  		
-        			<Dropdown  id="ContentUser" className="ContentUser" onMouseOut={divMouseOut.bind(this,'ContentUser',configJson.fondoMenu)} onMouseOver={divMouseOver.bind(this,'ContentUser',configJson.fondoMenu)}>	
+        			<Dropdown  id="ContentDataUser" className="ContentUser" onMouseOut={divMouseOut.bind(this,'ContentDataUser',configJson.fondoMenu)} onMouseOver={divMouseOver.bind(this,'ContentDataUser',configJson.fondoMenu)}>	
         				  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">  	  					 		  
       				    	  <div className="NombreUsuario">{this.state.username}</div>	
       				    	  <div className="OptionUsuario">
