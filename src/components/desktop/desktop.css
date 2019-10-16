@@ -7,48 +7,20 @@
 */
 
 
-/*.menuNavegacion {
-    width: 290px;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}*/
+/******************************MEDIA QUERYS********************************/
 
-@media only screen and (min-width: 1115px){
-    .cabeceraEscritorio {
-        min-height: 60px;
-        max-height: 60px;
-        width: 100%;
-        position: relative;
-        top: 0;
-        left: 0;
-    }
-}
+/**************************cambiar el fondo del escritorio****************/
 
 @media only screen and (max-width: 1024px){
-   .cabeceraEscritorio {
-        min-height: 60px;
-        min-width: 100%;
-        position: relative;
-        top: 0;
-        left: 0;
-    } 
-}
-
-@media only screen and (max-width: 1114px) and (min-width: 1025px){
-    .cabeceraEscritorio {
-        min-height: 60px;
-        max-height: 60px;
-        max-width: calc(100% - 90px);
-        width: 100%;
-        position: relative;
-        top: 0;
-        left: 90px;
+    body {
+        display: table;
+        background: rgb(42, 63, 84) !important;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
     }
 }
 
+/**************************menu de navegacion*****************************/
 
 @media only screen and (min-width: 1115px){
     .menuNavegacion {
@@ -86,6 +58,12 @@
     }
 }
 
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger + label, .menuNavegacion {
+        transition: width .1s;
+    }
+}
+
 @media only screen and (max-width: 1024px){
     .menuNavegacion {
         width: 290px;
@@ -103,127 +81,13 @@
     }
 }
 
-
-@media only screen and (min-width: 1115px){
-    .ContenedorDerechoEscritorio {
-        width: 100%;
-        height: 100%;
-        max-width: calc(100% - 290px);
-        position: absolute;
-        top: 0;
-        left: 290px;
-    }
-}
-
-@media only screen and (min-width: 1115px){
-    .navigationTrigger:checked ~ .ContenedorDerechoEscritorio {
-        max-width: calc(100% - 90px);
-        left: 90px;
-    }
-}
-
-@media only screen and (max-width: 1114px) and (min-width: 1025px){
-    label[for="navigationTrigger"] {
-        position: fixed;
-        left: 95px;
-        top: 6px;
-        z-index: 2;
-        height: 30px;
-        width: 30px;
-        cursor: pointer;
-        background-size: contain;
-    }
-}
-
-@media only screen and (max-width: 1114px) and (min-width: 1025px){
+@media only screen and (max-width: 1024px){
     .navigationTrigger + label, .menuNavegacion {
-        transition: width .1s;
+        transition: left .3s;
     }
 }
 
-@media only screen and (max-width: 1024px){
-    .navigationTrigger:checked ~ .ContenedorDerechoEscritorio { 
-        transform: translate3d(170px,0,0) rotateY(-30deg);
-        box-shadow: 0 0 10px -1px rgba(0,0,0,0.5);
-    } 
-}
-
-@media only screen and (max-width: 1114px) and (min-width: 1025px){
-    .navigationTrigger + label > i {
-        color: #fff;
-        font-size: 24px;
-        top: 0;
-    }
-}
-
-@media only screen and (max-width: 1114px) and (min-width: 1025px){
-    .navigationTrigger:checked ~ #pestanas .LiTitle {
-        width: calc(100% - 80px);
-        font-size: 16px;
-        margin: 15px 0 0 0;
-        text-align: left;
-    }
-}
-
-@media only screen and (max-width: 1114px) and (min-width: 1025px){
-   .navigationTrigger:not(checked) ~ #pestanas .LiTitle {
-        width: 100%;
-        font-size: 10px;
-        margin: 0;
-        text-align: center;
-    } 
-}
-
-@media only screen and (max-width: 1114px) and (min-width: 1025px){
-    .navigationTrigger:checked ~ #pestanas .LiDescrip {
-        width: calc(100% - 80px);
-        height: 25px;
-        font-size: 11px;
-    }
-}
-
-@media only screen and (max-width: 1114px) and (min-width: 1025px){
-    .navigationTrigger:not(checked) ~ #pestanas .LiDescrip {
-        width: 0;
-        height: 0;
-        font-size: 0;
-    }
-}
-
-@media only screen and (max-width: 1114px) and (min-width: 1025px){
-    .ContenedorDerechoEscritorio {
-        min-height: 100%;
-        min-width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-}
-
-@media only screen and (max-width: 1114px) and (min-width: 1025px){
-    .navigationTrigger:checked + label {
-        left: 255px;
-    }
-}
-
-
-@media only screen and (max-width: 1024px){
-    .ContenedorDerechoEscritorio {
-        min-height: 100%;
-        min-width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        transition-duration: .3s;
-        transform-origin: 100% center 0;
-    } 
-}
-
-@media only screen and (max-width: 1114px) and (min-width: 1025px){
-    .navigationTrigger:not(checked) ~ #pestanas .LogoCabecera {
-        width: 90px;
-    }
-}
+/*****************************titulos del los menus**************************/
 
 @media only screen and (min-width: 1115px){
     .navigationTrigger:checked ~ #pestanas .LiTitle {
@@ -252,6 +116,26 @@
     } 
 }
 
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger:checked ~ #pestanas .LiTitle {
+        width: calc(100% - 80px);
+        font-size: 16px;
+        margin: 15px 0 0 0;
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+   .navigationTrigger:not(checked) ~ #pestanas .LiTitle {
+        width: 100%;
+        font-size: 10px;
+        margin: 0;
+        text-align: center;
+    } 
+}
+
+/*************************Descripciones de los menus*************************/
+
 @media only screen and (min-width: 1115px){
     .navigationTrigger:not(checked) ~ #pestanas .LiDescrip {
         width: calc(100% - 80px);
@@ -269,6 +153,23 @@
 }
 
 @media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger:checked ~ #pestanas .LiDescrip {
+        width: calc(100% - 80px);
+        height: 25px;
+        font-size: 11px;
+    }
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger:not(checked) ~ #pestanas .LiDescrip {
+        width: 0;
+        height: 0;
+        font-size: 0;
+    }
+}
+
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
     .navigationTrigger:not(checked) ~ #pestanas .LiDescrip {
         width: 0;
         height: 0;
@@ -276,13 +177,25 @@
     }
 }
 
+/*****************************boton disparador*******************************/
+
+input[type=checkbox] {
+    box-shadow: none;
+    width: 16px;
+}
+
 @media only screen and (min-width: 1115px){
-    .navigationTrigger {
-        position: absolute;
-        top: 0;
-        left: 0;
-        clip: rect(0,0,0,0);
+    .navigationTrigger:checked + label {
+        left: 95px;
     }
+}
+
+@media only screen and (min-width: 1115px){
+    .navigationTrigger + label > i {
+        color: #fff;
+        font-size: 24px;
+        top: 0;
+    }    
 }
 
 @media only screen and (min-width: 1115px){
@@ -299,14 +212,21 @@
 }
 
 @media only screen and (min-width: 1115px){
-    .navigationTrigger + label > i {
-        color: #fff;
-        font-size: 24px;
+    .navigationTrigger {
+        position: absolute;
         top: 0;
-    }    
+        left: 0;
+        clip: rect(0,0,0,0);
+    }
 }
 
-@media only screen and (max-width: 1024px){
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger:checked + label {
+        left: 255px;
+    }
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
     .navigationTrigger + label > i {
         color: #fff;
         font-size: 24px;
@@ -314,12 +234,31 @@
     }
 }
 
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    label[for="navigationTrigger"] {
+        position: fixed;
+        left: 95px;
+        top: 6px;
+        z-index: 2;
+        height: 30px;
+        width: 30px;
+        cursor: pointer;
+        background-size: contain;
+    }
+}
+
+
 @media only screen and (max-width: 1024px){
-    .navigationTrigger {
-        position: absolute;
+    .navigationTrigger:checked + label {
+        left: 255px;
+    }
+}
+
+@media only screen and (max-width: 1024px){
+    .navigationTrigger + label > i {
+        color: #fff;
+        font-size: 24px;
         top: 0;
-        left: 0;
-        clip: rect(0,0,0,0);
     }
 }
 
@@ -337,21 +276,153 @@
 }
 
 @media only screen and (max-width: 1024px){
-    .navigationTrigger + label, .menuNavegacion {
-        transition: left .3s;
+    .navigationTrigger {
+        position: absolute;
+        top: 0;
+        left: 0;
+        clip: rect(0,0,0,0);
+    }
+}
+
+/*****************************contenedor derecho*****************************/
+
+.ContenedorDerechoEscritorio {
+    float: left;
+    width: 100%;
+    height: 100%;
+    float: left;
+    padding: 0;
+    margin: 0;
+    background-color: #2a3f54;
+}
+
+@media only screen and (min-width: 1115px){
+    .ContenedorDerechoEscritorio {
+        width: 100%;
+        height: 100%;
+        max-width: calc(100% - 290px);
+        position: absolute;
+        top: 0;
+        left: 290px;
+    }
+}
+
+@media only screen and (min-width: 1115px){
+    .navigationTrigger:checked ~ .ContenedorDerechoEscritorio {
+        max-width: calc(100% - 90px);
+        left: 90px;
+    }
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .ContenedorDerechoEscritorio {
+        min-height: 100%;
+        min-width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 }
 
 @media only screen and (max-width: 1024px){
-    .navigationTrigger:checked + label {
-        left: 255px;
+    .navigationTrigger:checked ~ .ContenedorDerechoEscritorio { 
+        transform: translate3d(170px,0,0) rotateY(-30deg);
+        box-shadow: 0 0 10px -1px rgba(0,0,0,0.5);
+    } 
+}
+
+@media only screen and (max-width: 1024px){
+    .ContenedorDerechoEscritorio {
+        min-height: 100%;
+        min-width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition-duration: .3s;
+        transform-origin: 100% center 0;
+    } 
+}
+
+/************************cabecera del escritorio***************************/
+
+@media only screen and (min-width: 1115px){
+    .cabeceraEscritorio {
+        min-height: 60px;
+        max-height: 60px;
+        width: 100%;
+        position: relative;
+        top: 0;
+        left: 0;
     }
 }
 
-input[type=checkbox] {
-    box-shadow: none;
-    width: 16px;
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .cabeceraEscritorio {
+        min-height: 60px;
+        max-height: 60px;
+        max-width: calc(100% - 90px);
+        width: 100%;
+        position: relative;
+        top: 0;
+        left: 90px;
+    }
 }
+
+@media only screen and (max-width: 1024px){
+   .cabeceraEscritorio {
+        min-height: 60px;
+        min-width: 100%;
+        position: relative;
+        top: 0;
+        left: 0;
+    } 
+}
+
+/*******************************logo de la cabecera*******************************/
+
+@media only screen and (min-width: 1115px){
+    .navigationTrigger:checked ~ #pestanas .LogoCabecera {
+        background-image: url(./../../images/logo_login.min.png?v1.0);
+    }
+}
+
+@media only screen and (min-width: 1115px){
+   .navigationTrigger:not(checked) ~ #pestanas .LogoCabecera {
+        background-image: url(./../../images/logo_login.png?v1.0);
+    } 
+}
+
+@media only screen and (min-width: 1115px){
+   .navigationTrigger:checked ~ #pestanas .LogoCabecera {
+        width: 70px;
+    } 
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger:checked ~ #pestanas .LogoCabecera {
+        width: 290px;
+    }
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger:checked ~ #pestanas .LogoCabecera {
+        background-image: url(./../../images/logo_login.png?v1.0);
+    }
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger:not(checked) ~ #pestanas .LogoCabecera {
+        background-image: url(./../../images/logo_login.min.png?v1.0);
+    }
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger:not(checked) ~ #pestanas .LogoCabecera {
+        width: 90px;
+    }
+}
+
+/****************************contenedor del escritorio**************************/
 
 @media only screen and (min-width: 1115px){
     .contenidoEscritorio {
@@ -385,6 +456,8 @@ input[type=checkbox] {
         left: 0;
     }
 }
+
+/********************************ESTILOS DEL ESCRITORIO********************************/
 
 * {
     margin: 0;
@@ -416,15 +489,7 @@ input[type=checkbox] {
     left: 290px;
 }
 
-.ContenedorDerechoEscritorio {
-    float: left;
-    width: 100%;
-    height: 100%;
-    float: left;
-    padding: 0;
-    margin: 0;
-    background-color: #2a3f54;
-}
+
 
 
 #lista{
@@ -565,13 +630,12 @@ input[type=checkbox] {
     margin: 5px 0;
     width: 250px;
     height: 58px;
+    margin-left: 10px;
     background-repeat: no-repeat;
 }
 
-.LogoCabecera > img{    
-    width: 230px;
-    height: 68px;
-    margin-left: 10px;   
+.LogoCabecera {
+    background-image: url(./../../images/logo_login.png?v1.0);
 }
 
 body, html {

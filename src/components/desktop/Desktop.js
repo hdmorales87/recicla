@@ -96,7 +96,7 @@ class Desktop extends Component {
                 </label>            
 	 		          <div id="pestanas" className="menuNavegacion" style={{backgroundColor:configJson.fondoMenu}}>
 	 		          	  <div className="LogoCabecera">
-	 		          	  	  <img src={ logo_login } alt="Recicla" />
+	 		          	  	  
 	 		          	  </div>
 	 		          	  <OptionMenu funcionClick = {this.actualizarContainer}/>
 	 		          </div>
