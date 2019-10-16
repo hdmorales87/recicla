@@ -23,13 +23,19 @@ class NameUser extends Component {
 	  constructor(props) {
         super(props); 
               
-        var userData = globalState.getState().userData;
-        console.log(userData[0].nombre.toUpperCase());         
+        // var userData = globalState.getState().userData;
+        // console.log(userData);
+        // console.log(userData[0].nombre.toUpperCase());         
         this.btnLogoutSession = this.btnLogoutSession.bind(this);
         this.state = {
             showModal : false,
-            username  : userData[0].nombre.toUpperCase()
+            //username  : userData[0].nombre.toUpperCase()
         };
+    }
+    componentDidMount(){
+        var userData = globalState.getState().userData;
+        console.log(userData);
+        this.setState({username  : userData[0].nombre.toUpperCase()})
     }
     //evento cerrar sesion
 	  btnLogoutSession(){//boton de cerrar sesion

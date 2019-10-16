@@ -18,8 +18,8 @@ import logo_login from '../../images/logo_login.png?v1.0';
 import './desktop.css'; 
 
 class Desktop extends Component {
-	  constructor(props, context) {//al cargarse trae los datos del usuario 		
-      	super(props, context);  
+	  constructor(props) {//al cargarse trae los datos del usuario 		
+      	super(props);  
         var usuario = this.props.location.state.usuario;              
       	this.state = { 
       		  loading: true,
@@ -27,40 +27,53 @@ class Desktop extends Component {
       	 	  componente: "WelcomePage",
       	 	  parametro : "" 
 	      }; 
-        cargarFilas('users',usuario,1,0).then(res => {
+        checkSession()
+        .then(res => {
             var response = res.data; 
-            if (response.msg === "error") {
-                //alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
-            } else { 
-                //globalState.getState().userData[0] =
-                globalState.dispatch({
-                    type   : "userData",
-                    params : response
+            if (response.session === "true") {
+                cargarFilas('users',usuario,1,0).then(res => {
+                    var response = res.data; 
+                    if (response.msg === "error") {
+                        //alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
+                    } else { 
+                        //globalState.getState().userData[0] =
+                        globalState.dispatch({
+                            type   : "userData",
+                            params : response
+                        });
+                        console.log('holalala');
+                        console.log(globalState.getState().userData);            
+                    }
+                })
+                .catch( err => {            
+                    //alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
                 });
-                console.log(globalState.getState().userData);              
-                //this.setState({ resultRows: response[0].total })
+                this.setState({ loading: false });
+            } else {
+                this.setState({ loading: false, redirect: true });
             }
         })
-        .catch( err => {            
-            //alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
-        });
+        .catch(err => {
+            console.error(err);
+            this.setState({ loading: false, redirect: true });
+        });         
 
 	      this.actualizarContainer = this.actualizarContainer.bind(this);	
 	  } 
 	  componentDidMount() {//cada que se monte el escritorio debe validar la sesion       
-      	checkSession()
-  	  	.then(res => {
-            var response = res.data; 
-  	  	  	if (response.session === "true") {
-  	  	  	  	this.setState({ loading: false });
-  	  	  	} else {
-  	  	  	  	this.setState({ loading: false, redirect: true });
-  	  	  	}
-  	  	})
-  	  	.catch(err => {
-  	  	  	console.error(err);
-  	  	  	this.setState({ loading: false, redirect: true });
-  	  	});            
+      // 	checkSession()
+  	  	// .then(res => {
+      //       var response = res.data; 
+  	  	//   	if (response.session === "true") {
+  	  	//   	  	this.setState({ loading: false, redirect: false });
+  	  	//   	} else {
+  	  	//   	  	this.setState({ loading: false, redirect: true });
+  	  	//   	}
+  	  	// })
+  	  	// .catch(err => {
+  	  	//   	console.error(err);
+  	  	//   	this.setState({ loading: false, redirect: true });
+  	  	// });            
     }	
 	  actualizarContainer(val,param){//carga dinamica del lado derecho	
 		    this.setState({ componente: val });
