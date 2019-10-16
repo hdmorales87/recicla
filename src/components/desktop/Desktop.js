@@ -100,12 +100,14 @@ class Desktop extends Component {
 	 		          	  </div>
 	 		          	  <OptionMenu funcionClick = {this.actualizarContainer}/>
 	 		          </div>
-	 		          <div id="cabeceraDesk" className="cabeceraDesk" style={{backgroundColor:configJson.fondoCabecera}}>
-	 		          	  <NameUser className="ContentUser" history={this.props.history}/>  	    		
-	 		          </div>
-	    		      <div id="contenidopestanas" className="contenidoEscritorio">
-	    		 	        <Container componente={this.state.componente} funcionClick = {this.actualizarContainer} parametro={this.state.parametro}/>
-	    		      </div>	 		     
+                <div id="ContenedorDerechoEscritorio" class="ContenedorDerechoEscritorio">
+	 		              <div id="cabeceraEscritorio" className="cabeceraEscritorio" style={{backgroundColor:configJson.fondoCabecera}}>
+	 		              	  <NameUser className="ContentUser" history={this.props.history}/>  	    		
+	 		              </div>
+	    		          <div id="contenidopestanas" className="contenidoEscritorio">
+	    		 	           <Container componente={this.state.componente} funcionClick = {this.actualizarContainer} parametro={this.state.parametro}/>
+	    		          </div>	
+                </div> 		     
 	          </div>   	
 		    );
   	}
