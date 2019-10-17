@@ -28,7 +28,8 @@ class Desktop extends Component {
       		  loading: true,
           	redirect: false,	 		                
       	 	  componente: "WelcomePage",
-      	 	  parametro : "" 
+      	 	  parametro : "",
+            checkMenu : false 
 	      }; 
         checkSession()
         .then(res => {
@@ -59,26 +60,38 @@ class Desktop extends Component {
         });         
 
 	      this.actualizarContainer = this.actualizarContainer.bind(this);	
+
+        globalState.subscribe( ()=>{ 
+            if(globalState.getState().type==="menuNavegacion"){                             
+                this.setState({checkMenu  : globalState.getState().menuNavegacion});                               
+            }
+        });
 	  } 
+    
 	  componentDidMount() {//cada que se monte el escritorio debe validar la sesion       
-      // 	checkSession()
-  	  	// .then(res => {
-      //       var response = res.data; 
-  	  	//   	if (response.session === "true") {
-  	  	//   	  	this.setState({ loading: false, redirect: false });
-  	  	//   	} else {
-  	  	//   	  	this.setState({ loading: false, redirect: true });
-  	  	//   	}
-  	  	// })
-  	  	// .catch(err => {
-  	  	//   	console.error(err);
-  	  	//   	this.setState({ loading: false, redirect: true });
-  	  	// });            
+        //...           
     }	
+
 	  actualizarContainer(val,param){//carga dinamica del lado derecho	
 		    this.setState({ componente: val });
 		    this.setState({ parametro : param });		
 	  }	
+
+    handleButtonMenu(e){//el boton que muestra esconde la barra de navegacion   
+        var opcionCheck = true;
+        if(this.state.checkMenu === true){
+            opcionCheck = false;
+        } 
+        globalState.dispatch({
+                            type   : "menuNavegacion",
+                            params : opcionCheck
+                        });
+    }
+
+    changeNavigationTrigger(e){
+        //........
+    }
+
   	render() {
   		  const { loading, redirect } = this.state;        
   		  if (loading) {
@@ -90,8 +103,8 @@ class Desktop extends Component {
       	}  			 		
   	  	return (//carga el entorno del escritorio, barra de menu, barra superior y contenedor 	  		  
   	  		  <div className="App">
-                <input type="checkbox" id="navigationTrigger" className="navigationTrigger" />     
-                <label id="labelnavigationTrigger" for="navigationTrigger">
+                <input type="checkbox" id="navigationTrigger" className="navigationTrigger" checked={this.state.checkMenu} onChange={this.changeNavigationTrigger.bind(this)} />     
+                <label id="labelnavigationTrigger" htmlFor="navigationTrigger" onClick={this.handleButtonMenu.bind(this)}>
                     <MaterialIcon size={24} icon="menu" invert/>                    
                 </label>            
 	 		          <div id="pestanas" className="menuNavegacion" style={{backgroundColor:configJson.fondoMenu}}>
@@ -100,7 +113,7 @@ class Desktop extends Component {
 	 		          	  </div>
 	 		          	  <OptionMenu funcionClick = {this.actualizarContainer}/>
 	 		          </div>
-                <div id="ContenedorDerechoEscritorio" class="ContenedorDerechoEscritorio">
+                <div id="ContenedorDerechoEscritorio" className="ContenedorDerechoEscritorio">
 	 		              <div id="cabeceraEscritorio" className="cabeceraEscritorio" style={{backgroundColor:configJson.fondoCabecera}}>
 	 		              	  <NameUser className="ContentUser" history={this.props.history}/>  	    		
 	 		              </div>

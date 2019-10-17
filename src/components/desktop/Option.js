@@ -10,12 +10,19 @@ import React, { Component } from 'react';
 import MaterialIcon from 'material-icons-react';
 import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import configJson from '../configuration/configuration.json';
+import globalState from '../configuration/GlobalState';
 import './desktop.css';
 
 class Option extends Component {
-    handleContainerChange(){
+    handleContainerChange(){//mostrar/esconder la barra de menu
         this.props.funcionClick(this.props.componente);
-        console.log(window.innerWidth);        
+        var anchoPantalla = window.innerWidth; 
+        if(anchoPantalla < 1115){            
+            globalState.dispatch({
+                            type   : "menuNavegacion",
+                            params : false
+                        });
+        }     
     }
   	render() {
   	  	return (
