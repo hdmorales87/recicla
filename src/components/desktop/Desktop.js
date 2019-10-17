@@ -18,7 +18,7 @@ import Container from './Container';
 import logo_login from '../../images/logo_login.png?v1.0';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
-import './desktop.css?v1.2'; 
+import './desktop.css?v1.5'; 
 
 class Desktop extends Component {
 	  constructor(props) {//al cargarse trae los datos del usuario 		

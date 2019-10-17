@@ -12,13 +12,20 @@
 /**************************cambiar el fondo del escritorio****************/
 
 @media only screen and (max-width: 1024px){
-    .navigationTrigger:checked ~ .menuNavegacion {
-        body {
-            display: table;
-            background: rgb(42, 63, 84) !important;
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-        }
+    .navigationTrigger:checked ~ .body {       
+        display: table;
+        background: rgb(42, 63, 84) !important;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;        
+    }
+}
+
+@media only screen and (max-width: 1114px) and (min-width: 1025px){
+    .navigationTrigger:checked ~ .body {        
+        display: table;
+        background: rgb(42, 63, 84) !important;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;        
     }
 }
 
@@ -328,7 +335,7 @@ input[type=checkbox] {
 
 @media only screen and (max-width: 1024px){
     .navigationTrigger:checked ~ .ContenedorDerechoEscritorio { 
-        transform: translate3d(170px,0,0) rotateY(-30deg);
+        transform: translate3d(160px,0,0) rotateY(-30deg);
         box-shadow: 0 0 10px -1px rgba(0,0,0,0.5);
     } 
 }
@@ -613,7 +620,7 @@ input[type=checkbox] {
 #pestanas .LiIcon {
     width: 48px;
     height: 48px;
-    margin: 10px 12px;
+    margin: 0px 12px;
     margin-left: 20px;
     float: left;
 }
