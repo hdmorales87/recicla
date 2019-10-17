@@ -44,21 +44,23 @@ class DataGridRow extends React.Component {
         });        
     }
     render() {
-        var dataRow = this.props.dataRow;
+        var dataRow = this.props.dataRow;        
         return(//carga las celdas con los datos y adiciona los botones de editar y eliminar
             <tr>      
                 <td>{dataRow.id}</td> 
                 {
-                    this.props.colsData.map((colsData,i) => {
-                        return <td key={ i }>{dataRow[colsData]}</td>
+                    this.props.colsData.map((colsData,i) => {                        
+                        return <td data-title={this.props.colsHeaders[i]} key={ i }>{dataRow[colsData]}&nbsp;</td>
                     })
                 }                                 
-                <td>
-                    <div className="float-left mr-3">
-                        <Button id="dataGridBtnEdit" variant="primary" onClick={this.handleEditButton.bind(this,dataRow)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'dataGridBtnEdit',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'dataGridBtnEdit',configJson.fondoBotonGrilla)}>EDITAR</Button>
-                    </div>
-                    <div className="float-left">
-                        <Button id="dataGridBtnDelete" variant="danger" onClick={this.handleDeleteButton.bind(this,dataRow.id)} onMouseOut={divMouseOut.bind(this,'dataGridBtnDelete','#dc3545')} onMouseOver={divMouseOver.bind(this,'dataGridBtnDelete','#dc3545')}>ELIMINAR</Button>                        
+                <td className="filaBotones"> 
+                    <div style={{width:'160px'}}>
+                        <div id="divBotonEditar" className="float-left mr-3">
+                            <Button id="dataGridBtnEdit" variant="primary" onClick={this.handleEditButton.bind(this,dataRow)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'dataGridBtnEdit',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'dataGridBtnEdit',configJson.fondoBotonGrilla)}>EDITAR</Button>
+                        </div>
+                        <div className="float-left">
+                            <Button id="dataGridBtnDelete" variant="danger" onClick={this.handleDeleteButton.bind(this,dataRow.id)} onMouseOut={divMouseOut.bind(this,'dataGridBtnDelete','#dc3545')} onMouseOver={divMouseOver.bind(this,'dataGridBtnDelete','#dc3545')}>ELIMINAR</Button>                        
+                        </div>
                     </div>
                 </td>     
             </tr>

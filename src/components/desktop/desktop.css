@@ -335,7 +335,7 @@ input[type=checkbox] {
 
 @media only screen and (max-width: 1024px){
     .navigationTrigger:checked ~ .ContenedorDerechoEscritorio { 
-        transform: translate3d(160px,0,0) rotateY(-30deg);
+        transform: translate3d(150px,0,0) rotateY(-30deg);
         box-shadow: 0 0 10px -1px rgba(0,0,0,0.5);
     } 
 }

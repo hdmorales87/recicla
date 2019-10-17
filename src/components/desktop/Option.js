@@ -14,7 +14,8 @@ import './desktop.css';
 
 class Option extends Component {
     handleContainerChange(){
-        this.props.funcionClick(this.props.componente);        
+        this.props.funcionClick(this.props.componente);
+        console.log(window.innerWidth);        
     }
   	render() {
   	  	return (

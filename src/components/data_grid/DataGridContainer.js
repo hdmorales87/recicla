@@ -65,26 +65,29 @@ class DataGridContainer extends Component {
   	render() {  
         if (this.state.content.length > 0) {
             return (//carga dinamica de la cabecera y del listado
-                <Table responsive>
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            {
-                                this.props.colsHeaders.map((colsHeaders,i) => {
-                                    return <th key={ i }>{colsHeaders}</th>
-                                })
-                            }                          
-                            <th style= {{width: '180px'}}>Acciones</th>
-                        </tr>
-                    </thead>      
-                    <DataGridList listado={this.state.content} 
-                                  titulo={this.props.titulo}
-                                  funcionClick={this.props.funcionClick} 
-                                  colsData={this.props.colsData} 
-                                  apiField={this.props.apiField}
-                                  formFields={this.props.formFields}
-                                  mainContainer={this.props.mainContainer}/>                                       
-                </Table>
+                <div id="no-more-tables">
+                    <Table responsive>
+                        <thead className="cf">
+                            <tr>
+                                <th>No</th>
+                                {
+                                    this.props.colsHeaders.map((colsHeaders,i) => {
+                                        return <th key={ i }>{colsHeaders}</th>
+                                    })
+                                }                          
+                                <th style= {{width: '180px'}}>Acciones</th>
+                            </tr>
+                        </thead>      
+                        <DataGridList listado={this.state.content} 
+                                      titulo={this.props.titulo}
+                                      funcionClick={this.props.funcionClick} 
+                                      colsData={this.props.colsData} 
+                                      apiField={this.props.apiField}
+                                      formFields={this.props.formFields}
+                                      mainContainer={this.props.mainContainer}
+                                      colsHeaders={this.props.colsHeaders}/>                                       
+                    </Table>
+                </div>
             )
         } else {
             return <div className="titulo">No hay registros...</div>
