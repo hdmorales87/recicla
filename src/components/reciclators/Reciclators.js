@@ -12,8 +12,70 @@ import DataGrid from '../data_grid/DataGrid';
 class Reciclators extends Component {  	
   	render() {
   	  	return (  	  		  
-  	  		  <div className="App">      
- 			  </div> 	
+  	  		<DataGrid titulo='Recicladores' 
+                      funcionClick={this.props.funcionClick}  
+                      parametro={this.props.parametro}                     
+                      colsHeaders={[ 'Tipo Documento','Documento','Nombre','Direccion','Telefono','Celular' ]}
+                      colsData={[ 'tipo_documento','documento','nombre','direccion','telefono','celular' ]} 
+                      formFields={[
+                                    {
+                                        label : 'Tipo de Documento',
+                                        field : 'id_tipo_documento',
+                                        type  : 'select',
+                                        validation : '',
+                                        required : 'true',
+                                        dinamic : 'true',
+                                        apiField : 'document_types',
+                                        valueName : 'nombre'
+                                    },                                    
+                                    {
+                                        label : 'Documento',
+                                        field : 'documento',
+                                        type  : 'text',
+                                        validation : 'entero',
+                                        required : 'true'                                        
+                                    },
+                                    {
+                                        label : 'Nombre Completo',
+                                        field : 'nombre',
+                                        type  : 'text',
+                                        validation : 'mayusculas',
+                                        required : 'true'
+                                    },                                                                      
+                                    {
+                                        label : 'Direccion',
+                                        field : 'direccion',
+                                        type  : 'text',
+                                        validation : 'mayusculas',
+                                        required : 'true'
+                                    },
+                                    {
+                                        label : 'Telefono',
+                                        field : 'telefono',
+                                        type  : 'text',
+                                        validation : 'mayusculas',
+                                        required : 'true'
+                                    },
+                                    {
+                                        label : 'Celular',
+                                        field : 'celular',
+                                        type  : 'text',
+                                        validation : 'mayusculas',
+                                        required : 'true'
+                                    },
+                                    {
+                                        label : 'Caracterizacion',
+                                        field : 'id_tipo_compra',
+                                        type  : 'select',
+                                        validation : '',
+                                        required : 'true',
+                                        dinamic : 'true',
+                                        apiField : 'purchase_types',
+                                        valueName : 'nombre'
+                                    },
+                                ]}                     
+                      apiField = {'reciclators'}
+                      mainContainer='Reciclators'/> 	
   	  	);
   	}
 }

@@ -9,11 +9,7 @@
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
 
-class Customers extends Component {
-
-  	handleClick(val) {
-  	  	this.setState({ justClicked: val });
-  	}
+class Customers extends Component {  	
   	render() {
   	  	return (  	  		  
   	  		  <DataGrid titulo='Clientes' 
