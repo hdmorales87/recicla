@@ -65,3 +65,7 @@
 .filaBotones{
 	width:180px;
 }
+
+.container{
+    margin-left: unset !important;
+}

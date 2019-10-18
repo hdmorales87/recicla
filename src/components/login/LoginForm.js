@@ -71,7 +71,7 @@ class LoginForm extends Component {
                 localStorage.id_empresa = this.state.id_empresa;
                 localStorage.empresa    = this.state.empresa;
                 localStorage.username   = this.state.username;
-                this.props.history.push({pathname: '/desktop', state : { usuario : this.state.username }}); 
+                this.props.history.push({pathname: '/desktop', state : { usuario : this.state.username,empresa : this.state.empresa }}); 
             }          
         }) 
         .catch( err => {            

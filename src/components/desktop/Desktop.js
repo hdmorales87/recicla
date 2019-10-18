@@ -13,7 +13,7 @@ import OptionMenu from './OptionMenu';
 import MaterialIcon from 'material-icons-react';
 import configJson from '../configuration/configuration.json';
 import globalState from '../configuration/GlobalState';
-import {checkSession,cargarFilas} from '../api_calls/ApiCalls';
+import {checkSession,cargarFilas,validaEmpresa} from '../api_calls/ApiCalls';
 import Container from './Container';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
@@ -22,7 +22,8 @@ import './desktop.css?v1.5';
 class Desktop extends Component {
 	  constructor(props) {//al cargarse trae los datos del usuario 		
       	super(props);  
-        var usuario = this.props.location.state.usuario;              
+        var usuario = this.props.location.state.usuario; 
+        var empresa = this.props.location.state.empresa;             
       	this.state = { 
       		  loading: true,
           	redirect: false,	 		                
@@ -48,6 +49,32 @@ class Desktop extends Component {
                 .catch( err => {            
                     alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
                 });
+
+                validaEmpresa(empresa)        
+                .then(res => {
+                    var response = res.data;                       
+                    if(response.msg === 'notExist'){//aqui no me dejara continuar si la empresa noe xiste
+                        alertify.error('La empresa no existe!'); 
+                        //this.inputEmpresa.current.focus();
+                    }
+                    else if(response.msg === 'error'){//aqui no me dejara continuar si hay un error
+                        alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
+                        //this.inputEmpresa.current.focus();
+                    }
+                    else{
+                        //this.setState({id_empresa: response[0].id}); //CARGAR EL ID EMPRESA  
+                        globalState.dispatch({
+                            type   : "companyData",
+                            params : response
+                        });              
+                        //alertify.success(response[0].razon_social);                
+                    }          
+                }) 
+                .catch( err => {            
+                    alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
+                    //this.inputEmpresa.current.focus();
+                });
+
                 this.setState({ loading: false });
             } else {
                 this.setState({ loading: false, redirect: true });

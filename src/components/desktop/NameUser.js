@@ -14,7 +14,7 @@ import globalState from '../configuration/GlobalState';
 import configJson from '../configuration/configuration.json';
 import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import Window from '../window/Window';
-import {logout,insertarActualizarFila} from '../api_calls/ApiCalls';
+import {logout,insertarActualizarFila,sendEmailPassword} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import './desktop.css';
 import '../../css/alertify.css';
@@ -24,17 +24,24 @@ class NameUser extends Component {
         super(props);    
         this.btnLogoutSession = this.btnLogoutSession.bind(this);
         this.state = {
-            showModal : false,
-            username  : ''
+            showModal   : false,
+            username    : '',
+            companyName : ''
         };
     }
     componentDidMount(){//traer los datos del store
         globalState.subscribe( ()=>{ 
             if(globalState.getState().type==="userData"){        
                 var userData = globalState.getState().userData;       
-                this.setState({username  : userData[0].primer_nombre.toUpperCase()+userData[0].primer_apellido.toUpperCase()})                
+                this.setState({username  : userData[0].primer_nombre.toUpperCase()+' '+userData[0].primer_apellido.toUpperCase()})                
             }
         });  
+        globalState.subscribe( ()=>{ 
+            if(globalState.getState().type==="companyData"){        
+                var companyData = globalState.getState().companyData;       
+                this.setState({companyName  : companyData[0].razon_social.toUpperCase()})                
+            }
+        }); 
     }
     //evento cerrar sesion
 	  btnLogoutSession(){//boton de cerrar sesion
@@ -85,7 +92,20 @@ class NameUser extends Component {
         });
     } 
     functionChangePassword(){
-        alert('jejeje');
+        var email = globalState.getState().userData[0].email;
+        //enviar al correo la recuperacion de la contraseña        
+        sendEmailPassword(email).then(response => {
+            response = response.data;
+            if(response.msg === 'error'){
+                alertify.alert('Error!', 'Ha ocurrido un error enviando el correo a '+email+'!<br />Codigo de Error: '+response.detail); 
+            }
+            else {
+                alertify.alert('Envio Exitoso!', 'Se ha enviado un correo a '+email+'!'); 
+            }
+        })
+        .catch(function (error) {
+            alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
+        });
     } 
     render() {
     	  	return (//carga el menu de opciones del usuario  	  		
@@ -94,7 +114,14 @@ class NameUser extends Component {
       				    	  <div className="FotoUsuario">
                           <img src="https://cloud.logicalsoft.co/cloud/photo/ABCDEFGH0123456789.png" />
                       </div>
-                      <div className="NombreUsuario">{this.state.username}</div>	
+                      <div className="NombreUsuario">
+                          <div style={{width:'100%'}}>
+                              {this.state.username}
+                          </div>
+                          <div style={{width:'100%'}}>
+                              {this.state.companyName}
+                          </div>	
+                      </div>
       				    	  <div className="OptionUsuario">
       				    	  	<MaterialIcon size={24} icon="keyboard_arrow_down" invert />
       				    	  </div>					

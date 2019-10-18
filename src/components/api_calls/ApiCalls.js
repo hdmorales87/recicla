@@ -88,6 +88,12 @@ export function cargarDatosReporte(table,fecha1,fecha2){
 	        });
 }
 
-export function loadFormDataUser(id_usuario){
-
+export function sendEmailPassword(email){
+	//envia correo para cambiar password
+	return axios({
+        	    method: 'post',
+        	    url: path+'emailPassword',
+        	    data: { 'email': email },
+        	    withCredentials: true
+        	});	
 }
