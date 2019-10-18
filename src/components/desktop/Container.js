@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import Dashboard from '../dashboard/Dashboard';
 import Reciclators from '../reciclators/Reciclators';
-import Costumers from '../costumers/Costumers';
+import Customers from '../customers/Customers';
 import Purchases from '../purchases/Purchases';
 import ControlPanel from '../control_panel/ControlPanel';
 import DocumentTypes from '../control_panel/DocumentTypes';
@@ -27,7 +27,7 @@ class Container extends Component {
 			WelcomePage   : WelcomePage,
 			Dashboard     : Dashboard,
 			Reciclators   : Reciclators,
-			Costumers     : Costumers,
+			Customers     : Customers,
 			Purchases     : Purchases,
 			ControlPanel  : ControlPanel,			
 			DocumentTypes : DocumentTypes,

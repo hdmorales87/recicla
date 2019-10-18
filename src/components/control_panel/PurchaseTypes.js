@@ -33,7 +33,7 @@ class PurchaseTypes extends Component {
                                         required : 'true'
                                     }
                                 ]}                     
-                      apiField={'document_types'}
+                      apiField={'purchase_types'}
                       mainContainer='PurchaseTypes'/>             
         )
     } 

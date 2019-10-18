@@ -24,7 +24,7 @@
 								"titulo" : "Clientes",
 								"subtitulo" : "Compradores de Chatarra",
 								"icono" : "person",
-								"componente": "Costumers"
+								"componente": "Customers"
 						 	},
 						 	{
 								"tab" : "pestana3",
