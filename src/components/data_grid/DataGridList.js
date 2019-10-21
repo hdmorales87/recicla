@@ -17,6 +17,7 @@ class DataGridList extends React.Component {
               {
                   this.props.listado.map((listado,i) => {
                       return <DataGridRow key={ i }
+                                               numberRow = {i}
                                                dataRow = {listado}  
                                                titulo={this.props.titulo}                                                                                   
                                                funcionClick={this.props.funcionClick} 

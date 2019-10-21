@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button';
 import ComboBoxFormDataGrid from './ComboBoxFormDataGrid';
 import configJson from '../configuration/configuration.json';
 import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
-import {insertarActualizarFila} from '../api_calls/ApiCalls';
+import {insertarActualizarFila,eliminarFilas} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 import './dataGrid.css'; 
@@ -45,6 +45,7 @@ class FormDataGrid extends Component {
         //botones de cancelar y guardar      
         this.handleCancelButton = this.handleCancelButton.bind(this);
         this.handleSaveButton   = this.handleSaveButton.bind(this);
+        this.handleConfirmAction = this.handleConfirmAction.bind(this);
     }   
     handleCancelButton(){
         this.props.funcionClick(this.props.parametro.mainContainer);        
@@ -99,6 +100,27 @@ class FormDataGrid extends Component {
     //manejo dinamico de los estados, con esto actualizo el valor de cualquier campo para enviarlos a la API
     handleStateChange(e) {       
         this.setState({ [e.target.name]: e.target.value });     
+    }
+    handleDeleteButton(id){//boton eliminar
+        alertify.confirm('Confirmacion', 'Esta seguro(a) de eliminar este item?', this.handleConfirmAction.bind(this,id), function(){});
+    }   
+    handleConfirmAction(id) {        
+        //CODIGO PARA ELIMINAR LA FILA        
+        eliminarFilas(this.props.parametro.apiField,id)
+        .then(response => {            
+            response = response.data;
+            if(response.msg === 'error'){
+                alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail); 
+            }
+            else if(response.msg === 'notExist'){
+                alertify.alert('Error!', 'El dato a eliminar no existe!'); 
+            }
+            this.props.funcionClick('WelcomePage'); 
+            this.props.funcionClick(this.props.parametro.mainContainer);
+        })
+        .catch(function (error) {
+            alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
+        });        
     }    
   	render() {
   		  var titulo = 'Agregar';
@@ -137,10 +159,17 @@ class FormDataGrid extends Component {
                             }						  							  						  	
 						  	<Button id="formGridBtnSave" className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>
 						  	  	GUARDAR
-						  	</Button>
-						  	<Button variant="secondary" onClick={this.handleCancelButton.bind(this)}>
+						  	</Button>                                                    
+						  	<Button variant="secondary" className="float-left mr-3" onClick={this.handleCancelButton.bind(this)}>
 						  	  	CANCELAR
 						  	</Button>
+                            {                                
+                                this.props.parametro.idRow !== 0 ?
+                                    <Button id="formGridBtnDelete" className="float-left mr-3" variant="danger" onClick={this.handleDeleteButton.bind(this,id)} onMouseOut={divMouseOut.bind(this,"formGridBtnDelete","#dc3545")} onMouseOver={divMouseOver.bind(this,"formGridBtnDelete","#dc3545")}>
+                                        ELIMINAR
+                                    </Button>                                
+                                :  ""                                
+                            }                            
 						</Form>
 					</div> 
 				</div> 	  	 		       

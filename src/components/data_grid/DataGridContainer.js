@@ -66,7 +66,7 @@ class DataGridContainer extends Component {
         if (this.state.content.length > 0) {
             return (//carga dinamica de la cabecera y del listado
                 <div id="no-more-tables">
-                    <Table responsive>
+                    <Table className="tableDataGrid" responsive>
                         <thead className="cf">
                             <tr>
                                 <th>No</th>
@@ -74,8 +74,7 @@ class DataGridContainer extends Component {
                                     this.props.colsHeaders.map((colsHeaders,i) => {
                                         return <th key={ i }>{colsHeaders}</th>
                                     })
-                                }                          
-                                <th style= {{width: '180px'}}>Acciones</th>
+                                }
                             </tr>
                         </thead>      
                         <DataGridList listado={this.state.content} 
