@@ -11,7 +11,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ComboBoxFormDataGrid from './ComboBoxFormDataGrid';
 import configJson from '../configuration/configuration.json';
-import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
+import {divMouseOver,divMouseOut,validarEmail} from '../configuration/GlobalFunctions';
 import {insertarActualizarFila,eliminarFilas} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
@@ -64,6 +64,13 @@ class FormDataGrid extends Component {
                 return;
             } 
             else{
+                if(formFields.validation === 'email'){
+                    if(!validarEmail(this.state[formFields.field])){
+                        alertify.error('No es una cuenta de Email Valida en el campo '+formFields.label+'!'); 
+                        errors++;
+                        return;
+                    }
+                }                
                 arrayData[formFields.field] = this.state[formFields.field];
             }
         });
@@ -98,9 +105,25 @@ class FormDataGrid extends Component {
         });
     }
     //manejo dinamico de los estados, con esto actualizo el valor de cualquier campo para enviarlos a la API
-    handleStateChange(e) {       
-        this.setState({ [e.target.name]: e.target.value });     
-    }
+    handleStateChange(validation,e) {         
+        var ingresado = e.target.value; //validaciones
+        if(validation === 'mayusculas'){
+            ingresado = ingresado.toUpperCase();
+        }
+        if(validation === 'entero'){
+            ingresado = ingresado.replace(/[^\d]/g,'');
+        }
+        if(validation === 'numero_real'){
+            ingresado = ingresado.replace(/[^\d.]/g,'');
+        } 
+        if(validation === 'numero_texto'){
+            ingresado = ingresado.replace(/[^a-zA-Z0-9&]/g,'');
+            ingresado = ingresado.toUpperCase();
+        }       
+        
+        this.setState({ [e.target.name]: ingresado });
+            
+    }   
     handleDeleteButton(id){//boton eliminar
         alertify.confirm('Confirmacion', 'Esta seguro(a) de eliminar este item?', this.handleConfirmAction.bind(this,id), function(){});
     }   
@@ -145,7 +168,7 @@ class FormDataGrid extends Component {
                                     if(formFields.type === 'text'){
                                         field = <Form.Group key= {i} controlId="formBasicTipoCompra">
                                                     <Form.Label>{formFields.label}</Form.Label>
-                                                    <Form.Control name = {formFields.field} type={formFields.type} onChange={this.handleStateChange.bind(this)} value={this.state[formFields.field]}/>                               
+                                                    <Form.Control name = {formFields.field} type={formFields.type} onChange={this.handleStateChange.bind(this,formFields.validation)} value={this.state[formFields.field]}/>                               
                                                </Form.Group>
                                     }
                                     else if(formFields.type === 'select'){

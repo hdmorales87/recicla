@@ -67,7 +67,7 @@ class Users extends Component {
                                         label : 'Correo Electronico',
                                         field : 'email',
                                         type  : 'text',
-                                        validation : 'mayusculas',
+                                        validation : 'email',
                                         required : 'true'
                                     },
                                     {
