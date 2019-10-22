@@ -147,10 +147,13 @@ class FormDataGrid extends Component {
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
         });        
     }  
-    handleDataSelect(){
+    handleDataSelect(dataParams){        
         globalState.dispatch({
                 type   : "windowFormDataSelect",
-                params : true
+                params : {
+                    visible : true,
+                    params  : dataParams
+                }
             });
     }  
   	render() {
@@ -189,7 +192,7 @@ class FormDataGrid extends Component {
                                         field = <Form.Group key= {i} controlId="formBasicTipoCompra">
                                                     <input type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
                                                     <Form.Label>{formFields.label}</Form.Label>
-                                                    <Form.Control value = {formFields.valueName} type={formFields.type} onClick={this.handleDataSelect.bind(this)} onChange={this.handleStateChange.bind(this,formFields.validation)} />                                
+                                                    <Form.Control value = {formFields.valueName} type={formFields.type} onClick={this.handleDataSelect.bind(this,formFields.dataParams)} onChange={this.handleStateChange.bind(this,formFields.validation)} />                                
                                                </Form.Group>
                                     }
                                     return field;
@@ -209,11 +212,11 @@ class FormDataGrid extends Component {
                                 :  ""                                
                             }                            
 						</Form>
-                        <Window   
+                        <Window   //ventana para el data select
                             id = "windowFormDataSelect"                    
                             title='Seleccione ...'
-                            width='315px' 
-                            height='200px'                     
+                            width='400px' 
+                            height='300px'                     
                             tbar="false"
                             componente="DataGridSelect"
                             params="" 

@@ -51,7 +51,9 @@ class NameUser extends Component {
     handleOpenModal(){//boton de abrir modal        
         globalState.dispatch({
                 type   : "windowFormDataUser",
-                params : true
+                params : {
+                            visible : true
+                         }
             });
     }          
     //metodo cerrar sesion
@@ -81,7 +83,9 @@ class NameUser extends Component {
             else {                
                 globalState.dispatch({
                     type   : "windowFormDataUser", 
-                    params : false
+                    params : {
+                        visible : false
+                    }
                 });
                 //ACTUALIZAR EL GLOBAL STORE  
                 globalState.getState().userData[0] = formDataUser;                          

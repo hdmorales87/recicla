@@ -34,7 +34,8 @@ class Window extends Component {
     constructor(props) {
         super(props); 
         this.state = {
-            showModal: false
+            showModal: false,
+            modalParams : ''
         };               
         this.handleCloseModal = this.handleCloseModal.bind(this); 
         customStyles.content.width  = this.props.width;   
@@ -42,7 +43,10 @@ class Window extends Component {
         //control de la modal
         globalState.subscribe( ()=>{           
             if(globalState.getState().type===this.props.id){               
-                this.setState({ showModal: globalState.getState()[this.props.id] });                
+                this.setState({ showModal: globalState.getState()[this.props.id].visible });
+                if(globalState.getState()[this.props.id].params !== undefined) {//si existen le cargamos los parametros
+                    this.setState({ modalParams: globalState.getState()[this.props.id].params }); 
+                }              
             }
         });
     } 
@@ -55,7 +59,9 @@ class Window extends Component {
     handleCloseModal () {
         globalState.dispatch({
                 type   : this.props.id,
-                params : false
+                params : {
+                            visible : false
+                         }
             });
     }    
   	render() {
@@ -74,7 +80,7 @@ class Window extends Component {
                 <div style={{backgroundColor : configJson.windowColor }} className="windowTbar" >
                 {
                     this.props.tbar !== 'false' ?                                             
-                        this.props.tbar.map((tbar,i) => {
+                        this.props.tbar.map((tbar,i) => {//cargar la tbar
                                     return (   
                                         <div id={"windowButton"+i} className="windowButton" key={i} style={{width:tbar.width,height:tbar.height}}  onMouseOut={divMouseOut.bind(this,"windowButton"+i,configJson.windowColor)} onMouseOver={divMouseOver.bind(this,"windowButton"+i,configJson.windowColor)}>                                    
                                             <div style={{width:'calc(100% - 5px)',float:'left'}} onClick={tbar.function}> 
@@ -93,7 +99,7 @@ class Window extends Component {
                     : ''
                 }
                 </div>                     
-                <WindowContainer componente={this.props.componente} params={this.props.params} />
+                <WindowContainer componente={this.props.componente} params={this.state.modalParams} />
             </Modal>  				
 			  );
   	}    

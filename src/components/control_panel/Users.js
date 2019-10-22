@@ -17,6 +17,7 @@ class Users extends Component {
                       parametro={this.props.parametro}                     
                       colsHeaders={[ 'Tipo Documento','Documento','Nombre','Email','Username','Direccion','Telefono' ]}
                       colsData={[ 'tipo_documento','documento','nombre','email','username','direccion','telefono' ]} 
+                      automatica="true"
                       formFields={[
                                     {
                                         label : 'Tipo de Documento',

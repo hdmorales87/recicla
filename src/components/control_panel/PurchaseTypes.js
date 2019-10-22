@@ -17,6 +17,7 @@ class PurchaseTypes extends Component {
                       parametro={this.props.parametro}                    
                       colsHeaders={[ 'Nombre','Precio' ]}
                       colsData={[ 'nombre','precio' ]} 
+                      automatica="true"
                       formFields={[
                                     {
                                         label : 'Nombre',

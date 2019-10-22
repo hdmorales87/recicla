@@ -10,15 +10,16 @@ import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
 
 class DataGridSelect extends Component {  
-    render() {       
+    render() {  
+        console.log(this.props.params);     
         return (
             <DataGrid titulo='Seleccione...' 
                       funcionClick={this.props.funcionClick}  
                       parametro={this.props.parametro}                     
-                      colsHeaders={[ 'Tipo Compra','Reciclador','Peso' ]}
-                      colsData={[ 'tipo_compra','reciclador','peso' ]} 
-                                          
-                      apiField = {'purchases'}
+                      colsHeaders={this.props.params.colsHeaders}
+                      colsData={this.props.params.colsData} 
+                      automatica="false"                    
+                      apiField = {this.props.params.apiField}
                       mainContainer='DataGridSelect'/>             
         )
     } 

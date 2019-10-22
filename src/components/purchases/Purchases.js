@@ -17,6 +17,7 @@ class Purchases extends Component {
                       parametro={this.props.parametro}                     
                       colsHeaders={[ 'Tipo Compra','Reciclador','Peso' ]}
                       colsData={[ 'tipo_compra','reciclador','peso' ]} 
+                      automatica="true" 
                       formFields={[
                                     {
                                         label : 'Tipo de Compra',
@@ -32,7 +33,11 @@ class Purchases extends Component {
                                         label : 'Reciclador',
                                         field : 'id_reciclador',
                                         type  : 'data_select',
-                                        apiField : 'reciclators',
+                                        dataParams : {
+                                                         apiField : 'reciclators',
+                                                         colsHeaders : [ 'Documento','Nombre' ],
+                                                         colsData : [ 'documento','nombre' ]
+                                                     },                                        
                                         valueName : 'nombre',
                                         validation : '',
                                         required : 'true'                                        

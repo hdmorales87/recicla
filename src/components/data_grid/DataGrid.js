@@ -96,13 +96,20 @@ class DataGrid extends Component {
         return (//El cuerpo del datagrid
             <div className="container ContenedorDataGrid">
                 <div className="content">
-                    <div className="table-responsive mt-4">
-                        <div className="titulo">{this.props.titulo}</div>
-                    </div>
-                    <hr />
-                    <div className="table-responsive mb-3">
-                        <Button id="dataGridBtnNew" variant="primary" onClick={this.handleNewButton.bind(this)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'dataGridBtnNew',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'dataGridBtnNew',configJson.fondoBotonGrilla)}>AGREGAR NUEVO</Button>
-                    </div>
+                    {
+                        this.props.automatica === 'true' ?
+                            <div>
+                                <div className="table-responsive mt-4">
+                                    <div className="titulo">{this.props.titulo}</div>
+                                </div>
+                                <hr />
+                                <div className="table-responsive mb-3">
+                                    <Button id="dataGridBtnNew" variant="primary" onClick={this.handleNewButton.bind(this)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'dataGridBtnNew',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'dataGridBtnNew',configJson.fondoBotonGrilla)}>AGREGAR NUEVO</Button>
+                                </div>
+                            </div>
+                        :<div>&nbsp;</div>
+                    }
+                    
                     <div className="table-responsive mb-3">
                         <div style={{float:'left',width:'70px'}}>Mostrar:</div> 
                         <div style={{float:'left'}}>

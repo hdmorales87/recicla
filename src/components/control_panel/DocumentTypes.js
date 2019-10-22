@@ -17,6 +17,7 @@ class DocumentTypes extends Component {
                       parametro={this.props.parametro}                      
                       colsHeaders={[ 'Nombre' ]}
                       colsData={[ 'nombre']} 
+                      automatica="true"
                       formFields={[
                                     {
                                         label : 'Nombre',
