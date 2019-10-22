@@ -50,7 +50,7 @@ class NameUser extends Component {
     //abrir la modal
     handleOpenModal(){//boton de abrir modal        
         globalState.dispatch({
-                type   : "windowOpen",
+                type   : "windowFormDataUser",
                 params : true
             });
     }          
@@ -80,7 +80,7 @@ class NameUser extends Component {
             }
             else {                
                 globalState.dispatch({
-                    type   : "windowOpen", 
+                    type   : "windowFormDataUser", 
                     params : false
                 });
                 //ACTUALIZAR EL GLOBAL STORE  
@@ -148,7 +148,8 @@ class NameUser extends Component {
                           </div>
                       </Dropdown.Item>				  	
       				    </Dropdown.Menu>   
-                  <Window                       
+                  <Window 
+                      id = "windowFormDataUser"                      
                       title='Datos del Usuario'
                       width='315px' 
                       height='80%'                     
@@ -170,6 +171,8 @@ class NameUser extends Component {
                                   function : this.functionChangePassword.bind(this)
                               }    
                            ]}
+                      componente="FormDataUser"
+                      params="" 
                   />                 
       			  </Dropdown>	              	    		
 	     );

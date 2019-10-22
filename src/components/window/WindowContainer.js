@@ -8,12 +8,14 @@
 
 import React, { Component } from 'react';
 import FormDataUser from '../desktop/FormDataUser';
+import DataGridSelect from '../data_grid/DataGridSelect';
 
 class WindowContainer extends Component {    
     // listado de componentes     
     render() {
         let componentList = {
-            FormDataUser : FormDataUser,                         
+            FormDataUser : FormDataUser,  
+            DataGridSelect : DataGridSelect,                         
         }     
         let ChildComponent = componentList[this.props.componente];    
         return (        

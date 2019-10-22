@@ -11,7 +11,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ComboBoxFormDataGrid from './ComboBoxFormDataGrid';
 import configJson from '../configuration/configuration.json';
+import globalState from '../configuration/GlobalState';
 import {divMouseOver,divMouseOut,validarEmail} from '../configuration/GlobalFunctions';
+import Window from '../window/Window';
 import {insertarActualizarFila,eliminarFilas} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
@@ -144,7 +146,13 @@ class FormDataGrid extends Component {
         .catch(function (error) {
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
         });        
-    }    
+    }  
+    handleDataSelect(){
+        globalState.dispatch({
+                type   : "windowFormDataSelect",
+                params : true
+            });
+    }  
   	render() {
   		  var titulo = 'Agregar';
           var id = 0;
@@ -177,6 +185,13 @@ class FormDataGrid extends Component {
                                                     <ComboBoxFormDataGrid valueName = {formFields.valueName} options = {formFields.options} apiField={formFields.apiField} dinamic={formFields.dinamic} name = {formFields.field} type={formFields.type} functionChange={this.handleStateChange.bind(this)} value={this.state[formFields.field]}/>                               
                                                </Form.Group>
                                     }
+                                    else if(formFields.type === 'data_select'){
+                                        field = <Form.Group key= {i} controlId="formBasicTipoCompra">
+                                                    <input type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
+                                                    <Form.Label>{formFields.label}</Form.Label>
+                                                    <Form.Control value = {formFields.valueName} type={formFields.type} onClick={this.handleDataSelect.bind(this)} onChange={this.handleStateChange.bind(this,formFields.validation)} />                                
+                                               </Form.Group>
+                                    }
                                     return field;
                                 })
                             }						  							  						  	
@@ -194,6 +209,15 @@ class FormDataGrid extends Component {
                                 :  ""                                
                             }                            
 						</Form>
+                        <Window   
+                            id = "windowFormDataSelect"                    
+                            title='Seleccione ...'
+                            width='315px' 
+                            height='200px'                     
+                            tbar="false"
+                            componente="DataGridSelect"
+                            params="" 
+                        /> 
 					</div> 
 				</div> 	  	 		       
 			</div> 	

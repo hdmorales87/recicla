@@ -35,21 +35,26 @@ class Window extends Component {
         super(props); 
         this.state = {
             showModal: false
-        };        
+        };               
         this.handleCloseModal = this.handleCloseModal.bind(this); 
         customStyles.content.width  = this.props.width;   
-        customStyles.content.height = this.props.height; 
+        customStyles.content.height = this.props.height;        
         //control de la modal
         globalState.subscribe( ()=>{           
-            if(globalState.getState().type==="windowOpen"){               
-                this.setState({ showModal: globalState.getState().windowOpen });                
+            if(globalState.getState().type===this.props.id){               
+                this.setState({ showModal: globalState.getState()[this.props.id] });                
             }
         });
     } 
+    componentWillUpdate(){
+        //actualiza las propiedades segun la ventana que se despliegue
+        customStyles.content.width  = this.props.width;   
+        customStyles.content.height = this.props.height; 
+    }
      
     handleCloseModal () {
         globalState.dispatch({
-                type   : "windowOpen",
+                type   : this.props.id,
                 params : false
             });
     }    
@@ -88,7 +93,7 @@ class Window extends Component {
                     : ''
                 }
                 </div>                     
-                <WindowContainer componente="FormDataUser" params={this.props.params} />
+                <WindowContainer componente={this.props.componente} params={this.props.params} />
             </Modal>  				
 			  );
   	}    
