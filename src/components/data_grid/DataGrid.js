@@ -144,7 +144,10 @@ class DataGrid extends Component {
                                            apiField={this.props.apiField}
                                            formFields={this.props.formFields}
                                            mainContainer={this.props.mainContainer}
-                                           parametro={this.props.parametro}/>
+                                           parametro={this.props.parametro}
+                                           automatica={this.props.automatica}
+                                           funcionEdit = {this.props.funcionEdit}
+                                           funcionEditParams = {this.props.funcionEditParams}/>
                     </div> 
                     <div className="table-responsive mb-3">
                         <div style={{float:'left',paddingTop:'8px'}} >

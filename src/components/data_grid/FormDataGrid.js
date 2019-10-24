@@ -47,6 +47,7 @@ class FormDataGrid extends Component {
         this.handleCancelButton = this.handleCancelButton.bind(this);
         this.handleSaveButton   = this.handleSaveButton.bind(this);
         this.handleConfirmAction = this.handleConfirmAction.bind(this);
+        this.funcionEditDataSelect = this.funcionEditDataSelect.bind(this);
     }  
     componentDidMount(){
         this.setState({windowDataSelectId : ''});
@@ -147,16 +148,23 @@ class FormDataGrid extends Component {
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
         });        
     }  
-    handleDataSelect(dataParams,field){//al dar clic en el campo de texto        
-        this.setState({windowDataSelectId : "windowFormDataSelect_"+this.props.parametro.mainContainer+"_"+field }, () => {
+    handleDataSelect(dataParams){//al dar clic en el campo de texto
+        dataParams['funcionEdit'] = this.funcionEditDataSelect;      
+        this.setState({windowDataSelectId : "windowFormDataSelect_"+this.props.parametro.mainContainer+"_"+dataParams.idField }, () => {
             globalState.dispatch({
-                type   : "windowFormDataSelect_"+this.props.parametro.mainContainer+"_"+field,
+                type   : "windowFormDataSelect_"+this.props.parametro.mainContainer+"_"+dataParams.idField,
                 params : {
                     visible : true,
                     params  : dataParams
                 }
             })
         });        
+    }
+    funcionEditDataSelect(data,params){//la funcion que carga los datos del DataSelect
+        //this.setState()
+        //this.setState({
+        console.log(data);
+        console.log(params);
     }  
   	render() {
     	var titulo = 'Agregar';
@@ -192,9 +200,9 @@ class FormDataGrid extends Component {
                                     }
                                     else if(formFields.type === 'data_select'){
                                         field = <Form.Group key= {i} controlId="formBasicTipoCompra">
-                                                    <input type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
+                                                    <input type="hidden" name = {formFields.dataParams.idField} value={this.state[formFields.dataParams.idField]} />
                                                     <Form.Label>{formFields.label}</Form.Label>
-                                                    <Form.Control value = {formFields.valueName} type={formFields.type} onClick={this.handleDataSelect.bind(this,formFields.dataParams,formFields.field)} onChange={this.handleStateChange.bind(this,formFields.validation)} />                                
+                                                    <Form.Control value = {formFields.dataParams.valueField} type={formFields.type} onClick={this.handleDataSelect.bind(this,formFields.dataParams)} onChange={this.handleStateChange.bind(this,formFields.validation)} />                                
                                                </Form.Group>
                                     }
                                     return field;

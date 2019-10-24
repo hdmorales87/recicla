@@ -26,7 +26,10 @@ class DataGridList extends React.Component {
                                                formFields={this.props.formFields}
                                                mainContainer={this.props.mainContainer}
                                                parametro={this.props.parametro}
-                                               colsHeaders={this.props.colsHeaders}/>
+                                               colsHeaders={this.props.colsHeaders}
+                                               automatica={this.props.automatica}
+                                               funcionEdit = {this.props.funcionEdit}
+                                               funcionEditParams = {this.props.funcionEditParams}/>
                   })
               }
           </tbody>

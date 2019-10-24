@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
 
-class DataGridSelect extends Component {  
+class DataGridSelect extends Component {      
     //var props = '';    
     render() {
         return (
@@ -18,7 +18,9 @@ class DataGridSelect extends Component {
                       parametro={this.props.params.parametro}                     
                       colsHeaders={this.props.params.colsHeaders}
                       colsData={this.props.params.colsData} 
-                      automatica="false"                    
+                      automatica="false"                      
+                      funcionEdit = {this.props.params.funcionEdit}
+                      funcionEditParams={this.props.params.fetchData}                                        
                       apiField = {this.props.params.apiField}
                       mainContainer='DataGridSelect'/>             
         )

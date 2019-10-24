@@ -10,13 +10,20 @@ import React from 'react';
 import {detectaDispostivo} from '../configuration/GlobalFunctions';
 
 class DataGridRow extends React.Component {    
-    handleEditButton(param){//boton editar      
-        this.props.funcionClick('FormDataGrid',{ idRow:param,mainContainer:this.props.mainContainer,titulo:this.props.titulo,apiField:this.props.apiField,formFields:this.props.formFields});        
+    handleEditButton(param){//boton editar 
+        console.log(this.props);    
+        if(this.props.automatica === 'true'){
+            this.props.funcionClick('FormDataGrid',{ idRow:param,mainContainer:this.props.mainContainer,titulo:this.props.titulo,apiField:this.props.apiField,formFields:this.props.formFields});       
+        } 
+        else{
+            console.log(this.props.fieldFetch);
+            this.props.funcionEdit(param,this.props.funcionEditParams);            
+        }
     }    
     handleNothing(){
         //...
     }
-    render() {
+    render() {         
         var os = detectaDispostivo().os.toLowerCase();
         //console.log(os);
         var dataRow = this.props.dataRow;   
