@@ -12,6 +12,7 @@ import Button from 'react-bootstrap/Button';
 import {consultarFilas} from '../api_calls/ApiCalls';
 import configJson from '../configuration/configuration.json';
 import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
+import MaterialIcon from 'material-icons-react';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 import './dataGrid.css'; 
@@ -20,11 +21,11 @@ class DataGrid extends Component {
     constructor(props, context) {
         super(props, context); 
         this.state = {//las opciones de filtrado
-            showRecords  : 5,
+            showRecords  : 15,
             searchWord   : '',
             offsetRecord : 0,
             resultRows   : 0
-        }
+        }        
     }    
   	handleNewButton(){//Boton nuevo registro        
         this.props.funcionClick('FormDataGrid',{ idRow:0,mainContainer:this.props.mainContainer,titulo:this.props.titulo,apiField:this.props.apiField,formFields:this.props.formFields});
@@ -33,7 +34,7 @@ class DataGrid extends Component {
         let key = event.keyCode;
         if(key === 13){  
             let searchWord = event.target.value;  
-            this.setState({ searchWord: searchWord,offsetRecord: 0 }, () => {           
+            this.setState({ searchWord: searchWord,offsetRecord: 0 }, () => {                        
                 this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords, offsetRecord: this.state.offsetRecord }); 
             });
         }        
@@ -64,7 +65,7 @@ class DataGrid extends Component {
             this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords, offsetRecord: this.state.offsetRecord });
         });      
     } 
-    consultaFilas(){//Cuenta Filas 
+    consultaFilas(){//Cuenta Filas         
         consultarFilas(this.props.apiField,this.state.searchWord)
         .then(res => {
             var response = res.data; 
@@ -80,8 +81,8 @@ class DataGrid extends Component {
     }
     componentWillMount() {
         this.consultaFilas();        
-    }
-    componentDidUpdate(prevProps){        
+    }    
+    componentDidUpdate(prevProps){           
         if (this.props.parametro !== prevProps.parametro) {           
            this.consultaFilas(); 
         }       
@@ -110,19 +111,24 @@ class DataGrid extends Component {
                         :<div>&nbsp;</div>
                     }
                     
-                    <div className="table-responsive mb-3">
-                        <div style={{float:'left',width:'70px'}}>Mostrar:</div> 
-                        <div style={{float:'left'}}>
-                            <select style={{border:'1px solid #dee2e6'}} defaultValue="5" onChange={this.handleComboShow.bind(this)}>
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="15">15</option>
-                                <option value="20">20</option>
-                                <option value="50">50</option>
-                                <option value="todos">TODAS</option>
-                            </select>                            
-                        </div>
-                        <div style={{float:'left',width:'70px',paddingLeft:'5px'}}>Entradas</div> 
+                    <div className="table-responsive mb-3">                        
+                        {
+                            this.props.automatica === 'true' ?
+                                <div>
+                                    <div style={{float:'left',width:'70px'}}>Mostrar:</div> 
+                                    <div style={{float:'left'}}>
+                                        <select style={{border:'1px solid #dee2e6'}} defaultValue="15" onChange={this.handleComboShow.bind(this)}>                               
+                                            <option value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                            <option value="50">50</option>
+                                            <option value="todos">TODAS</option>
+                                        </select>                            
+                                    </div>
+                                    <div style={{float:'left',width:'70px',paddingLeft:'5px'}}>Entradas</div>
+                                </div>
+                            : ''
+                        } 
                         <div style={{float:'right'}}>
                             <div style={{float:'left',width:'70px'}}>Buscar:</div> 
                             <div style={{float:'left'}}>
@@ -141,17 +147,24 @@ class DataGrid extends Component {
                                            parametro={this.props.parametro}/>
                     </div> 
                     <div className="table-responsive mb-3">
-                        <div style={{float:'left'}} >
-                            <div style={{float:'left',width:'90px'}}>Mostrando</div> 
-                            <div style={{float:'left',width:'20px'}}>{(this.state.offsetRecord*1)+1}</div> 
-                            <div style={{float:'left',width:'20px',paddingLeft:'5px'}}>a</div> 
-                            <div style={{float:'left',width:'25px',paddingLeft:'5px'}}>{lastRecord*1}</div>
-                            <div style={{float:'left',width:'25px',paddingLeft:'5px'}}>de</div>
-                            <div style={{float:'left',width:'35px',paddingLeft:'5px'}}>{this.state.resultRows}</div>
+                        <div style={{float:'left',paddingTop:'8px'}} >
+                            <div style={{fontSize:'12px',fontWeight:'bold',float:'left',width:'90px'}}>Mostrando</div> 
+                            <div style={{fontSize:'12px',fontWeight:'bold',float:'left',width:'20px'}}>{(this.state.offsetRecord*1)+1}</div> 
+                            <div style={{fontSize:'12px',fontWeight:'bold',float:'left',width:'20px',paddingLeft:'5px'}}>a</div> 
+                            <div style={{fontSize:'12px',fontWeight:'bold',float:'left',width:'25px',paddingLeft:'5px'}}>{lastRecord*1}</div>
+                            <div style={{fontSize:'12px',fontWeight:'bold',float:'left',width:'25px',paddingLeft:'5px'}}>de</div>
+                            <div style={{fontSize:'12px',fontWeight:'bold',float:'left',width:'35px',paddingLeft:'5px'}}>{this.state.resultRows}</div>
                         </div>
                         <div style={{float:'right'}} >
-                            <Button variant="default" onClick={this.handlePrevButton.bind(this)}><span style={{fontSize:'14px'}}>Anterior</span></Button>
-                            <Button variant="default" onClick={this.handleNextButton.bind(this)}><span style={{fontSize:'14px'}}>Siguiente</span></Button>
+                            <div style={{float:'left',cursor:'pointer'}} onClick={this.handlePrevButton.bind(this)}>
+                                <MaterialIcon size={24} icon="keyboard_arrow_left" color={configJson.fondoBotonGrilla}/>
+                            </div>
+                            <div style={{float:'left',width:'20px'}} >
+                                &nbsp;
+                            </div>
+                            <div style={{float:'left',cursor:'pointer'}} onClick={this.handleNextButton.bind(this)}>
+                                <MaterialIcon size={24} icon="keyboard_arrow_right" color={configJson.fondoBotonGrilla}/>
+                            </div>                            
                         </div>
                     </div>                   
                 </div>

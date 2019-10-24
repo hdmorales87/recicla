@@ -31,25 +31,31 @@ const customStyles = {
 
 class Window extends Component {
 
-    constructor(props) {
+    constructor(props) {        
         super(props); 
         this.state = {
+            componente : this.props.componente,
             showModal: false,
+            parametro: "",
             modalParams : ''
         };               
         this.handleCloseModal = this.handleCloseModal.bind(this); 
+        this.actualizarContainer = this.actualizarContainer.bind(this);
         customStyles.content.width  = this.props.width;   
         customStyles.content.height = this.props.height;        
         //control de la modal
+        
+    } 
+    componentDidMount(){        
         globalState.subscribe( ()=>{           
-            if(globalState.getState().type===this.props.id){               
+            if(globalState.getState().type===this.props.id){ 
                 this.setState({ showModal: globalState.getState()[this.props.id].visible });
                 if(globalState.getState()[this.props.id].params !== undefined) {//si existen le cargamos los parametros
                     this.setState({ modalParams: globalState.getState()[this.props.id].params }); 
                 }              
             }
         });
-    } 
+    }
     componentWillUpdate(){
         //actualiza las propiedades segun la ventana que se despliegue
         customStyles.content.width  = this.props.width;   
@@ -63,6 +69,10 @@ class Window extends Component {
                             visible : false
                          }
             });
+    }
+    actualizarContainer(val,param){//carga dinamica del lado derecho    
+        this.setState({ componente: val });
+        this.setState({ parametro : param });       
     }    
   	render() {
   	  	return (
@@ -99,7 +109,7 @@ class Window extends Component {
                     : ''
                 }
                 </div>                     
-                <WindowContainer componente={this.props.componente} params={this.state.modalParams} />
+                <WindowContainer componente={this.state.componente} params={this.state.modalParams} funcionClick = {this.actualizarContainer} parametro={this.state.parametro}/>
             </Modal>  				
 			  );
   	}    

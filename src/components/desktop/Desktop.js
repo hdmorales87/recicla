@@ -20,17 +20,17 @@ import '../../css/alertify.css';
 import './desktop.css?v1.5'; 
 
 class Desktop extends Component {
-	  constructor(props) {//al cargarse trae los datos del usuario 		
+	constructor(props) {//al cargarse trae los datos del usuario 		
       	super(props);  
         var usuario = this.props.location.state.usuario; 
         var empresa = this.props.location.state.empresa;             
       	this.state = { 
-      		  loading: true,
+      		loading: true,
           	redirect: false,	 		                
-      	 	  componente: "WelcomePage",
-      	 	  parametro : "",
+      	 	componente: "WelcomePage",
+      	 	parametro : "",
             checkMenu : false 
-	      }; 
+	    }; 
         checkSession()
         .then(res => {
             var response = res.data; 
@@ -92,16 +92,16 @@ class Desktop extends Component {
                 this.setState({checkMenu  : globalState.getState().menuNavegacion});                               
             }
         });
-	  } 
+	} 
     
-	  componentDidMount() {//cada que se monte el escritorio debe validar la sesion       
+	componentDidMount() {//cada que se monte el escritorio debe validar la sesion       
         //...           
     }	
 
-	  actualizarContainer(val,param){//carga dinamica del lado derecho	
-		    this.setState({ componente: val });
-		    this.setState({ parametro : param });		
-	  }	
+    actualizarContainer(val,param){//carga dinamica del lado derecho	
+    	this.setState({ componente: val });
+    	this.setState({ parametro : param });		
+    }	
 
     handleButtonMenu(e){//el boton que muestra esconde la barra de navegacion   
         var opcionCheck = true;
@@ -119,16 +119,16 @@ class Desktop extends Component {
     }
 
   	render() {
-  		  const { loading, redirect } = this.state;        
-  		  if (loading) {
-        	  return null;
+  		const { loading, redirect } = this.state;        
+  		if (loading) {
+        	return null;
       	}
       	if (redirect) {//sesion inexistente, cargar login
             alert('Su sesion ha finalizado, debe registrarse de nuevo!');
-        	  return <Redirect to="/" />;
+        	return <Redirect to="/" />;
       	}  			 		
   	  	return (//carga el entorno del escritorio, barra de menu, barra superior y contenedor 	  		  
-  	  		  <div className="App">
+  	  		<div className="App">
                 <input type="checkbox" id="navigationTrigger" className="navigationTrigger" checked={this.state.checkMenu} onChange={this.changeNavigationTrigger.bind(this)} />     
                 <label id="labelnavigationTrigger" htmlFor="navigationTrigger" onClick={this.handleButtonMenu.bind(this)}>
                     <MaterialIcon size={24} icon="menu" invert/>                    
@@ -147,8 +147,8 @@ class Desktop extends Component {
 	    		 	           <Container componente={this.state.componente} funcionClick = {this.actualizarContainer} parametro={this.state.parametro}/>
 	    		          </div>	
                 </div> 		     
-	          </div>   	
-		    );
+	       </div>   	
+		);
   	}
 }
 

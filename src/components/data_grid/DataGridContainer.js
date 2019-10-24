@@ -28,7 +28,7 @@ class DataGridContainer extends Component {
     
     cargaFilas(){
         let searchWord   = '';
-        let showRecords  = 5;
+        let showRecords  = 15;
         let offsetRecord = 0;        
         if(this.props.parametro !== undefined){
             if(this.props.parametro.hasOwnProperty('searchWord')){
@@ -69,10 +69,10 @@ class DataGridContainer extends Component {
                     <Table className="tableDataGrid" responsive>
                         <thead className="cf">
                             <tr>
-                                <th>No</th>
+                                <th style={{fontSize:'12px'}}>No</th>
                                 {
                                     this.props.colsHeaders.map((colsHeaders,i) => {
-                                        return <th key={ i }>{colsHeaders}</th>
+                                        return <th key={ i } style={{fontSize:'12px'}}>{colsHeaders}</th>
                                     })
                                 }
                             </tr>

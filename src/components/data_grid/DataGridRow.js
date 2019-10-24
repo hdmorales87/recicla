@@ -34,10 +34,10 @@ class DataGridRow extends React.Component {
 
         return(//carga las celdas con los datos y adiciona los botones de editar y eliminar
             <tr style={{ cursor:'pointer'}} onClick={ onClick } onDoubleClick={ onDblClick }>      
-                <td>{this.props.numberRow+1}</td> 
+                <td style={{fontSize:'12px'}}>{this.props.numberRow+1}</td> 
                 {
                     this.props.colsData.map((colsData,i) => {                        
-                        return <td data-title={this.props.colsHeaders[i]} key={ i }>{dataRow[colsData]}&nbsp;</td>
+                        return <td data-title={this.props.colsHeaders[i]} key={ i } style={{fontSize:'12px'}}>{dataRow[colsData]}&nbsp;</td>
                     })
                 }    
             </tr>

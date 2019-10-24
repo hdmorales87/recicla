@@ -12,14 +12,17 @@ import DataGridSelect from '../data_grid/DataGridSelect';
 
 class WindowContainer extends Component {    
     // listado de componentes     
-    render() {
+    render() {        
+        if(this.props.parametro){
+            this.props.params.parametro = this.props.parametro;            
+        }
         let componentList = {
             FormDataUser : FormDataUser,  
             DataGridSelect : DataGridSelect,                         
         }     
         let ChildComponent = componentList[this.props.componente];    
         return (        
-            <ChildComponent params={this.props.params} />              
+            <ChildComponent params={this.props.params} funcionClick={this.props.funcionClick} />              
         );  	
   	}
 }

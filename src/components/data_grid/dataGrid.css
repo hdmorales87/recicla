@@ -72,6 +72,6 @@
 
 @media only screen and (min-width: 800px) {
 	.tableDataGrid td,th{
-		padding:2px !important;
+		padding:2px !important;		
 	}
 }

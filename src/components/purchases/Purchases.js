@@ -33,10 +33,10 @@ class Purchases extends Component {
                                         label : 'Reciclador',
                                         field : 'id_reciclador',
                                         type  : 'data_select',
-                                        dataParams : {
+                                        dataParams : {                                                                                                                 
                                                          apiField : 'reciclators',
                                                          colsHeaders : [ 'Documento','Nombre' ],
-                                                         colsData : [ 'documento','nombre' ]
+                                                         colsData : [ 'documento','nombre' ],                                                         
                                                      },                                        
                                         valueName : 'nombre',
                                         validation : '',

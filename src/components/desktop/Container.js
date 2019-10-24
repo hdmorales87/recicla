@@ -24,17 +24,17 @@ class Container extends Component {
 	// listado de componentes 		
   	render() {
   		let componentList = {
-			WelcomePage   : WelcomePage,
-			Dashboard     : Dashboard,
-			Reciclators   : Reciclators,
-			Customers     : Customers,
-			Purchases     : Purchases,
-			ControlPanel  : ControlPanel,			
-			DocumentTypes : DocumentTypes,
-			PurchaseTypes : PurchaseTypes,
-			Users 		  : Users,
-			FormDataGrid  : FormDataGrid,
-			Reports  	  : Reports						  
+			WelcomePage    : WelcomePage,
+			Dashboard      : Dashboard,
+			Reciclators    : Reciclators,
+			Customers      : Customers,
+			Purchases      : Purchases,
+			ControlPanel   : ControlPanel,			
+			DocumentTypes  : DocumentTypes,
+			PurchaseTypes  : PurchaseTypes,
+			Users 		   : Users,
+			FormDataGrid   : FormDataGrid,			
+			Reports  	   : Reports						  
 		} 
 		
   		let ChildComponent = componentList[this.props.componente];		

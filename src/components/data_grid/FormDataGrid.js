@@ -23,9 +23,8 @@ class FormDataGrid extends Component {
   	
   	constructor(props) {
         super(props);
-        //cargar dinamicamente los estados
+        //cargar dinamicamente los estados        
         this.state = {};
-        
         this.props.parametro.formFields.forEach((formFields,i) => {
             if(this.props.parametro.idRow !== 0){                
                 if(this.props.parametro.idRow[formFields.field] === '' || this.props.parametro.idRow[formFields.field] === undefined || this.props.parametro.idRow[formFields.field] === null){
@@ -48,16 +47,17 @@ class FormDataGrid extends Component {
         this.handleCancelButton = this.handleCancelButton.bind(this);
         this.handleSaveButton   = this.handleSaveButton.bind(this);
         this.handleConfirmAction = this.handleConfirmAction.bind(this);
-    }   
+    }  
+    componentDidMount(){
+        this.setState({windowDataSelectId : ''});
+    } 
     handleCancelButton(){
         this.props.funcionClick(this.props.parametro.mainContainer);        
     }
     handleSaveButton(id){
-
         //recorrido dinamico de los campos y cargar dinamicamente el arrayData
         var arrayData = {};
         var errors = 0;
-
 
         this.props.parametro.formFields.forEach((formFields,i) => {
             if((this.state[formFields.field] === undefined || this.state[formFields.field] === '') && formFields.required === 'true'){
@@ -147,34 +147,36 @@ class FormDataGrid extends Component {
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
         });        
     }  
-    handleDataSelect(dataParams){        
-        globalState.dispatch({
-                type   : "windowFormDataSelect",
+    handleDataSelect(dataParams,field){//al dar clic en el campo de texto        
+        this.setState({windowDataSelectId : "windowFormDataSelect_"+this.props.parametro.mainContainer+"_"+field }, () => {
+            globalState.dispatch({
+                type   : "windowFormDataSelect_"+this.props.parametro.mainContainer+"_"+field,
                 params : {
                     visible : true,
                     params  : dataParams
                 }
-            });
+            })
+        });        
     }  
   	render() {
-  		  var titulo = 'Agregar';
-          var id = 0;
-          var field = '';
-  		  if(this.props.parametro.idRow !== 0){
-  		  	  titulo = 'Editar';
-              id = this.props.parametro.idRow.id;
-  		  }          			
-  		  return (  //carga dinamica del formulario	  		  	  	
-  	  		<div className="container">
-                <div className="content">
-                    <div className="table-responsive mt-4">
-                        <div className="titulo">{titulo} {this.props.parametro.titulo}</div>
-                    </div>
-                    <hr />
-                    <div className="table-responsive mb-3">	
-  	 		    		<Form>
-                            {
-                                //cargar dinamicamente los campos, dependiendo si es input o select
+    	var titulo = 'Agregar';
+        var id = 0;
+        var field = '';
+    	if(this.props.parametro.idRow !== 0){
+    		  titulo = 'Editar';
+           id = this.props.parametro.idRow.id;
+    	}          			
+    	return (  //carga dinamica del formulario	  		  	  	
+    	 	<div className="container">
+               <div className="content">
+                   <div className="table-responsive mt-4">
+                       <div className="titulo">{titulo} {this.props.parametro.titulo}</div>
+                   </div>
+                   <hr />
+                   <div className="table-responsive mb-3">	
+    			    	<Form>
+                           {
+                               //cargar dinamicamente los campos, dependiendo si es input o select
                                 this.props.parametro.formFields.map((formFields,i) => {                                    
                                     if(formFields.type === 'text'){
                                         field = <Form.Group key= {i} controlId="formBasicTipoCompra">
@@ -192,18 +194,18 @@ class FormDataGrid extends Component {
                                         field = <Form.Group key= {i} controlId="formBasicTipoCompra">
                                                     <input type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
                                                     <Form.Label>{formFields.label}</Form.Label>
-                                                    <Form.Control value = {formFields.valueName} type={formFields.type} onClick={this.handleDataSelect.bind(this,formFields.dataParams)} onChange={this.handleStateChange.bind(this,formFields.validation)} />                                
+                                                    <Form.Control value = {formFields.valueName} type={formFields.type} onClick={this.handleDataSelect.bind(this,formFields.dataParams,formFields.field)} onChange={this.handleStateChange.bind(this,formFields.validation)} />                                
                                                </Form.Group>
                                     }
                                     return field;
                                 })
                             }						  							  						  	
-						  	<Button id="formGridBtnSave" className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>
-						  	  	GUARDAR
-						  	</Button>                                                    
-						  	<Button variant="secondary" className="float-left mr-3" onClick={this.handleCancelButton.bind(this)}>
-						  	  	CANCELAR
-						  	</Button>
+    				  	    <Button id="formGridBtnSave" className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>
+    				  	      	GUARDAR
+    				  	    </Button>                                                    
+    				  	    <Button variant="secondary" className="float-left mr-3" onClick={this.handleCancelButton.bind(this)}>
+    				  	      	CANCELAR
+    				  	    </Button>
                             {                                
                                 this.props.parametro.idRow !== 0 ?
                                     <Button id="formGridBtnDelete" className="float-left mr-3" variant="danger" onClick={this.handleDeleteButton.bind(this,id)} onMouseOut={divMouseOut.bind(this,"formGridBtnDelete","#dc3545")} onMouseOver={divMouseOver.bind(this,"formGridBtnDelete","#dc3545")}>
@@ -211,9 +213,9 @@ class FormDataGrid extends Component {
                                     </Button>                                
                                 :  ""                                
                             }                            
-						</Form>
+    				    </Form>
                         <Window   //ventana para el data select
-                            id = "windowFormDataSelect"                    
+                            id = {this.state.windowDataSelectId}                    
                             title='Seleccione ...'
                             width='400px' 
                             height='300px'                     
@@ -221,10 +223,10 @@ class FormDataGrid extends Component {
                             componente="DataGridSelect"
                             params="" 
                         /> 
-					</div> 
-				</div> 	  	 		       
-			</div> 	
-  	  	);
+    			    </div> 
+    		    </div> 	  	 		       
+    	    </div> 	
+    	);
   	}
 }
 
