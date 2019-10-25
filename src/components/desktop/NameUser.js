@@ -14,7 +14,7 @@ import globalState from '../configuration/GlobalState';
 import configJson from '../configuration/configuration.json';
 import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import Window from '../window/Window';
-import {logout,insertarActualizarFila,sendEmailPassword} from '../api_calls/ApiCalls';
+import {logout,insertarActualizarFila} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import './desktop.css';
 import '../../css/alertify.css';
@@ -97,19 +97,16 @@ class NameUser extends Component {
     } 
     functionChangePassword(){
         var email = globalState.getState().userData[0].email;
-        //enviar al correo la recuperacion de la contraseña        
-        sendEmailPassword(email).then(response => {
-            response = response.data;
-            if(response.msg === 'error'){
-                alertify.alert('Error!', 'Ha ocurrido un error enviando el correo a '+email+'!<br />Codigo de Error: '+response.detail); 
-            }
-            else {
-                alertify.alert('Envio Exitoso!', 'Se ha enviado un correo a '+email+'!'); 
-            }
-        })
-        .catch(function (error) {
-            alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
-        });
+        globalState.dispatch({
+                type   : "windowResetPassword2",
+                params : {
+                              visible : true,
+                              params  : {
+                                            email : email,
+                                            idWin : "windowResetPassword2"
+                                        }
+                         }
+            });        
     } 
     render() {
     	  	return (//carga el menu de opciones del usuario  	  		
@@ -177,7 +174,16 @@ class NameUser extends Component {
                            ]}
                       componente="FormDataUser"
                       params="" 
-                  />                 
+                  /> 
+                  <Window 
+                      id = "windowResetPassword2"                      
+                      title='Cambiar Password'
+                      width='300px' 
+                      height='240px'                     
+                      tbar='false'
+                      componente="WindowResetPassword"
+                      params="" 
+                  />                  
       			  </Dropdown>	              	    		
 	     );
     }

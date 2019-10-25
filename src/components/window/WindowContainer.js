@@ -8,17 +8,19 @@
 
 import React, { Component } from 'react';
 import FormDataUser from '../desktop/FormDataUser';
+import WindowResetPassword from '../reset_password/WindowResetPassword';
 import DataGridSelect from '../data_grid/DataGridSelect';
 
 class WindowContainer extends Component {    
-    // listado de componentes     
-    render() {        
+    // listado de componentes  
+    render() {               
         if(this.props.parametro){
             this.props.params.parametro = this.props.parametro;            
         }
         let componentList = {
             FormDataUser : FormDataUser,  
-            DataGridSelect : DataGridSelect,                         
+            DataGridSelect : DataGridSelect, 
+            WindowResetPassword : WindowResetPassword,                        
         }     
         let ChildComponent = componentList[this.props.componente];    
         return (        

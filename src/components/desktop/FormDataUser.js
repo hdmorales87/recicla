@@ -1,5 +1,5 @@
 /**
-* CLASS Option
+* CLASS FormDataUser
 *
 * Contiene el componente formulario de datos de usuario
 *

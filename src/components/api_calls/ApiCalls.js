@@ -88,7 +88,7 @@ export function cargarDatosReporte(table,fecha1,fecha2){
 	        });
 }
 
-export function sendEmailPassword(email){
+export function sendEmailPassword(email){	
 	//envia correo para cambiar password
 	return axios({
         	    method: 'post',
