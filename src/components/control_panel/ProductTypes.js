@@ -15,8 +15,8 @@ class ProductTypes extends Component {
             <DataGrid titulo='Tipos de Producto' 
                       funcionClick={this.props.funcionClick}   
                       parametro={this.props.parametro}                    
-                      colsHeaders={[ 'Nombre','Precio' ]}
-                      colsData={[ 'nombre','precio_compra' ]} 
+                      colsHeaders={[ 'Nombre','Precio Compra','Precio Venta' ]}
+                      colsData={[ 'nombre','precio_compra','precio_venta' ]} 
                       automatica="true"
                       formFields={[
                                     {
@@ -27,8 +27,15 @@ class ProductTypes extends Component {
                                         required : 'true'
                                     },
                                     {
-                                        label : 'Precio',
+                                        label : 'Precio Compra',
                                         field : 'precio_compra',
+                                        type  : 'text',
+                                        validation : 'entero',
+                                        required : 'true'
+                                    },
+                                    {
+                                        label : 'Precio Venta',
+                                        field : 'precio_venta',
                                         type  : 'text',
                                         validation : 'entero',
                                         required : 'true'
