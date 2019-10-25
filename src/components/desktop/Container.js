@@ -13,7 +13,7 @@ import Customers from '../customers/Customers';
 import Purchases from '../purchases/Purchases';
 import ControlPanel from '../control_panel/ControlPanel';
 import DocumentTypes from '../control_panel/DocumentTypes';
-import PurchaseTypes from '../control_panel/PurchaseTypes';
+import ProductTypes from '../control_panel/ProductTypes';
 import Users from '../control_panel/Users';
 import FormDataGrid from '../data_grid/FormDataGrid';
 import Reports from '../reports/Reports';
@@ -31,7 +31,7 @@ class Container extends Component {
 			Purchases      : Purchases,
 			ControlPanel   : ControlPanel,			
 			DocumentTypes  : DocumentTypes,
-			PurchaseTypes  : PurchaseTypes,
+			ProductTypes   : ProductTypes,
 			Users 		   : Users,
 			FormDataGrid   : FormDataGrid,			
 			Reports  	   : Reports						  

@@ -15,8 +15,8 @@ class Reciclators extends Component {
   	  		<DataGrid titulo='Recicladores' 
                       funcionClick={this.props.funcionClick}  
                       parametro={this.props.parametro}                     
-                      colsHeaders={[ 'Tipo Documento','Documento','Nombre','Direccion','Telefono','Celular' ]}
-                      colsData={[ 'tipo_documento','documento','nombre','direccion','telefono','celular' ]} 
+                      colsHeaders={[ 'Tipo Documento','Documento','Nombre','Direccion','Telefono','Celular','Caracterizacion' ]}
+                      colsData={[ 'tipo_documento','documento','nombre','direccion','telefono','celular','caracterizacion' ]} 
                       automatica="true" 
                       formFields={[
                                     {
@@ -66,12 +66,12 @@ class Reciclators extends Component {
                                     },
                                     {
                                         label : 'Caracterizacion',
-                                        field : 'id_tipo_compra',
+                                        field : 'id_tipo_producto',
                                         type  : 'select',
                                         validation : '',
                                         required : 'true',
                                         dinamic : 'true',
-                                        apiField : 'purchase_types',
+                                        apiField : 'product_types',
                                         valueName : 'nombre'
                                     },
                                 ]}                     

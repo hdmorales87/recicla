@@ -14,11 +14,11 @@ class ControlPanel extends Component {
   	render() {
   	  	return (  	  		  
   	  		  <div id="ContentPaneldeControl" className="EstiloIconosMenuDashboard" ostype="desktop">
-                <div className="titulo">Maestros</div>
+                <div className="titulo">Administracion</div>
                 <ul>
-                    <Option tab="config0" titulo='Administracion Tipos de Compra' icono="shopping_cart" funcionClick={this.props.funcionClick} componente="PurchaseTypes" />  
-                    <Option tab="config1" titulo='Administracion Tipos de Documento' icono="credit_card" funcionClick={this.props.funcionClick} componente="DocumentTypes" />  
-                    <Option tab="config2" titulo='Administracion de Usuarios' icono="perm_identity" funcionClick={this.props.funcionClick} componente="Users" />  
+                    <Option tab="config0" titulo='Tipos de Producto' icono="shopping_cart" funcionClick={this.props.funcionClick} componente="ProductTypes" />  
+                    <Option tab="config1" titulo='Tipos de Documento' icono="credit_card" funcionClick={this.props.funcionClick} componente="DocumentTypes" />  
+                    <Option tab="config2" titulo='Usuarios' icono="perm_identity" funcionClick={this.props.funcionClick} componente="Users" />  
                 </ul>
             </div> 	
   	  	);

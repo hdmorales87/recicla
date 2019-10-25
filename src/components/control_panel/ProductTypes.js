@@ -9,10 +9,10 @@
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
 
-class PurchaseTypes extends Component {     	  
+class ProductTypes extends Component {     	  
   	render() {                      
         return (//carga el componente que contiene la grilla de datos   
-            <DataGrid titulo='Tipos de Compra' 
+            <DataGrid titulo='Tipos de Producto' 
                       funcionClick={this.props.funcionClick}   
                       parametro={this.props.parametro}                    
                       colsHeaders={[ 'Nombre','Precio' ]}
@@ -34,10 +34,10 @@ class PurchaseTypes extends Component {
                                         required : 'true'
                                     }
                                 ]}                     
-                      apiField={'purchase_types'}
-                      mainContainer='PurchaseTypes'/>             
+                      apiField={'product_types'}
+                      mainContainer='ProductTypes'/>             
         )
     } 
 }
 
-export default PurchaseTypes
+export default ProductTypes
