@@ -11,6 +11,7 @@ import Dashboard from '../dashboard/Dashboard';
 import Reciclators from '../reciclators/Reciclators';
 import Customers from '../customers/Customers';
 import Purchases from '../purchases/Purchases';
+import Sales from '../sales/Sales';
 import ControlPanel from '../control_panel/ControlPanel';
 import DocumentTypes from '../control_panel/DocumentTypes';
 import ProductTypes from '../control_panel/ProductTypes';
@@ -29,6 +30,7 @@ class Container extends Component {
 			Reciclators    : Reciclators,
 			Customers      : Customers,
 			Purchases      : Purchases,
+			Sales          : Sales,
 			ControlPanel   : ControlPanel,			
 			DocumentTypes  : DocumentTypes,
 			ProductTypes   : ProductTypes,

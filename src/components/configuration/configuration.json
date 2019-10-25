@@ -14,34 +14,41 @@
 						 	},
 						 	{
 								"tab" : "pestana1",
+								"titulo" : "Ventas",
+								"subtitulo" : "Venta de Chatarra",
+								"icono" : "shopping_cart",
+								"componente": "Sales"
+						 	},
+						 	{
+								"tab" : "pestana2",
 								"titulo" : "Compras",
 								"subtitulo" : "Compra de Chatarra",
 								"icono" : "shopping_cart",
 								"componente": "Purchases"
 						 	},
 						 	{
-								"tab" : "pestana2",
+								"tab" : "pestana3",
 								"titulo" : "Clientes",
 								"subtitulo" : "Compradores de Chatarra",
 								"icono" : "person",
 								"componente": "Customers"
 						 	},
 						 	{
-								"tab" : "pestana3",
+								"tab" : "pestana4",
 								"titulo" : "Recicladores",
 								"subtitulo" : "Vendedores de Chatarra",
 								"icono" : "person",
 								"componente": "Reciclators"
 						 	},
 						 	{
-								"tab" : "pestana4",
+								"tab" : "pestana5",
 								"titulo" : "Informes",
 								"subtitulo" : "Informes",
 								"icono" : "poll",
 								"componente": "Reports"
 						 	},
 						 	{
-								"tab" : "pestana5",
+								"tab" : "pestana6",
 								"titulo" : "Administracion",
 								"subtitulo" : "Administracion del Sistema",
 								"icono" : "settings",
