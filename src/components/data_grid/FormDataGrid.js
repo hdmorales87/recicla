@@ -32,13 +32,18 @@ class FormDataGrid extends Component {
         this.funcionEditDataSelect = this.funcionEditDataSelect.bind(this);
     } 
     componentWillMount(){
-        this.props.parametro.formFields.forEach((formFields,i) => {
+        this.props.parametro.formFields.forEach((formFields,i) => {            
             if(this.props.parametro.idRow !== 0){                
                 if(this.props.parametro.idRow[formFields.field] === '' || this.props.parametro.idRow[formFields.field] === undefined || this.props.parametro.idRow[formFields.field] === null){
                     this.setState({[formFields.field] : ''});
                 }
-                else{
-                    this.setState({[formFields.field] : this.props.parametro.idRow[formFields.field]});             
+                else{                    
+                    if(formFields.type==='data_select'){                        
+                        this.setState({[formFields.dataParams.fetchData.valueField] : this.props.parametro.idRow[formFields.dataParams.fetchData.valueField]});
+                    }
+                    else{
+                        this.setState({[formFields.field] : this.props.parametro.idRow[formFields.field]});
+                    }
                 }
             }
             else{
@@ -60,9 +65,7 @@ class FormDataGrid extends Component {
     handleSaveButton(id){
         //recorrido dinamico de los campos y cargar dinamicamente el arrayData
         var arrayData = {};
-        var errors = 0;
-
-        console.log(this.state);
+        var errors = 0;        
 
         this.props.parametro.formFields.forEach((formFields,i) => {
             if((this.state[formFields.field] === undefined || this.state[formFields.field] === '') && formFields.required === 'true'){
