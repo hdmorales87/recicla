@@ -24,31 +24,33 @@ class FormDataGrid extends Component {
   	constructor(props) {
         super(props);
         //cargar dinamicamente los estados        
-        this.state = {};
-        this.props.parametro.formFields.forEach((formFields,i) => {
-            if(this.props.parametro.idRow !== 0){                
-                if(this.props.parametro.idRow[formFields.field] === '' || this.props.parametro.idRow[formFields.field] === undefined || this.props.parametro.idRow[formFields.field] === null){
-                    this.state[formFields.field] = '';
-                }
-                else{
-                    this.state[formFields.field] = this.props.parametro.idRow[formFields.field];             
-                }
-            }
-            else{
-                if(formFields.type==='select'){
-                    this.state[formFields.field] = 1;            
-                }
-                else{
-                    this.state[formFields.field] = '';         
-                }                
-            }
-        });    
+        this.state = {};           
         //botones de cancelar y guardar      
         this.handleCancelButton = this.handleCancelButton.bind(this);
         this.handleSaveButton   = this.handleSaveButton.bind(this);
         this.handleConfirmAction = this.handleConfirmAction.bind(this);
         this.funcionEditDataSelect = this.funcionEditDataSelect.bind(this);
-    }  
+    } 
+    componentWillMount(){
+        this.props.parametro.formFields.forEach((formFields,i) => {
+            if(this.props.parametro.idRow !== 0){                
+                if(this.props.parametro.idRow[formFields.field] === '' || this.props.parametro.idRow[formFields.field] === undefined || this.props.parametro.idRow[formFields.field] === null){
+                    this.setState({[formFields.field] : ''});
+                }
+                else{
+                    this.setState({[formFields.field] : this.props.parametro.idRow[formFields.field]});             
+                }
+            }
+            else{
+                if(formFields.type==='select'){
+                    this.setState({[formFields.field] : 1});            
+                }
+                else{                    
+                    this.setState({[formFields.field] : ''});                          
+                }                
+            }
+        });
+    } 
     componentDidMount(){
         this.setState({windowDataSelectId : ''});
     } 
@@ -59,6 +61,8 @@ class FormDataGrid extends Component {
         //recorrido dinamico de los campos y cargar dinamicamente el arrayData
         var arrayData = {};
         var errors = 0;
+
+        console.log(this.state);
 
         this.props.parametro.formFields.forEach((formFields,i) => {
             if((this.state[formFields.field] === undefined || this.state[formFields.field] === '') && formFields.required === 'true'){
@@ -160,11 +164,17 @@ class FormDataGrid extends Component {
             })
         });        
     }
-    funcionEditDataSelect(data,params){//la funcion que carga los datos del DataSelect
-        //this.setState()
-        //this.setState({
-        console.log(data);
-        console.log(params);
+    funcionEditDataSelect(data,params){//la funcion que carga los datos del DataSelect        
+        this.setState({[params.idField] : data.id });
+        this.setState({[params.valueField] : data[params.fieldFetch]});
+        this.setState({windowDataSelectId : "windowFormDataSelect_"+this.props.parametro.mainContainer+"_"+params.idField }, () => {
+            globalState.dispatch({
+                type   : "windowFormDataSelect_"+this.props.parametro.mainContainer+"_"+params.idField,
+                params : {
+                    visible : false,                    
+                }
+            })
+        }); 
     }  
   	render() {
     	var titulo = 'Agregar';
@@ -185,7 +195,7 @@ class FormDataGrid extends Component {
     			    	<Form>
                            {
                                //cargar dinamicamente los campos, dependiendo si es input o select
-                                this.props.parametro.formFields.map((formFields,i) => {                                    
+                                this.props.parametro.formFields.map((formFields,i) => {
                                     if(formFields.type === 'text'){
                                         field = <Form.Group key= {i} controlId="formBasicTipoCompra">
                                                     <Form.Label>{formFields.label}</Form.Label>
@@ -198,11 +208,11 @@ class FormDataGrid extends Component {
                                                     <ComboBoxFormDataGrid valueName = {formFields.valueName} options = {formFields.options} apiField={formFields.apiField} dinamic={formFields.dinamic} name = {formFields.field} type={formFields.type} functionChange={this.handleStateChange.bind(this)} value={this.state[formFields.field]}/>                               
                                                </Form.Group>
                                     }
-                                    else if(formFields.type === 'data_select'){
+                                    else if(formFields.type === 'data_select'){                                           
                                         field = <Form.Group key= {i} controlId="formBasicTipoCompra">
-                                                    <input type="hidden" name = {formFields.dataParams.idField} value={this.state[formFields.dataParams.idField]} />
+                                                    <input type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
                                                     <Form.Label>{formFields.label}</Form.Label>
-                                                    <Form.Control value = {formFields.dataParams.valueField} type={formFields.type} onClick={this.handleDataSelect.bind(this,formFields.dataParams)} onChange={this.handleStateChange.bind(this,formFields.validation)} />                                
+                                                    <Form.Control style={{backgroundColor:'#fff'}} name={formFields.dataParams.fetchData.valueField} type="text" onClick={this.handleDataSelect.bind(this,formFields.dataParams)} value={this.state[formFields.dataParams.fetchData.valueField] || 'Seleccione...'} readOnly/>                                
                                                </Form.Group>
                                     }
                                     return field;

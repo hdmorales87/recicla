@@ -32,6 +32,7 @@ class Purchases extends Component {
                                     {
                                         label : 'Reciclador',                                        
                                         type  : 'data_select',
+                                        field : 'id_reciclador',
                                         dataParams : { 
                                                          fetchData : {
                                                               fieldFetch  : 'nombre',

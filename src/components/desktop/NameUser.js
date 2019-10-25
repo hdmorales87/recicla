@@ -116,7 +116,7 @@ class NameUser extends Component {
         			<Dropdown  id="ContenidoDataUser" className="ContenidoUser" onMouseOut={divMouseOut.bind(this,'ContenidoDataUser',configJson.fondoMenu)} onMouseOver={divMouseOver.bind(this,'ContenidoDataUser',configJson.fondoMenu)}>	
         				  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">  	  					 		  
       				    	  <div className="FotoUsuario">
-                          <img src="https://cloud.logicalsoft.co/cloud/photo/ABCDEFGH0123456789.png" />
+                          <img alt="imgAvatar" src="https://cloud.logicalsoft.co/cloud/photo/ABCDEFGH0123456789.png" />
                       </div>
                       <div className="NombreUsuario">
                           <div style={{width:'100%'}}>
