@@ -15,10 +15,17 @@ class Purchases extends Component {
             <DataGrid titulo='Compras' 
                       funcionClick={this.props.funcionClick}  
                       parametro={this.props.parametro}                     
-                      colsHeaders={[ 'Tipo Compra','Reciclador','Peso' ]}
-                      colsData={[ 'tipo_compra','reciclador','peso' ]} 
+                      colsHeaders={[ 'Fecha Compra','Tipo Compra','Reciclador','Peso','Valor Compra' ]}
+                      colsData={[ 'fecha_compra','tipo_compra','reciclador','peso','valor_compra' ]} 
                       automatica="true" 
                       formFields={[
+                                    {
+                                        label : 'Fecha de Compra',
+                                        field : 'fecha_compra',
+                                        type  : 'date',
+                                        validation : '',
+                                        required : 'true'
+                                    },
                                     {
                                         label : 'Tipo de Compra',
                                         field : 'id_tipo_compra',
@@ -48,7 +55,7 @@ class Purchases extends Component {
                                     },
                                     {
                                         label : 'Precio',
-                                        field : 'precio',
+                                        field : 'peso',
                                         type  : 'text',
                                         validation : 'entero',
                                         required : 'true'

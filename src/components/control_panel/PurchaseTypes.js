@@ -16,7 +16,7 @@ class PurchaseTypes extends Component {
                       funcionClick={this.props.funcionClick}   
                       parametro={this.props.parametro}                    
                       colsHeaders={[ 'Nombre','Precio' ]}
-                      colsData={[ 'nombre','precio' ]} 
+                      colsData={[ 'nombre','precio_compra' ]} 
                       automatica="true"
                       formFields={[
                                     {
@@ -28,7 +28,7 @@ class PurchaseTypes extends Component {
                                     },
                                     {
                                         label : 'Precio',
-                                        field : 'precio',
+                                        field : 'precio_compra',
                                         type  : 'text',
                                         validation : 'entero',
                                         required : 'true'
