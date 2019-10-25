@@ -37,12 +37,10 @@ class FormDataGrid extends Component {
                 if(this.props.parametro.idRow[formFields.field] === '' || this.props.parametro.idRow[formFields.field] === undefined || this.props.parametro.idRow[formFields.field] === null){
                     this.setState({[formFields.field] : ''});
                 }
-                else{                    
-                    if(formFields.type==='data_select'){                        
+                else{         
+                    this.setState({[formFields.field] : this.props.parametro.idRow[formFields.field]});           
+                    if(formFields.type==='data_select'){//adicional pone el texto en el input del data select
                         this.setState({[formFields.dataParams.fetchData.valueField] : this.props.parametro.idRow[formFields.dataParams.fetchData.valueField]});
-                    }
-                    else{
-                        this.setState({[formFields.field] : this.props.parametro.idRow[formFields.field]});
                     }
                 }
             }
@@ -65,7 +63,7 @@ class FormDataGrid extends Component {
     handleSaveButton(id){
         //recorrido dinamico de los campos y cargar dinamicamente el arrayData
         var arrayData = {};
-        var errors = 0;        
+        var errors = 0;            
 
         this.props.parametro.formFields.forEach((formFields,i) => {
             if((this.state[formFields.field] === undefined || this.state[formFields.field] === '') && formFields.required === 'true'){
