@@ -99,11 +99,21 @@ export function sendEmailPassword(email){
 }
 
 export function checkToken(email,token){	
-	//envia correo para cambiar password
+	//chequea si el token del correo es el vigente
 	return axios({
         	    method: 'post',
         	    url: path+'checkToken',
         	    data: { 'email': email,'token': token },
+        	    withCredentials: true
+        	});	
+}
+
+export function updatePassword(email,password){	
+	//actualiza el password
+	return axios({
+        	    method: 'post',
+        	    url: path+'updatePassword',
+        	    data: { 'email': email,'password': password },
         	    withCredentials: true
         	});	
 }

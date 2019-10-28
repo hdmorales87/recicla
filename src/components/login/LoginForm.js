@@ -118,7 +118,7 @@ class LoginForm extends Component {
                         <img alt="Empresa" src={ empresa_login } />
                     </div>
                     <div className="FieldDiv">
-                        <input type="text" value={this.state.empresa} className="mytext" name="empresa" id="empresa" placeholder="NIT Empresa" required onBlur={this.validacionEmpresa.bind(this)} onChange={this.handleNitChange.bind(this)}  ref={this.inputEmpresa}/>
+                        <input type="text" value={this.state.empresa} className="inputLogin mytext" name="empresa" id="empresa" placeholder="NIT Empresa" required onBlur={this.validacionEmpresa.bind(this)} onChange={this.handleNitChange.bind(this)}  ref={this.inputEmpresa}/>
                     </div>
                 </div>
                 <div className="ContentField">
@@ -126,7 +126,7 @@ class LoginForm extends Component {
                         <img alt="Usuario" src={ usuario_login } />
                     </div>
                     <div className="FieldDiv">
-                        <input type="text" value={this.state.username} className="mytext" name="usuario" id="usuario" placeholder="Usuario" required onChange={this.handleUserChange.bind(this)}/>
+                        <input type="text" value={this.state.username} className="inputLogin mytext" name="usuario" id="usuario" placeholder="Usuario" required onChange={this.handleUserChange.bind(this)}/>
                     </div>
                 </div>
                 <div className="ContentField" styles= {{marginTop: '20px',marginBottom: '20px'}}>
@@ -134,7 +134,7 @@ class LoginForm extends Component {
                         <img alt="Contraseña" src={ password_login } />
                     </div>
                     <div className="FieldDiv">
-                        <input type="password" className="mytext" name="password" id="password" placeholder="Contraseña" required onChange={this.handlePasswordChange.bind(this)} />
+                        <input type="password" className="inputLogin mytext" name="password" id="password" placeholder="Contraseña" required onChange={this.handlePasswordChange.bind(this)} />
                     </div>
                 </div>
                 <div className="ContentField" styles={{padding:'5px 15px 10px', margin:'0px', textAlign:'right'}}>

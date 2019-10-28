@@ -104,7 +104,7 @@ body {
     margin-top: calc(50% - 136px);
 }
 
-#table_login input[type=text], input[type=password] {    
+#table_login .inputLogin {    
     color: #848484;
     padding: 0 10px 0 10px;
     width: 260px;
