@@ -11,6 +11,8 @@ import './login.css';
 import empresa_login from './../../images/empresa_login.png?v1.0';
 import usuario_login from './../../images/usuario_login.png?v1.0';
 import password_login from './../../images/password_login.png?v1.0';
+import Window from '../window/Window';
+import globalState from '../configuration/GlobalState';
 import {login,validaEmpresa} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
@@ -110,6 +112,18 @@ class LoginForm extends Component {
     handlePasswordChange(e) { 
         this.setState({password: e.target.value}); 
     } 
+    handleOlvidoClave(e) {
+        globalState.dispatch({
+                type   : "windowResetPassword1",
+                params : {
+                              visible : true,
+                              params  : {
+                                            email : '',
+                                            idWin : "windowResetPassword1"//identificador de la ventana
+                                        }
+                         }
+            }); 
+    }
     render() {
         return (//carga del formulario
             <form className="DivLogin">
@@ -138,13 +152,22 @@ class LoginForm extends Component {
                     </div>
                 </div>
                 <div className="ContentField" styles={{padding:'5px 15px 10px', margin:'0px', textAlign:'right'}}>
-                    <div style={{fontSize:'11px',fontWeight:'bold',color:'#848484',textAlign:'right',paddingRight:'10px'}}>
+                    <div style={{fontSize:'11px',cursor:'pointer',fontWeight:'bold',color:'#848484',textAlign:'right',paddingRight:'10px'}} onClick={this.handleOlvidoClave.bind(this)}>
                         Olvide mi Contrase&ntilde;a
                     </div>
                 </div>
                 <div className="DivBoton">
                     <input type="button" id="validateUser" onClick={this.handleLogin.bind(this)} value=" " />
                 </div>
+                <Window 
+                    id = "windowResetPassword1"                      
+                    title='Cambiar Password'
+                    width='300px' 
+                    height='240px'                     
+                    tbar='false'
+                    componente="WindowResetPassword"
+                    params="" 
+                />
             </form>           
         );
     }
