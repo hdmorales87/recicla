@@ -30,6 +30,9 @@ class WindowResetPassword extends Component {
             if(response.msg === 'error'){
                 alertify.alert('Error!', 'Ha ocurrido un error enviando el correo a '+email+'!<br />Codigo de Error: '+response.detail); 
             }
+            else if(response.msg === 'not_found'){
+                alertify.alert('Error!', 'El usuario '+email+' No se encuentra en la base de datos!'); 
+            }
             else {
                 alertify.alert('Envio Exitoso!', 'Se ha enviado un correo a '+email+', esta solicitud tiene un plazo de 1 hora!'); 
                 globalState.dispatch({

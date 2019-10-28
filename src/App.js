@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './components/login/Login';
 import Desktop from './components/desktop/Desktop';
+import ResetPasswordForm from './components/reset_password/ResetPasswordForm'
 
 class App extends Component {
   render() {
@@ -17,7 +18,7 @@ class App extends Component {
       <BrowserRouter>               
           <Switch>
               <Route exact path="/" component={Login} /> 
-              <Route exact path="/resetPassword" component={Login} />    
+              <Route exact path="/resetPassword/:token/:user" component={ResetPasswordForm} />    
               <Route exact path="/desktop" component={Desktop} />                          
               <Route path="*" component={Login}/>                 
               <Route component={Login} />
