@@ -97,3 +97,13 @@ export function sendEmailPassword(email){
         	    withCredentials: true
         	});	
 }
+
+export function checkToken(email,token){	
+	//envia correo para cambiar password
+	return axios({
+        	    method: 'post',
+        	    url: path+'checkToken',
+        	    data: { 'email': email,'token': token },
+        	    withCredentials: true
+        	});	
+}
