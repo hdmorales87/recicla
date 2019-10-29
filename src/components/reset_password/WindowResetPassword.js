@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import configJson from '../configuration/configuration.json';
-import {divMouseOver,divMouseOut,validarEmail,modalLoading} from '../configuration/GlobalFunctions';
+import {divMouseOver,divMouseOut,validarEmail,modalLoadingRstPwd} from '../configuration/GlobalFunctions';
 import {sendEmailPassword} from '../api_calls/ApiCalls';
 import globalState from '../configuration/GlobalState';
 import alertify from 'alertifyjs';
@@ -28,9 +28,14 @@ class WindowResetPassword extends Component {
             alertify.alert('Error!', 'No es una cuenta de Email Valida');
         }
         else{
-            modalLoading(true);
+            var modalLoading = "modalLoading";//con esto se que modal abrir
+            if(this.props.params.idWin === 'windowResetPassword1'){
+                modalLoading = "modalLoading1";
+            }
+            modalLoadingRstPwd(true,modalLoading);
             //enviar al correo la recuperacion de la contraseña        
-            sendEmailPassword(email).then(response => {             
+            sendEmailPassword(email).then(response => { 
+                modalLoadingRstPwd(false,modalLoading);            
                 response = response.data;
                 if(response.msg === 'error'){
                     alertify.alert('Error!', 'Ha ocurrido un error enviando el correo a '+email+'!<br />Codigo de Error: '+response.detail); 
@@ -38,8 +43,7 @@ class WindowResetPassword extends Component {
                 else if(response.msg === 'not_found'){
                     alertify.alert('Error!', 'El usuario '+email+' No se encuentra en la base de datos!'); 
                 }
-                else {
-                    modalLoading(false);
+                else {                    
                     alertify.alert('Envio Exitoso!', 'Se ha enviado un correo a '+email+', esta solicitud tiene un plazo de 1 hora!'); 
                     globalState.dispatch({
                         type   : this.props.params.idWin,

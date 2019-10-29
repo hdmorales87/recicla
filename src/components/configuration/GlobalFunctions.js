@@ -297,6 +297,13 @@ export function seguridad_clave(clave){
    return seguridad            
 }  
 
+export function modalLoadingRstPwd(opc,modal){
+	globalState.dispatch({
+                            type   : modal,
+                            params : opc
+                        });
+} 
+
 export function modalLoading(opc){
 	globalState.dispatch({
                             type   : "modalLoading",

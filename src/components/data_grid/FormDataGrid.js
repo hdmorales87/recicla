@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button';
 import ComboBoxFormDataGrid from './ComboBoxFormDataGrid';
 import configJson from '../configuration/configuration.json';
 import globalState from '../configuration/GlobalState';
-import {divMouseOver,divMouseOut,validarEmail} from '../configuration/GlobalFunctions';
+import {divMouseOver,divMouseOut,validarEmail,modalLoading} from '../configuration/GlobalFunctions';
 import Window from '../window/Window';
 import {insertarActualizarFila,eliminarFilas} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
@@ -95,10 +95,12 @@ class FormDataGrid extends Component {
         }
         else{            
             method = 'post';
-        }        
+        }   
+        modalLoading(true);     
         //ajax que llama a la API para insertar o actualizar        
         insertarActualizarFila(method,this.props.parametro.apiField,arrayData)
         .then(response => {
+            modalLoading(false); 
             response = response.data;
             if(response.msg === 'error'){
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail); 

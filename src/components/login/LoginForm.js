@@ -55,24 +55,19 @@ class LoginForm extends Component {
             id_empresa: id_empresa,
             username: username,
             password: '',
-            showLoading : false
+            showLoading : false,
+            unmount : false,
         };  
         this.handleLogin = this.handleLogin.bind(this);
     }
     componentDidMount() {//cada que se monte el escritorio debe alistar la ventana del loading      
         //... 
         globalState.subscribe( ()=>{ 
-            if(globalState.getState().type==="modalLoading"){                             
-                this.setState({showLoading  : globalState.getState().modalLoading});                               
+            if(globalState.getState().type==="modalLoading1"){ 
+                this.setState({showLoading  : globalState.getState().modalLoading1});                                           
             }
         });          
-    }
-    componentWillUnmount(){
-        //... 
-        globalState.subscribe( ()=>{ 
-            //....
-        });
-    }
+    }    
     handleLogin(val) {   
         
         //validacion de datos       
