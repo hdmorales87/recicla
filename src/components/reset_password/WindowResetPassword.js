@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import configJson from '../configuration/configuration.json';
-import {divMouseOver,divMouseOut,validarEmail} from '../configuration/GlobalFunctions';
+import {divMouseOver,divMouseOut,validarEmail,modalLoading} from '../configuration/GlobalFunctions';
 import {sendEmailPassword} from '../api_calls/ApiCalls';
 import globalState from '../configuration/GlobalState';
 import alertify from 'alertifyjs';
@@ -28,6 +28,7 @@ class WindowResetPassword extends Component {
             alertify.alert('Error!', 'No es una cuenta de Email Valida');
         }
         else{
+            modalLoading(true);
             //enviar al correo la recuperacion de la contraseña        
             sendEmailPassword(email).then(response => {             
                 response = response.data;
@@ -38,6 +39,7 @@ class WindowResetPassword extends Component {
                     alertify.alert('Error!', 'El usuario '+email+' No se encuentra en la base de datos!'); 
                 }
                 else {
+                    modalLoading(false);
                     alertify.alert('Envio Exitoso!', 'Se ha enviado un correo a '+email+', esta solicitud tiene un plazo de 1 hora!'); 
                     globalState.dispatch({
                         type   : this.props.params.idWin,

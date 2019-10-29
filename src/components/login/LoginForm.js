@@ -11,11 +11,27 @@ import './login.css';
 import empresa_login from './../../images/empresa_login.png?v1.0';
 import usuario_login from './../../images/usuario_login.png?v1.0';
 import password_login from './../../images/password_login.png?v1.0';
-import Window from '../window/Window';
 import globalState from '../configuration/GlobalState';
+import loadingImg from '../../images/loading.gif?v1.0';
+import Modal from 'react-modal';
+import Window from '../window/Window';
 import {login,validaEmpresa} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
+
+const stylesLoading = {
+  content : {
+    top         : '50%',
+    left        : '50%',
+    width       : '202px',
+    height      : '202px',
+    right       : 'auto',
+    bottom      : 'auto',
+    marginRight : '-50%',
+    padding     : '0px',
+    transform   : 'translate(-50%, -50%)',    
+  }
+};
 
 class LoginForm extends Component {    
     constructor(props) {
@@ -38,9 +54,24 @@ class LoginForm extends Component {
             empresa: empresa,
             id_empresa: id_empresa,
             username: username,
-            password: ''
+            password: '',
+            showLoading : false
         };  
         this.handleLogin = this.handleLogin.bind(this);
+    }
+    componentDidMount() {//cada que se monte el escritorio debe alistar la ventana del loading      
+        //... 
+        globalState.subscribe( ()=>{ 
+            if(globalState.getState().type==="modalLoading"){                             
+                this.setState({showLoading  : globalState.getState().modalLoading});                               
+            }
+        });          
+    }
+    componentWillUnmount(){
+        //... 
+        globalState.subscribe( ()=>{ 
+            //....
+        });
     }
     handleLogin(val) {   
         
@@ -168,6 +199,13 @@ class LoginForm extends Component {
                     componente="WindowResetPassword"
                     params="" 
                 />
+                <Modal //la ventana del loading
+                   isOpen={this.state.showLoading}
+                   contentLabel="Minimal Modal Example"
+                   style={stylesLoading}
+                > 
+                    <img src={loadingImg}  alt="Loading"/>
+                </Modal>
             </form>           
         );
     }

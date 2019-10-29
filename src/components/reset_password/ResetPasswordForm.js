@@ -94,7 +94,7 @@ class ResetPasswordForm extends Component {
                     <div style={{width:'calc(100% - 40px)',maxWidth:'600px',height:'95px',padding:'20px',margin:'0 auto'}}>
                         <div className="adM">
                         </div>
-                        <img src={logo_login1} style={{width:'250px'}} className="CToWUd" />
+                        <img src={logo_login1} style={{width:'250px'}} className="CToWUd" alt="Logo"/>
                     </div>
                     <div style={{width:'calc(100% - 60px)',maxWidth:'600px',height:'auto',padding:'20px',margin:'20px auto',backgroundColor:'#fff',borderRadius:'5px'}}>
                     {
@@ -122,7 +122,7 @@ class ResetPasswordForm extends Component {
 	                                            <Form.Control name = "repitaPassword" type="password" onChange={this.handleRepitaPassword.bind(this)} value={this.state.repitaPassword}/>                               
 	                                      </Form.Group>
 	                                      <Form.Group controlId="formBasicResetPwd" style={{height:'30px',marginTop:'20px',marginBottom:'0px'}}>
-		                                      <Button id="formGridBtnSave" style={{padding:'10px 20px',margin: '20px 0'}} className="float-left mr-3" variant="primary" onClick={this.handleResetPasswordButton.bind(this)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>
+		                                      <Button id="formGridBtnSave" style={{padding:'10px 20px',margin: '20px 0',backgroundColor:configJson.fondoBotonGrilla}} className="float-left mr-3" variant="primary" onClick={this.handleResetPasswordButton.bind(this)} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>
 	    				  	      					NUEVO PASSWORD
 	    				  	    			  </Button>
 	    				  	    		  </Form.Group>  

@@ -6,6 +6,8 @@
 *
 */
 
+import globalState from './GlobalState';
+
 export function divMouseOver(field,color,e){
 	//cambia el color al pasar por encima		
 	if(e.currentTarget.id){ 
@@ -293,4 +295,11 @@ export function seguridad_clave(clave){
       }
    }
    return seguridad            
-}   
+}  
+
+export function modalLoading(opc){
+	globalState.dispatch({
+                            type   : "modalLoading",
+                            params : opc
+                        });
+} 

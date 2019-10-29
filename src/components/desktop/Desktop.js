@@ -11,13 +11,30 @@ import { Redirect } from 'react-router-dom';
 import NameUser from './NameUser';
 import OptionMenu from './OptionMenu';
 import MaterialIcon from 'material-icons-react';
+import Modal from 'react-modal';
 import configJson from '../configuration/configuration.json';
 import globalState from '../configuration/GlobalState';
 import {checkSession,cargarFilas,validaEmpresa} from '../api_calls/ApiCalls';
+import loadingImg from '../../images/loading.gif?v1.0';
 import Container from './Container';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 import './desktop.css?v1.5'; 
+
+const stylesLoading = {
+  content : {
+    top         : '50%',
+    left        : '50%',
+    width       : '202px',
+    height      : '202px',
+    right       : 'auto',
+    bottom      : 'auto',
+    marginRight : '-50%',
+    padding     : '0px',
+    transform   : 'translate(-50%, -50%)',    
+  }
+};
+
 
 class Desktop extends Component {
 	constructor(props) {//al cargarse trae los datos del usuario 		
@@ -29,7 +46,8 @@ class Desktop extends Component {
           	redirect: false,	 		                
       	 	componente: "WelcomePage",
       	 	parametro : "",
-            checkMenu : false 
+            checkMenu : false,
+            showLoading : false 
 	    }; 
         checkSession()
         .then(res => {
@@ -94,8 +112,13 @@ class Desktop extends Component {
         });
 	} 
     
-	componentDidMount() {//cada que se monte el escritorio debe validar la sesion       
-        //...           
+	componentDidMount() {//cada que se monte el escritorio debe alistar la ventana del loading      
+        //... 
+        globalState.subscribe( ()=>{ 
+            if(globalState.getState().type==="modalLoading"){                             
+                this.setState({showLoading  : globalState.getState().modalLoading});                               
+            }
+        });          
     }	
 
     actualizarContainer(val,param){//carga dinamica del lado derecho	
@@ -146,7 +169,14 @@ class Desktop extends Component {
 	    		          <div id="contenidopestanas" className="contenidoEscritorio">
 	    		 	           <Container componente={this.state.componente} funcionClick = {this.actualizarContainer} parametro={this.state.parametro}/>
 	    		          </div>	
-                </div> 		     
+                </div>
+                <Modal //la ventana del loading
+                   isOpen={this.state.showLoading}
+                   contentLabel="Minimal Modal Example"
+                   style={stylesLoading}
+                > 
+                    <img src={loadingImg}  alt="Loading"/>
+                </Modal>		     
 	       </div>   	
 		);
   	}
