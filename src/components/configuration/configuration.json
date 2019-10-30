@@ -4,6 +4,8 @@
 	"fondoCabecera"    : "#2a3f54",
 	"fondoBotonGrilla" : "#007bff",
 	"windowColor"      : "#2a80b9",
+	"maxAvatarSize"    : 520000,
+	"folderAvatarUser" : "imagenes_usuarios/",
 	"modulos"          : [
 							{
 								"tab" : "pestana0",
@@ -15,28 +17,28 @@
 						 	{
 								"tab" : "pestana1",
 								"titulo" : "Ventas",
-								"subtitulo" : "Venta de Chatarra",
+								"subtitulo" : "Venta de Reciclaje",
 								"icono" : "attach_money",
 								"componente": "Sales"
 						 	},
 						 	{
 								"tab" : "pestana2",
 								"titulo" : "Compras",
-								"subtitulo" : "Compra de Chatarra",
+								"subtitulo" : "Compra de Reciclaje",
 								"icono" : "shopping_cart",
 								"componente": "Purchases"
 						 	},
 						 	{
 								"tab" : "pestana3",
 								"titulo" : "Clientes",
-								"subtitulo" : "Compradores de Chatarra",
+								"subtitulo" : "Compradores de Reciclaje",
 								"icono" : "person",
 								"componente": "Customers"
 						 	},
 						 	{
 								"tab" : "pestana4",
 								"titulo" : "Recicladores",
-								"subtitulo" : "Vendedores de Chatarra",
+								"subtitulo" : "Vendedores de Reciclaje",
 								"icono" : "person",
 								"componente": "Reciclators"
 						 	},

@@ -26,14 +26,18 @@ class NameUser extends Component {
         this.state = {
             showModal   : false,
             username    : '',
-            companyName : ''
+            companyName : '',
+            imagenUser  : 'default.png'
         };
     }
     componentDidMount(){//traer los datos del store
         globalState.subscribe( ()=>{ 
             if(globalState.getState().type==="userData"){        
                 var userData = globalState.getState().userData;       
-                this.setState({username  : userData[0].primer_nombre.toUpperCase()+' '+userData[0].primer_apellido.toUpperCase()})                
+                this.setState({username   : userData[0].primer_nombre.toUpperCase()+' '+userData[0].primer_apellido.toUpperCase()}) 
+                if(userData[0].imagen_usuario !== undefined && userData[0].imagen_usuario !== ""){
+                    this.setState({imagenUser : userData[0].imagen_usuario});
+                }
             }
         });  
         globalState.subscribe( ()=>{ 
@@ -109,11 +113,13 @@ class NameUser extends Component {
             });        
     } 
     render() {
+          var date = new Date();
+          var randomDate = date.getTime(); 
     	  	return (//carga el menu de opciones del usuario  	  		
         			<Dropdown  id="ContenidoDataUser" className="ContenidoUser" onMouseOut={divMouseOut.bind(this,'ContenidoDataUser',configJson.fondoMenu)} onMouseOver={divMouseOver.bind(this,'ContenidoDataUser',configJson.fondoMenu)}>	
         				  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">  	  					 		  
       				    	  <div className="FotoUsuario">
-                          <img alt="imgAvatar" src="https://cloud.logicalsoft.co/cloud/photo/ABCDEFGH0123456789.png" />
+                          <img alt="imgAvatar" src={configJson.apiPath+configJson.folderAvatarUser+this.state.imagenUser+'?'+randomDate} />
                       </div>
                       <div className="NombreUsuario">
                           <div style={{width:'100%'}}>

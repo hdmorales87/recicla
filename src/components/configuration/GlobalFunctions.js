@@ -310,3 +310,11 @@ export function modalLoading(opc){
                             params : opc
                         });
 } 
+
+export function ValidateExtension(allowedFiles,filename) {
+    var regex = new RegExp("([a-zA-Z0-9s_\\.-:])+(" + allowedFiles.join('|') + ")$");
+    if (!regex.test(filename.toLowerCase())) {           
+        return false;
+    }        
+    return true;
+}

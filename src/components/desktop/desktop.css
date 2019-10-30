@@ -664,3 +664,36 @@ body, html {
 .ContenedorDataGrid{    
     height: calc(100% - 62px);    
 } 
+
+#contentImageUser {
+    width: 100%;
+    height: 100px;
+    text-align: center;
+}
+
+#contentImageUser .divImageUser {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    margin: 0 auto;
+}
+
+#ImageUser{
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+}
+
+#contentImageUser #uploadedImageUser {
+    border: none;
+    box-shadow: none;
+    background-color: #FFF;
+    color: #FFF;
+    opacity: 0;
+    width: 80px;
+    height: 80px;
+    position: relative;
+    top: -80px;
+    left: 0;
+    cursor: pointer;
+}

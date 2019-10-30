@@ -117,3 +117,22 @@ export function updatePassword(email,password){
         	    withCredentials: true
         	});	
 }
+
+export function uploaderFile(file,table,field,id,folder){	
+	var formData = new FormData();
+	formData.append("file", file);
+	formData.append("table", table);
+	formData.append("field", field);
+	formData.append("id", id);
+	formData.append("folder", folder);
+	//enviar el archivo
+	return axios.post(path+'uploaderFile',
+				formData,
+				{
+	            	withCredentials: true,	            
+	           		headers: {
+            			'content-type': 'multipart/form-data'
+        			} 
+	        	}
+	        );
+}
