@@ -2,7 +2,7 @@
   "name": "chatarreria-front",
   "version": "0.1.0",
   "private": true,
-  "homepage":"http://35.233.170.134/recicla/frontend/",
+  "homepage":"http://35.233.170.134/recicla/",
   "dependencies": {
     "alertifyjs": "^1.11.2",
     "axios": "^0.18.1",
