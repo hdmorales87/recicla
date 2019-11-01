@@ -17,11 +17,9 @@ class App extends Component {
     return (//router de la aplicacion
       <BrowserRouter>               
           <Switch>
-              <Route exact path="/" component={Login} /> 
-              <Route exact path="/resetPassword/:token/:user" component={ResetPasswordForm} />    
-              <Route exact path="/desktop" component={Desktop} />                          
-              <Route path="*" component={Login}/>                 
-              <Route component={Login} />
+              <Route exact path="/recicla/" component={Login} /> 
+              <Route exact path="/recicla/resetPassword/:token/:user" component={ResetPasswordForm} />    
+              <Route exact path="/recicla/desktop" component={Desktop} />              
           </Switch>        
       </BrowserRouter>
     );

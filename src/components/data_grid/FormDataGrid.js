@@ -120,6 +120,9 @@ class FormDataGrid extends Component {
         if(validation === 'mayusculas'){
             ingresado = ingresado.toUpperCase();
         }
+        if(validation === 'email'){
+            ingresado = ingresado.toLowerCase();
+        }
         if(validation === 'entero'){
             ingresado = ingresado.replace(/[^\d]/g,'');
         }

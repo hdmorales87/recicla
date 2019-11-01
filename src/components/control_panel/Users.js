@@ -15,8 +15,8 @@ class Users extends Component {
             <DataGrid titulo='Usuarios' 
                       funcionClick={this.props.funcionClick}  
                       parametro={this.props.parametro}                     
-                      colsHeaders={[ 'Tipo Documento','Documento','Nombre','Email','Username','Direccion','Telefono' ]}
-                      colsData={[ 'tipo_documento','documento','nombre','email','username','direccion','telefono' ]} 
+                      colsHeaders={[ 'Tipo Documento','Documento','Nombre','Email','Direccion','Telefono' ]}
+                      colsData={[ 'tipo_documento','documento','nombre','email','direccion','telefono' ]} 
                       automatica="true"
                       formFields={[
                                     {

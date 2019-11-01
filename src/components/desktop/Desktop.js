@@ -38,9 +38,8 @@ const stylesLoading = {
 
 class Desktop extends Component {
 	constructor(props) {//al cargarse trae los datos del usuario 		
-      	super(props);  
-        var usuario = this.props.location.state.usuario; 
-        var empresa = this.props.location.state.empresa;             
+      	super(props);          
+
       	this.state = { 
       		loading: true,
           	redirect: false,	 		                
@@ -49,6 +48,14 @@ class Desktop extends Component {
             checkMenu : false,
             showLoading : false 
 	    }; 
+
+        var usuario = '';
+        var empresa = '';
+        if(this.props.location.state !== undefined){
+            usuario = this.props.location.state.usuario; 
+            empresa = this.props.location.state.empresa;
+        }        
+          
         checkSession()
         .then(res => {
             var response = res.data; 
@@ -148,7 +155,7 @@ class Desktop extends Component {
       	}
       	if (redirect) {//sesion inexistente, cargar login
             alert('Su sesion ha finalizado, debe registrarse de nuevo!');
-        	return <Redirect to="/" />;
+        	return <Redirect to="/recicla/" />;
       	}  			 		
   	  	return (//carga el entorno del escritorio, barra de menu, barra superior y contenedor 	  		  
   	  		<div className="App">

@@ -521,6 +521,7 @@ input[type=checkbox] {
     float: left;
     background: #fff;
     margin: 0;
+    overflow: auto;
 }
 
 #contenidopestanas > div >div {

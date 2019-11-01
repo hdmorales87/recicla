@@ -68,7 +68,7 @@ class NameUser extends Component {
           	if (response.msg === "error") {      	  	  	  	
           		alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+response.detail);  	  	  	  	
           	} else if (response.msg === "success"){
-          	  	this.props.history.push('/');//me devuelve al login       	  	  	  	
+          	  	this.props.history.push('/recicla/');//me devuelve al login       	  	  	  	
           	}
         })
         .catch(err => {
