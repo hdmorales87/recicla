@@ -6,11 +6,9 @@
 * @author Hector Morales <warrior1987@gmail.com>
 */
 
-import configJson from '../configuration/configuration.json';
 import axios from 'axios';
 
-
-const path = configJson.apiPath; 
+const path = "http://"+window.location.hostname+":5000/";
 
 export function login(id_empresa,username,password){
 	//consulta si el usuario existe con los datos ingresados

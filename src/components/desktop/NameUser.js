@@ -115,11 +115,12 @@ class NameUser extends Component {
     render() {
           var date = new Date();
           var randomDate = date.getTime(); 
+          var path = "http://"+window.location.hostname+":5000/";
     	  	return (//carga el menu de opciones del usuario  	  		
         			<Dropdown  id="ContenidoDataUser" className="ContenidoUser" onMouseOut={divMouseOut.bind(this,'ContenidoDataUser',configJson.fondoMenu)} onMouseOver={divMouseOver.bind(this,'ContenidoDataUser',configJson.fondoMenu)}>	
         				  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">  	  					 		  
       				    	  <div className="FotoUsuario">
-                          <img alt="imgAvatar" src={configJson.apiPath+configJson.folderAvatarUser+this.state.imagenUser+'?'+randomDate} />
+                          <img alt="imgAvatar" src={path+configJson.folderAvatarUser+this.state.imagenUser+'?'+randomDate} />
                       </div>
                       <div className="NombreUsuario">
                           <div style={{width:'100%'}}>

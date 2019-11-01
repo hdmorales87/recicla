@@ -97,14 +97,15 @@ class FormDataUser extends Component {
     }    
   	render() {
         var date = new Date();
-        var randomDate = date.getTime();                
+        var randomDate = date.getTime();  
+        var path = "http://"+window.location.hostname+":5000/";              
   	  	return (
   				<div className="container" style={{ height:'calc(100% - 92px)',overflowY : 'auto' }}>
                     <div className="content"> 
                         <br />
                         <div id="contentImageUser">
                             <div className="divImageUser">
-                                <img id="ImageUser" alt="imageUser" src={configJson.apiPath+configJson.folderAvatarUser+this.state.imagenUser+'?'+randomDate} />
+                                <img id="ImageUser" alt="imageUser" src={path+configJson.folderAvatarUser+this.state.imagenUser+'?'+randomDate} />
                                 <input id="uploadedImageUser" type="file" name="uploadedImageUser" onChange={this.handleImageUser.bind(this)}/>
                             </div>
                         </div>
