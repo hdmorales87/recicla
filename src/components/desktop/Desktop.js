@@ -105,24 +105,26 @@ class Desktop extends Component {
         .catch(err => {
             console.error(err);
             this.setState({ loading: false, redirect: true });
-        });         
-
-	      this.actualizarContainer = this.actualizarContainer.bind(this);	
-
-        globalState.subscribe( ()=>{ 
-            if(globalState.getState().type==="menuNavegacion"){                             
-                this.setState({checkMenu  : globalState.getState().menuNavegacion});                               
-            }
         });
+	    this.actualizarContainer = this.actualizarContainer.bind(this);
 	} 
     
 	componentDidMount() {//cada que se monte el escritorio debe alistar la ventana del loading      
         //... 
-        // globalState.subscribe( ()=>{ 
-        //     if(globalState.getState().type==="modalLoading"){                             
-        //         this.setState({showLoading  : globalState.getState().modalLoading});                               
-        //     }
-        // });          
+        this.unsubscribe1 = globalState.subscribe( ()=>{ 
+            if(globalState.getState().type==="menuNavegacion"){                             
+                this.setState({checkMenu  : globalState.getState().menuNavegacion});                               
+            }
+        });
+        this.unsubscribe2 = globalState.subscribe( ()=>{ 
+            if(globalState.getState().type==="modalLoading"){
+                this.setState({showLoading  : globalState.getState().modalLoading});                                           
+            }
+        });          
+    } 
+    componentWillUnmount(){         
+        this.unsubscribe1();
+        this.unsubscribe2();
     }	
 
     actualizarContainer(val,param){//carga dinamica del lado derecho	

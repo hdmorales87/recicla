@@ -47,7 +47,7 @@ class Window extends Component {
         
     } 
     componentDidMount(){        
-        globalState.subscribe( ()=>{           
+        this.unsubscribe1 = globalState.subscribe( ()=>{           
             if(globalState.getState().type===this.props.id){ 
                 this.setState({ showModal: globalState.getState()[this.props.id].visible });
                 if(globalState.getState()[this.props.id].params !== undefined) {//si existen le cargamos los parametros
@@ -55,6 +55,9 @@ class Window extends Component {
                 }              
             }
         });
+    }
+    componentWillUnmount(){
+        this.unsubscribe1();
     }
     componentWillUpdate(){
         //actualiza las propiedades segun la ventana que se despliegue

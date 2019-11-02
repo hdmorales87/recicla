@@ -62,12 +62,15 @@ class LoginForm extends Component {
     }
     componentDidMount() {//cada que se monte el escritorio debe alistar la ventana del loading      
         //... 
-        globalState.subscribe( ()=>{ 
-            if(globalState.getState().type==="modalLoading1"){ 
+        this.unsubscribe1 = globalState.subscribe( ()=>{ 
+            if(globalState.getState().type==="modalLoading1"){                 
                 this.setState({showLoading  : globalState.getState().modalLoading1});                                           
             }
         });          
-    }    
+    } 
+    componentWillUnmount(){ 
+        this.unsubscribe1();
+    }   
     handleLogin(val) {   
         
         //validacion de datos       

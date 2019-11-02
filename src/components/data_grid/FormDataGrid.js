@@ -111,6 +111,7 @@ class FormDataGrid extends Component {
             }
         })
         .catch(function (error) {
+            modalLoading(false); 
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
         });
     }
