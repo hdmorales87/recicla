@@ -31,24 +31,27 @@ class NameUser extends Component {
     }    
     componentDidMount(){//traer los datos del store  
         this.unsubscribe1 = globalState.subscribe( ()=>{             
-            if(globalState.getState().type==="userData"){
-                var userData = globalState.getState().userData;
-                this.setState({username   : userData[0].primer_nombre.toUpperCase()+' '+userData[0].primer_apellido.toUpperCase()}) 
-                if(userData[0].imagen_usuario !== undefined && userData[0].imagen_usuario !== ""){
-                    this.setState({imagenUser : userData[0].imagen_usuario});
-                }
+            if(globalState.getState().type==="nameUser"){
+                this.setState({username   : globalState.getState().nameUser}) 
             }
         });
         this.unsubscribe2 = globalState.subscribe( ()=>{ 
-            if(globalState.getState().type==="companyData"){        
-                var companyData = globalState.getState().companyData;       
-                this.setState({companyName  : companyData[0].razon_social.toUpperCase()})                
+            if(globalState.getState().type==="nameCompany"){ 
+                this.setState({companyName  : globalState.getState().nameCompany})                
             }
-        });        
+        }); 
+        this.unsubscribe3 = globalState.subscribe( ()=>{             
+            if(globalState.getState().type==="imageUser"){
+                if(globalState.getState().imageUser !== undefined && globalState.getState().imageUser !== ""){
+                    this.setState({imagenUser : globalState.getState().imageUser});
+                }
+            }
+        });       
     }
     componentWillUnmount(){         
         this.unsubscribe1();
-        this.unsubscribe2();             
+        this.unsubscribe2();
+        this.unsubscribe3();             
     }
     //evento cerrar sesion
 	  btnLogoutSession(){//boton de cerrar sesion
@@ -93,6 +96,10 @@ class NameUser extends Component {
                     params : {
                         visible : false
                     }
+                });
+                globalState.dispatch({
+                    type   : "nameUser",
+                    params : formDataUser.primer_nombre.toUpperCase()+' '+formDataUser.primer_apellido.toUpperCase()
                 });
                 //ACTUALIZAR EL GLOBAL STORE  
                 globalState.getState().userData[0] = formDataUser;                          

@@ -86,7 +86,11 @@ class FormDataUser extends Component {
                     if (response.msg === "error") {
                         alertify.alert('Error!', 'Ha ocurrido un error subiendo el archivo!<br />Codigo de Error: '+response.detail);
                     } else {                         
-                        this.setState({imagenUser : response.detail});                                 
+                        this.setState({imagenUser : response.detail});
+                        globalState.dispatch({
+                                        type   : "imageUser",
+                                        params : response.detail
+                                    });                                  
                     }
                 })
                 .catch( err => {            

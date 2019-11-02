@@ -86,7 +86,19 @@ class Desktop extends Component {
                                     globalState.dispatch({
                                         type   : "companyData",
                                         params : response1
-                                    });   
+                                    });  
+                                    globalState.dispatch({
+                                        type   : "nameUser",
+                                        params : response[0].primer_nombre.toUpperCase()+' '+response[0].primer_apellido.toUpperCase()
+                                    });
+                                    globalState.dispatch({
+                                        type   : "nameCompany",
+                                        params : response1[0].razon_social.toUpperCase()
+                                    });
+                                    globalState.dispatch({
+                                        type   : "imageUser",
+                                        params : response[0].imagen_usuario
+                                    }); 
                                 });            
                             }          
                         }) 
