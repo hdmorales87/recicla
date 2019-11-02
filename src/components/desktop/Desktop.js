@@ -64,43 +64,40 @@ class Desktop extends Component {
                     var response = res.data; 
                     if (response.msg === "error") {
                         alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
-                    } else {                         
-                        globalState.dispatch({
-                            type   : "userData",
-                            params : response
-                        });                                  
+                    } else {  
+                        validaEmpresa(empresa)        
+                        .then(res => {
+                            var response1 = res.data;                       
+                            if(response1.msg === 'notExist'){//aqui no me dejara continuar si la empresa noe xiste
+                                alertify.error('La empresa no existe!'); 
+                                //this.inputEmpresa.current.focus();
+                            }
+                            else if(response1.msg === 'error'){//aqui no me dejara continuar si hay un error
+                                alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
+                                //this.inputEmpresa.current.focus();
+                            }
+                            else{
+                                //this.setState({id_empresa: response[0].id}); //CARGAR EL ID EMPRESA  
+                                this.setState({ loading: false },()=>{
+                                    globalState.dispatch({
+                                        type   : "userData",
+                                        params : response
+                                    });
+                                    globalState.dispatch({
+                                        type   : "companyData",
+                                        params : response1
+                                    });   
+                                });            
+                            }          
+                        }) 
+                        .catch( err => {            
+                            alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);                            
+                        });                                 
                     }
                 })
                 .catch( err => {            
                     alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
-                });
-
-                validaEmpresa(empresa)        
-                .then(res => {
-                    var response = res.data;                       
-                    if(response.msg === 'notExist'){//aqui no me dejara continuar si la empresa noe xiste
-                        alertify.error('La empresa no existe!'); 
-                        //this.inputEmpresa.current.focus();
-                    }
-                    else if(response.msg === 'error'){//aqui no me dejara continuar si hay un error
-                        alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
-                        //this.inputEmpresa.current.focus();
-                    }
-                    else{
-                        //this.setState({id_empresa: response[0].id}); //CARGAR EL ID EMPRESA  
-                        globalState.dispatch({
-                            type   : "companyData",
-                            params : response
-                        });              
-                        //alertify.success(response[0].razon_social);                
-                    }          
-                }) 
-                .catch( err => {            
-                    alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
-                    //this.inputEmpresa.current.focus();
-                });
-
-                this.setState({ loading: false });
+                });                 
             } else {
                 this.setState({ loading: false, redirect: true });
             }
@@ -121,11 +118,11 @@ class Desktop extends Component {
     
 	componentDidMount() {//cada que se monte el escritorio debe alistar la ventana del loading      
         //... 
-        globalState.subscribe( ()=>{ 
-            if(globalState.getState().type==="modalLoading"){                             
-                this.setState({showLoading  : globalState.getState().modalLoading});                               
-            }
-        });          
+        // globalState.subscribe( ()=>{ 
+        //     if(globalState.getState().type==="modalLoading"){                             
+        //         this.setState({showLoading  : globalState.getState().modalLoading});                               
+        //     }
+        // });          
     }	
 
     actualizarContainer(val,param){//carga dinamica del lado derecho	

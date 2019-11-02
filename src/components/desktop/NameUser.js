@@ -23,29 +23,32 @@ class NameUser extends Component {
 	  constructor(props) {
         super(props);    
         this.btnLogoutSession = this.btnLogoutSession.bind(this);
-        this.state = {
-            showModal   : false,
+        this.state = {            
             username    : '',
             companyName : '',
-            imagenUser  : 'default.png'
+            imagenUser  : 'default.png',            
         };
-    }
-    componentDidMount(){//traer los datos del store
-        globalState.subscribe( ()=>{ 
-            if(globalState.getState().type==="userData"){        
-                var userData = globalState.getState().userData;       
+    }    
+    componentDidMount(){//traer los datos del store  
+        this.unsubscribe1 = globalState.subscribe( ()=>{             
+            if(globalState.getState().type==="userData"){
+                var userData = globalState.getState().userData;
                 this.setState({username   : userData[0].primer_nombre.toUpperCase()+' '+userData[0].primer_apellido.toUpperCase()}) 
                 if(userData[0].imagen_usuario !== undefined && userData[0].imagen_usuario !== ""){
                     this.setState({imagenUser : userData[0].imagen_usuario});
                 }
             }
-        });  
-        globalState.subscribe( ()=>{ 
+        });
+        this.unsubscribe2 = globalState.subscribe( ()=>{ 
             if(globalState.getState().type==="companyData"){        
                 var companyData = globalState.getState().companyData;       
                 this.setState({companyName  : companyData[0].razon_social.toUpperCase()})                
             }
-        }); 
+        });        
+    }
+    componentWillUnmount(){         
+        this.unsubscribe1();
+        this.unsubscribe2();             
     }
     //evento cerrar sesion
 	  btnLogoutSession(){//boton de cerrar sesion
@@ -68,7 +71,7 @@ class NameUser extends Component {
           	if (response.msg === "error") {      	  	  	  	
           		alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+response.detail);  	  	  	  	
           	} else if (response.msg === "success"){
-          	  	this.props.history.push('/recicla/');//me devuelve al login       	  	  	  	
+          	  	this.props.history.push('/recicla/');//me devuelve al login                    	  	  	  	
           	}
         })
         .catch(err => {
