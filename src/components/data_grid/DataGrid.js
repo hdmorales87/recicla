@@ -27,8 +27,13 @@ class DataGrid extends Component {
             resultRows   : 0
         }        
     }    
-  	handleNewButton(){//Boton nuevo registro        
-        this.props.funcionClick('FormDataGrid',{ idRow:0,mainContainer:this.props.mainContainer,titulo:this.props.titulo,apiField:this.props.apiField,formFields:this.props.formFields});
+  	handleNewButton(){//Boton nuevo registro
+        if(this.props.automatica === 'true'){
+            this.props.funcionClick('FormDataGrid',{ idRow:0,mainContainer:this.props.mainContainer,titulo:this.props.titulo,apiField:this.props.apiField,formFields:this.props.formFields});
+        } 
+        else{            
+            this.props.funcionNew(this.props.funcionNewParams);            
+        }
     }  
     handleSearchField(event){//Boton de Busqueda        
         let key = event.keyCode;
