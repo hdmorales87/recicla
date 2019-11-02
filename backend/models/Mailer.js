@@ -5,6 +5,15 @@ var configJSON = require('./configJSON.json');
 var nodemailer = require('nodemailer');
 var connection = require('../bd/bd');
 var base64     = require('base-64');
+var os         = require("os");
+
+const hostname = os.hostname(); 
+
+if(hostname === 'localhost'){
+    hostname += ':3000/recicla/';
+}
+
+console.log(hostname);
 
 const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -62,7 +71,7 @@ MailerModel.sendEmailPassword = function(userData, callback) {
                                                 <hr style="margin:0 0 20px 0">
                                                 <div style="font-family:'Roboto',sans-serif;font-size:14px;color:#666">Está recibiendo este correo electrónico porque solicitó un restablecimiento de password para su cuenta.<br><br>Por favor, de click en el botón de abajo para elegir un nuevo password.</div>
                                                 <div style="margin-top:40px">
-                                                    <a href="`+configJSON.urlLinks+`resetPassword/`+token+`/`+user+`" style="text-decoration:none;font-family:'Roboto',sans-serif;background-color:`+configJSON.btnRstPasswdColor+`;padding:10px 20px;color:#fff;font-size:16px;border-radius:5px" target="_blank">
+                                                    <a href="`+hostname+`resetPassword/`+token+`/`+user+`" style="text-decoration:none;font-family:'Roboto',sans-serif;background-color:`+configJSON.btnRstPasswdColor+`;padding:10px 20px;color:#fff;font-size:16px;border-radius:5px" target="_blank">
                                                         Nuevo Password
                                                     </a>
                                                     <div class="yj6qo"></div>

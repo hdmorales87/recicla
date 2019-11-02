@@ -5,7 +5,7 @@ var md5 = require('md5');
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var CompanyModel = {};
 
-//AUTENTICACION DEL USUARIO
+//TRAER LA EMPRESA
 CompanyModel.getCompany = function(userData, callback) {
     if (connection) {
         var sql = 'SELECT * FROM companies WHERE documento = \''+userData+'\'';
@@ -22,112 +22,96 @@ CompanyModel.getCompany = function(userData, callback) {
     }
 }
 
-//obtenemos todos los usuarios
+//obtenemos todos las compañias
 CompanyModel.getCompanies = function(userData, callback) {    
     if (connection) {
         var searchWord   = userData.searchWord;
         var showRecords  = userData.showRecords; 
-        var offsetRecord = userData.offsetRecord;       
-        connection.query('SELECT * FROM users WHERE '
-                        +' nombre LIKE \'%'+searchWord+'%\' '
-                        +' OR email LIKE \'%'+searchWord+'%\' '
-                        +' OR username LIKE \'%'+searchWord+'%\' '
-                        +' OR direccion LIKE \'%'+searchWord+'%\' '
-                        +' OR telefono LIKE \'%'+searchWord+'%\' '
-                        +' ORDER BY id LIMIT '+offsetRecord+','+showRecords, function(error, rows) {
-            if (error) {
-                 callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                callback(null, rows);
-            }
+        var offsetRecord = userData.offsetRecord;            
+        connection.query(`SELECT
+                                C.id_tipo_documento, 
+                                DT.nombre AS tipo_documento,
+                                C.documento,
+                                C.razon_social,
+                                C.nombre_comercial
+                          FROM companies AS C
+                          INNER JOIN document_types AS DT ON (DT.id = C.id_tipo_documento)
+                          WHERE 
+                                C.documento LIKE \'%`+searchWord+`%\'
+                                OR C.razon_social LIKE \'%`+searchWord+`%\'
+                                OR C.nombre_comercial LIKE \'%`+searchWord+`%\'                       
+                          ORDER BY C.id LIMIT `+offsetRecord+`,`+showRecords, function(error, rows) {
+                                if (error) {
+                                     callback(null, {
+                                        "msg": "error",
+                                        "detail": error.code
+                                    });
+                                } else {
+                                    callback(null, rows);
+                                }
         });
     }
 }
 
-//obtenemos la cuenta de los tipos de compra
+//obtenemos la cuenta de las empresas
 CompanyModel.getCompaniesRows = function(userData, callback) {
     if (connection) {
-        var searchWord   = userData.searchWord;          
-        connection.query('SELECT COUNT(*) AS total FROM users WHERE '
-                        +' nombre LIKE \'%'+searchWord+'%\' '
-                        +' OR email LIKE \'%'+searchWord+'%\' '
-                        +' OR username LIKE \'%'+searchWord+'%\' '
-                        +' OR direccion LIKE \'%'+searchWord+'%\' '
-                        +' OR telefono LIKE \'%'+searchWord+'%\' ', function(error, rows) {
-            if (error) {
-                 callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                callback(null, rows);
-            }
+        var searchWord   = userData.searchWord; 
+        connection.query(`SELECT 
+                                COUNT(C.id) AS total
+                          FROM companies AS C
+                          INNER JOIN document_types AS DT ON (DT.id = C.id_tipo_documento)
+                          WHERE 
+                                C.documento LIKE \'%`+searchWord+`%\'
+                                OR C.razon_social LIKE \'%`+searchWord+`%\'
+                                OR C.nombre_comercial LIKE \'%`+searchWord+`%\'                       
+                          ORDER BY C.id`, function(error, rows) {
+                                if (error) {
+                                     callback(null, {
+                                        "msg": "error",
+                                        "detail": error.code
+                                    });
+                                } else {
+                                    callback(null, rows);
+                                }
         });
     }
 }
 
-//almacenar un usuario
+//almacenar una empresa
 CompanyModel.insertCompany = function(userData, callback) {
-    if (connection) {         
-
-        var username = userData.primer_nombre.substr(0,1)+userData.segundo_nombre.substr(0,1)+userData.primer_apellido+userData.segundo_apellido.substr(0,1);    
-               
-        connection.query('INSERT INTO users SET ?', userData, function(error, result) {
+    if (connection) {                  
+        connection.query('INSERT INTO companies SET ?', userData, function(error, result) {
             if (error) {
                 callback(null, {
                     "msg": "error",
                     "detail": error.code
                 });
             } else {
-                var id = result.insertId;
-                var sql = 'UPDATE users SET'+ 
-                          ' password = \''+md5('123456')+'\''+
-                          ',username = \''+username.toLowerCase()+'\''+
-                          ',nombre = \''+userData.primer_nombre+' '+userData.segundo_nombre+' '+userData.primer_apellido+' '+userData.segundo_apellido+'\'WHERE id = ' + result.insertId;
-                console.log(sql); 
-                connection.query(sql , function(error, result) {   
-                    if (error) {
-                        callback(null, {
-                            "msg": "error",
-                            "detail": error.code
-                        });
-                    } else { 
-                        //devolvemos la última id insertada
-                        callback(null, {
-                            "insertId": id
-                        });
-                    }
-                });
+                var id = result.insertId;                
+                //devolvemos la última id insertada
+                callback(null, {
+                    "insertId": id
+                }); 
             }
         });
     }
 }
 
-//actualizar un usuario
+//actualizar una empresa
 CompanyModel.updateCompany = function(userData, callback) {     
     if (connection) {
-        var primer_nombre = connection.escape(userData.primer_nombre)
-        ,   segundo_nombre = connection.escape(userData.segundo_nombre)
-        ,   primer_apellido = connection.escape(userData.primer_apellido)
-        ,   segundo_apellido = connection.escape(userData.segundo_apellido);  
+        var id_tipo_documento = connection.escape(userData.id_tipo_documento)
+        ,   documento = connection.escape(userData.documento)
+        ,   razon_social = connection.escape(userData.razon_social)
+        ,   nombre_comercial = connection.escape(userData.nombre_comercial);          
 
-        var username = userData.primer_nombre.substr(0,1)+userData.segundo_nombre.substr(0,1)+userData.primer_apellido+userData.segundo_apellido.substr(0,1);    
-
-        var sql = 'UPDATE users SET id_tipo_documento = ' + connection.escape(userData.id_tipo_documento) + 
-               ', documento = ' + connection.escape(userData.documento) + 
-               ', primer_nombre = ' + primer_nombre + 
-               ', segundo_nombre = ' + segundo_nombre + 
-               ', primer_apellido = ' + primer_apellido + 
-               ', segundo_apellido = ' + segundo_apellido + 
-               ', email = ' + connection.escape(userData.email) + 
-               ', direccion = ' + connection.escape(userData.direccion) + 
-               ', telefono = ' + connection.escape(userData.telefono) + 
-               ', nombre = \''+userData.primer_nombre+' '+userData.segundo_nombre+' '+userData.primer_apellido+' '+userData.segundo_apellido+'\''+
-               ', username = \''+username.toLowerCase()+'\''+                             
-            ' WHERE id = ' + connection.escape(userData.id);        
+        var sql =  'UPDATE companies SET id_tipo_documento = ' + connection.escape(userData.id_tipo_documento) + 
+                   ', documento = ' + connection.escape(userData.documento) + 
+                   ', primer_nombre = ' + primer_nombre + 
+                   ', razon_social = ' + razon_social + 
+                   ', nombre_comercial = ' + nombre_comercial +                                             
+                   ' WHERE id = ' + connection.escape(userData.id);        
 
         connection.query(sql, function(error, result) {            
             if (error) {
@@ -145,14 +129,14 @@ CompanyModel.updateCompany = function(userData, callback) {
     }
 }
 
-//eliminar un usuario pasando la id a eliminar
+//eliminar una empresa pasando la id a eliminar
 CompanyModel.deleteCompany = function(id, callback) {    
     if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM users WHERE id = ' + connection.escape(id);
+        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM companies WHERE id = ' + connection.escape(id);
         connection.query(sqlExists, function(err, row) {       
             //si existe la id del usuario a eliminar  
             if (row[0].cuenta > 0) {
-                var sql = 'DELETE FROM users WHERE id = ' + connection.escape(id);                
+                var sql = 'DELETE FROM companies WHERE id = ' + connection.escape(id);                
                 connection.query(sql, function(error, result) {
                     if (error) {
                         callback(null, {

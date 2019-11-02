@@ -1240,6 +1240,149 @@ module.exports = function(app) {
         });
     }); 
 
+    /*
+     * metodo: companies
+     * tipo: GET
+     * devuelve todas las empresas
+     */
+
+    app.get("/companies", function(req, res) {              
+        CompanyModel.getCompanies(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });
+
+    app.get("/companiesReport", function(req, res) {              
+        CompanyModel.getCompaniesReport(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });
+
+    /*
+     * metodo: companiesRows
+     * tipo: GET
+     * devuelve el total de filas de las empresas
+     */
+
+    app.get("/companiesRows", function(req, res) {              
+        CompanyModel.getCompaniesRows(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }                
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });
+
+    /*
+     * metodo: companies
+     * tipo: POST
+     * inserta una nueva empresa
+     */
+
+    app.post("/companies", function(req, res) {
+        //console.log(req.body);
+        //creamos un objeto con los datos a insertar
+        var formData = req.body;          
+          
+        CompanyModel.insertCompany(formData, function(error, data) {
+            //si el usuario se ha insertado correctamente mostramos su info
+            if (data && data.insertId) {
+                res.status(200).json({
+                    "msg": "success"
+                });
+            } else {
+                res.status(200).json({
+                    "msg": "error",
+                    "detail": data.detail
+                });
+            }
+        });
+    });
+
+
+    app.put("/companies", function(req, res) {
+        //almacenamos los datos del formulario en un objeto
+        var formData = req.body;
+        CompanyModel.updateCompany(formData, function(error, data) {
+            //si el usuario se ha actualizado correctamente mostramos un mensaje            
+            if(data.msg == 'success'){
+                res.status(200).json({
+                    "msg": "success"
+                });
+            } else {
+                res.status(200).json({
+                    "msg": "error",
+                    "detail": data.detail
+                });
+            }
+        });
+    });
+
+    //utilizamos el verbo delete para eliminar una empresa
+    app.delete("/companies", function(req, res) {
+        //id del usuario a eliminar        
+        var id = req.body.id;       
+        CompanyModel.deleteCompany(id, function(error, data) {
+            if(data.msg == 'success'){
+                res.status(200).json({
+                    "msg": "success"
+                });
+            } else if(data.msg == 'notExist') {
+                res.status(200).json({
+                    "msg": "notExist",                    
+                });
+            }
+            else {
+                res.status(200).json({
+                    "msg": "error",
+                    "detail": data.detail
+                });
+            }
+        });
+    });
+
     //***********************************metodos para debug!!!****************************************//
 
     app.get('/checks', function(req, res) {
