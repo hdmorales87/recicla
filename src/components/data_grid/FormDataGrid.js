@@ -35,7 +35,12 @@ class FormDataGrid extends Component {
         this.props.parametro.formFields.forEach((formFields,i) => {            
             if(this.props.parametro.idRow !== 0){                
                 if(this.props.parametro.idRow[formFields.field] === '' || this.props.parametro.idRow[formFields.field] === undefined || this.props.parametro.idRow[formFields.field] === null){
-                    this.setState({[formFields.field] : ''});
+                    if(formFields.type==='campo_empresa'){
+                        this.setState({[formFields.field] : globalState.getState().companyData[0].id}); 
+                    }
+                    else{
+                        this.setState({[formFields.field] : ''});
+                    }
                 }
                 else{         
                     this.setState({[formFields.field] : this.props.parametro.idRow[formFields.field]});           
@@ -47,6 +52,9 @@ class FormDataGrid extends Component {
             else{
                 if(formFields.type==='select'){
                     this.setState({[formFields.field] : 1});            
+                }
+                else if(formFields.type==='campo_empresa'){
+                    this.setState({[formFields.field] : globalState.getState().companyData[0].id});
                 }
                 else{                    
                     this.setState({[formFields.field] : ''});                          
@@ -221,6 +229,9 @@ class FormDataGrid extends Component {
                                                     <Form.Label>{formFields.label}</Form.Label>
                                                     <Form.Control style={{backgroundColor:'#fff'}} name={formFields.dataParams.fetchData.valueField} type="text" onClick={this.handleDataSelect.bind(this,formFields.dataParams)} value={this.state[formFields.dataParams.fetchData.valueField] || 'Seleccione...'} readOnly/>                                
                                                </Form.Group>
+                                    }
+                                    else if(formFields.type === 'campo_empresa'){
+                                        field = <input key= {i} type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
                                     }
                                     return field;
                                 })

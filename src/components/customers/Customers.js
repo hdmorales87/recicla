@@ -64,7 +64,14 @@ class Customers extends Component {
                                         type  : 'text',
                                         validation : 'mayusculas',
                                         required : 'true'
-                                    }
+                                    },
+                                    {
+                                        label : '',
+                                        field : 'id_empresa',
+                                        type  : 'campo_empresa',
+                                        validation : '',
+                                        required : 'true'                                        
+                                    },
                                 ]}                     
                       apiField = {'customers'}
                       mainContainer='Customers'/> 	

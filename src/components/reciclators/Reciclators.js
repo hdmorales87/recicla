@@ -75,6 +75,13 @@ class Reciclators extends Component {
                                         apiField : 'product_types',
                                         valueName : 'nombre'
                                     },
+                                    {
+                                        label : '',
+                                        field : 'id_empresa',
+                                        type  : 'campo_empresa',
+                                        validation : '',
+                                        required : 'true'                                        
+                                    },
                                 ]}                     
                       apiField = {'reciclators'}
                       mainContainer='Reciclators'/> 	

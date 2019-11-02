@@ -61,6 +61,13 @@ class Purchases extends Component {
                                         validation : 'entero',
                                         required : 'true'
                                     }, 
+                                    {
+                                        label : '',
+                                        field : 'id_empresa',
+                                        type  : 'campo_empresa',
+                                        validation : '',
+                                        required : 'true'                                        
+                                    },
                                 ]}                     
                       apiField = {'purchases'}
                       mainContainer='Purchases'/>             
