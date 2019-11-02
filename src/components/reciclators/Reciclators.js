@@ -17,7 +17,8 @@ class Reciclators extends Component {
                       parametro={this.props.parametro}                     
                       colsHeaders={[ 'Tipo Documento','Documento','Nombre','Direccion','Telefono','Celular','Caracterizacion' ]}
                       colsData={[ 'tipo_documento','documento','nombre','direccion','telefono','celular','caracterizacion' ]} 
-                      automatica="true" 
+                      automatica="true"
+                      botonNuevo="true" 
                       formFields={[
                                     {
                                         label : 'Tipo de Documento',

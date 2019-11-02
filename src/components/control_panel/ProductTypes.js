@@ -18,6 +18,7 @@ class ProductTypes extends Component {
                       colsHeaders={[ 'Nombre','Precio Compra','Precio Venta' ]}
                       colsData={[ 'nombre','precio_compra','precio_venta' ]} 
                       automatica="true"
+                      botonNuevo="true"
                       formFields={[
                                     {
                                         label : 'Nombre',

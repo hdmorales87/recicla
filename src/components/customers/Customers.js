@@ -17,7 +17,8 @@ class Customers extends Component {
                       parametro={this.props.parametro}                     
                       colsHeaders={[ 'Tipo Documento','Documento','Nombre Comercial','Razon Social','Direccion','Telefono' ]}
                       colsData={[ 'tipo_documento','documento','nombre_comercial','razon_social','direccion','telefono' ]} 
-                      automatica="true" 
+                      automatica="true"
+                      botonNuevo="true" 
                       formFields={[
                                     {
                                         label : 'Tipo de Documento',

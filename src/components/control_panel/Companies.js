@@ -18,6 +18,7 @@ class Companies extends Component {
                       colsHeaders={[ 'Tipo Documento','Documento','razon_social','nombre_comercial' ]}
                       colsData={[ 'tipo_documento','documento','razon_social','nombre_comercial']} 
                       automatica="true"
+                      botonNuevo="true"
                       formFields={[
                                     {
                                         label : 'Tipo de Documento',

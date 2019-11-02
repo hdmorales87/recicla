@@ -17,7 +17,8 @@ class Purchases extends Component {
                       parametro={this.props.parametro}                     
                       colsHeaders={[ 'Fecha Compra','Producto','Reciclador','Peso','Valor Compra' ]}
                       colsData={[ 'fecha_compra','tipo_producto','reciclador','peso','valor_compra' ]} 
-                      automatica="true" 
+                      automatica="true"
+                      botonNuevo="true" 
                       formFields={[
                                     {
                                         label : 'Fecha de Compra',

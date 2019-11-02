@@ -18,6 +18,7 @@ class Users extends Component {
                       colsHeaders={[ 'Tipo Documento','Documento','Nombre','Email','Direccion','Telefono' ]}
                       colsData={[ 'tipo_documento','documento','nombre','email','direccion','telefono' ]} 
                       automatica="true"
+                      botonNuevo="true"
                       formFields={[
                                     {
                                         label : 'Tipo de Documento',

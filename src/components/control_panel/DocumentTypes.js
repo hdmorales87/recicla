@@ -18,6 +18,7 @@ class DocumentTypes extends Component {
                       colsHeaders={[ 'Nombre' ]}
                       colsData={[ 'nombre']} 
                       automatica="true"
+                      botonNuevo="true"
                       formFields={[
                                     {
                                         label : 'Nombre',

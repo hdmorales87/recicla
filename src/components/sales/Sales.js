@@ -17,7 +17,8 @@ class Sales extends Component {
                       parametro={this.props.parametro}                     
                       colsHeaders={[ 'Fecha Venta','Producto','Cliente','Peso','Valor Venta' ]}
                       colsData={[ 'fecha_venta','tipo_producto','cliente','peso','valor_venta' ]} 
-                      automatica="true" 
+                      automatica="true"
+                      botonNuevo="true" 
                       formFields={[
                                     {
                                         label : 'Fecha de Venta',
