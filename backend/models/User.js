@@ -98,12 +98,15 @@ UserModel.getUsersReport = function(userData, callback) {
 UserModel.getUsersRows = function(userData, callback) {
     if (connection) {
         var searchWord   = userData.searchWord;          
-        connection.query(`SELECT COUNT(*) AS total FROM users WHERE 
-                          nombre LIKE \'%`+searchWord+`%\' 
-                          OR documento LIKE \'%`+searchWord+`%\' 
-                          OR email LIKE \'%`+searchWord+`%\'                        
-                          OR direccion LIKE \'%`+searchWord+`%\' 
-                          OR telefono LIKE \'%`+searchWord+'%\'', function(error, rows) {
+        connection.query(`SELECT COUNT(U.id) AS total 
+                          FROM users AS U 
+                          INNER JOIN document_types AS DT ON (DT.id = U.id_tipo_documento) 
+                          WHERE 
+                            U.nombre LIKE \'%`+searchWord+`%\' 
+                            OR U.documento LIKE \'%`+searchWord+`%\' 
+                            OR U.email LIKE \'%`+searchWord+`%\'                        
+                            OR U.direccion LIKE \'%`+searchWord+`%\' 
+                            OR U.telefono LIKE \'%`+searchWord+'%\'', function(error, rows) {
             if (error) {
                  callback(null, {
                     "msg": "error",
