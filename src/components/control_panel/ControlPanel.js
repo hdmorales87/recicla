@@ -20,6 +20,7 @@ class ControlPanel extends Component {
                     <Option tab="config1" titulo='Tipos de Documento' icono="credit_card" funcionClick={this.props.funcionClick} componente="DocumentTypes" />  
                     <Option tab="config2" titulo='Usuarios' icono="perm_identity" funcionClick={this.props.funcionClick} componente="Users" />  
                     <Option tab="config3" titulo='Empresas' icono="business" funcionClick={this.props.funcionClick} componente="Companies" />  
+                    <Option tab="config4" titulo='Roles' icono="perm_identity" funcionClick={this.props.funcionClick} componente="Roles" />  
                 </ul>
             </div> 	
   	  	);

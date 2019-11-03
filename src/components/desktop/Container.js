@@ -16,6 +16,7 @@ import ControlPanel from '../control_panel/ControlPanel';
 import DocumentTypes from '../control_panel/DocumentTypes';
 import ProductTypes from '../control_panel/ProductTypes';
 import Companies from '../control_panel/Companies';
+import Roles from '../control_panel/Roles';
 import Users from '../control_panel/Users';
 import FormDataGrid from '../data_grid/FormDataGrid';
 import Reports from '../reports/Reports';
@@ -36,6 +37,7 @@ class Container extends Component {
 			DocumentTypes  : DocumentTypes,
 			ProductTypes   : ProductTypes,
 			Companies      : Companies,
+			Roles          : Roles,
 			Users 		   : Users,
 			FormDataGrid   : FormDataGrid,			
 			Reports  	   : Reports						  

@@ -5,6 +5,7 @@ var ProductTypeModel = require('../models/ProductType');
 var PurchaseModel = require('../models/Purchase');
 var SaleModel = require('../models/Sale');
 var DocumentTypeModel = require('../models/DocumentType');
+var RoleModel = require('../models/Role');
 var MailerModel = require('../models/Mailer');
 var CompanyModel = require('../models/Company');
 var formidable = require('formidable');
@@ -1365,6 +1366,149 @@ module.exports = function(app) {
         //id del usuario a eliminar        
         var id = req.body.id;       
         CompanyModel.deleteCompany(id, function(error, data) {
+            if(data.msg == 'success'){
+                res.status(200).json({
+                    "msg": "success"
+                });
+            } else if(data.msg == 'notExist') {
+                res.status(200).json({
+                    "msg": "notExist",                    
+                });
+            }
+            else {
+                res.status(200).json({
+                    "msg": "error",
+                    "detail": data.detail
+                });
+            }
+        });
+    });
+
+    /*
+     * metodo: roles
+     * tipo: GET
+     * devuelve todas los roles
+     */
+
+    app.get("/roles", function(req, res) {              
+        RoleModel.getRoles(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });
+
+    app.get("/rolesReport", function(req, res) {              
+        RoleModel.getRolesReport(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });
+
+    /*
+     * metodo: rolesRows
+     * tipo: GET
+     * devuelve el total de filas de los roles
+     */
+
+    app.get("/rolesRows", function(req, res) {              
+        RoleModel.getRolesRows(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }                
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });
+
+    /*
+     * metodo: roles
+     * tipo: POST
+     * inserta un nuevo rol
+     */
+
+    app.post("/roles", function(req, res) {
+        //console.log(req.body);
+        //creamos un objeto con los datos a insertar
+        var formData = req.body;          
+          
+        RoleModel.insertRole(formData, function(error, data) {
+            //si el usuario se ha insertado correctamente mostramos su info
+            if (data && data.insertId) {
+                res.status(200).json({
+                    "msg": "success"
+                });
+            } else {
+                res.status(200).json({
+                    "msg": "error",
+                    "detail": data.detail
+                });
+            }
+        });
+    });
+
+
+    app.put("/roles", function(req, res) {
+        //almacenamos los datos del formulario en un objeto
+        var formData = req.body;
+        RoleModel.updateRole(formData, function(error, data) {
+            //si el usuario se ha actualizado correctamente mostramos un mensaje            
+            if(data.msg == 'success'){
+                res.status(200).json({
+                    "msg": "success"
+                });
+            } else {
+                res.status(200).json({
+                    "msg": "error",
+                    "detail": data.detail
+                });
+            }
+        });
+    });
+
+    //utilizamos el verbo delete para eliminar un rol
+    app.delete("/roles", function(req, res) {
+        //id del usuario a eliminar        
+        var id = req.body.id;       
+        RoleModel.deleteRole(id, function(error, data) {
             if(data.msg == 'success'){
                 res.status(200).json({
                     "msg": "success"
