@@ -9,14 +9,26 @@ PurchaseModel.getPurchases = function(userData, callback) {
         var searchWord   = userData.searchWord;
         var showRecords  = userData.showRecords; 
         var offsetRecord = userData.offsetRecord;    
-        var sql = 'SELECT P.id,(P.peso * PT.precio_compra) AS valor_compra,DATE_FORMAT(P.fecha_compra,"%Y-%m-%d") AS fecha_compra,PT.id AS id_tipo_producto,PT.nombre AS tipo_producto,R.id AS id_reciclador,R.nombre AS reciclador,P.peso '
-                        +' FROM purchases AS P  '
-                        +' INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) '
-                        +' INNER JOIN reciclators AS R ON (R.id = P.id_reciclador) WHERE '
-                        +' PT.nombre LIKE \'%'+searchWord+'%\' '
-                        +' OR R.nombre LIKE \'%'+searchWord+'%\' '                                                
-                        +' OR P.peso LIKE \'%'+searchWord+'%\' '                        
-                        +' ORDER BY P.id LIMIT '+offsetRecord+','+showRecords;
+        var sql = `SELECT 
+                        P.id,
+                        (P.peso * PT.precio_compra) AS valor_compra,
+                        DATE_FORMAT(P.fecha_compra,"%Y-%m-%d") AS fecha_compra,
+                        PT.id AS id_tipo_producto,
+                        PT.nombre AS tipo_producto,
+                        R.id AS id_reciclador,
+                        R.nombre AS reciclador,
+                        P.peso,
+                        P.id_empresa 
+                   FROM purchases AS P  
+                   INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) 
+                   INNER JOIN reciclators AS R ON (R.id = P.id_reciclador) 
+                   WHERE 
+                        P.id_empresa = `+userData.id_empresa+`
+                        AND (
+                            PT.nombre LIKE \'%`+searchWord+`%\' 
+                            OR R.nombre LIKE \'%`+searchWord+`%\'                                                 
+                            OR P.peso LIKE \'%`+searchWord+`%\')                         
+                   ORDER BY P.id LIMIT `+offsetRecord+','+showRecords;
 
         connection.query(sql, function(error, rows) {
             if (error) {
@@ -61,13 +73,17 @@ PurchaseModel.getPurchasesRows = function(userData, callback) {
     if (connection) {
         var searchWord   = userData.searchWord; 
 
-        var sql = 'SELECT COUNT(P.id) AS total '
-                +' FROM purchases AS P  '
-                +' INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) '
-                +' INNER JOIN reciclators AS R ON (R.id = P.id_reciclador) WHERE '
-                +' PT.nombre LIKE \'%'+searchWord+'%\' '
-                +' OR R.nombre LIKE \'%'+searchWord+'%\' '                                                
-                +' OR P.peso LIKE \'%'+searchWord+'%\' ';
+        var sql = `SELECT 
+                        COUNT(P.id) AS total                         
+                   FROM purchases AS P  
+                   INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) 
+                   INNER JOIN reciclators AS R ON (R.id = P.id_reciclador) 
+                   WHERE 
+                        P.id_empresa = `+userData.id_empresa+`
+                        AND (
+                            PT.nombre LIKE \'%`+searchWord+`%\' 
+                            OR R.nombre LIKE \'%`+searchWord+`%\'                                                 
+                            OR P.peso LIKE \'%`+searchWord+`%\')`;
 
         connection.query(sql, function(error, rows) {
             if (error) {

@@ -9,16 +9,30 @@ ReciclatorModel.getReciclators = function(userData, callback) {
         var searchWord   = userData.searchWord;
         var showRecords  = userData.showRecords; 
         var offsetRecord = userData.offsetRecord;       
-        connection.query('SELECT R.id,R.id_tipo_documento,DT.nombre AS tipo_documento,R.documento,R.nombre,R.direccion,R.telefono,R.celular,R.id_tipo_producto,PT.nombre AS caracterizacion '
-                        +' FROM reciclators AS R  '
-                        +' INNER JOIN product_types AS PT ON (PT.id = R.id_tipo_producto) '
-                        +' INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) WHERE '
-                        +' R.documento LIKE \'%'+searchWord+'%\' '
-                        +' OR R.nombre LIKE \'%'+searchWord+'%\' '                                                
-                        +' OR R.direccion LIKE \'%'+searchWord+'%\' '
-                        +' OR R.telefono LIKE \'%'+searchWord+'%\' '
-                        +' OR R.celular LIKE \'%'+searchWord+'%\' '
-                        +' ORDER BY R.id LIMIT '+offsetRecord+','+showRecords, function(error, rows) {
+        connection.query(`SELECT 
+                                R.id,
+                                R.id_tipo_documento,
+                                DT.nombre AS tipo_documento,
+                                R.documento,
+                                R.nombre,
+                                R.direccion,
+                                R.telefono,
+                                R.celular,
+                                R.id_tipo_producto,
+                                R.id_empresa,
+                                PT.nombre AS caracterizacion 
+                          FROM reciclators AS R  
+                          INNER JOIN product_types AS PT ON (PT.id = R.id_tipo_producto) 
+                          INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) WHERE 
+                                R.id_empresa = `+userData.id_empresa+`
+                                AND (
+                                    R.documento LIKE \'%`+searchWord+`%\' 
+                                    OR R.nombre LIKE \'%`+searchWord+`%\'                                                 
+                                    OR R.direccion LIKE \'%`+searchWord+`%\' 
+                                    OR R.telefono LIKE \'%`+searchWord+`%\' 
+                                    OR R.celular LIKE \'%`+searchWord+`%\' 
+                                )
+                          ORDER BY R.id LIMIT `+offsetRecord+','+showRecords, function(error, rows) {
             if (error) {
                  callback(null, {
                     "msg": "error",
@@ -60,15 +74,20 @@ ReciclatorModel.getReciclatorsReport = function(userData, callback) {
 ReciclatorModel.getReciclatorsRows = function(userData, callback) {
     if (connection) {
         var searchWord   = userData.searchWord;          
-        connection.query('SELECT COUNT(R.id) AS total  '
-                        +' FROM reciclators AS R  '
-                        +' INNER JOIN product_types AS PT ON (PT.id = R.id_tipo_producto) '
-                        +' INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) WHERE '
-                        +' R.documento LIKE \'%'+searchWord+'%\' '
-                        +' OR R.nombre LIKE \'%'+searchWord+'%\' '                                                
-                        +' OR R.direccion LIKE \'%'+searchWord+'%\' '
-                        +' OR R.telefono LIKE \'%'+searchWord+'%\' '
-                        +' OR R.celular LIKE \'%'+searchWord+'%\' ', function(error, rows) {
+        connection.query(`SELECT 
+                                COUNT(R.id) AS total                                 
+                          FROM reciclators AS R  
+                          INNER JOIN product_types AS PT ON (PT.id = R.id_tipo_producto) 
+                          INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) 
+                          WHERE 
+                                R.id_empresa = `+userData.id_empresa+`
+                                AND (
+                                    R.documento LIKE \'%`+searchWord+`%\' 
+                                    OR R.nombre LIKE \'%`+searchWord+`%\'                                                 
+                                    OR R.direccion LIKE \'%`+searchWord+`%\' 
+                                    OR R.telefono LIKE \'%`+searchWord+`%\' 
+                                    OR R.celular LIKE \'%`+searchWord+`%\' 
+                                )`, function(error, rows) {
             if (error) {
                  callback(null, {
                     "msg": "error",

@@ -60,33 +60,35 @@ class Desktop extends Component {
         .then(res => {
             var response = res.data; 
             if (response.session === "true") {
-                cargarFilas('users',usuario,1,0).then(res => {
-                    var response = res.data; 
-                    if (response.msg === "error") {
+                validaEmpresa(empresa)        
+                .then(res => {
+                    var response1 = res.data;                       
+                    if(response1.msg === 'notExist'){//aqui no me dejara continuar si la empresa noe xiste
+                        alertify.error('La empresa no existe!'); 
+                        //this.inputEmpresa.current.focus();
+                    }
+                    else if(response1.msg === 'error'){//aqui no me dejara continuar si hay un error
                         alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
-                    } else {  
-                        validaEmpresa(empresa)        
+                        //this.inputEmpresa.current.focus();
+                    }
+                    else{
+                        globalState.dispatch({
+                                type   : "companyData",
+                                params : response1
+                            });
+                        cargarFilas('users',usuario,1,0)
                         .then(res => {
-                            var response1 = res.data;                       
-                            if(response1.msg === 'notExist'){//aqui no me dejara continuar si la empresa noe xiste
-                                alertify.error('La empresa no existe!'); 
-                                //this.inputEmpresa.current.focus();
-                            }
-                            else if(response1.msg === 'error'){//aqui no me dejara continuar si hay un error
+                            var response = res.data; 
+                            if (response.msg === "error") {
                                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
-                                //this.inputEmpresa.current.focus();
-                            }
-                            else{
+                            } 
+                            else{                          
                                 //this.setState({id_empresa: response[0].id}); //CARGAR EL ID EMPRESA  
                                 this.setState({ loading: false },()=>{
                                     globalState.dispatch({
                                         type   : "userData",
                                         params : response
-                                    });
-                                    globalState.dispatch({
-                                        type   : "companyData",
-                                        params : response1
-                                    });  
+                                    });                                      
                                     globalState.dispatch({
                                         type   : "nameUser",
                                         params : response[0].primer_nombre.toUpperCase()+' '+response[0].primer_apellido.toUpperCase()
@@ -99,17 +101,17 @@ class Desktop extends Component {
                                         type   : "imageUser",
                                         params : response[0].imagen_usuario
                                     }); 
-                                });            
-                            }          
-                        }) 
+                                });
+                            }
+                        })
                         .catch( err => {            
                             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);                            
-                        });                                 
-                    }
-                })
+                        });            
+                    }          
+                }) 
                 .catch( err => {            
-                    alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
-                });                 
+                    alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);                            
+                });             
             } else {
                 this.setState({ loading: false, redirect: true });
             }

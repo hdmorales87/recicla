@@ -9,15 +9,27 @@ CustomerModel.getCustomers = function(userData, callback) {
         var searchWord   = userData.searchWord;
         var showRecords  = userData.showRecords; 
         var offsetRecord = userData.offsetRecord;       
-        connection.query('SELECT R.id,R.id_tipo_documento,DT.nombre AS tipo_documento,R.documento,R.nombre_comercial,R.razon_social,R.direccion,R.telefono '
-                        +' FROM customers AS R  '                       
-                        +' INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) WHERE '
-                        +' R.documento LIKE \'%'+searchWord+'%\' '
-                        +' OR R.nombre_comercial LIKE \'%'+searchWord+'%\' '
-                        +' OR R.razon_social LIKE \'%'+searchWord+'%\' '                        
-                        +' OR R.direccion LIKE \'%'+searchWord+'%\' '
-                        +' OR R.telefono LIKE \'%'+searchWord+'%\' '
-                        +' ORDER BY R.id LIMIT '+offsetRecord+','+showRecords, function(error, rows) {
+        connection.query(`SELECT 
+                                R.id,
+                                R.id_tipo_documento,
+                                DT.nombre AS tipo_documento,
+                                R.documento,
+                                R.nombre_comercial,
+                                R.razon_social,
+                                R.direccion,
+                                R.telefono,
+                                R.id_empresa
+                          FROM customers AS R                         
+                          INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) 
+                          WHERE 
+                                R.id_empresa = `+userData.id_empresa+`
+                                AND ( 
+                                    R.documento LIKE \'%`+searchWord+`%\' 
+                                    OR R.nombre_comercial LIKE \'%`+searchWord+`%\' 
+                                    OR R.razon_social LIKE \'%`+searchWord+`%\'                         
+                                    OR R.direccion LIKE \'%`+searchWord+`%\' 
+                                    OR R.telefono LIKE \'%`+searchWord+`%\') 
+                                    ORDER BY R.id LIMIT `+offsetRecord+','+showRecords, function(error, rows) {
             if (error) {
                  callback(null, {
                     "msg": "error",
@@ -36,13 +48,18 @@ CustomerModel.getCustomersReport = function(userData, callback) {
         var searchWord   = userData.searchWord;
        // var showRecords  = userData.showRecords; 
         //var offsetRecord = userData.offsetRecord;       
-        connection.query('SELECT * FROM customers WHERE '
-                        +' documento LIKE \'%'+searchWord+'%\' '
-                        +' OR nombre_comercial LIKE \'%'+searchWord+'%\' '
-                        +' OR razon_social LIKE \'%'+searchWord+'%\' '                        
-                        +' OR direccion LIKE \'%'+searchWord+'%\' '
-                        +' OR telefono LIKE \'%'+searchWord+'%\' '
-                        +' ORDER BY id', function(error, rows) {
+        connection.query(`SELECT COUNT(R.id) AS total 
+                          FROM customers AS R                         
+                          INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) 
+                          WHERE 
+                                R.id_empresa = `+userData.id_empresa+`
+                                AND ( 
+                                    R.documento LIKE \'%`+searchWord+`%\' 
+                                    OR R.nombre_comercial LIKE \'%`+searchWord+`%\' 
+                                    OR R.razon_social LIKE \'%`+searchWord+`%\'                         
+                                    OR R.direccion LIKE \'%`+searchWord+`%\' 
+                                    OR R.telefono LIKE \'%`+searchWord+`%\') 
+                          ORDER BY R.id`, function(error, rows) {
             if (error) {
                  callback(null, {
                     "msg": "error",
@@ -59,14 +76,17 @@ CustomerModel.getCustomersReport = function(userData, callback) {
 CustomerModel.getCustomersRows = function(userData, callback) {
     if (connection) {
         var searchWord   = userData.searchWord;          
-        connection.query('SELECT COUNT(R.id) AS total '
-                        +' FROM customers AS R  '                       
-                        +' INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) WHERE '
-                        +' R.documento LIKE \'%'+searchWord+'%\' '
-                        +' OR R.nombre_comercial LIKE \'%'+searchWord+'%\' '
-                        +' OR R.razon_social LIKE \'%'+searchWord+'%\' '                        
-                        +' OR R.direccion LIKE \'%'+searchWord+'%\' '
-                        +' OR R.telefono LIKE \'%'+searchWord+'%\' ', function(error, rows) {
+        connection.query(`SELECT COUNT(R.id) AS total 
+                          FROM customers AS R                         
+                          INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) 
+                          WHERE 
+                                R.id_empresa = `+userData.id_empresa+`
+                                AND ( 
+                                    R.documento LIKE \'%`+searchWord+`%\' 
+                                    OR R.nombre_comercial LIKE \'%`+searchWord+`%\' 
+                                    OR R.razon_social LIKE \'%`+searchWord+`%\'                         
+                                    OR R.direccion LIKE \'%`+searchWord+`%\' 
+                                    OR R.telefono LIKE \'%`+searchWord+`%\')`, function(error, rows) {
             if (error) {
                  callback(null, {
                     "msg": "error",

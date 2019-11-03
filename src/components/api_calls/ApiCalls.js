@@ -7,6 +7,7 @@
 */
 
 import axios from 'axios';
+import globalState from '../configuration/GlobalState';
 
 const path = "http://"+window.location.hostname+":5000/";
 
@@ -36,23 +37,35 @@ export function loadComboBoxDataGrid(apiField){
 }
 
 export function consultarFilas(apiField,searchWord){
+	var companyData = globalState.getState().companyData;
+	var id_empresa = 0;
+	if(companyData !== undefined){
+		id_empresa = globalState.getState().companyData[0].id;
+	}
 	//consulta el numero de filas de la grilla
 	return axios.get(path+apiField+'Rows', {
     		    withCredentials: true, 
     		    params: { 
-    		        searchWord : searchWord,                
+    		        searchWord : searchWord, 
+    		        id_empresa : id_empresa               
     		    } 
     		});
 }
 
 export function cargarFilas(apiField,searchWord,showRecords,offsetRecord){
+	var companyData = globalState.getState().companyData;	
+	var id_empresa = 0;
+	if(companyData !== undefined){
+		id_empresa = globalState.getState().companyData[0].id;
+	}	
 	//trae las filas filas de la grilla
 	return axios.get(path+apiField, {
 				withCredentials: true, 
 				params: { 
-					searchWord : searchWord,
-					showRecords : showRecords,
-					offsetRecord : offsetRecord 
+					searchWord   : searchWord,
+					showRecords  : showRecords,
+					offsetRecord : offsetRecord,
+					id_empresa   : id_empresa					
 				} 
 			});
 }

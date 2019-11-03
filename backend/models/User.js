@@ -50,12 +50,16 @@ UserModel.getUsers = function(userData, callback) {
                    FROM users AS R                         
                    INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) 
                    WHERE 
+                        R.id_empresa = `+userData.id_empresa+`
+                        AND (
                         R.nombre LIKE \'%`+searchWord+`%\' 
                         OR R.documento LIKE \'%`+searchWord+`%\' 
                         OR R.email LIKE \'%`+searchWord+`%\'                         
                         OR R.direccion LIKE \'%`+searchWord+`%\' 
-                        OR R.telefono LIKE \'%`+searchWord+`%\' 
+                        OR R.telefono LIKE \'%`+searchWord+`%\') 
                    ORDER BY R.id LIMIT `+offsetRecord+','+showRecords;
+
+        console.log(sql);
                                
         connection.query(sql, function(error, rows) {
             if (error) {
@@ -101,12 +105,14 @@ UserModel.getUsersRows = function(userData, callback) {
         connection.query(`SELECT COUNT(U.id) AS total 
                           FROM users AS U 
                           INNER JOIN document_types AS DT ON (DT.id = U.id_tipo_documento) 
-                          WHERE 
+                          WHERE
+                            U.id_empresa = `+userData.id_empresa+`
+                            AND ( 
                             U.nombre LIKE \'%`+searchWord+`%\' 
                             OR U.documento LIKE \'%`+searchWord+`%\' 
                             OR U.email LIKE \'%`+searchWord+`%\'                        
                             OR U.direccion LIKE \'%`+searchWord+`%\' 
-                            OR U.telefono LIKE \'%`+searchWord+'%\'', function(error, rows) {
+                            OR U.telefono LIKE \'%`+searchWord+'%\')', function(error, rows) {
             if (error) {
                  callback(null, {
                     "msg": "error",
