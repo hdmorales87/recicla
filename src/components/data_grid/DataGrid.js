@@ -147,8 +147,7 @@ class DataGrid extends Component {
                     </div>                    
                     <div className="table-responsive" style={{height:'calc(100% - 170px)'}}>
                         <DataGridContainer funcionClick={this.props.funcionClick} 
-                                           titulo={this.props.titulo}
-                                           colsHeaders={this.props.colsHeaders} 
+                                           titulo={this.props.titulo}                                            
                                            colsData={this.props.colsData}
                                            apiField={this.props.apiField}
                                            formFields={this.props.formFields}

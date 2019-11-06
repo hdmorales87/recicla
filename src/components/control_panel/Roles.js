@@ -8,35 +8,72 @@
 
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
+import Window from '../window/Window';
+import globalState from '../configuration/GlobalState';
 
 class Roles extends Component {
+    colFuncion(idRow){
+        console.log(idRow);
+        globalState.dispatch({
+                type   : "windowRolesPermisos",
+                params : {
+                              visible : true,
+                              params  : {
+                                            email : '',
+                                            idWin : "windowRolesPermisos"//identificador de la ventana
+                                        }
+                         }
+            }); 
+    }
   	render() {                     
         return (//carga el componente que contiene la grilla de datos            
-            <DataGrid titulo='Roles' 
-                      funcionClick={this.props.funcionClick} 
-                      parametro={this.props.parametro}                      
-                      colsHeaders={[ 'Nombre' ]}
-                      colsData={[ 'nombre']} 
-                      automatica="true"
-                      botonNuevo="true"
-                      formFields={[
-                                    {
-                                        label : 'Nombre',
-                                        field : 'nombre',
-                                        type  : 'text',
-                                        validation : 'mayusculas',
-                                        required : 'true'
-                                    },
-                                    {
-                                        label : '',
-                                        field : 'id_empresa',
-                                        type  : 'campo_empresa',
-                                        validation : '',
-                                        required : 'true'                                        
-                                    },                                                                        
-                                ]}                     
-                      apiField={'roles'}
-                      mainContainer='Roles'/>              
+            <div>
+                <DataGrid titulo='Roles' 
+                          funcionClick={this.props.funcionClick} 
+                          parametro={this.props.parametro} 
+                          colsData={[ 
+                                      {
+                                          type  : 'bd',
+                                          label : 'Nombre',
+                                          field : 'nombre'
+                                      },
+                                      {
+                                          type  : 'manual',
+                                          label : '',
+                                          icon  : 'settings',
+                                          colFuncion : this.colFuncion.bind(this)
+                                      }
+                                   ]} 
+                          automatica="true"
+                          botonNuevo="true"
+                          formFields={[
+                                        {
+                                            label : 'Nombre',
+                                            field : 'nombre',
+                                            type  : 'text',
+                                            validation : 'mayusculas',
+                                            required : 'true'
+                                        },
+                                        {
+                                            label : '',
+                                            field : 'id_empresa',
+                                            type  : 'campo_empresa',
+                                            validation : '',
+                                            required : 'true'                                        
+                                        },                                                                        
+                                    ]}                     
+                          apiField={'roles'}
+                          mainContainer='Roles'/>  
+                <Window 
+                        id = "windowRolesPermisos"                      
+                        title='Configurar Permisos'
+                        width='300px' 
+                        height='240px'                     
+                        tbar='false'
+                        componente="WindowRolesPermisos"
+                        params="" 
+                    />
+            </div>        
         )
     } 
 }

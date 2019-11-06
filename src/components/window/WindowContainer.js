@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import FormDataUser from '../desktop/FormDataUser';
 import WindowResetPassword from '../reset_password/WindowResetPassword';
+import WindowRolesPermisos from '../control_panel/WindowRolesPermisos';
 import DataGridSelect from '../data_grid/DataGridSelect';
 
 class WindowContainer extends Component {    
@@ -20,7 +21,8 @@ class WindowContainer extends Component {
         let componentList = {
             FormDataUser : FormDataUser,  
             DataGridSelect : DataGridSelect, 
-            WindowResetPassword : WindowResetPassword,                        
+            WindowResetPassword : WindowResetPassword,   
+            WindowRolesPermisos : WindowRolesPermisos,                      
         }     
         let ChildComponent = componentList[this.props.componente];    
         return (        

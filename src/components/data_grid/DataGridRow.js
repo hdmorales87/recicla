@@ -8,6 +8,7 @@
 
 import React from 'react';
 import {detectaDispostivo} from '../configuration/GlobalFunctions';
+import MaterialIcon from 'material-icons-react';
 
 class DataGridRow extends React.Component {    
     handleEditButton(param){//boton editar           
@@ -26,6 +27,7 @@ class DataGridRow extends React.Component {
         //console.log(os);
         var dataRow = this.props.dataRow;   
         var onClick = "";
+        var field = "";
         var onDblClick = "";
 
         if(os === 'android' || os === 'ios'){           
@@ -41,8 +43,18 @@ class DataGridRow extends React.Component {
             <tr style={{ cursor:'pointer'}} onClick={ onClick } onDoubleClick={ onDblClick }>      
                 <td style={{fontSize:'12px'}}>{this.props.numberRow+1}</td> 
                 {
-                    this.props.colsData.map((colsData,i) => {                        
-                        return <td data-title={this.props.colsHeaders[i]} key={ i } style={{fontSize:'12px'}}>{dataRow[colsData]}&nbsp;</td>
+                    this.props.colsData.map((colsData,i) => {
+                        if(colsData.type === 'bd'){
+                            field = <td data-title={colsData.label} key={ i } style={{fontSize:'12px'}}>{dataRow[colsData.field]}&nbsp;</td>
+                        }
+                        else{
+                            field = <td data-title={colsData.label} key={ i } style={{fontSize:'12px'}} onClick={ colsData.colFuncion.bind(this,dataRow.id) }>
+                                        <MaterialIcon id="iconColumna" size={20} icon={colsData.icon} /> 
+                                    </td>
+                        }
+                        return field;
+                        
+                        
                     })
                 }    
             </tr>

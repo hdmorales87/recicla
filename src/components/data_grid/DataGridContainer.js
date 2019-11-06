@@ -71,8 +71,8 @@ class DataGridContainer extends Component {
                             <tr>
                                 <th style={{fontSize:'12px'}}>No</th>
                                 {
-                                    this.props.colsHeaders.map((colsHeaders,i) => {
-                                        return <th key={ i } style={{fontSize:'12px'}}>{colsHeaders}</th>
+                                    this.props.colsData.map((colsData,i) => {
+                                        return <th key={ i } style={{fontSize:'12px'}}>{colsData.label}</th>
                                     })
                                 }
                             </tr>
