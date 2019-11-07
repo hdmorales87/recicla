@@ -25,6 +25,9 @@ class Roles extends Component {
                          }
             }); 
     }
+    guardaPermisos(){
+        
+    }
   	render() {                     
         return (//carga el componente que contiene la grilla de datos            
             <div>
@@ -68,8 +71,17 @@ class Roles extends Component {
                         id = "windowRolesPermisos"                      
                         title='Configurar Permisos'
                         width='300px' 
-                        height='240px'                     
-                        tbar='false'
+                        height='240px'
+                        tbar={[
+                                  {
+                                      type : 'boton',
+                                      icon : 'save',
+                                      width : '100px',
+                                      height : '60px',
+                                      title : 'Guardar',
+                                      function : this.guardaPermisos.bind(this)
+                                  },
+                              ]}
                         componente="WindowRolesPermisos"
                         params="" 
                     />

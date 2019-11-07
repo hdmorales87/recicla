@@ -1527,6 +1527,33 @@ module.exports = function(app) {
         });
     });
 
+    /*
+     * metodo: listadoPermisos
+     * tipo: GET
+     * devuelve el listado de permisos del aplicativo
+     */
+
+    app.get("/listadoPermisos", function(req, res) {              
+        RoleModel.getPermisos(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }                
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });
+
     //***********************************metodos para debug!!!****************************************//
 
     app.get('/checks', function(req, res) {

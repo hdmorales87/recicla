@@ -149,5 +149,24 @@ RoleModel.deleteRole = function(id, callback) {
     }
 }
 
+//obtenemos todos los permisos
+RoleModel.getPermisos = function(userData, callback) {    
+    if (connection) {                    
+        connection.query(`SELECT
+                                *
+                          FROM permisos      
+                          ORDER BY orden`, function(error, rows) {
+                                if (error) {
+                                     callback(null, {
+                                        "msg": "error",
+                                        "detail": error.code
+                                    });
+                                } else {
+                                    callback(null, rows);
+                                }
+        });
+    }
+}
+
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = RoleModel;

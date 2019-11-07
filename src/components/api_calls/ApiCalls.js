@@ -147,3 +147,12 @@ export function uploaderFile(file,table,field,id,folder){
 	        	}
 	        );
 }
+
+export function listadoPermisos(){		
+	//consulta el numero de filas de la grilla
+	return axios.get(path+'listadoPermisos', {
+    		    withCredentials: true, 
+    		    params: {         
+    		    } 
+    		});
+}
