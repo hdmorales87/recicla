@@ -24,16 +24,39 @@ import './dataGrid.css';
 
 class DataGrid extends Component {
     constructor(props, context) {
-        super(props, context); 
+        super(props, context);
+
+        let date1 = '';
+        let date2 = '';
+        if(this.props.filtroFechas === 'true'){
+            date1 = new Date();
+            date2 = new Date();        
+
+            let day = date1.getDate()
+            let month = date1.getMonth() + 1
+            let year = date1.getFullYear()
+
+            if(month < 10){
+                month = '0'+month;
+            }
+
+            if(day < 10){
+                day = '0'+day;
+            }
+
+            date1 = year+'-'+month+'-01';
+            date2 = year+'-'+month+'-'+day;
+        }
+
         this.state = {//las opciones de filtrado
-            date1 : new Date(),
-            date2 : new Date(),
+            date1 : date1,
+            date2 : date2,
             showRecords  : 15,
             searchWord   : '',
             offsetRecord : 0,
             resultRows   : 0
-        }        
-    }    
+        }               
+    }        
   	handleNewButton(){//Boton nuevo registro
         if(this.props.automatica === 'true'){
             this.props.funcionClick('FormDataGrid',{ idRow:0,mainContainer:this.props.mainContainer,titulo:this.props.titulo,apiField:this.props.apiField,formFields:this.props.formFields});
@@ -47,14 +70,26 @@ class DataGrid extends Component {
         if(key === 13){  
             let searchWord = event.target.value;  
             this.setState({ searchWord: searchWord,offsetRecord: 0 }, () => {                        
-                this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords, offsetRecord: this.state.offsetRecord }); 
+                this.props.funcionClick(this.props.mainContainer,{ 
+                                                                    searchWord: this.state.searchWord, 
+                                                                    showRecords: this.state.showRecords, 
+                                                                    offsetRecord: this.state.offsetRecord,
+                                                                    date1 : this.state.date1, 
+                                                                    date2 : this.state.date2, 
+                                                                 }); 
             });
         }        
     } 
     handleComboShow(event){//Combo de registros por pagina       
         let showRecords = event.target.value;       
         this.setState({ showRecords: showRecords }, () => {            
-            this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords, offsetRecord: this.state.offsetRecord});
+            this.props.funcionClick(this.props.mainContainer,{ 
+                                                                searchWord: this.state.searchWord, 
+                                                                showRecords: this.state.showRecords, 
+                                                                offsetRecord: this.state.offsetRecord,
+                                                                date1 : this.state.date1, 
+                                                                date2 : this.state.date2,
+                                                             });
         });      
     }
     handlePrevButton(event){//Retroceder
@@ -64,7 +99,13 @@ class DataGrid extends Component {
             offsetRecord = 0;
         }      
         this.setState({ offsetRecord: offsetRecord }, () => {            
-            this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords, offsetRecord: this.state.offsetRecord });
+            this.props.funcionClick(this.props.mainContainer,{ 
+                                                                searchWord: this.state.searchWord, 
+                                                                showRecords: this.state.showRecords, 
+                                                                offsetRecord: this.state.offsetRecord,
+                                                                date1 : this.state.date1, 
+                                                                date2 : this.state.date2, 
+                                                             });
         });      
     }
     handleNextButton(event){ //Avanzar 
@@ -74,7 +115,13 @@ class DataGrid extends Component {
             offsetRecord = prevOffsetRecord;
         }    
         this.setState({ offsetRecord: offsetRecord }, () => {            
-            this.props.funcionClick(this.props.mainContainer,{ searchWord: this.state.searchWord, showRecords: this.state.showRecords, offsetRecord: this.state.offsetRecord });
+            this.props.funcionClick(this.props.mainContainer,{ 
+                                                                searchWord: this.state.searchWord, 
+                                                                showRecords: this.state.showRecords, 
+                                                                offsetRecord: this.state.offsetRecord,
+                                                                date1 : this.state.date1, 
+                                                                date2 : this.state.date2, 
+                                                             });
         });      
     } 
     consultaFilas(){//Cuenta Filas         
@@ -99,11 +146,28 @@ class DataGrid extends Component {
            this.consultaFilas(); 
         }       
     } 
-    changeDate1(val){        
-        this.setState({ date1 : val });
+    handleDate1(e){        
+        this.setState({ date1 : e.target.value },() => {                        
+            this.props.funcionClick(this.props.mainContainer,{ 
+                                                                  searchWord: this.state.searchWord, 
+                                                                  showRecords: this.state.showRecords, 
+                                                                  offsetRecord: this.state.offsetRecord,
+                                                                  date1 : this.state.date1, 
+                                                                  date2 : this.state.date2, 
+                                                             }); 
+        });
+
     }
-    changeDate2(val){        
-        this.setState({ date2 : val });        
+    handleDate2(e){        
+        this.setState({ date2 : e.target.value },() => {                        
+            this.props.funcionClick(this.props.mainContainer,{ 
+                                                                  searchWord: this.state.searchWord, 
+                                                                  showRecords: this.state.showRecords, 
+                                                                  offsetRecord: this.state.offsetRecord,
+                                                                  date1 : this.state.date1, 
+                                                                  date2 : this.state.date2, 
+                                                             }); 
+        });        
     }   
   	render() {
         const divPDF = React.createRef(); 
@@ -186,7 +250,7 @@ class DataGrid extends Component {
                                 <div style={{float:'left'}}>  
                                     <div style={{float:'left',width:'100px'}}>Fecha Inicio:</div>
                                     <div style={{float:'left'}}>                      
-                                        <input style={{border:'1px solid #dee2e6'}} type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+                                        <input style={{border:'1px solid #dee2e6'}} type="date" id="start" name="fechaI" value={this.state.date1} onChange={this.handleDate1.bind(this)}/>
                                     </div>
                                 </div>
                             : ''
@@ -196,7 +260,7 @@ class DataGrid extends Component {
                                  <div style={{float:'left'}}>  
                                     <div style={{float:'left',width:'100px'}}>Fecha Final:</div>
                                     <div style={{float:'left'}}>                    
-                                        <input style={{border:'1px solid #dee2e6'}} type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+                                        <input style={{border:'1px solid #dee2e6'}} type="date" id="start" name="fechaF" value={this.state.date2} onChange={this.handleDate2.bind(this)}/>
                                     </div>
                                 </div>
                             : ''
@@ -204,7 +268,7 @@ class DataGrid extends Component {
                         <div style={{float:'left'}}>
                             <div style={{float:'left',width:'100px'}}>Buscar:</div> 
                             <div style={{float:'left'}}>
-                                <input type="text" style={{border:'1px solid #dee2e6',width:'134.7px'}} onKeyUp={this.handleSearchField.bind(this)}/>
+                                <input type="text" style={{border:'1px solid #dee2e6',width:'140px'}} onKeyUp={this.handleSearchField.bind(this)}/>
                             </div>
                         </div>
                     </div>                    
