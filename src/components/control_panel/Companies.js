@@ -14,9 +14,29 @@ class Companies extends Component {
         return (//carga el componente que contiene la grilla de datos            
             <DataGrid titulo='Empresas' 
                       funcionClick={this.props.funcionClick} 
-                      parametro={this.props.parametro}                      
-                      colsHeaders={[ 'Tipo Documento','Documento','razon_social','nombre_comercial' ]}
-                      colsData={[ 'tipo_documento','documento','razon_social','nombre_comercial']} 
+                      parametro={this.props.parametro}
+                      colsData={[ 
+                                    {
+                                        type  : 'bd',
+                                        label : 'Tipo Documento',
+                                        field : 'tipo_documento'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Documento',
+                                        field : 'documento'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Razon Social',
+                                        field : 'razon_social'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Nombre Comercial',
+                                        field : 'nombre_comercial'
+                                    },
+                                ]} 
                       automatica="true"
                       botonNuevo="true"
                       formFields={[

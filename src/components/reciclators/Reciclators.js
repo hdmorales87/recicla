@@ -14,9 +14,44 @@ class Reciclators extends Component {
   	  	return (  	  		  
   	  		<DataGrid titulo='Recicladores' 
                       funcionClick={this.props.funcionClick}  
-                      parametro={this.props.parametro}                     
-                      colsHeaders={[ 'Tipo Documento','Documento','Nombre','Direccion','Telefono','Celular','Caracterizacion' ]}
-                      colsData={[ 'tipo_documento','documento','nombre','direccion','telefono','celular','caracterizacion' ]} 
+                      parametro={this.props.parametro}
+                      colsData={[ 
+                                    {
+                                        type  : 'bd',
+                                        label : 'Tipo Documento',
+                                        field : 'tipo_documento'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Documento',
+                                        field : 'documento'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Nombre',
+                                        field : 'nombre'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Direccion',
+                                        field : 'direccion'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Telefono',
+                                        field : 'telefono'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Celular',
+                                        field : 'celular'
+                                    },                                    
+                                    {
+                                        type  : 'bd',
+                                        label : 'Caracterizacion',
+                                        field : 'caracterizacion'
+                                    },
+                                ]} 
                       automatica="true"
                       botonNuevo="true" 
                       formFields={[

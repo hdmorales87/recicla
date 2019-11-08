@@ -14,9 +14,14 @@ class DocumentTypes extends Component {
         return (//carga el componente que contiene la grilla de datos            
             <DataGrid titulo='Típos de Documento' 
                       funcionClick={this.props.funcionClick} 
-                      parametro={this.props.parametro}                      
-                      colsHeaders={[ 'Nombre' ]}
-                      colsData={[ 'nombre']} 
+                      parametro={this.props.parametro}
+                      colsData={[ 
+                                    {
+                                        type  : 'bd',
+                                        label : 'Nombre',
+                                        field : 'nombre'
+                                    },
+                                ]} 
                       automatica="true"
                       botonNuevo="true"
                       formFields={[

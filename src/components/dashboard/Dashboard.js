@@ -11,6 +11,9 @@ import DashboardOption from './DashboardOption';
 import './dashboard.css';
 
 class Dashboard extends Component {
+    constructor(props){
+        super(props);
+    }
   	render() {
         //LOS TIPOS DE GRAFICO SON PieChart y ColumnChart                    
         return (            

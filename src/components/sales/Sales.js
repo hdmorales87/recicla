@@ -14,9 +14,34 @@ class Sales extends Component {
         return (
             <DataGrid titulo='Ventas' 
                       funcionClick={this.props.funcionClick}  
-                      parametro={this.props.parametro}                     
-                      colsHeaders={[ 'Fecha Venta','Producto','Cliente','Peso','Valor Venta' ]}
-                      colsData={[ 'fecha_venta','tipo_producto','cliente','peso','valor_venta' ]} 
+                      parametro={this.props.parametro} 
+                      colsData={[ 
+                                    {
+                                        type  : 'bd',
+                                        label : 'Fecha Venta',
+                                        field : 'fecha_venta'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Producto',
+                                        field : 'tipo_producto'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Cliente',
+                                        field : 'cliente'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Peso',
+                                        field : 'peso'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Valor Venta',
+                                        field : 'valor_venta'
+                                    },                                    
+                                ]}
                       automatica="true"
                       botonNuevo="true" 
                       formFields={[

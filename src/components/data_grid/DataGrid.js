@@ -12,6 +12,10 @@ import Button from 'react-bootstrap/Button';
 import {consultarFilas} from '../api_calls/ApiCalls';
 import configJson from '../configuration/configuration.json';
 import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
+import icono_pdf from '../../images/icon_pdf.png?v1.0';
+import icono_xls from '../../images/icon_excel.png?v1.0';
+import ReactToPdf from 'react-to-pdf';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import MaterialIcon from 'material-icons-react';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
@@ -91,8 +95,9 @@ class DataGrid extends Component {
         if (this.props.parametro !== prevProps.parametro) {           
            this.consultaFilas(); 
         }       
-    }
+    }    
   	render() {
+        const divPDF = React.createRef(); 
         //los topes
         var lastRecord = this.state.offsetRecord+this.state.showRecords;
         if(lastRecord > this.state.resultRows){
@@ -112,14 +117,43 @@ class DataGrid extends Component {
                             </div>
                         : ''
                     }
+                    <div className="table-responsive mb-3">
                     {
-                        this.props.botonNuevo === 'true' ?  
-                            <div className="table-responsive mb-3">
+                        this.props.botonNuevo === 'true' ?
                                 <Button id="dataGridBtnNew" variant="primary" onClick={this.handleNewButton.bind(this)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'dataGridBtnNew',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'dataGridBtnNew',configJson.fondoBotonGrilla)}>AGREGAR NUEVO</Button>
-                            </div>                            
-                        : <div>&nbsp;</div>
+                        : ''                        
                     }
-                    
+                    {
+                        this.props.botonesExportar === 'true' ?
+                            <div style={{textAlign:'right',float:'right'}}>
+                                <div style={{textAlign:'right',float:'left'}}>
+                                    <img src={ icono_xls } alt="Excel" />
+                                    <ReactHTMLTableToExcel
+                                                id="test-table-xls-button"
+                                                className="download-table-xls-button"
+                                                table="table-to-xls"
+                                                filename={"informe_"+this.props.titulo}
+                                                sheet="tablexls"
+                                                buttonText="Generar Excel"/>
+                                </div>
+                                <div style={{textAlign:'right',float:'left'}}>
+
+                                </div>
+                                <div style={{textAlign:'right',float:'left'}}>
+                                    <img src={ icono_pdf } alt="PDF" />
+                                    <ReactToPdf targetRef={divPDF} filename={"informe_"+this.props.titulo+".pdf"}>
+                                        {
+                                            ({toPdf}) => (
+                                                <button onClick={toPdf} className="save" os="windows">Generar PDF</button>
+                                            )
+                                        }
+                                    </ReactToPdf>
+                                </div>
+                            </div>                    
+                        : ''
+                        
+                    }
+                    </div>
                     <div className="table-responsive mb-3">                        
                         {
                             this.props.automatica === 'true' ?
@@ -155,6 +189,7 @@ class DataGrid extends Component {
                                            parametro={this.props.parametro}
                                            automatica={this.props.automatica}
                                            funcionEdit = {this.props.funcionEdit}
+                                           divPDF = {divPDF}
                                            funcionEditParams = {this.props.funcionEditParams}/>
                     </div> 
                     <div className="table-responsive mb-3">

@@ -25,6 +25,9 @@ class DataGridContainer extends Component {
   	handleClick(val) {
   	  	this.setState({ justClicked: val });
   	}
+    componentDidUpdate(){
+        console.log(this.props);
+    }
     
     cargaFilas(){
         let searchWord   = '';
@@ -65,8 +68,8 @@ class DataGridContainer extends Component {
   	render() {  
         if (this.state.content.length > 0) {
             return (//carga dinamica de la cabecera y del listado
-                <div id="no-more-tables">
-                    <Table className="tableDataGrid" responsive>
+                <div id="no-more-tables" ref = {this.props.divPDF}>
+                    <Table className="tableDataGrid" responsive id="table-to-xls">
                         <thead className="cf">
                             <tr>
                                 <th style={{fontSize:'12px'}}>No</th>

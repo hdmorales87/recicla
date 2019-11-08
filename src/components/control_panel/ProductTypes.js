@@ -14,9 +14,24 @@ class ProductTypes extends Component {
         return (//carga el componente que contiene la grilla de datos   
             <DataGrid titulo='Tipos de Producto' 
                       funcionClick={this.props.funcionClick}   
-                      parametro={this.props.parametro}                    
-                      colsHeaders={[ 'Nombre','Precio Compra','Precio Venta' ]}
-                      colsData={[ 'nombre','precio_compra','precio_venta' ]} 
+                      parametro={this.props.parametro} 
+                      colsData={[ 
+                                    {
+                                        type  : 'bd',
+                                        label : 'Nombre',
+                                        field : 'nombre'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Precio Compra',
+                                        field : 'precio_compra'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Precio Venta',
+                                        field : 'precio_venta'
+                                    },
+                                ]} 
                       automatica="true"
                       botonNuevo="true"
                       formFields={[

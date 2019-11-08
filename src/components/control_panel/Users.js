@@ -14,9 +14,39 @@ class Users extends Component {
         return (//carga el componente que contiene la grilla de datos             
             <DataGrid titulo='Usuarios' 
                       funcionClick={this.props.funcionClick}  
-                      parametro={this.props.parametro}                     
-                      colsHeaders={[ 'Tipo Documento','Documento','Nombre','Email','Direccion','Telefono' ]}
-                      colsData={[ 'tipo_documento','documento','nombre','email','direccion','telefono' ]} 
+                      parametro={this.props.parametro}                      
+                      colsData={[ 
+                                      {
+                                          type  : 'bd',
+                                          label : 'Tipo Documento',
+                                          field : 'tipo_documento'
+                                      },
+                                      {
+                                          type  : 'bd',
+                                          label : 'Documento',
+                                          field : 'documento'
+                                      },
+                                      {
+                                          type  : 'bd',
+                                          label : 'Nombre',
+                                          field : 'nombre'
+                                      },
+                                      {
+                                          type  : 'bd',
+                                          label : 'Email',
+                                          field : 'email'
+                                      },
+                                      {
+                                          type  : 'bd',
+                                          label : 'Direccion',
+                                          field : 'direccion'
+                                      },
+                                      {
+                                          type  : 'bd',
+                                          label : 'Telefono',
+                                          field : 'telefono'
+                                      },
+                                   ]} 
                       automatica="true"
                       botonNuevo="true"
                       formFields={[

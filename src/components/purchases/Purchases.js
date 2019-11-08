@@ -14,11 +14,38 @@ class Purchases extends Component {
         return (
             <DataGrid titulo='Compras' 
                       funcionClick={this.props.funcionClick}  
-                      parametro={this.props.parametro}                     
-                      colsHeaders={[ 'Fecha Compra','Producto','Reciclador','Peso','Valor Compra' ]}
-                      colsData={[ 'fecha_compra','tipo_producto','reciclador','peso','valor_compra' ]} 
+                      parametro={this.props.parametro} 
+                      colsData={[ 
+                                    {
+                                        type  : 'bd',
+                                        label : 'Fecha Compra',
+                                        field : 'fecha_compra'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Producto',
+                                        field : 'tipo_producto'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Reciclador',
+                                        field : 'reciclador'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Peso',
+                                        field : 'peso'
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Valor Compra',
+                                        field : 'valor_compra'
+                                    },                                    
+                                ]} 
                       automatica="true"
-                      botonNuevo="true" 
+                      botonNuevo="true"
+                      botonesExportar="true"
+                      filtroFechas="true" 
                       formFields={[
                                     {
                                         label : 'Fecha de Compra',
