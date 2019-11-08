@@ -16,6 +16,7 @@ import icono_pdf from '../../images/icon_pdf.png?v1.0';
 import icono_xls from '../../images/icon_excel.png?v1.0';
 import ReactToPdf from 'react-to-pdf';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+import DatePicker from 'react-date-picker';
 import MaterialIcon from 'material-icons-react';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
@@ -25,6 +26,8 @@ class DataGrid extends Component {
     constructor(props, context) {
         super(props, context); 
         this.state = {//las opciones de filtrado
+            date1 : new Date(),
+            date2 : new Date(),
             showRecords  : 15,
             searchWord   : '',
             offsetRecord : 0,
@@ -95,7 +98,13 @@ class DataGrid extends Component {
         if (this.props.parametro !== prevProps.parametro) {           
            this.consultaFilas(); 
         }       
-    }    
+    } 
+    changeDate1(val){        
+        this.setState({ date1 : val });
+    }
+    changeDate2(val){        
+        this.setState({ date2 : val });        
+    }   
   	render() {
         const divPDF = React.createRef(); 
         //los topes
@@ -121,7 +130,7 @@ class DataGrid extends Component {
                     {
                         this.props.botonNuevo === 'true' ?
                                 <Button id="dataGridBtnNew" variant="primary" onClick={this.handleNewButton.bind(this)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'dataGridBtnNew',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'dataGridBtnNew',configJson.fondoBotonGrilla)}>AGREGAR NUEVO</Button>
-                        : ''                        
+                        : '' 
                     }
                     {
                         this.props.botonesExportar === 'true' ?
@@ -158,9 +167,9 @@ class DataGrid extends Component {
                         {
                             this.props.automatica === 'true' ?
                                 <div>
-                                    <div style={{float:'left',width:'70px'}}>Mostrar:</div> 
+                                    <div style={{float:'left',width:'100px'}}>Mostrar:</div> 
                                     <div style={{float:'left'}}>
-                                        <select style={{border:'1px solid #dee2e6'}} defaultValue="15" onChange={this.handleComboShow.bind(this)}>                               
+                                        <select style={{border:'1px solid #dee2e6',width:'64px'}} defaultValue="15" onChange={this.handleComboShow.bind(this)}>                               
                                             <option value="15">15</option>
                                             <option value="20">20</option>
                                             <option value="30">30</option>
@@ -171,11 +180,31 @@ class DataGrid extends Component {
                                     <div style={{float:'left',width:'70px',paddingLeft:'5px'}}>Entradas</div>
                                 </div>
                             : ''
-                        } 
-                        <div style={{float:'right'}}>
-                            <div style={{float:'left',width:'70px'}}>Buscar:</div> 
+                        }
+                        {
+                            this.props.filtroFechas === 'true' ?
+                                <div style={{float:'left'}}>  
+                                    <div style={{float:'left',width:'100px'}}>Fecha Inicio:</div>
+                                    <div style={{float:'left'}}>                      
+                                        <input style={{border:'1px solid #dee2e6'}} type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+                                    </div>
+                                </div>
+                            : ''
+                        }
+                        {
+                            this.props.filtroFechas === 'true' ?
+                                 <div style={{float:'left'}}>  
+                                    <div style={{float:'left',width:'100px'}}>Fecha Final:</div>
+                                    <div style={{float:'left'}}>                    
+                                        <input style={{border:'1px solid #dee2e6'}} type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+                                    </div>
+                                </div>
+                            : ''
+                        }
+                        <div style={{float:'left'}}>
+                            <div style={{float:'left',width:'100px'}}>Buscar:</div> 
                             <div style={{float:'left'}}>
-                                <input type="text" style={{border:'1px solid #dee2e6'}} onKeyUp={this.handleSearchField.bind(this)}/>
+                                <input type="text" style={{border:'1px solid #dee2e6',width:'134.7px'}} onKeyUp={this.handleSearchField.bind(this)}/>
                             </div>
                         </div>
                     </div>                    
