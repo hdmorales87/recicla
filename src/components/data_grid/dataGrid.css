@@ -61,6 +61,15 @@
 	#divBotonEditar {
     	margin-right: 2px !important;
 	}
+	.filtroSearch{
+		float:left;		
+	}
+	.labelSearch{
+		width:100px;		
+	}
+	.labelSelect{
+		width:100px;		
+	}
 }
 
 .filaBotones{
@@ -77,6 +86,16 @@
 	}
 	.filtrosDatagrid{
 		padding-left: 7px;
+	}
+	.filtroSearch{
+		float:right;
+		padding-left: 7px;
+	}
+	.labelSearch{
+		width:60px;		
+	}
+	.labelSelect{
+		width:60px;		
 	}
 }
 

@@ -219,7 +219,7 @@ class DataGrid extends Component {
                         {
                             this.props.automatica === 'true' ?
                                 <div>
-                                    <div style={{float:'left',width:'100px'}}>Mostrar:</div> 
+                                    <div style={{float:'left'}} className="labelSearch">Mostrar:</div> 
                                     <div style={{float:'left'}}>
                                         <select style={{border:'1px solid #dee2e6',width:'64px'}} defaultValue="15" onChange={this.handleComboShow.bind(this)}>                               
                                             <option value="15">15</option>
@@ -253,8 +253,8 @@ class DataGrid extends Component {
                                 </div>
                             : ''
                         }
-                        <div style={{float:'left'}} className="filtrosDatagrid">
-                            <div style={{float:'left',width:'100px'}}>Buscar:</div> 
+                        <div className="filtroSearch">
+                            <div style={{float:'left'}} className="labelSearch">Buscar:</div> 
                             <div style={{float:'left'}}>
                                 <input type="text" style={{border:'1px solid #dee2e6',width:'140px'}} onKeyUp={this.handleSearchField.bind(this)}/>
                             </div>
