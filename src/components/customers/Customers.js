@@ -49,6 +49,7 @@ class Customers extends Component {
                                 ]} 
                       automatica="true"
                       botonNuevo="true" 
+                      botonesExportar="true"
                       formFields={[
                                     {
                                         label : 'Tipo de Documento',

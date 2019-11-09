@@ -73,9 +73,7 @@ class DataGrid extends Component {
                 this.props.funcionClick(this.props.mainContainer,{ 
                                                                     searchWord: this.state.searchWord, 
                                                                     showRecords: this.state.showRecords, 
-                                                                    offsetRecord: this.state.offsetRecord,
-                                                                    date1 : this.state.date1, 
-                                                                    date2 : this.state.date2, 
+                                                                    offsetRecord: this.state.offsetRecord,                                                                    
                                                                  }); 
             });
         }        
@@ -86,9 +84,7 @@ class DataGrid extends Component {
             this.props.funcionClick(this.props.mainContainer,{ 
                                                                 searchWord: this.state.searchWord, 
                                                                 showRecords: this.state.showRecords, 
-                                                                offsetRecord: this.state.offsetRecord,
-                                                                date1 : this.state.date1, 
-                                                                date2 : this.state.date2,
+                                                                offsetRecord: this.state.offsetRecord,                                                                
                                                              });
         });      
     }
@@ -102,9 +98,7 @@ class DataGrid extends Component {
             this.props.funcionClick(this.props.mainContainer,{ 
                                                                 searchWord: this.state.searchWord, 
                                                                 showRecords: this.state.showRecords, 
-                                                                offsetRecord: this.state.offsetRecord,
-                                                                date1 : this.state.date1, 
-                                                                date2 : this.state.date2, 
+                                                                offsetRecord: this.state.offsetRecord,                                                                
                                                              });
         });      
     }
@@ -118,14 +112,12 @@ class DataGrid extends Component {
             this.props.funcionClick(this.props.mainContainer,{ 
                                                                 searchWord: this.state.searchWord, 
                                                                 showRecords: this.state.showRecords, 
-                                                                offsetRecord: this.state.offsetRecord,
-                                                                date1 : this.state.date1, 
-                                                                date2 : this.state.date2, 
+                                                                offsetRecord: this.state.offsetRecord,                                                                 
                                                              });
         });      
     } 
     consultaFilas(){//Cuenta Filas         
-        consultarFilas(this.props.apiField,this.state.searchWord)
+        consultarFilas(this.props.apiField,this.state.searchWord,this.state.date1,this.state.date2)
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
@@ -151,9 +143,7 @@ class DataGrid extends Component {
             this.props.funcionClick(this.props.mainContainer,{ 
                                                                   searchWord: this.state.searchWord, 
                                                                   showRecords: this.state.showRecords, 
-                                                                  offsetRecord: this.state.offsetRecord,
-                                                                  date1 : this.state.date1, 
-                                                                  date2 : this.state.date2, 
+                                                                  offsetRecord: this.state.offsetRecord,                                                                  
                                                              }); 
         });
 
@@ -163,9 +153,7 @@ class DataGrid extends Component {
             this.props.funcionClick(this.props.mainContainer,{ 
                                                                   searchWord: this.state.searchWord, 
                                                                   showRecords: this.state.showRecords, 
-                                                                  offsetRecord: this.state.offsetRecord,
-                                                                  date1 : this.state.date1, 
-                                                                  date2 : this.state.date2, 
+                                                                  offsetRecord: this.state.offsetRecord,                                                                   
                                                              }); 
         });        
     }   
@@ -207,7 +195,7 @@ class DataGrid extends Component {
                                                 table="table-to-xls"
                                                 filename={"informe_"+this.props.titulo}
                                                 sheet="tablexls"
-                                                buttonText="Generar Excel"/>
+                                                buttonText="Excel"/>
                                 </div>
                                 <div style={{textAlign:'right',float:'left'}}>
 
@@ -217,7 +205,7 @@ class DataGrid extends Component {
                                     <ReactToPdf targetRef={divPDF} filename={"informe_"+this.props.titulo+".pdf"}>
                                         {
                                             ({toPdf}) => (
-                                                <button onClick={toPdf} className="save" os="windows">Generar PDF</button>
+                                                <button onClick={toPdf} className="save">PDF</button>
                                             )
                                         }
                                     </ReactToPdf>
@@ -247,25 +235,25 @@ class DataGrid extends Component {
                         }
                         {
                             this.props.filtroFechas === 'true' ?
-                                <div style={{float:'left'}}>  
+                                <div style={{float:'left'}} className="filtrosDatagrid">  
                                     <div style={{float:'left',width:'100px'}}>Fecha Inicio:</div>
                                     <div style={{float:'left'}}>                      
-                                        <input style={{border:'1px solid #dee2e6'}} type="date" id="start" name="fechaI" value={this.state.date1} onChange={this.handleDate1.bind(this)}/>
+                                        <input style={{border:'1px solid #dee2e6',width:'140px'}} type="date" id="start" name="fechaI" value={this.state.date1} onChange={this.handleDate1.bind(this)}/>
                                     </div>
                                 </div>
                             : ''
                         }
                         {
                             this.props.filtroFechas === 'true' ?
-                                 <div style={{float:'left'}}>  
+                                 <div style={{float:'left'}} className="filtrosDatagrid">  
                                     <div style={{float:'left',width:'100px'}}>Fecha Final:</div>
                                     <div style={{float:'left'}}>                    
-                                        <input style={{border:'1px solid #dee2e6'}} type="date" id="start" name="fechaF" value={this.state.date2} onChange={this.handleDate2.bind(this)}/>
+                                        <input style={{border:'1px solid #dee2e6',width:'140px'}} type="date" id="start" name="fechaF" value={this.state.date2} onChange={this.handleDate2.bind(this)}/>
                                     </div>
                                 </div>
                             : ''
                         }
-                        <div style={{float:'left'}}>
+                        <div style={{float:'left'}} className="filtrosDatagrid">
                             <div style={{float:'left',width:'100px'}}>Buscar:</div> 
                             <div style={{float:'left'}}>
                                 <input type="text" style={{border:'1px solid #dee2e6',width:'140px'}} onKeyUp={this.handleSearchField.bind(this)}/>
@@ -283,6 +271,8 @@ class DataGrid extends Component {
                                            automatica={this.props.automatica}
                                            funcionEdit = {this.props.funcionEdit}
                                            divPDF = {divPDF}
+                                           date1 = {this.state.date1}
+                                           date2 = {this.state.date2}
                                            funcionEditParams = {this.props.funcionEditParams}/>
                     </div> 
                     <div className="table-responsive mb-3">

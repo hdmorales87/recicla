@@ -8,7 +8,15 @@ PurchaseModel.getPurchases = function(userData, callback) {
     if (connection) {
         var searchWord   = userData.searchWord;
         var showRecords  = userData.showRecords; 
-        var offsetRecord = userData.offsetRecord;    
+        var offsetRecord = userData.offsetRecord;
+        var filtroFecha1 = userData.date1; 
+        var filtroFecha2 = userData.date2;
+        if(filtroFecha1 == ''){
+            filtroFecha1 = '0000-00-00';
+        }
+        if(filtroFecha2 == ''){
+            filtroFecha2 = '9999-99-99';
+        }
         var sql = `SELECT 
                         P.id,
                         (P.peso * PT.precio_compra) AS valor_compra,
@@ -23,7 +31,8 @@ PurchaseModel.getPurchases = function(userData, callback) {
                    INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) 
                    INNER JOIN reciclators AS R ON (R.id = P.id_reciclador) 
                    WHERE 
-                        P.id_empresa = `+userData.id_empresa+`
+                        P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                        AND P.id_empresa = `+userData.id_empresa+`
                         AND (
                             PT.nombre LIKE \'%`+searchWord+`%\' 
                             OR R.nombre LIKE \'%`+searchWord+`%\'                                                 
@@ -72,6 +81,14 @@ PurchaseModel.getPurchasesReport = function(userData, callback) {
 PurchaseModel.getPurchasesRows = function(userData, callback) {
     if (connection) {
         var searchWord   = userData.searchWord; 
+        var filtroFecha1 = userData.date1; 
+        var filtroFecha2 = userData.date2;
+        if(filtroFecha1 == ''){
+            filtroFecha1 = '0000-00-00';
+        }
+        if(filtroFecha2 == ''){
+            filtroFecha2 = '9999-99-99';
+        }
 
         var sql = `SELECT 
                         COUNT(P.id) AS total                         
@@ -79,7 +96,8 @@ PurchaseModel.getPurchasesRows = function(userData, callback) {
                    INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) 
                    INNER JOIN reciclators AS R ON (R.id = P.id_reciclador) 
                    WHERE 
-                        P.id_empresa = `+userData.id_empresa+`
+                        P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                        AND P.id_empresa = `+userData.id_empresa+`
                         AND (
                             PT.nombre LIKE \'%`+searchWord+`%\' 
                             OR R.nombre LIKE \'%`+searchWord+`%\'                                                 

@@ -43,7 +43,9 @@ class Sales extends Component {
                                     },                                    
                                 ]}
                       automatica="true"
-                      botonNuevo="true" 
+                      botonNuevo="true"
+                      botonesExportar="true"
+                      filtroFechas="true"  
                       formFields={[
                                     {
                                         label : 'Fecha de Venta',

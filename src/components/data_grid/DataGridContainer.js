@@ -32,16 +32,18 @@ class DataGridContainer extends Component {
     cargaFilas(){
         let searchWord   = '';
         let showRecords  = 15;
-        let offsetRecord = 0;        
+        let offsetRecord = 0; 
+        let date1 = this.props.date1;
+        let date2 = this.props.date2;
         if(this.props.parametro !== undefined){
             if(this.props.parametro.hasOwnProperty('searchWord')){
                 searchWord = this.props.parametro.searchWord; 
                 showRecords = this.props.parametro.showRecords;  
-                offsetRecord = this.props.parametro.offsetRecord; 
+                offsetRecord = this.props.parametro.offsetRecord;                  
             }        
         }        
         //Ajax a la API que trae los registros
-        cargarFilas(this.props.apiField,searchWord,showRecords,offsetRecord)        
+        cargarFilas(this.props.apiField,searchWord,showRecords,offsetRecord,date1,date2)        
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
