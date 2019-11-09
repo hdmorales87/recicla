@@ -78,6 +78,11 @@ class Window extends Component {
         this.setState({ parametro : param });       
     }    
   	render() {
+        var lengthTbar = this.props.tbar.length;
+        var display = "table-cell";      
+        if(lengthTbar === 1){
+            display = "block";  
+        } 
   	  	return (
   			<Modal 
                isOpen={this.state.showModal}
@@ -95,7 +100,7 @@ class Window extends Component {
                     this.props.tbar !== 'false' ?                                             
                         this.props.tbar.map((tbar,i) => {//cargar la tbar
                                     return (   
-                                        <div id={"windowButton"+i} className="windowButton" key={i} style={{width:tbar.width,height:tbar.height}}  onMouseOut={divMouseOut.bind(this,"windowButton"+i,configJson.windowColor)} onMouseOver={divMouseOver.bind(this,"windowButton"+i,configJson.windowColor)}>                                    
+                                        <div id={"windowButton"+i} className="windowButton" key={i} style={{width:tbar.width,height:tbar.height,display:display}}  onMouseOut={divMouseOut.bind(this,"windowButton"+i,configJson.windowColor)} onMouseOver={divMouseOver.bind(this,"windowButton"+i,configJson.windowColor)}>                                    
                                             <div style={{width:'calc(100% - 5px)',float:'left'}} onClick={tbar.function}> 
                                                 <MaterialIcon size={24} icon={tbar.icon} invert/>
                                                 <button className="save">{tbar.title}</button>                                             
