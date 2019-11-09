@@ -74,10 +74,20 @@ class Purchases extends Component {
                                                               idField     : 'id_reciclador',
                                                               valueField  : 'reciclador',
                                                          },
-                                                         apiField    : 'reciclators',
-                                                         colsHeaders : [ 'Documento','Nombre' ],
-                                                         colsData    : [ 'documento','nombre' ],                                                         
-                                                     },
+                                                         apiField    : 'reciclators',                                                         
+                                                         colsData    : [ 
+                                                                            {
+                                                                                type  : 'bd',
+                                                                                label : 'Documento',
+                                                                                field : 'documento'
+                                                                            },
+                                                                            {
+                                                                                type  : 'bd',
+                                                                                label : 'Nombre',
+                                                                                field : 'nombre'
+                                                                            },
+                                                                        ] 
+                                                      },
                                         validation : '',
                                         required : 'true'                                        
                                     },

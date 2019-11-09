@@ -75,8 +75,18 @@ class Sales extends Component {
                                                               valueField  : 'cliente',
                                                          },
                                                          apiField    : 'customers',
-                                                         colsHeaders : [ 'Documento','Nombre' ],
-                                                         colsData    : [ 'documento','razon_social' ],                                                         
+                                                         colsData    : [ 
+                                                                            {
+                                                                                type  : 'bd',
+                                                                                label : 'Documento',
+                                                                                field : 'documento'
+                                                                            },
+                                                                            {
+                                                                                type  : 'bd',
+                                                                                label : 'Nombre',
+                                                                                field : 'razon_social'
+                                                                            },
+                                                                        ]                                                                                          
                                                      },
                                         validation : '',
                                         required : 'true'                                        

@@ -15,8 +15,7 @@ class DataGridSelect extends Component {
         return (
             <DataGrid titulo='Seleccione...' 
                       funcionClick={this.props.funcionClick}  
-                      parametro={this.props.params.parametro}                     
-                      colsHeaders={this.props.params.colsHeaders}
+                      parametro={this.props.params.parametro}
                       colsData={this.props.params.colsData} 
                       automatica="false"  
                       botonNuevo="false"                    
