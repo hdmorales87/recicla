@@ -152,11 +152,12 @@ export function uploaderFile(file,table,field,id,folder){
 	        );
 }
 
-export function listadoPermisos(){		
+export function listadoPermisos(idRol){		
 	//consulta el numero de filas de la grilla
 	return axios.get(path+'listadoPermisos', {
     		    withCredentials: true, 
-    		    params: {         
+    		    params: {  
+    		    	idRol : idRol       
     		    } 
     		});
 }

@@ -151,11 +151,15 @@ RoleModel.deleteRole = function(id, callback) {
 
 //obtenemos todos los permisos
 RoleModel.getPermisos = function(userData, callback) {    
-    if (connection) {                    
+    if (connection) {     
         connection.query(`SELECT
-                                *
-                          FROM permisos      
-                          ORDER BY id_modulo,orden`, function(error, rows) {
+                                P.id,
+                                P.nombre,
+                                P.nivel,
+                                R.id AS checked
+                          FROM permisos  AS P
+                          LEFT JOIN roles_permisos AS R ON(R.id_permiso = P.id AND R.id_rol = `+userData.idRol+`)
+                          ORDER BY P.id_modulo,P.orden`, function(error, rows) {
                                 if (error) {
                                      callback(null, {
                                         "msg": "error",
@@ -170,27 +174,38 @@ RoleModel.getPermisos = function(userData, callback) {
 
 //almacenar los permisos del rol
 RoleModel.guardaPermisos = function(userData, callback) {
-    if (connection) {   
-        console.log(userData);
+    if (connection) {
         var arrayPermisos = userData.arrayPermisos;
+        var idRol = userData.idRol;
+        var stringInsert = '';
 
         arrayPermisos.forEach(function(element) {
-            
-        });               
-        // connection.query('INSERT INTO roles SET ?', userData, function(error, result) {
-        //     if (error) {
-        //         callback(null, {
-        //             "msg": "error",
-        //             "detail": error.code
-        //         });
-        //     } else {
-        //         var id = result.insertId;                
-        //         //devolvemos la última id insertada
-        //         callback(null, {
-        //             "insertId": id
-        //         }); 
-        //     }
-        // });
+            stringInsert += '('+idRol+','+element+'),';
+        });
+        stringInsert = stringInsert.slice(0,-1);  
+                
+        connection.query('DELETE FROM roles_permisos WHERE id_rol = '+idRol, function(error, result) {
+            if (error) {
+                callback(null, {
+                    "msg": "error",
+                    "detail": error.code
+                });
+            } else {
+                stringInsert = "INSERT INTO roles_permisos(id_rol,id_permiso) VALUES "+stringInsert;
+                connection.query(stringInsert, function(error, result) {
+                    if (error) {
+                        callback(null, {
+                            "msg": "error",
+                            "detail": error.code
+                        });
+                    } else {
+                        callback(null, {
+                            "msg": "success"
+                        }); 
+                    }
+                });                
+            }
+        });
     }
 }
 

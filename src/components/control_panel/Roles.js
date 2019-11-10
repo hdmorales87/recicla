@@ -11,6 +11,7 @@ import DataGrid from '../data_grid/DataGrid';
 import Window from '../window/Window';
 import {guardaPermisos} from '../api_calls/ApiCalls';
 import globalState from '../configuration/GlobalState';
+import {modalLoading} from '../configuration/GlobalFunctions';
 import alertify from 'alertifyjs';
 
 class Roles extends Component {
@@ -35,11 +36,18 @@ class Roles extends Component {
                 arrayPermisos.push(id);                
             }
         }
-        
+        modalLoading(true);
         guardaPermisos(objWindow.params.idRol,arrayPermisos).then(response => { 
-            
+            modalLoading(false);
+            globalState.dispatch({
+                type   : "windowRolesPermisos",
+                params : {
+                              visible : false,                              
+                         }
+            });
         })
         .catch(function (error) {
+            modalLoading(false);
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
         });
     }

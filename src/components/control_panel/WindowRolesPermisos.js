@@ -7,7 +7,6 @@
 */
 
 import React, { Component } from 'react';
-import {modalLoadingRstPwd} from '../configuration/GlobalFunctions';
 import {listadoPermisos} from '../api_calls/ApiCalls';
 import globalState from '../configuration/GlobalState';
 import alertify from 'alertifyjs';
@@ -21,22 +20,27 @@ class WindowRolesPermisos extends Component {
         };        
     } 
     componentWillMount(){
-        listadoPermisos().then(response => { 
+        var idRol = this.props.params.idRol;
+        listadoPermisos(idRol).then(response => { 
             response = response.data;            
             if(response.msg === 'error'){//aqui no me dejara continuar si la empresa noe xiste
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail); 
             }
             else{
                 this.setState({objPermisos:response},()=>{
-                    globalState.dispatch({//cargamos lo datos del formulario y los dejamos disponibles en toda la sesion
+                    globalState.dispatch({//cargamos los datos de los permisos
                         type   : "configPermisos",
                         params : {}
                     });
-                    response.map((objPermisos,i) => {                        
-                        this.setState({ [objPermisos.id]: false },()=>{
-                            globalState.getState().configPermisos[objPermisos.id] = false;  
+                    response.forEach((objPermisos,i) => {//chequear los que tengan el permiso activido en el rol
+                        var checked = false;                        
+                        if(objPermisos.checked > 0){
+                            checked = true;
+                        }                        
+                        this.setState({ [objPermisos.id]: checked },()=>{
+                            globalState.getState().configPermisos[objPermisos.id] = checked;                             
                         });  
-                    });
+                    });                    
                 });
             }
         })
