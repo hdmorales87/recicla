@@ -1,14 +1,13 @@
 /**
 * CLASS WindowRolesPermisos
 *
-* Contiene el componente para resetear el password
+* Contiene el componente que lista los permisos del rol
 *
 * @author Hector Morales <warrior1987@gmail.com>
 */
 
 import React, { Component } from 'react';
-import configJson from '../configuration/configuration.json';
-import {divMouseOver,divMouseOut,validarEmail,modalLoadingRstPwd} from '../configuration/GlobalFunctions';
+import {modalLoadingRstPwd} from '../configuration/GlobalFunctions';
 import {listadoPermisos} from '../api_calls/ApiCalls';
 import globalState from '../configuration/GlobalState';
 import alertify from 'alertifyjs';
@@ -19,37 +18,62 @@ class WindowRolesPermisos extends Component {
         super(props);   
         this.state = {
             objPermisos : ''
-        };
+        };        
     } 
     componentWillMount(){
         listadoPermisos().then(response => { 
-            response = response.data;
+            response = response.data;            
             if(response.msg === 'error'){//aqui no me dejara continuar si la empresa noe xiste
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail); 
             }
             else{
-                this.setState({objPermisos:response});
+                this.setState({objPermisos:response},()=>{
+                    globalState.dispatch({//cargamos lo datos del formulario y los dejamos disponibles en toda la sesion
+                        type   : "configPermisos",
+                        params : {}
+                    });
+                    response.map((objPermisos,i) => {                        
+                        this.setState({ [objPermisos.id]: false },()=>{
+                            globalState.getState().configPermisos[objPermisos.id] = false;  
+                        });  
+                    });
+                });
             }
         })
         .catch(function (error) {
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
         });
-    }     
-  	render() { 
-        console.log(this.state.objPermisos);
-        var disabled = 'disabled';
-        if(this.props.params.idWin === 'windowResetPassword1'){
-            disabled = '';
-        }       
+    } 
+    handleCheckBox(e){//control del check de los checkbox
+        var checkBox = e.target.name;
+        var checked  = e.target.checked;        
+        this.setState({ [checkBox]: checked },()=>{
+            globalState.getState().configPermisos[checkBox] = checked;  
+        });          
+    }    
+  	render() {             
   	  	return (
-                <div id="WindowContentResetPassword">                   
-                    <div id="ContentResetPassword">
-                        <div className="text">A continuacion enviaremos el link con las instrucciones para cambiar tu password a tu cuenta de correo</div>
-                        <div className="formContentField" style={{width:'calc(100% - 20px)',minHeight:'30px', display:'block', maxWidth : '100%'}}> 
-                            
-                         </div>
-                                               
-                    </div>
+                <div id="contenedorPermisos" style={{paddingLeft: '7px',paddingTop: '7px',paddingBottom: '5px',height:'calc(100% - 92px)',overflowY : 'auto' }}>   
+                {
+                    (this.state.objPermisos !== '') ?
+                        this.state.objPermisos.map((objPermisos,i) => {
+                            var padding = 5;
+                            var fontWeight = 'bold';
+                            if(objPermisos.nivel > 1){
+                                padding = objPermisos.nivel*10;
+                                fontWeight = 'normal';
+                            }                                                         
+                            return <div key={i} style={{width:'100%',height:'24px'}}>
+                                        <div style={{float:'left'}}>
+                                            <input name={objPermisos.id} type="checkbox" onChange={this.handleCheckBox.bind(this)} checked={this.state[objPermisos.id] || false } />
+                                        </div>
+                                        <div style={{paddingLeft:padding+'px',float:'left',fontWeight:fontWeight }}>
+                                            {objPermisos.nombre} 
+                                        </div>
+                                    </div>
+                        })
+                    : ''
+                }  
                 </div>  				
 			  );
   	}

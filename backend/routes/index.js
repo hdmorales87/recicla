@@ -1554,6 +1554,32 @@ module.exports = function(app) {
         });
     });
 
+    /*
+     * metodo: guardaPermisos
+     * tipo: GET
+     * guarda los permisos para el rol
+     */
+
+    app.post("/guardaPermisos", function(req, res) {
+        //console.log(req.body);
+        //creamos un objeto con los datos a insertar
+        var formData = req.body;
+          
+        RoleModel.guardaPermisos(formData, function(error, data) {
+            //si el usuario se ha insertado correctamente mostramos su info
+            if (data && data.insertId) {
+                res.status(200).json({
+                    "msg": "success"
+                });
+            } else {
+                res.status(200).json({
+                    "msg": "error",
+                    "detail": data.detail
+                });
+            }
+        });
+    });
+
     //***********************************metodos para debug!!!****************************************//
 
     app.get('/checks', function(req, res) {

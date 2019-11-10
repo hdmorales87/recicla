@@ -9,24 +9,39 @@
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
 import Window from '../window/Window';
+import {guardaPermisos} from '../api_calls/ApiCalls';
 import globalState from '../configuration/GlobalState';
+import alertify from 'alertifyjs';
 
 class Roles extends Component {
-    colFuncion(idRow){
-        console.log(idRow);
+    colFuncion(idRow){        
         globalState.dispatch({
                 type   : "windowRolesPermisos",
                 params : {
                               visible : true,
                               params  : {
-                                            email : '',
+                                            idRol : idRow,
                                             idWin : "windowRolesPermisos"//identificador de la ventana
                                         }
                          }
             }); 
     }
-    guardaPermisos(){
+    guardaPermisos(){//almacena los permisos en un array para enviarlos
+        var objPermisos = globalState.getState().configPermisos;
+        var objWindow   = globalState.getState().windowRolesPermisos;
+        var arrayPermisos = [];
+        for(var id in objPermisos){
+            if(objPermisos[id] === true){
+                arrayPermisos.push(id);                
+            }
+        }
         
+        guardaPermisos(objWindow.params.idRol,arrayPermisos).then(response => { 
+            
+        })
+        .catch(function (error) {
+            alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
+        });
     }
   	render() {                     
         return (//carga el componente que contiene la grilla de datos            
@@ -70,8 +85,8 @@ class Roles extends Component {
                 <Window 
                         id = "windowRolesPermisos"                      
                         title='Configurar Permisos'
-                        width='300px' 
-                        height='240px'
+                        width='315px' 
+                        height='80%'
                         tbar={[
                                   {
                                       type : 'boton',

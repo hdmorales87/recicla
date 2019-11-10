@@ -155,7 +155,7 @@ RoleModel.getPermisos = function(userData, callback) {
         connection.query(`SELECT
                                 *
                           FROM permisos      
-                          ORDER BY orden`, function(error, rows) {
+                          ORDER BY id_modulo,orden`, function(error, rows) {
                                 if (error) {
                                      callback(null, {
                                         "msg": "error",
@@ -165,6 +165,32 @@ RoleModel.getPermisos = function(userData, callback) {
                                     callback(null, rows);
                                 }
         });
+    }
+}
+
+//almacenar los permisos del rol
+RoleModel.guardaPermisos = function(userData, callback) {
+    if (connection) {   
+        console.log(userData);
+        var arrayPermisos = userData.arrayPermisos;
+
+        arrayPermisos.forEach(function(element) {
+            
+        });               
+        // connection.query('INSERT INTO roles SET ?', userData, function(error, result) {
+        //     if (error) {
+        //         callback(null, {
+        //             "msg": "error",
+        //             "detail": error.code
+        //         });
+        //     } else {
+        //         var id = result.insertId;                
+        //         //devolvemos la última id insertada
+        //         callback(null, {
+        //             "insertId": id
+        //         }); 
+        //     }
+        // });
     }
 }
 

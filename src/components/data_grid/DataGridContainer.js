@@ -25,10 +25,6 @@ class DataGridContainer extends Component {
   	handleClick(val) {
   	  	this.setState({ justClicked: val });
   	}
-    componentDidUpdate(){
-        console.log(this.props);
-    }
-    
     cargaFilas(){
         let searchWord   = '';
         let showRecords  = 15;
@@ -56,17 +52,14 @@ class DataGridContainer extends Component {
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
         });
     }
-
     componentWillMount() {
         this.cargaFilas();        
     }
-
     componentDidUpdate(prevProps){        
         if (this.props.parametro !== prevProps.parametro) {           
            this.cargaFilas(); 
         }       
-    }    
-
+    }
   	render() {  
         if (this.state.content.length > 0) {
             return (//carga dinamica de la cabecera y del listado

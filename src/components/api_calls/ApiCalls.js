@@ -160,3 +160,13 @@ export function listadoPermisos(){
     		    } 
     		});
 }
+
+export function guardaPermisos(idRol,arrayPermisos){	
+	//actualiza los permisos
+	return axios({
+        	    method: 'post',
+        	    url: path+'guardaPermisos',
+        	    data: { 'idRol': idRol,'arrayPermisos': arrayPermisos },
+        	    withCredentials: true
+        	});	
+}

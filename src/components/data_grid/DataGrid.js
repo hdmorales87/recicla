@@ -16,7 +16,6 @@ import icono_pdf from '../../images/icon_pdf.png?v1.0';
 import icono_xls from '../../images/icon_excel.png?v1.0';
 import ReactToPdf from 'react-to-pdf';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
-import DatePicker from 'react-date-picker';
 import MaterialIcon from 'material-icons-react';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';

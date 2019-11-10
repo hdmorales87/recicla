@@ -57,9 +57,7 @@ UserModel.getUsers = function(userData, callback) {
                         OR R.email LIKE \'%`+searchWord+`%\'                         
                         OR R.direccion LIKE \'%`+searchWord+`%\' 
                         OR R.telefono LIKE \'%`+searchWord+`%\') 
-                   ORDER BY R.id LIMIT `+offsetRecord+','+showRecords;
-
-        console.log(sql);
+                   ORDER BY R.id LIMIT `+offsetRecord+','+showRecords;        
                                
         connection.query(sql, function(error, rows) {
             if (error) {
