@@ -30,6 +30,7 @@ class FormDataGrid extends Component {
         this.handleSaveButton   = this.handleSaveButton.bind(this);
         this.handleConfirmAction = this.handleConfirmAction.bind(this);
         this.funcionEditDataSelect = this.funcionEditDataSelect.bind(this);
+        console.log(this.props.parametro);
     } 
     componentWillMount(){
         this.props.parametro.formFields.forEach((formFields,i) => {            
@@ -198,7 +199,8 @@ class FormDataGrid extends Component {
     	if(this.props.parametro.idRow !== 0){
     		  titulo = 'Editar';
            id = this.props.parametro.idRow.id;
-    	}          			
+    	}
+        console.log(this.props.parametro);          			
     	return (  //carga dinamica del formulario	  		  	  	
     	 	<div className="container">
                <div className="content">
@@ -235,15 +237,19 @@ class FormDataGrid extends Component {
                                     }
                                     return field;
                                 })
-                            }						  							  						  	
-    				  	    <Button id="formGridBtnSave" className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>
-    				  	      	GUARDAR
-    				  	    </Button>                                                    
-    				  	    <Button variant="secondary" className="float-left mr-3" onClick={this.handleCancelButton.bind(this)}>
-    				  	      	CANCELAR
-    				  	    </Button>
+                            }
+                            {
+                                this.props.parametro.enableBtnEdit === true ?
+                                    <Button id="formGridBtnSave" className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>
+                                        GUARDAR
+                                    </Button> 
+                                : ''
+                            }
+                            <Button variant="secondary" className="float-left mr-3" onClick={this.handleCancelButton.bind(this)}>
+                                CANCELAR
+                            </Button>
                             {                                
-                                this.props.parametro.idRow !== 0 ?
+                                this.props.parametro.idRow !== 0 && this.props.parametro.enableBtnDel === true ?
                                     <Button id="formGridBtnDelete" className="float-left mr-3" variant="danger" onClick={this.handleDeleteButton.bind(this,id)} onMouseOut={divMouseOut.bind(this,"formGridBtnDelete","#dc3545")} onMouseOver={divMouseOver.bind(this,"formGridBtnDelete","#dc3545")}>
                                         ELIMINAR
                                     </Button>                                

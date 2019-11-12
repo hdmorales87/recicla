@@ -9,9 +9,10 @@
 import React, { Component } from 'react';
 import DataGridContainer from './DataGridContainer';
 import Button from 'react-bootstrap/Button';
-import {consultarFilas} from '../api_calls/ApiCalls';
+import {consultarFilas,validarPermiso} from '../api_calls/ApiCalls';
 import configJson from '../configuration/configuration.json';
 import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
+import globalState from '../configuration/GlobalState';
 import icono_pdf from '../../images/icon_pdf.png?v1.0';
 import icono_xls from '../../images/icon_excel.png?v1.0';
 import ReactToPdf from 'react-to-pdf';
@@ -53,8 +54,41 @@ class DataGrid extends Component {
             showRecords  : 15,
             searchWord   : '',
             offsetRecord : 0,
-            resultRows   : 0
-        }               
+            resultRows   : 0,
+            enableBtnNew : true,
+            enableBtnDel : true
+        } 
+        //validacion del permiso de acceso
+        if(this.props.permisoInsertUpdate>0){
+            var idRol = globalState.getState().idRol;
+            validarPermiso(idRol,this.props.permisoInsertUpdate).then(res => {
+                var response = res.data;
+                if(response.msg === 'error'){
+                    alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail); 
+                }
+                else {
+                    this.setState({ enableBtnNew : response.msg});
+                }
+            })
+            .catch( err => {            
+                alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);                            
+            });
+        } 
+        if(this.props.permisoDelete>0){
+            var idRol = globalState.getState().idRol;
+            validarPermiso(idRol,this.props.permisoDelete).then(res => {
+                var response = res.data;
+                if(response.msg === 'error'){
+                    alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail); 
+                }
+                else {
+                    this.setState({ enableBtnDel : response.msg});
+                }
+            })
+            .catch( err => {            
+                alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);                            
+            });
+        }             
     }        
   	handleNewButton(){//Boton nuevo registro
         if(this.props.automatica === 'true'){
@@ -178,8 +212,8 @@ class DataGrid extends Component {
                         : ''
                     }
                     <div className="table-responsive mb-3">
-                    {
-                        this.props.botonNuevo === 'true' ?
+                    {  
+                        this.props.botonNuevo === 'true' && this.state.enableBtnNew === true ?
                                 <Button id="dataGridBtnNew" variant="primary" onClick={this.handleNewButton.bind(this)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'dataGridBtnNew',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'dataGridBtnNew',configJson.fondoBotonGrilla)}>AGREGAR NUEVO</Button>
                         : '' 
                     }
@@ -272,7 +306,9 @@ class DataGrid extends Component {
                                            divPDF = {divPDF}
                                            date1 = {this.state.date1}
                                            date2 = {this.state.date2}
-                                           funcionEditParams = {this.props.funcionEditParams}/>
+                                           funcionEditParams = {this.props.funcionEditParams}
+                                           enableBtnEdit = {this.state.enableBtnNew}
+                                           enableBtnDel = {this.state.enableBtnDel}/>
                     </div> 
                     <div className="table-responsive mb-3">
                         <div style={{float:'left',paddingTop:'8px'}} >

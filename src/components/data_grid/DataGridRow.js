@@ -13,7 +13,15 @@ import MaterialIcon from 'material-icons-react';
 class DataGridRow extends React.Component {    
     handleEditButton(param){//boton editar           
         if(this.props.automatica === 'true'){
-            this.props.funcionClick('FormDataGrid',{ idRow:param,mainContainer:this.props.mainContainer,titulo:this.props.titulo,apiField:this.props.apiField,formFields:this.props.formFields});       
+            this.props.funcionClick('FormDataGrid',{ 
+                                                        idRow:param,
+                                                        mainContainer:this.props.mainContainer,
+                                                        titulo:this.props.titulo,
+                                                        apiField:this.props.apiField,
+                                                        formFields:this.props.formFields,
+                                                        enableBtnEdit:this.props.enableBtnEdit,
+                                                        enableBtnDel:this.props.enableBtnDel
+                                                    });       
         } 
         else{            
             this.props.funcionEdit(param,this.props.funcionEditParams);            

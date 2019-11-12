@@ -19,7 +19,7 @@ class Option extends Component {
     constructor(props){
         super(props);
         var permiso = this.props.permiso;
-        this.state={ enabled : 'false', idRol : 0 };       
+        this.state={ enabled : 'false' };       
         var idRol = globalState.getState().idRol;
         validarPermiso(idRol,permiso).then(res => {
             var response = res.data;

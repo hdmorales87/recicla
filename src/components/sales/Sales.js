@@ -107,6 +107,8 @@ class Sales extends Component {
                                     }, 
                                 ]}                     
                       apiField = {'sales'}
+                      permisoInsertUpdate="3"
+                      permisoDelete="4"
                       mainContainer='Sales'/>             
         )
     } 

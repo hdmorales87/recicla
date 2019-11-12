@@ -85,7 +85,9 @@ class DataGridContainer extends Component {
                                       colsHeaders={this.props.colsHeaders}
                                       automatica={this.props.automatica}
                                       funcionEdit = {this.props.funcionEdit}
-                                      funcionEditParams = {this.props.funcionEditParams}/>                                       
+                                      funcionEditParams = {this.props.funcionEditParams}
+                                      enableBtnEdit={this.props.enableBtnEdit}
+                                      enableBtnDel={this.props.enableBtnDel}/>                                       
                     </Table>
                 </div>
             )
