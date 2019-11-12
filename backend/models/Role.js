@@ -25,9 +25,17 @@ RoleModel.getRole = function(userData, callback) {
 //obtenemos todos los roles
 RoleModel.getRoles = function(userData, callback) {    
     if (connection) {
-        var searchWord   = userData.searchWord;
-        var showRecords  = userData.showRecords; 
-        var offsetRecord = userData.offsetRecord;            
+        var searchWord   = '';
+        var showRecords  = 100;   
+        var offsetRecord = 0; 
+        if(userData.hasOwnProperty('searchWord')){
+            searchWord   = userData.searchWord;
+            showRecords  = userData.showRecords;   
+            offsetRecord = userData.offsetRecord; 
+        }
+        if(!userData.hasOwnProperty('where')){
+            userData.where = 'AND id_empresa = '+userData.id_empresa;
+        }  
         connection.query(`SELECT
                                 id,
                                 nombre,
@@ -35,7 +43,7 @@ RoleModel.getRoles = function(userData, callback) {
                           FROM roles                          
                           WHERE 
                                 id > 1
-                                AND id_empresa = `+userData.id_empresa+`
+                                `+userData.where+`
                                 AND (
                                     nombre LIKE \'%`+searchWord+`%\'
                                 )                       

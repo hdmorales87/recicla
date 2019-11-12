@@ -166,7 +166,7 @@ UserModel.updateUser = function(userData, callback) {
         var primer_nombre = connection.escape(userData.primer_nombre)
         ,   segundo_nombre = connection.escape(userData.segundo_nombre)
         ,   primer_apellido = connection.escape(userData.primer_apellido)
-        ,   segundo_apellido = connection.escape(userData.segundo_apellido);  
+        ,   segundo_apellido = connection.escape(userData.segundo_apellido);
 
         var username = userData.primer_nombre.substr(0,1)+userData.segundo_nombre.substr(0,1)+userData.primer_apellido+userData.segundo_apellido.substr(0,1);    
 
@@ -179,6 +179,7 @@ UserModel.updateUser = function(userData, callback) {
                ', email = ' + connection.escape(userData.email) + 
                ', direccion = ' + connection.escape(userData.direccion) + 
                ', telefono = ' + connection.escape(userData.telefono) + 
+               ', id_rol = ' + connection.escape(userData.id_rol) + 
                ', nombre = \''+userData.primer_nombre+' '+userData.segundo_nombre+' '+userData.primer_apellido+' '+userData.segundo_apellido+'\''+
                ' WHERE id = ' + connection.escape(userData.id);        
 

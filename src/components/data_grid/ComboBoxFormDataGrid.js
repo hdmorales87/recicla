@@ -23,7 +23,7 @@ class ComboBoxFormDataGrid extends Component {
     componentWillMount() {
         //llenado dinamico del combobox
         if(this.props.dinamic === 'true'){
-            loadComboBoxDataGrid(this.props.apiField)
+            loadComboBoxDataGrid(this.props.apiField,this.props.where)
             .then(res => {
                 var response = res.data; 
                 if (response.msg === "error") {

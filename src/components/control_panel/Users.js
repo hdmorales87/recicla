@@ -8,9 +8,11 @@
 
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
+import globalState from '../configuration/GlobalState';
 
 class Users extends Component {  
-  	render() {             
+  	render() {     
+        var id_empresa = globalState.getState().companyData[0].id;               
         return (//carga el componente que contiene la grilla de datos             
             <DataGrid titulo='Usuarios' 
                       funcionClick={this.props.funcionClick}  
@@ -104,7 +106,8 @@ class Users extends Component {
                                         required : 'true',
                                         dinamic : 'true',
                                         apiField : 'roles',
-                                        valueName : 'nombre'
+                                        valueName : 'nombre',
+                                        where : ' AND id_empresa = '+id_empresa
                                     },
                                     {
                                         label : 'Correo Electronico',

@@ -31,9 +31,9 @@ export function logout(){
 	return axios.get(path+'logout', {withCredentials: true});
 }
 
-export function loadComboBoxDataGrid(apiField){
+export function loadComboBoxDataGrid(apiField,where){
 	//carga el combobox dinamico 
-	return axios.get(path+apiField, {withCredentials: true});
+	return axios.get(path+apiField, {withCredentials: true,params: { where : where}});
 }
 
 export function consultarFilas(apiField,searchWord,date1,date2){
