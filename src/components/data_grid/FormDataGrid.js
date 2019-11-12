@@ -29,8 +29,7 @@ class FormDataGrid extends Component {
         this.handleCancelButton = this.handleCancelButton.bind(this);
         this.handleSaveButton   = this.handleSaveButton.bind(this);
         this.handleConfirmAction = this.handleConfirmAction.bind(this);
-        this.funcionEditDataSelect = this.funcionEditDataSelect.bind(this);
-        console.log(this.props.parametro);
+        this.funcionEditDataSelect = this.funcionEditDataSelect.bind(this);        
     } 
     componentWillMount(){
         this.props.parametro.formFields.forEach((formFields,i) => {            
@@ -199,8 +198,7 @@ class FormDataGrid extends Component {
     	if(this.props.parametro.idRow !== 0){
     		  titulo = 'Editar';
            id = this.props.parametro.idRow.id;
-    	}
-        console.log(this.props.parametro);          			
+    	}                 			
     	return (  //carga dinamica del formulario	  		  	  	
     	 	<div className="container">
                <div className="content">
@@ -239,7 +237,7 @@ class FormDataGrid extends Component {
                                 })
                             }
                             {
-                                this.props.parametro.enableBtnEdit === true ?
+                                this.props.parametro.enableBtnEdit === true || this.props.parametro.idRow === undefined ?
                                     <Button id="formGridBtnSave" className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>
                                         GUARDAR
                                     </Button> 

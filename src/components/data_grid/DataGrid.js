@@ -59,8 +59,8 @@ class DataGrid extends Component {
             enableBtnDel : true
         } 
         //validacion del permiso de acceso
-        if(this.props.permisoInsertUpdate>0){
-            var idRol = globalState.getState().idRol;
+        var idRol = globalState.getState().idRol;
+        if(this.props.permisoInsertUpdate>0){            
             validarPermiso(idRol,this.props.permisoInsertUpdate).then(res => {
                 var response = res.data;
                 if(response.msg === 'error'){
@@ -74,8 +74,7 @@ class DataGrid extends Component {
                 alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);                            
             });
         } 
-        if(this.props.permisoDelete>0){
-            var idRol = globalState.getState().idRol;
+        if(this.props.permisoDelete>0){            
             validarPermiso(idRol,this.props.permisoDelete).then(res => {
                 var response = res.data;
                 if(response.msg === 'error'){
