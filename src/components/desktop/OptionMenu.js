@@ -24,7 +24,8 @@ class OptionMenu extends Component {
                                   subtitulo={optionMenu.subtitulo} 
                                   icono={optionMenu.icono} 
                                   funcionClick={this.props.funcionClick} 
-                                  componente={optionMenu.componente} />)  
+                                  componente={optionMenu.componente} 
+                                  permiso={optionMenu.permiso}/>)  
               })
           } 	
 			    </ul>   	

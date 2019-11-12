@@ -11,49 +11,56 @@
 								"titulo" : "Dashboard",
 								"subtitulo" : "Indicadores",
 								"icono" : "dashboard",
-								"componente": "Dashboard"
+								"componente": "Dashboard",
+								"permiso":1
 						 	},
 						 	{
 								"tab" : "pestana1",
 								"titulo" : "Ventas",
 								"subtitulo" : "Venta de Reciclaje",
 								"icono" : "attach_money",
-								"componente": "Sales"
+								"componente": "Sales",
+								"permiso":2
 						 	},
 						 	{
 								"tab" : "pestana2",
 								"titulo" : "Compras",
 								"subtitulo" : "Compra de Reciclaje",
 								"icono" : "shopping_cart",
-								"componente": "Purchases"
+								"componente": "Purchases",
+								"permiso":5
 						 	},
 						 	{
 								"tab" : "pestana3",
 								"titulo" : "Clientes",
 								"subtitulo" : "Compradores de Reciclaje",
 								"icono" : "person",
-								"componente": "Customers"
+								"componente": "Customers",
+								"permiso":8
 						 	},
 						 	{
 								"tab" : "pestana4",
 								"titulo" : "Recicladores",
 								"subtitulo" : "Vendedores de Reciclaje",
 								"icono" : "person",
-								"componente": "Reciclators"
+								"componente": "Reciclators",
+								"permiso":11
 						 	},
 						 	{
 								"tab" : "pestana5",
 								"titulo" : "Informes",
 								"subtitulo" : "Informes",
 								"icono" : "poll",
-								"componente": "Reports"
+								"componente": "Reports",
+								"permiso":14
 						 	},
 						 	{
 								"tab" : "pestana6",
 								"titulo" : "Administracion",
 								"subtitulo" : "Administracion del Sistema",
 								"icono" : "settings",
-								"componente": "ControlPanel"
+								"componente": "ControlPanel",
+								"permiso":15
 						 	}
 						 ]
 }		    		   	

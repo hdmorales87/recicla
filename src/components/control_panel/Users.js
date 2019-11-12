@@ -97,6 +97,16 @@ class Users extends Component {
                                         required : 'false'
                                     },
                                     {
+                                        label : 'Rol de Seguridad',
+                                        field : 'id_rol',
+                                        type  : 'select',
+                                        validation : '',
+                                        required : 'true',
+                                        dinamic : 'true',
+                                        apiField : 'roles',
+                                        valueName : 'nombre'
+                                    },
+                                    {
                                         label : 'Correo Electronico',
                                         field : 'email',
                                         type  : 'text',

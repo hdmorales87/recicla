@@ -34,7 +34,8 @@ RoleModel.getRoles = function(userData, callback) {
                                 id_empresa
                           FROM roles                          
                           WHERE 
-                                id_empresa = `+userData.id_empresa+`
+                                id > 1
+                                AND id_empresa = `+userData.id_empresa+`
                                 AND (
                                     nombre LIKE \'%`+searchWord+`%\'
                                 )                       
@@ -205,6 +206,32 @@ RoleModel.guardaPermisos = function(userData, callback) {
                     }
                 });                
             }
+        });
+    }
+}
+
+//valida si el usuario tiene el permiso
+RoleModel.validarPermiso = function(userData, callback) {    
+    if (connection) {
+        connection.query(`SELECT
+                                COUNT(id) AS total                                
+                          FROM roles_permisos
+                          WHERE id_rol = `+userData.idRol+`
+                                AND id_permiso = `+userData.idPermiso, function(error, rows) {
+                                if (error) {
+                                    callback(null, {
+                                        "msg": "error",
+                                        "detail": error.code
+                                    });
+                                } else {
+                                    var permiso = false;                                    
+                                    if(rows[0].total > 0 || userData.idRol == 1){
+                                        permiso = true;
+                                    }
+                                    callback(null, {
+                                        "msg": permiso                                        
+                                    });
+                                }
         });
     }
 }

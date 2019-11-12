@@ -46,9 +46,12 @@ UserModel.getUsers = function(userData, callback) {
                         R.email,
                         R.direccion,
                         R.telefono,
+                        R.id_rol,
+                        RL.nombre AS rol,
                         R.imagen_usuario 
                    FROM users AS R                         
                    INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) 
+                   INNER JOIN roles AS RL ON (RL.id = R.id_rol) 
                    WHERE 
                         R.id_empresa = `+userData.id_empresa+`
                         AND (

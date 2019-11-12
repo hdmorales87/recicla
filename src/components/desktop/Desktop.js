@@ -46,7 +46,7 @@ class Desktop extends Component {
       	 	componente: "WelcomePage",
       	 	parametro : "",
             checkMenu : false,
-            showLoading : false 
+            showLoading : false,
 	    }; 
 
         var usuario = '';
@@ -82,8 +82,7 @@ class Desktop extends Component {
                             if (response.msg === "error") {
                                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
                             } 
-                            else{                          
-                                //this.setState({id_empresa: response[0].id}); //CARGAR EL ID EMPRESA  
+                            else{   
                                 this.setState({ loading: false },()=>{
                                     globalState.dispatch({
                                         type   : "userData",
@@ -101,6 +100,10 @@ class Desktop extends Component {
                                         type   : "imageUser",
                                         params : response[0].imagen_usuario
                                     }); 
+                                    globalState.dispatch({
+                                        type   : "idRol",
+                                        params : response[0].id_rol
+                                    });
                                 });
                             }
                         })
@@ -180,7 +183,7 @@ class Desktop extends Component {
 	 		          	  <div className="LogoCabecera">
 	 		          	  	  
 	 		          	  </div>
-	 		          	  <OptionMenu funcionClick = {this.actualizarContainer}/>
+	 		          	  <OptionMenu funcionClick = {this.actualizarContainer} />
 	 		          </div>
                 <div id="ContenedorDerechoEscritorio" className="ContenedorDerechoEscritorio">
 	 		              <div id="cabeceraEscritorio" className="cabeceraEscritorio" style={{backgroundColor:configJson.fondoCabecera}}>

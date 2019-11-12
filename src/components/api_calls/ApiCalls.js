@@ -171,3 +171,14 @@ export function guardaPermisos(idRol,arrayPermisos){
         	    withCredentials: true
         	});	
 }
+
+export function validarPermiso(idRol,idPermiso){
+	//consulta el numero de filas de la grilla
+	return axios.get(path+'validarPermiso', {
+    		    withCredentials: true, 
+    		    params: {  
+    		    	idRol 	  : idRol,
+    		    	idPermiso : idPermiso      
+    		    } 
+    		});
+}
