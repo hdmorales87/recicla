@@ -16,11 +16,11 @@ class ControlPanel extends Component {
   	  		  <div id="ContentPaneldeControl" className="EstiloIconosMenuDashboard" ostype="desktop">
                 <div className="titulo">Administracion</div>
                 <ul>
-                    <Option tab="config0" titulo='Tipos de Producto' icono="shopping_cart" funcionClick={this.props.funcionClick} componente="ProductTypes" />  
-                    <Option tab="config1" titulo='Tipos de Documento' icono="credit_card" funcionClick={this.props.funcionClick} componente="DocumentTypes" />  
-                    <Option tab="config2" titulo='Usuarios' icono="perm_identity" funcionClick={this.props.funcionClick} componente="Users" />  
-                    <Option tab="config3" titulo='Empresas' icono="business" funcionClick={this.props.funcionClick} componente="Companies" />  
-                    <Option tab="config4" titulo='Roles' icono="perm_identity" funcionClick={this.props.funcionClick} componente="Roles" />  
+                    <Option tab="config0" titulo='Tipos de Producto' icono="shopping_cart" funcionClick={this.props.funcionClick} componente="ProductTypes" permiso="16"/>  
+                    <Option tab="config1" titulo='Tipos de Documento' icono="credit_card" funcionClick={this.props.funcionClick} componente="DocumentTypes" permiso="17"/>  
+                    <Option tab="config2" titulo='Usuarios' icono="perm_identity" funcionClick={this.props.funcionClick} componente="Users" permiso="18"/>  
+                    <Option tab="config3" titulo='Empresas' icono="business" funcionClick={this.props.funcionClick} componente="Companies" permiso="19"/>  
+                    <Option tab="config4" titulo='Roles' icono="perm_identity" funcionClick={this.props.funcionClick} componente="Roles" permiso="20"/>  
                 </ul>
             </div> 	
   	  	);
