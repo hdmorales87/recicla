@@ -37,8 +37,8 @@ class Reports extends Component {
                                         {
                                             label : 'Informe de Compras',
                                             table : 'purchases',  
-                                            colsHeaders : ['Documento','Nombre','Email','Direccion','Telefono'],
-                                            colsData : ['documento','nombre','email','direccion','telefono'],                                                                                      
+                                            colsHeaders : ['Fecha Compra','Producto','Reciclador','Peso','Valor Compra'],
+                                            colsData : ['fecha_compra','tipo_producto','reciclador','peso','valor_compra'],                                                                                      
                                             dateFilter : 'true', 
                                             btnExcel : 'true',
                                             btnPDF : 'true'                                                                                      
@@ -56,8 +56,8 @@ class Reports extends Component {
                                             label : 'Informe de Ventas',
                                             table : 'sales',                                            
                                             dateFilter : 'true',
-                                            colsHeaders : ['Documento','Nombre','Email','Direccion','Telefono'],
-                                            colsData : ['documento','nombre','email','direccion','telefono'],
+                                            colsHeaders : ['Fecha Venta','Producto','Cliente','Peso','Valor Venta'],
+                                            colsData : ['fecha_venta','tipo_producto','cliente','peso','valor_venta'], 
                                             btnExcel : 'true',
                                             btnPDF : 'true'                                                                                     
                                         },                                        

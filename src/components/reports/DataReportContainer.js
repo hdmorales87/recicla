@@ -32,7 +32,7 @@ class DataReportContainer extends Component {
             	        {
             	        	dataRow.map((dataRow,i) => {
             	        		return <tr key={ i }>      
-            							    <td>{dataRow.id}</td> 
+            							    <td>{i+1}</td> 
 		    	        				    {
 		    	            				    this.props.colsData.map((colsData,i) => {
 		    	            				        return <td key={ i }>{dataRow[colsData]}</td>
