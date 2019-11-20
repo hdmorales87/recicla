@@ -93,12 +93,18 @@ export function insertarActualizarFila(method,apiField,arrayData){
 }
 
 export function cargarDatosReporte(table,fecha1,fecha2){
+	var companyData = globalState.getState().companyData;	
+	var id_empresa = 0;
+	if(companyData !== undefined){
+		id_empresa = globalState.getState().companyData[0].id;
+	}
 	//cargar los datos del reporte
 	return axios.get(path+table+'Report', {
 	            withCredentials: true, 
 	            params: { 
 	                fecha1 : fecha1,
-	                fecha2 : fecha2            
+	                fecha2 : fecha2,
+	                id_empresa : id_empresa            
 	            } 
 	        });
 }

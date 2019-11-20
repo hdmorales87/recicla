@@ -43,7 +43,7 @@
     background-size: 24px;
     background-repeat: no-repeat;
     background-position: center top;
-    min-height: 30px;
+    min-height: 28px;
     min-width: 40px;
     cursor: pointer;
     padding: 26px 0 0 0;
@@ -78,7 +78,8 @@
     width: 100%;
     background: linear-gradient(to bottom,#9c9c9c 0%,#ddd 2%,#ddd 100%);
     padding: 15px 5px 5px 5px;
-    overflow: hidden;
+    height:90px;
+    /*overflow: hidden;*/
 }
 
 .panelFieldReport {

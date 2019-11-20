@@ -55,16 +55,26 @@ PurchaseModel.getPurchases = function(userData, callback) {
 //obtenemos todas las compras
 PurchaseModel.getPurchasesReport = function(userData, callback) {    
     if (connection) {
-        var searchWord   = userData.searchWord;
-       // var showRecords  = userData.showRecords; 
-        //var offsetRecord = userData.offsetRecord;       
-        connection.query('SELECT * FROM purchases WHERE '
-                        +' documento LIKE \'%'+searchWord+'%\' '
-                        +' OR nombre LIKE \'%'+searchWord+'%\' '                                                
-                        +' OR direccion LIKE \'%'+searchWord+'%\' '
-                        +' OR telefono LIKE \'%'+searchWord+'%\' '
-                        +' OR celular LIKE \'%'+searchWord+'%\' '
-                        +' ORDER BY id', function(error, rows) {
+        var fecha1   = userData.fecha1;
+        var fecha2   = userData.fecha2;
+
+        connection.query(`SELECT 
+                                P.id,
+                                (P.peso * PT.precio_compra) AS valor_compra,
+                                DATE_FORMAT(P.fecha_compra,"%Y-%m-%d") AS fecha_compra,
+                                PT.id AS id_tipo_producto,
+                                PT.nombre AS tipo_producto,
+                                R.id AS id_reciclador,
+                                R.nombre AS reciclador,
+                                P.peso,
+                                P.id_empresa 
+                           FROM purchases AS P  
+                           INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) 
+                           INNER JOIN reciclators AS R ON (R.id = P.id_reciclador) 
+                           WHERE 
+                                P.fecha_compra BETWEEN \'`+fecha1+`\' AND \'`+fecha2+`\'
+                                AND P.id_empresa = `+userData.id_empresa+`                                                
+                           ORDER BY P.fecha_compra`, function(error, rows) {
             if (error) {
                  callback(null, {
                     "msg": "error",
