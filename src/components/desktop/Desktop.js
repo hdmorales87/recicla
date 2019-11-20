@@ -46,7 +46,7 @@ class Desktop extends Component {
       	 	componente: "WelcomePage",
       	 	parametro : "",
             checkMenu : false,
-            showLoading : false,
+            showLoading : false
 	    }; 
 
         var usuario = '';
@@ -171,7 +171,7 @@ class Desktop extends Component {
       	}
       	if (redirect) {//sesion inexistente, cargar login
             alert('Su sesion ha finalizado, debe registrarse de nuevo!');
-        	return <Redirect to="/recicla/" />;
+        	return <Redirect to={configJson.mainPath} />;
       	}  			 		
   	  	return (//carga el entorno del escritorio, barra de menu, barra superior y contenedor 	  		  
   	  		<div className="App">
