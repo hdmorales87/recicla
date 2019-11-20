@@ -5,6 +5,7 @@
 	"windowColor"      : "#2a80b9",
 	"maxAvatarSize"    : 520000,
 	"folderAvatarUser" : "imagenes_usuarios/",
+	"mainPath" 		   : "/recicla/",
 	"modulos"          : [
 							{
 								"tab" : "pestana0",

@@ -11,6 +11,7 @@ import './login.css';
 import empresa_login from './../../images/empresa_login.png?v1.0';
 import usuario_login from './../../images/usuario_login.png?v1.0';
 import password_login from './../../images/password_login.png?v1.0';
+import configJson from '../configuration/configuration.json';
 import globalState from '../configuration/GlobalState';
 import loadingImg from '../../images/loading.gif?v1.0';
 import Modal from 'react-modal';
@@ -102,7 +103,7 @@ class LoginForm extends Component {
                 localStorage.id_empresa = this.state.id_empresa;
                 localStorage.empresa    = this.state.empresa;
                 localStorage.username   = this.state.username;
-                this.props.history.push({pathname: '/recicla/desktop', state : { usuario : this.state.username,empresa : this.state.empresa }}); 
+                this.props.history.push({pathname: configJson.mainPath+'desktop', state : { usuario : this.state.username,empresa : this.state.empresa }}); 
             }          
         }) 
         .catch( err => {            
