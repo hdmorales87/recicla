@@ -1605,7 +1605,61 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });    
+    });  
+
+    /*
+     * metodo: indicadorCompras
+     * tipo: GET
+     * trae el indicador de compras
+     */
+
+    app.get("/indicadorCompras", function(req, res) {              
+        PurchaseModel.indicadorCompras(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }                
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });
+
+    /*
+     * metodo: indicadorVentas
+     * tipo: GET
+     * trae el indicador de ventas
+     */
+
+    app.get("/indicadorVentas", function(req, res) {              
+        SaleModel.indicadorVentas(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }                
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });          
 
     //***********************************metodos para debug!!!****************************************//
 

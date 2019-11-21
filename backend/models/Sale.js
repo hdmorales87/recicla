@@ -202,5 +202,39 @@ SaleModel.deleteSale = function(id, callback) {
     }
 }
 
+//obtener el indicador de ventas
+SaleModel.indicadorVentas = function(userData, callback) {
+    if (connection) {         
+        var filtroFecha1 = userData.date1; 
+        var filtroFecha2 = userData.date2;
+
+        if(filtroFecha1 == ''){
+            filtroFecha1 = '0000-00-00';
+        }
+        if(filtroFecha2 == ''){
+            filtroFecha2 = '9999-99-99';
+        }
+
+        var sql = `SELECT 
+                        COUNT(P.id) AS total                         
+                   FROM sales AS P                     
+                   WHERE 
+                        P.fecha_venta BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                        AND P.id_empresa = `+userData.id_empresa;
+
+        connection.query(sql, function(error, rows) {
+            if (error) {
+                 callback(null, {
+                    "msg": "error",
+                    "detail": error.code
+                });
+            } else {
+                callback(null, rows);
+            }
+        });
+
+    }
+}
+
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = SaleModel;

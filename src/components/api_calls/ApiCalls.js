@@ -188,3 +188,37 @@ export function validarPermiso(idRol,idPermiso){
     		    } 
     		});
 }
+
+export function indicadorCompras(date1,date2){
+	//consulta el numero de filas de la grilla
+	var companyData = globalState.getState().companyData;	
+	var id_empresa = 0;
+	if(companyData !== undefined){
+		id_empresa = globalState.getState().companyData[0].id;
+	}
+	return axios.get(path+'indicadorCompras', {
+    		    withCredentials: true, 
+    		    params: {  
+    		    	date1 : date1,
+    		    	date2 : date2,
+    		    	id_empresa : id_empresa      
+    		    } 
+    		});
+}
+
+export function indicadorVentas(date1,date2){
+	//consulta el numero de filas de la grilla
+	var companyData = globalState.getState().companyData;	
+	var id_empresa = 0;
+	if(companyData !== undefined){
+		id_empresa = globalState.getState().companyData[0].id;
+	}
+	return axios.get(path+'indicadorVentas', {
+    		    withCredentials: true, 
+    		    params: {  
+    		    	date1 : date1,
+    		    	date2 : date2,
+    		    	id_empresa : id_empresa      
+    		    } 
+    		});
+}
