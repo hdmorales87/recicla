@@ -17,14 +17,12 @@ class DashboardOption extends Component {
 				{
 					this.props.tipo === 'cifra' ?
 						<div>
-					 		<div className="Cifra">{this.props.valor}</div>
-					 		<div className="imagen ok"></div>
+					 		<div className="Cifra">{this.props.valor}</div>					 		
 					 		<div className="titulo1">{this.props.titulo}</div>
 				 		</div>
 				 	: 
 				 	<div>
-				 		<div className="Cifra">{this.props.valor}</div>
-				 		<div className="imagen ok"></div>
+				 		<div className="Cifra">{this.props.valor}</div>				 		
 				 		<Chart
 						  	width={this.props.chartProps[0].width}
 						  	height={this.props.chartProps[0].height}

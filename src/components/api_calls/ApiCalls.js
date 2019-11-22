@@ -222,3 +222,37 @@ export function indicadorVentas(date1,date2){
     		    } 
     		});
 }
+
+export function indicadorGraficoCompras(date1,date2){
+	//consulta el numero de filas de la grilla
+	var companyData = globalState.getState().companyData;	
+	var id_empresa = 0;
+	if(companyData !== undefined){
+		id_empresa = globalState.getState().companyData[0].id;
+	}
+	return axios.get(path+'indicadorGraficoCompras', {
+    		    withCredentials: true, 
+    		    params: {  
+    		    	date1 : date1,
+    		    	date2 : date2,
+    		    	id_empresa : id_empresa      
+    		    } 
+    		});
+}
+
+export function indicadorGraficoVentas(date1,date2){
+	//consulta el numero de filas de la grilla
+	var companyData = globalState.getState().companyData;	
+	var id_empresa = 0;
+	if(companyData !== undefined){
+		id_empresa = globalState.getState().companyData[0].id;
+	}
+	return axios.get(path+'indicadorGraficoVentas', {
+    		    withCredentials: true, 
+    		    params: {  
+    		    	date1 : date1,
+    		    	date2 : date2,
+    		    	id_empresa : id_empresa      
+    		    } 
+    		});
+}

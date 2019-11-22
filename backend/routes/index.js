@@ -1659,6 +1659,60 @@ module.exports = function(app) {
                 }                
             }            
         });
+    });
+
+    /*
+     * metodo: indicadorGraficoCompras
+     * tipo: GET
+     * trae el indicador de compras
+     */
+
+    app.get("/indicadorGraficoCompras", function(req, res) {              
+        PurchaseModel.indicadorGraficoCompras(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }                
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });
+
+    /*
+     * metodo: indicadorGraficoVentas
+     * tipo: GET
+     * trae el indicador de ventas
+     */
+
+    app.get("/indicadorGraficoVentas", function(req, res) {              
+        SaleModel.indicadorGraficoVentas(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }                
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
     });          
 
     //***********************************metodos para debug!!!****************************************//
