@@ -189,14 +189,14 @@ export function validarPermiso(idRol,idPermiso){
     		});
 }
 
-export function indicadorCompras(date1,date2){
+export function indicadorCompras1(date1,date2){
 	//consulta el numero de filas de la grilla
 	var companyData = globalState.getState().companyData;	
 	var id_empresa = 0;
 	if(companyData !== undefined){
 		id_empresa = globalState.getState().companyData[0].id;
 	}
-	return axios.get(path+'indicadorCompras', {
+	return axios.get(path+'indicadorCompras1', {
     		    withCredentials: true, 
     		    params: {  
     		    	date1 : date1,
@@ -206,14 +206,14 @@ export function indicadorCompras(date1,date2){
     		});
 }
 
-export function indicadorVentas(date1,date2){
+export function indicadorVentas1(date1,date2){
 	//consulta el numero de filas de la grilla
 	var companyData = globalState.getState().companyData;	
 	var id_empresa = 0;
 	if(companyData !== undefined){
 		id_empresa = globalState.getState().companyData[0].id;
 	}
-	return axios.get(path+'indicadorVentas', {
+	return axios.get(path+'indicadorVentas1', {
     		    withCredentials: true, 
     		    params: {  
     		    	date1 : date1,
@@ -223,14 +223,14 @@ export function indicadorVentas(date1,date2){
     		});
 }
 
-export function indicadorGraficoCompras(date1,date2){
+export function indicadorGraficoCompras1(date1,date2){
 	//consulta el numero de filas de la grilla
 	var companyData = globalState.getState().companyData;	
 	var id_empresa = 0;
 	if(companyData !== undefined){
 		id_empresa = globalState.getState().companyData[0].id;
 	}
-	return axios.get(path+'indicadorGraficoCompras', {
+	return axios.get(path+'indicadorGraficoCompras1', {
     		    withCredentials: true, 
     		    params: {  
     		    	date1 : date1,
@@ -240,14 +240,82 @@ export function indicadorGraficoCompras(date1,date2){
     		});
 }
 
-export function indicadorGraficoVentas(date1,date2){
+export function indicadorGraficoVentas1(date1,date2){
 	//consulta el numero de filas de la grilla
 	var companyData = globalState.getState().companyData;	
 	var id_empresa = 0;
 	if(companyData !== undefined){
 		id_empresa = globalState.getState().companyData[0].id;
 	}
-	return axios.get(path+'indicadorGraficoVentas', {
+	return axios.get(path+'indicadorGraficoVentas1', {
+    		    withCredentials: true, 
+    		    params: {  
+    		    	date1 : date1,
+    		    	date2 : date2,
+    		    	id_empresa : id_empresa      
+    		    } 
+    		});
+}
+
+export function indicadorCompras2(date1,date2){
+	//consulta el numero de filas de la grilla
+	var companyData = globalState.getState().companyData;	
+	var id_empresa = 0;
+	if(companyData !== undefined){
+		id_empresa = globalState.getState().companyData[0].id;
+	}
+	return axios.get(path+'indicadorCompras2', {
+    		    withCredentials: true, 
+    		    params: {  
+    		    	date1 : date1,
+    		    	date2 : date2,
+    		    	id_empresa : id_empresa      
+    		    } 
+    		});
+}
+
+export function indicadorVentas2(date1,date2){
+	//consulta el numero de filas de la grilla
+	var companyData = globalState.getState().companyData;	
+	var id_empresa = 0;
+	if(companyData !== undefined){
+		id_empresa = globalState.getState().companyData[0].id;
+	}
+	return axios.get(path+'indicadorVentas2', {
+    		    withCredentials: true, 
+    		    params: {  
+    		    	date1 : date1,
+    		    	date2 : date2,
+    		    	id_empresa : id_empresa      
+    		    } 
+    		});
+}
+
+export function indicadorGraficoCompras2(date1,date2){
+	//consulta el numero de filas de la grilla
+	var companyData = globalState.getState().companyData;	
+	var id_empresa = 0;
+	if(companyData !== undefined){
+		id_empresa = globalState.getState().companyData[0].id;
+	}
+	return axios.get(path+'indicadorGraficoCompras2', {
+    		    withCredentials: true, 
+    		    params: {  
+    		    	date1 : date1,
+    		    	date2 : date2,
+    		    	id_empresa : id_empresa      
+    		    } 
+    		});
+}
+
+export function indicadorGraficoVentas2(date1,date2){
+	//consulta el numero de filas de la grilla
+	var companyData = globalState.getState().companyData;	
+	var id_empresa = 0;
+	if(companyData !== undefined){
+		id_empresa = globalState.getState().companyData[0].id;
+	}
+	return axios.get(path+'indicadorGraficoVentas2', {
     		    withCredentials: true, 
     		    params: {  
     		    	date1 : date1,

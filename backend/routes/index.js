@@ -1613,8 +1613,8 @@ module.exports = function(app) {
      * trae el indicador de compras
      */
 
-    app.get("/indicadorCompras", function(req, res) {              
-        PurchaseModel.indicadorCompras(req.query, function(error, data) {
+    app.get("/indicadorCompras1", function(req, res) {              
+        PurchaseModel.indicadorCompras1(req.query, function(error, data) {
             if(error) {
                 res.status(200).json({
                     "msg": "error", 
@@ -1640,8 +1640,8 @@ module.exports = function(app) {
      * trae el indicador de ventas
      */
 
-    app.get("/indicadorVentas", function(req, res) {              
-        SaleModel.indicadorVentas(req.query, function(error, data) {
+    app.get("/indicadorVentas1", function(req, res) {              
+        SaleModel.indicadorVentas1(req.query, function(error, data) {
             if(error) {
                 res.status(200).json({
                     "msg": "error", 
@@ -1667,8 +1667,8 @@ module.exports = function(app) {
      * trae el indicador de compras
      */
 
-    app.get("/indicadorGraficoCompras", function(req, res) {              
-        PurchaseModel.indicadorGraficoCompras(req.query, function(error, data) {
+    app.get("/indicadorGraficoCompras1", function(req, res) {              
+        PurchaseModel.indicadorGraficoCompras1(req.query, function(error, data) {
             if(error) {
                 res.status(200).json({
                     "msg": "error", 
@@ -1694,8 +1694,8 @@ module.exports = function(app) {
      * trae el indicador de ventas
      */
 
-    app.get("/indicadorGraficoVentas", function(req, res) {              
-        SaleModel.indicadorGraficoVentas(req.query, function(error, data) {
+    app.get("/indicadorGraficoVentas1", function(req, res) {              
+        SaleModel.indicadorGraficoVentas1(req.query, function(error, data) {
             if(error) {
                 res.status(200).json({
                     "msg": "error", 
@@ -1713,7 +1713,115 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });          
+    });    
+
+    /*
+     * metodo: indicadorCompras
+     * tipo: GET
+     * trae el indicador de compras
+     */
+
+    app.get("/indicadorCompras2", function(req, res) {              
+        PurchaseModel.indicadorCompras2(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }                
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });
+
+    /*
+     * metodo: indicadorVentas
+     * tipo: GET
+     * trae el indicador de ventas
+     */
+
+    app.get("/indicadorVentas2", function(req, res) {              
+        SaleModel.indicadorVentas2(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }                
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });
+
+    /*
+     * metodo: indicadorGraficoCompras
+     * tipo: GET
+     * trae el indicador de compras
+     */
+
+    app.get("/indicadorGraficoCompras2", function(req, res) {              
+        PurchaseModel.indicadorGraficoCompras2(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }                
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });
+
+    /*
+     * metodo: indicadorGraficoVentas
+     * tipo: GET
+     * trae el indicador de ventas
+     */
+
+    app.get("/indicadorGraficoVentas2", function(req, res) {              
+        SaleModel.indicadorGraficoVentas2(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }                
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });       
 
     //***********************************metodos para debug!!!****************************************//
 
