@@ -48,16 +48,16 @@ class DataGridRow extends React.Component {
         }       
 
         return(//carga las celdas con los datos y adiciona los botones de editar y eliminar
-            <tr style={{ cursor:'pointer'}} onClick={ onClick } onDoubleClick={ onDblClick }>      
-                <td style={{fontSize:'12px'}}>{this.props.numberRow+1}</td> 
+            <tr style={{ cursor:'pointer'}}>      
+                <td style={{fontSize:'12px'}} onClick={ onClick } onDoubleClick={ onDblClick }>{this.props.numberRow+1}</td> 
                 {
                     this.props.colsData.map((colsData,i) => {
                         if(colsData.type === 'bd'){
-                            field = <td data-title={colsData.label} key={ i } style={{fontSize:'12px'}}>{dataRow[colsData.field]}&nbsp;</td>
+                            field = <td data-title={colsData.label} key={ i } style={{fontSize:'12px'}} onClick={ onClick } onDoubleClick={ onDblClick }>{dataRow[colsData.field]}&nbsp;</td>
                         }
                         else{
-                            field = <td data-title={colsData.label} key={ i } style={{fontSize:'12px'}} onClick={ colsData.colFuncion.bind(this,dataRow.id) }>
-                                        <MaterialIcon id="iconColumna" size={20} icon={colsData.icon} /> 
+                            field = <td data-title={colsData.label} key={ i } style={{fontSize:'12px'}}>
+                                        <div onClick={colsData.colFuncion.bind(this,dataRow.id)} style={{cursor:'pointer'}} ><MaterialIcon id="iconColumna" size={20} icon={colsData.icon} /></div>
                                     </td>
                         }
                         return field;
