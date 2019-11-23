@@ -9,7 +9,10 @@
 import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
 import globalState from '../configuration/GlobalState';
+import {guardaAccesoEmpresas} from '../api_calls/ApiCalls';
 import Window from '../window/Window';
+import {modalLoading} from '../configuration/GlobalFunctions';
+import alertify from 'alertifyjs';
 
 class Users extends Component {  
     colFuncion(idUser){
@@ -25,7 +28,28 @@ class Users extends Component {
             }); 
     }
     guardaAccesosEmpresas(){
-
+        var objEmpresas = globalState.getState().configEmpresas;
+        var objWindow   = globalState.getState().windowAccesoEmpresas;
+        var arrayAccesoEmpresas = [];
+        for(var id in objEmpresas){
+            if(objEmpresas[id] === true){
+                arrayAccesoEmpresas.push(id);                
+            }
+        }
+        modalLoading(true);
+        guardaAccesoEmpresas(objWindow.params.idUser,arrayAccesoEmpresas).then(response => { 
+            modalLoading(false);
+            globalState.dispatch({
+                type   : "windowAccesoEmpresas",
+                params : {
+                              visible : false,                              
+                         }
+            });
+        })
+        .catch(function (error) {
+            modalLoading(false);
+            alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
+        });
     }
     render() {     
         var id_empresa = globalState.getState().companyData[0].id;               

@@ -7,7 +7,7 @@
 */
 
 import React, { Component } from 'react';
-import {listadoPermisos} from '../api_calls/ApiCalls';
+import {listadoAccesoEmpresas} from '../api_calls/ApiCalls';
 import globalState from '../configuration/GlobalState';
 import alertify from 'alertifyjs';
 //import './windowResetPassword.css';
@@ -20,8 +20,8 @@ class WindowAccesoEmpresas extends Component {
         };        
     } 
     componentWillMount(){
-        var idRol = this.props.params.idRol;
-        listadoPermisos(idRol).then(response => { 
+        var idUser = this.props.params.idUser;
+        listadoAccesoEmpresas(idUser).then(response => { 
             response = response.data;            
             if(response.msg === 'error'){//aqui no me dejara continuar si la empresa noe xiste
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail); 
@@ -29,7 +29,7 @@ class WindowAccesoEmpresas extends Component {
             else{
                 this.setState({objEmpresasAccesos:response},()=>{
                     globalState.dispatch({//cargamos los datos de los permisos
-                        type   : "configPermisos",
+                        type   : "configEmpresas",
                         params : {}
                     });
                     response.forEach((objEmpresasAccesos,i) => {//chequear los que tengan el permiso activido en el rol
@@ -38,7 +38,7 @@ class WindowAccesoEmpresas extends Component {
                             checked = true;
                         }                        
                         this.setState({ [objEmpresasAccesos.id]: checked },()=>{
-                            globalState.getState().configPermisos[objEmpresasAccesos.id] = checked;                             
+                            globalState.getState().configEmpresas[objEmpresasAccesos.id] = checked;                             
                         });  
                     });                    
                 });
@@ -52,7 +52,7 @@ class WindowAccesoEmpresas extends Component {
         var checkBox = e.target.name;
         var checked  = e.target.checked;        
         this.setState({ [checkBox]: checked },()=>{
-            globalState.getState().configPermisos[checkBox] = checked;  
+            globalState.getState().configEmpresas[checkBox] = checked;  
         });          
     }    
   	render() {             
@@ -72,7 +72,7 @@ class WindowAccesoEmpresas extends Component {
                                             <input name={objEmpresasAccesos.id} type="checkbox" onChange={this.handleCheckBox.bind(this)} checked={this.state[objEmpresasAccesos.id] || false } />
                                         </div>
                                         <div style={{paddingLeft:padding+'px',float:'left',fontWeight:fontWeight }}>
-                                            {objEmpresasAccesos.nombre} 
+                                            {objEmpresasAccesos.nombre_comercial} 
                                         </div>
                                     </div>
                         })

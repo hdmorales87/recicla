@@ -63,7 +63,14 @@ class Sales extends Component {
                                         dinamic : 'true',
                                         apiField : 'product_types',
                                         valueName : 'nombre'
-                                    },                                    
+                                    },   
+                                    {
+                                        label : 'Factura(Opcional)',
+                                        field : 'factura_venta',
+                                        type  : 'text',
+                                        validation : 'mayusculas',
+                                        required : 'false'
+                                    },                                 
                                     {
                                         label : 'Cliente',                                        
                                         type  : 'data_select',

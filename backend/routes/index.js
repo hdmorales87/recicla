@@ -1821,7 +1821,87 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });       
+    }); 
+
+    /*
+     * metodo: listadoAccesoEmpresas
+     * tipo: GET
+     * devuelve el listado de permisos del aplicativo
+     */
+
+    app.get("/listadoAccesoEmpresas", function(req, res) {              
+        CompanyModel.listadoAccesoEmpresas(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }                
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    });      
+
+    /*
+     * metodo: guardaAccesoEmpresas
+     * tipo: GET
+     * guarda los accesos a las empresas para el usuario
+     */
+
+    app.post("/guardaAccesoEmpresas", function(req, res) {
+        //console.log(req.body);
+        //creamos un objeto con los datos a insertar
+        var formData = req.body;
+          
+        CompanyModel.guardaAccesoEmpresas(formData, function(error, data) {
+            //si el acceso se ha insertado correctamente mostramos su info
+            if (data && data.insertId) {
+                res.status(200).json({
+                    "msg": "success"
+                });
+            } else {
+                res.status(200).json({
+                    "msg": "error",
+                    "detail": data.detail
+                });
+            }
+        });
+    });
+
+    /*
+     * metodo: validarPermiso
+     * tipo: GET
+     * valida si el funcionario tiene el permiso
+     */
+
+    app.get("/validarPermiso", function(req, res) {              
+        RoleModel.validarPermiso(req.query, function(error, data) {
+            if(error) {
+                res.status(200).json({
+                    "msg": "error", 
+                    "detail" : error.code                  
+                });
+            } else {
+                if(data.msg == 'error'){
+                    res.status(200).json({
+                        "msg": "error",
+                        "detail": data.detail
+                    }); 
+                }                
+                else{
+                    res.status(200).json(data);
+                }                
+            }            
+        });
+    }); 
 
     //***********************************metodos para debug!!!****************************************//
 

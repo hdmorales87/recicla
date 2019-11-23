@@ -324,3 +324,34 @@ export function indicadorGraficoVentas2(date1,date2){
     		    } 
     		});
 }
+
+export function listadoAccesoEmpresas(idUser){		
+	//consulta el numero de filas de la grilla
+	return axios.get(path+'listadoAccesoEmpresas', {
+    		    withCredentials: true, 
+    		    params: {  
+    		    	idUser : idUser       
+    		    } 
+    		});
+}
+
+export function guardaAccesoEmpresas(idUser,arrayEmpresas){	
+	//actualiza los permisos
+	return axios({
+        	    method: 'post',
+        	    url: path+'guardaAccesoEmpresas',
+        	    data: { 'idUser': idUser,'arrayEmpresas': arrayEmpresas },
+        	    withCredentials: true
+        	});	
+}
+
+export function validarAccesoEmpresas(idUser,idEmpresa){
+	//consulta el numero de filas de la grilla
+	return axios.get(path+'validarAccesoEmpresas', {
+    		    withCredentials: true, 
+    		    params: {  
+    		    	idUser 	  : idUser,
+    		    	idEmpresa : idEmpresa      
+    		    } 
+    		});
+}
