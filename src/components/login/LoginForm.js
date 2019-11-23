@@ -71,6 +71,12 @@ class LoginForm extends Component {
     } 
     componentWillUnmount(){ 
         this.unsubscribe1();
+    }
+    handleEnterLogin(event){//Pulsar enter        
+        let key = event.keyCode;        
+        if(key === 13){
+            this.handleLogin();
+        }
     }   
     handleLogin(val) {   
         
@@ -178,7 +184,7 @@ class LoginForm extends Component {
                         <img alt="Contraseña" src={ password_login } />
                     </div>
                     <div className="FieldDiv">
-                        <input type="password" className="inputLogin mytext" name="password" id="password" placeholder="Contraseña" required onChange={this.handlePasswordChange.bind(this)} />
+                        <input type="password" className="inputLogin mytext" name="password" id="password" placeholder="Contraseña" required onChange={this.handlePasswordChange.bind(this)} onKeyUp={this.handleEnterLogin.bind(this)}/>
                     </div>
                 </div>
                 <div className="ContentField" styles={{padding:'5px 15px 10px', margin:'0px', textAlign:'right'}}>
