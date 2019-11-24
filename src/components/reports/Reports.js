@@ -56,8 +56,8 @@ class Reports extends Component {
                                             label : 'Informe de Ventas',
                                             table : 'sales',                                            
                                             dateFilter : 'true',
-                                            colsHeaders : ['Fecha Venta','Producto','Cliente','Peso','Valor Venta'],
-                                            colsData : ['fecha_venta','tipo_producto','cliente','peso','valor_venta'], 
+                                            colsHeaders : ['Fecha Venta','Producto','Cliente','Factura','Peso','Valor Venta'],
+                                            colsData : ['fecha_venta','tipo_producto','cliente','factura_venta','peso','valor_venta'], 
                                             btnExcel : 'true',
                                             btnPDF : 'true'                                                                                     
                                         },                                        

@@ -33,6 +33,11 @@ class Sales extends Component {
                                     },
                                     {
                                         type  : 'bd',
+                                        label : 'Factura',
+                                        field : 'factura_venta'
+                                    },
+                                    {
+                                        type  : 'bd',
                                         label : 'Peso',
                                         field : 'peso'
                                     },

@@ -19,6 +19,7 @@ SaleModel.getSales = function(userData, callback) {
         }   
         var sql = `SELECT 
                         P.id,
+                        P.factura_venta,
                         (P.peso * PT.precio_venta) AS valor_venta,
                         DATE_FORMAT(P.fecha_venta,"%Y-%m-%d") AS fecha_venta,
                         PT.id AS id_tipo_producto,
@@ -62,6 +63,7 @@ SaleModel.getSalesReport = function(userData, callback) {
 
         connection.query(`SELECT 
                                 P.id,
+                                P.factura_venta,
                                 (P.peso * PT.precio_venta) AS valor_venta,
                                 DATE_FORMAT(P.fecha_venta,"%Y-%m-%d") AS fecha_venta,
                                 PT.id AS id_tipo_producto,
@@ -155,6 +157,7 @@ SaleModel.updateSale = function(userData, callback) {
     if (connection) { 
         var sql = 'UPDATE sales SET id_tipo_producto = ' + connection.escape(userData.id_tipo_producto) + 
                ', fecha_venta = ' + connection.escape(userData.fecha_venta) + 
+               ', factura_venta = ' + connection.escape(userData.factura_venta) + 
                ', id_cliente = ' + connection.escape(userData.id_cliente) + 
                ', peso = ' + connection.escape(userData.peso) +                             
                ' WHERE id = ' + connection.escape(userData.id);        
