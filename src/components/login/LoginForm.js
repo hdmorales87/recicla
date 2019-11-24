@@ -104,6 +104,9 @@ class LoginForm extends Component {
             else if(response.msg === 'error'){
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
             }
+            else if(response.msg === 'accessDenied'){
+                alertify.error('El usuario no esta habilitado para acceder a esta empresa!');
+            }
             else{                
                 //almacenar en localstorage los datos del login
                 localStorage.id_empresa = this.state.id_empresa;

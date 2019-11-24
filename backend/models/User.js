@@ -8,9 +8,10 @@ var UserModel = {};
 
 //AUTENTICACION DEL USUARIO
 UserModel.getLogin = function(userData, callback) {
-    if (connection) {
+    if (connection) {//si es la empresa de origen
         var sql = `SELECT * FROM users 
-                   WHERE id_empresa = \'`+userData.empresa+`\' 
+                   WHERE activo = 1
+                        AND id_empresa = \'`+userData.empresa+`\' 
                         AND email = \'`+userData.username+`\' 
                         AND password = \'`+md5(userData.password)+'\'';
 
@@ -20,8 +21,62 @@ UserModel.getLogin = function(userData, callback) {
                     "msg": "error",
                     "detail": error.code
                 });
-            } else {                           
-                callback(null, row);                
+            } else {//si es superusuario podra acceder a todas                                
+                if(row.length > 0){
+                    callback(null, row);                    
+                }
+                else{
+                    var sql = `SELECT * FROM users 
+                               WHERE activo=1
+                                   AND email = \'`+userData.username+`\' 
+                                   AND password = \'`+md5(userData.password)+'\'';
+
+                    connection.query(sql, function(error, row) {
+                        if (error) {                          
+                            callback(null, {
+                                "msg": "error",
+                                "detail": error.code
+                            });                
+                        }
+                        else{
+                            if(row.length > 0){
+                                if(row[0].id_rol == 1){//superusuario
+                                    callback(null, row);
+                                }
+                                else{// si tiene acceso a la empresa
+                                    var sql = `SELECT COUNT(id) AS total
+                                               FROM users_companies 
+                                               WHERE id_user = \'`+row[0].id+`\' 
+                                                   AND id_company = \'`+userData.empresa+'\'';
+
+                                    connection.query(sql, function(error, row2) {
+                                        if (error) {                          
+                                            callback(null, {
+                                                "msg": "error",
+                                                "detail": error.code
+                                            });                
+                                        }
+                                        else{
+                                            if(row2[0].total > 0){
+                                                callback(null, row);
+                                            }
+                                            else{
+                                                callback(null, {
+                                                    "msg": "accessDenied",                                   
+                                                }); 
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                            else{
+                                callback(null, {
+                                    "msg": "notExist",                                   
+                                }); 
+                            }                            
+                        }
+                    });
+                }                
             }
         });
     }
@@ -33,6 +88,10 @@ UserModel.getUsers = function(userData, callback) {
         var searchWord   = userData.searchWord;
         var showRecords  = userData.showRecords; 
         var offsetRecord = userData.offsetRecord; 
+        var andEmpresa   = ' AND R.id_empresa = '+userData.id_empresa;
+        if(showRecords == 1){
+            andEmpresa   = '';
+        }
         var sql = `SELECT 
                         R.id,
                         R.id_tipo_documento,
@@ -53,7 +112,8 @@ UserModel.getUsers = function(userData, callback) {
                    INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) 
                    INNER JOIN roles AS RL ON (RL.id = R.id_rol) 
                    WHERE 
-                        R.id_empresa = `+userData.id_empresa+`
+                        activo = 1 
+                        `+andEmpresa+`
                         AND (
                         R.nombre LIKE \'%`+searchWord+`%\' 
                         OR R.documento LIKE \'%`+searchWord+`%\' 
@@ -107,7 +167,8 @@ UserModel.getUsersRows = function(userData, callback) {
                           FROM users AS U 
                           INNER JOIN document_types AS DT ON (DT.id = U.id_tipo_documento) 
                           WHERE
-                            U.id_empresa = `+userData.id_empresa+`
+                            U.activo = 1
+                            AND U.id_empresa = `+userData.id_empresa+`
                             AND ( 
                             U.nombre LIKE \'%`+searchWord+`%\' 
                             OR U.documento LIKE \'%`+searchWord+`%\' 
@@ -202,11 +263,11 @@ UserModel.updateUser = function(userData, callback) {
 //eliminar un usuario pasando la id a eliminar
 UserModel.deleteUser = function(id, callback) {    
     if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM users WHERE id = ' + connection.escape(id);
+        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM users WHERE activo = 1 AND id = ' + connection.escape(id);
         connection.query(sqlExists, function(err, row) {       
             //si existe la id del usuario a eliminar  
             if (row[0].cuenta > 0) {
-                var sql = 'DELETE FROM users WHERE id = ' + connection.escape(id);                
+                var sql = 'UPDATE users SET activo = 0 WHERE id = ' + connection.escape(id);                
                 connection.query(sql, function(error, result) {
                     if (error) {
                         callback(null, {
@@ -231,7 +292,7 @@ UserModel.deleteUser = function(id, callback) {
 
 UserModel.checkUsername = function(username, callback) {
     if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM users WHERE email = ' + connection.escape(username);
+        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM users WHERE activo = 1 AND email = ' + connection.escape(username);
         connection.query(sqlExists, function(err, row) {
             if(err){
                 callback(null, {
@@ -253,7 +314,7 @@ UserModel.checkUsername = function(username, callback) {
 
 UserModel.updateToken = function(username,token, callback) {
     if (connection) {
-        var sql = 'UPDATE users SET token = '+ connection.escape(token)+' WHERE email = '+ connection.escape(username);
+        var sql = 'UPDATE users SET token = '+ connection.escape(token)+' WHERE activo = 1 AND email = '+ connection.escape(username);
         connection.query(sql, function(err, row) { 
             if(err){
                 callback(null, {
@@ -271,7 +332,7 @@ UserModel.updateToken = function(username,token, callback) {
 
 UserModel.checkToken = function(username,token, callback) {
     if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM users WHERE email = ' + connection.escape(username)+' AND token = '+ connection.escape(token);
+        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM users WHERE activo = 1 AND email = ' + connection.escape(username)+' AND token = '+ connection.escape(token);
         connection.query(sqlExists, function(err, row) { 
             if(err){
                 callback(null, {
@@ -294,7 +355,7 @@ UserModel.checkToken = function(username,token, callback) {
 
 UserModel.updatePassword = function(username,password, callback) {    
     if (connection) {        
-        var sql = 'UPDATE users SET token=\'\',password = \''+md5(password)+'\' WHERE email = '+ connection.escape(username);      
+        var sql = 'UPDATE users SET token=\'\',password = \''+md5(password)+'\' WHERE activo = 1 AND email = '+ connection.escape(username);      
         connection.query(sql, function(err, row) { 
             if(err){
                 callback(null, {

@@ -8,7 +8,7 @@ var CompanyModel = {};
 //TRAER LA EMPRESA
 CompanyModel.getCompany = function(userData, callback) {
     if (connection) {
-        var sql = 'SELECT * FROM companies WHERE documento = \''+userData+'\'';
+        var sql = 'SELECT * FROM companies WHERE documento = \''+userData+'\' AND activo = 1';
         connection.query(sql, function(error, row) {
             if (error) {                
                 callback(null, {
@@ -37,9 +37,10 @@ CompanyModel.getCompanies = function(userData, callback) {
                           FROM companies AS C
                           INNER JOIN document_types AS DT ON (DT.id = C.id_tipo_documento)
                           WHERE 
-                                C.documento LIKE \'%`+searchWord+`%\'
+                                C.activo = 1
+                                AND (C.documento LIKE \'%`+searchWord+`%\'
                                 OR C.razon_social LIKE \'%`+searchWord+`%\'
-                                OR C.nombre_comercial LIKE \'%`+searchWord+`%\'                       
+                                OR C.nombre_comercial LIKE \'%`+searchWord+`%\')                       
                           ORDER BY C.id LIMIT `+offsetRecord+`,`+showRecords, function(error, rows) {
                                 if (error) {
                                      callback(null, {
@@ -62,9 +63,10 @@ CompanyModel.getCompaniesRows = function(userData, callback) {
                           FROM companies AS C
                           INNER JOIN document_types AS DT ON (DT.id = C.id_tipo_documento)
                           WHERE 
-                                C.documento LIKE \'%`+searchWord+`%\'
+                                C.activo = 1
+                                AND (C.documento LIKE \'%`+searchWord+`%\'
                                 OR C.razon_social LIKE \'%`+searchWord+`%\'
-                                OR C.nombre_comercial LIKE \'%`+searchWord+`%\'                       
+                                OR C.nombre_comercial LIKE \'%`+searchWord+`%\')                       
                           ORDER BY C.id`, function(error, rows) {
                                 if (error) {
                                      callback(null, {
@@ -132,11 +134,11 @@ CompanyModel.updateCompany = function(userData, callback) {
 //eliminar una empresa pasando la id a eliminar
 CompanyModel.deleteCompany = function(id, callback) {    
     if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM companies WHERE id = ' + connection.escape(id);
+        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM companies WHERE activo = 1 AND id = ' + connection.escape(id);
         connection.query(sqlExists, function(err, row) {       
             //si existe la id del usuario a eliminar  
             if (row[0].cuenta > 0) {
-                var sql = 'DELETE FROM companies WHERE id = ' + connection.escape(id);                
+                var sql = 'UPDATE companies SET activo = 0 WHERE id = ' + connection.escape(id);                
                 connection.query(sql, function(error, result) {
                     if (error) {
                         callback(null, {
@@ -168,6 +170,7 @@ CompanyModel.listadoAccesoEmpresas = function(userData, callback) {
                          U.id AS checked
                    FROM companies  AS C
                    LEFT JOIN users_companies AS U ON(U.id_company = C.id AND U.id_user = `+userData.idUser+`)
+                   WHERE C.activo=1
                    ORDER BY C.nombre_comercial`;          
         connection.query(sql, function(error, rows) {
                                 if (error) {

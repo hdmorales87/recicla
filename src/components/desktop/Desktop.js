@@ -64,12 +64,10 @@ class Desktop extends Component {
                 .then(res => {
                     var response1 = res.data;                       
                     if(response1.msg === 'notExist'){//aqui no me dejara continuar si la empresa noe xiste
-                        alertify.error('La empresa no existe!'); 
-                        //this.inputEmpresa.current.focus();
+                        alertify.error('La empresa no existe!');                         
                     }
                     else if(response1.msg === 'error'){//aqui no me dejara continuar si hay un error
                         alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
-                        //this.inputEmpresa.current.focus();
                     }
                     else{
                         globalState.dispatch({

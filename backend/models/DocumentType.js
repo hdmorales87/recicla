@@ -15,7 +15,7 @@ DocumentTypeModel.getDocumentTypes = function(userData, callback) {
             showRecords  = userData.showRecords;   
             offsetRecord = userData.offsetRecord; 
         }                
-        connection.query('SELECT * FROM document_types WHERE nombre LIKE \'%'+searchWord+'%\' ORDER BY id LIMIT '+offsetRecord+','+showRecords, function(error, rows) {
+        connection.query('SELECT * FROM document_types WHERE activo = 1 AND nombre LIKE \'%'+searchWord+'%\' ORDER BY id LIMIT '+offsetRecord+','+showRecords, function(error, rows) {
             if (error) {                
                  callback(null, {
                     "msg": "error",
@@ -32,7 +32,7 @@ DocumentTypeModel.getDocumentTypes = function(userData, callback) {
 DocumentTypeModel.getDocumentTypesRows = function(userData, callback) {
     if (connection) {
         var searchWord   = userData.searchWord;        
-        connection.query('SELECT COUNT(*) AS total FROM document_types WHERE nombre LIKE \'%'+searchWord+'%\'', function(error, rows) {
+        connection.query('SELECT COUNT(*) AS total FROM document_types WHERE activo = 1 AND nombre LIKE \'%'+searchWord+'%\'', function(error, rows) {
             if (error) {
                  callback(null, {
                     "msg": "error",
@@ -92,11 +92,11 @@ DocumentTypeModel.updateDocumentType = function(userData, callback) {
 //eliminar un tipo de documento pasando la id a eliminar
 DocumentTypeModel.deleteDocumentType = function(id, callback) {    
     if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM document_types WHERE id = ' + connection.escape(id);
+        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM document_types WHERE activo = 1 AND id = ' + connection.escape(id);
         connection.query(sqlExists, function(err, row) {       
             //si existe la id del tipo de documento a eliminar  
             if (row[0].cuenta > 0) {
-                var sql = 'DELETE FROM document_types WHERE id = ' + connection.escape(id);                
+                var sql = 'UPDATE document_types SET activo = 0 WHERE id = ' + connection.escape(id);                
                 connection.query(sql, function(error, result) {
                     if (error) {
                         callback(null, {

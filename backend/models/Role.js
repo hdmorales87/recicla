@@ -41,8 +41,9 @@ RoleModel.getRoles = function(userData, callback) {
                                 nombre,
                                 id_empresa
                           FROM roles                          
-                          WHERE 
-                                id > 1
+                          WHERE
+                                activo = 1 
+                                AND id > 1
                                 `+userData.where+`
                                 AND (
                                     nombre LIKE \'%`+searchWord+`%\'
@@ -68,7 +69,8 @@ RoleModel.getRolesRows = function(userData, callback) {
                                 COUNT(id) AS total                                
                           FROM roles                          
                           WHERE 
-                                id_empresa = `+userData.id_empresa+`
+                                activo = 1
+                                AND id_empresa = `+userData.id_empresa+`
                                 AND (
                                     nombre LIKE \'%`+searchWord+`%\'
                                 )`, function(error, rows) {
@@ -131,11 +133,11 @@ RoleModel.updateRole = function(userData, callback) {
 //eliminar un rol pasando la id a eliminar
 RoleModel.deleteRole = function(id, callback) {    
     if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM roles WHERE id = ' + connection.escape(id);
+        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM roles WHERE activo = 1 AND id = ' + connection.escape(id);
         connection.query(sqlExists, function(err, row) {       
             //si existe la id del usuario a eliminar  
             if (row[0].cuenta > 0) {
-                var sql = 'DELETE FROM roles WHERE id = ' + connection.escape(id);                
+                var sql = 'UPDATE roles SET activo = 0 WHERE id = ' + connection.escape(id);                
                 connection.query(sql, function(error, result) {
                     if (error) {
                         callback(null, {

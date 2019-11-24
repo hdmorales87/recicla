@@ -14,7 +14,7 @@ import Window from '../window/Window';
 import {modalLoading} from '../configuration/GlobalFunctions';
 import alertify from 'alertifyjs';
 
-class Users extends Component {  
+class Users extends Component {    
     colFuncion(idUser){
         globalState.dispatch({
                 type   : "windowAccesoEmpresas",
@@ -52,7 +52,17 @@ class Users extends Component {
         });
     }
     render() {     
-        var id_empresa = globalState.getState().companyData[0].id;               
+        var id_empresa = globalState.getState().companyData[0].id; 
+        var idRol = globalState.getState().idRol;
+        var botonAccesos = '';
+        if(idRol === 1){
+            botonAccesos = {
+                                type  : 'manual',
+                                label : '',
+                                icon  : 'settings',
+                                colFuncion : this.colFuncion.bind(this)
+                            }
+        }              
         return (//carga el componente que contiene la grilla de datos 
             <div>            
                 <DataGrid titulo='Usuarios' 
@@ -89,12 +99,7 @@ class Users extends Component {
                                               label : 'Telefono',
                                               field : 'telefono'
                                           },
-                                          {
-                                              type  : 'manual',
-                                              label : '',
-                                              icon  : 'settings',
-                                              colFuncion : this.colFuncion.bind(this)
-                                          }
+                                          botonAccesos
                                        ]} 
                           automatica="true"
                           botonNuevo="true"

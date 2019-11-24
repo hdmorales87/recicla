@@ -31,7 +31,8 @@ SaleModel.getSales = function(userData, callback) {
                    INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) 
                    INNER JOIN customers AS R ON (R.id = P.id_cliente) 
                    WHERE 
-                        P.fecha_venta BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                        P.activo = 1
+                        AND P.fecha_venta BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
                         AND P.id_empresa = `+userData.id_empresa+`
                         AND (    
                             PT.nombre LIKE \'%`+searchWord+`%\' 
@@ -73,7 +74,8 @@ SaleModel.getSalesReport = function(userData, callback) {
                            INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) 
                            INNER JOIN customers AS R ON (R.id = P.id_cliente) 
                            WHERE 
-                                P.fecha_venta BETWEEN \'`+fecha1+`\' AND \'`+fecha2+`\'
+                                P.activo = 1
+                                AND P.fecha_venta BETWEEN \'`+fecha1+`\' AND \'`+fecha2+`\'
                                 AND P.id_empresa = `+userData.id_empresa+`                                                
                            ORDER BY P.fecha_venta`, function(error, rows) {
             if (error) {
@@ -105,8 +107,9 @@ SaleModel.getSalesRows = function(userData, callback) {
                    FROM sales AS P  
                    INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) 
                    INNER JOIN customers AS R ON (R.id = P.id_cliente) 
-                   WHERE 
-                        P.fecha_venta BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                   WHERE
+                        P.activo = 1 
+                        AND P.fecha_venta BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
                         AND P.id_empresa = `+userData.id_empresa+`
                         AND (    
                             PT.nombre LIKE \'%`+searchWord+`%\' 
@@ -175,11 +178,11 @@ SaleModel.updateSale = function(userData, callback) {
 //eliminar una venta pasando la id a eliminar
 SaleModel.deleteSale = function(id, callback) {    
     if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM sales WHERE id = ' + connection.escape(id);
+        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM sales WHERE activo = 1 AND id = ' + connection.escape(id);
         connection.query(sqlExists, function(err, row) {       
             //si existe la id dela venta a eliminar  
             if (row[0].cuenta > 0) {
-                var sql = 'DELETE FROM sales WHERE id = ' + connection.escape(id);                
+                var sql = 'UPDATE sales SET activo = 0 WHERE id = ' + connection.escape(id);                
                 connection.query(sql, function(error, result) {
                     if (error) {
                         callback(null, {
@@ -218,8 +221,9 @@ SaleModel.indicadorVentas1 = function(userData, callback) {
         var sql = `SELECT 
                         COUNT(P.id) AS total                         
                    FROM sales AS P                     
-                   WHERE 
-                        P.fecha_venta BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                   WHERE
+                        P.activo = 1
+                        AND P.fecha_venta BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
                         AND P.id_empresa = `+userData.id_empresa;
 
         connection.query(sql, function(error, rows) {
@@ -255,7 +259,8 @@ SaleModel.indicadorGraficoVentas1 = function(userData, callback) {
                    FROM sales AS P     
                    INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto)                 
                    WHERE 
-                        P.fecha_venta BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                        P.activo = 1
+                        AND P.fecha_venta BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
                         AND P.id_empresa = `+userData.id_empresa+`
                    GROUP BY P.id_tipo_producto`;
 
@@ -290,8 +295,9 @@ SaleModel.indicadorVentas2 = function(userData, callback) {
                         SUM(P.peso * PT.precio_venta) AS total                      
                    FROM sales AS P 
                    INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto)                    
-                   WHERE 
-                        P.fecha_venta BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                   WHERE
+                        P.activo = 1
+                        AND P.fecha_venta BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
                         AND P.id_empresa = `+userData.id_empresa;
 
         connection.query(sql, function(error, rows) {
@@ -326,8 +332,9 @@ SaleModel.indicadorGraficoVentas2 = function(userData, callback) {
                         PT.nombre AS tipo_producto                        
                    FROM sales AS P     
                    INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto)                 
-                   WHERE 
-                        P.fecha_venta BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                   WHERE
+                        P.activo = 1
+                        AND P.fecha_venta BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
                         AND P.id_empresa = `+userData.id_empresa+`
                    GROUP BY P.id_tipo_producto`;
 

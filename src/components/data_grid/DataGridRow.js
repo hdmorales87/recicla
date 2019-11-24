@@ -55,14 +55,15 @@ class DataGridRow extends React.Component {
                         if(colsData.type === 'bd'){
                             field = <td data-title={colsData.label} key={ i } style={{fontSize:'12px'}} onClick={ onClick } onDoubleClick={ onDblClick }>{dataRow[colsData.field]}&nbsp;</td>
                         }
-                        else{
+                        else if(colsData.type === 'manual'){
                             field = <td data-title={colsData.label} key={ i } style={{fontSize:'12px'}}>
                                         <div onClick={colsData.colFuncion.bind(this,dataRow.id)} style={{cursor:'pointer'}} ><MaterialIcon id="iconColumna" size={20} icon={colsData.icon} /></div>
                                     </td>
                         }
-                        return field;
-                        
-                        
+                        else{
+                            return;
+                        }
+                        return field; 
                     })
                 }    
             </tr>

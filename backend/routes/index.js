@@ -86,29 +86,14 @@ module.exports = function(app) {
         //continuamos si la id es un número
         if (username != undefined) {
             UserModel.getLogin(user, function(error, data) {
-                
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                //si el usuario existe lo mostramos en formato json
-                else if (typeof data !== 'undefined' && data.length > 0) {                  
+                if(data.length > 0 && data.msg != 'error' && data.msg != 'notExist' && data.msg != 'accessDenied'){
                     var id_usuario = data[0].id;                    
-                    req.session.id_usuario=id_usuario; 
-                    //req.session.save(); 
+                    req.session.id_usuario=id_usuario;                    
                     req.session.save(function(err) {
-                        console.log(req.session.id_usuario);                 
-                        res.status(200).json(data);
-                    });
-                }                
-                //en otro caso mostramos una respuesta conforme no existe
-                else {
-                    res.status(200).json({
-                        "msg": "notExist"
+                        //console.log(req.session.id_usuario); 
                     });
                 }
+                res.status(200).json(data);
             });
         }
         //si hay algún error

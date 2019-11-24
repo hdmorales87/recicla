@@ -24,7 +24,8 @@ ReciclatorModel.getReciclators = function(userData, callback) {
                           FROM reciclators AS R  
                           INNER JOIN product_types AS PT ON (PT.id = R.id_tipo_producto) 
                           INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) WHERE 
-                                R.id_empresa = `+userData.id_empresa+`
+                                R.activo = 1
+                                AND R.id_empresa = `+userData.id_empresa+`
                                 AND (
                                     R.documento LIKE \'%`+searchWord+`%\' 
                                     OR R.nombre LIKE \'%`+searchWord+`%\'                                                 
@@ -79,8 +80,9 @@ ReciclatorModel.getReciclatorsRows = function(userData, callback) {
                           FROM reciclators AS R  
                           INNER JOIN product_types AS PT ON (PT.id = R.id_tipo_producto) 
                           INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) 
-                          WHERE 
-                                R.id_empresa = `+userData.id_empresa+`
+                          WHERE
+                                R.activo = 1
+                                AND R.id_empresa = `+userData.id_empresa+`
                                 AND (
                                     R.documento LIKE \'%`+searchWord+`%\' 
                                     OR R.nombre LIKE \'%`+searchWord+`%\'                                                 
@@ -151,11 +153,11 @@ ReciclatorModel.updateReciclator = function(userData, callback) {
 //eliminar un usuario pasando la id a eliminar
 ReciclatorModel.deleteReciclator = function(id, callback) {    
     if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM reciclators WHERE id = ' + connection.escape(id);
+        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM reciclators WHERE activo = 1 AND id = ' + connection.escape(id);
         connection.query(sqlExists, function(err, row) {       
             //si existe la id del usuario a eliminar  
             if (row[0].cuenta > 0) {
-                var sql = 'DELETE FROM reciclators WHERE id = ' + connection.escape(id);                
+                var sql = 'UPDATE reciclators SET activo = 0 WHERE id = ' + connection.escape(id);                
                 connection.query(sql, function(error, result) {
                     if (error) {
                         callback(null, {

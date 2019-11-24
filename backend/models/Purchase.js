@@ -31,7 +31,8 @@ PurchaseModel.getPurchases = function(userData, callback) {
                    INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) 
                    INNER JOIN reciclators AS R ON (R.id = P.id_reciclador) 
                    WHERE 
-                        P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                        P.activo = 1
+                        AND P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
                         AND P.id_empresa = `+userData.id_empresa+`
                         AND (
                             PT.nombre LIKE \'%`+searchWord+`%\' 
@@ -72,7 +73,8 @@ PurchaseModel.getPurchasesReport = function(userData, callback) {
                            INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) 
                            INNER JOIN reciclators AS R ON (R.id = P.id_reciclador) 
                            WHERE 
-                                P.fecha_compra BETWEEN \'`+fecha1+`\' AND \'`+fecha2+`\'
+                                P.activo = 1
+                                AND P.fecha_compra BETWEEN \'`+fecha1+`\' AND \'`+fecha2+`\'
                                 AND P.id_empresa = `+userData.id_empresa+`                                                
                            ORDER BY P.fecha_compra`, function(error, rows) {
             if (error) {
@@ -105,8 +107,9 @@ PurchaseModel.getPurchasesRows = function(userData, callback) {
                    FROM purchases AS P  
                    INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) 
                    INNER JOIN reciclators AS R ON (R.id = P.id_reciclador) 
-                   WHERE 
-                        P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                   WHERE
+                        P.activo = 1
+                        AND P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
                         AND P.id_empresa = `+userData.id_empresa+`
                         AND (
                             PT.nombre LIKE \'%`+searchWord+`%\' 
@@ -174,11 +177,11 @@ PurchaseModel.updatePurchase = function(userData, callback) {
 //eliminar una compra pasando la id a eliminar
 PurchaseModel.deletePurchase = function(id, callback) {    
     if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM purchases WHERE id = ' + connection.escape(id);
+        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM purchases WHERE activo = 1 AND id = ' + connection.escape(id);
         connection.query(sqlExists, function(err, row) {       
             //si existe la id dela compra a eliminar  
             if (row[0].cuenta > 0) {
-                var sql = 'DELETE FROM purchases WHERE id = ' + connection.escape(id);                
+                var sql = 'UPDATE purchases SET activo = 0 WHERE id = ' + connection.escape(id);                
                 connection.query(sql, function(error, result) {
                     if (error) {
                         callback(null, {
@@ -217,8 +220,9 @@ PurchaseModel.indicadorCompras1 = function(userData, callback) {
         var sql = `SELECT 
                         COUNT(P.id) AS total                         
                    FROM purchases AS P                     
-                   WHERE 
-                        P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                   WHERE
+                        P.activo = 1
+                        AND P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
                         AND P.id_empresa = `+userData.id_empresa;
 
         connection.query(sql, function(error, rows) {
@@ -253,8 +257,9 @@ PurchaseModel.indicadorGraficoCompras1 = function(userData, callback) {
                         PT.nombre AS tipo_producto                        
                    FROM purchases AS P     
                    INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto)                 
-                   WHERE 
-                        P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                   WHERE
+                        P.activo = 1
+                        AND P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
                         AND P.id_empresa = `+userData.id_empresa+`
                    GROUP BY P.id_tipo_producto`;
 
@@ -290,7 +295,8 @@ PurchaseModel.indicadorCompras2 = function(userData, callback) {
                    FROM purchases AS P
                    INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto)                     
                    WHERE 
-                        P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                        P.activo = 1
+                        AND P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
                         AND P.id_empresa = `+userData.id_empresa;
 
         connection.query(sql, function(error, rows) {
@@ -325,8 +331,9 @@ PurchaseModel.indicadorGraficoCompras2 = function(userData, callback) {
                         PT.nombre AS tipo_producto                        
                    FROM purchases AS P     
                    INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto)                 
-                   WHERE 
-                        P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
+                   WHERE
+                        P.activo = 1
+                        AND P.fecha_compra BETWEEN \'`+filtroFecha1+`\' AND \'`+filtroFecha2+`\'
                         AND P.id_empresa = `+userData.id_empresa+`
                    GROUP BY P.id_tipo_producto`;
 
