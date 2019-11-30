@@ -1,4 +1,5 @@
 var UserModel = require('../models/User');
+var DataGridModel = require('../models/DataGrid');
 var CustomerModel = require('../models/Customer');
 var ReciclatorModel = require('../models/Reciclator');
 var ProductTypeModel = require('../models/ProductType');
@@ -199,36 +200,6 @@ module.exports = function(app) {
         });
     });
 
-    /*
-     * metodo: product_types
-     * tipo: POST
-     * inserta un nuevo tipo de producto
-     */
-
-    app.post("/product_types", function(req, res) {
-        //console.log(req.body);
-        //creamos un objeto con los datos a insertar
-        var formData = {            
-            nombre: req.body.nombre,
-            precio_compra: req.body.precio_compra,
-            precio_venta: req.body.precio_venta                     
-        };
-        ProductTypeModel.insertProductType(formData, function(error, data) {
-            //si el usuario se ha insertado correctamente mostramos su info
-            if (data && data.insertId) {
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
-
-
     app.put("/product_types", function(req, res) {
         //almacenamos los datos del formulario en un objeto
         var formData = {
@@ -327,35 +298,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });
-
-    /*
-     * metodo: document_types
-     * tipo: POST
-     * inserta un nuevo tipo de documento
-     */
-
-    app.post("/document_types", function(req, res) {
-        //console.log(req.body);
-        //creamos un objeto con los datos a insertar
-        var formData = {            
-            nombre: req.body.nombre                                
-        };
-        DocumentTypeModel.insertDocumentType(formData, function(error, data) {
-            //si el usuario se ha insertado correctamente mostramos su info
-            if (data && data.insertId) {
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
-
+    });    
 
     app.put("/document_types", function(req, res) {
         //almacenamos los datos del formulario en un objeto
@@ -477,17 +420,19 @@ module.exports = function(app) {
     });
 
     /*
-     * metodo: users
+     * metodo: dataGrid
      * tipo: POST
      * inserta un nuevo tipo de documento
      */
 
-    app.post("/users", function(req, res) {
+    app.post("/dataGrid", function(req, res) {
         //console.log(req.body);
         //creamos un objeto con los datos a insertar
-        var formData = req.body;          
+        console.log(req.body);
+        var arrayData = req.body.arrayData;  
+        var tabla = req.body.tabla;         
           
-        UserModel.insertUser(formData, function(error, data) {
+        DataGridModel.insertData(arrayData,tabla, function(error, data) {
             //si el usuario se ha insertado correctamente mostramos su info
             if (data && data.insertId) {
                 res.status(200).json({
@@ -619,33 +564,6 @@ module.exports = function(app) {
         });
     });
 
-    /*
-     * metodo: customers
-     * tipo: POST
-     * inserta un nuevo cliente
-     */
-
-    app.post("/customers", function(req, res) {
-        //console.log(req.body);
-        //creamos un objeto con los datos a insertar
-        var formData = req.body;          
-          
-        CustomerModel.insertCustomer(formData, function(error, data) {
-            //si el usuario se ha insertado correctamente mostramos su info
-            if (data && data.insertId) {
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
-
-
     app.put("/customers", function(req, res) {
         //almacenamos los datos del formulario en un objeto
         var formData = req.body;
@@ -762,33 +680,6 @@ module.exports = function(app) {
         });
     });
 
-    /*
-     * metodo: reciclators
-     * tipo: POST
-     * inserta un nuevo reciclador
-     */
-
-    app.post("/reciclators", function(req, res) {
-        //console.log(req.body);
-        //creamos un objeto con los datos a insertar
-        var formData = req.body;          
-          
-        ReciclatorModel.insertReciclator(formData, function(error, data) {
-            //si el usuario se ha insertado correctamente mostramos su info
-            if (data && data.insertId) {
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
-
-
     app.put("/reciclators", function(req, res) {
         //almacenamos los datos del formulario en un objeto
         var formData = req.body;
@@ -903,34 +794,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });
-
-    /*
-     * metodo: purchases
-     * tipo: POST
-     * inserta una nueva compra
-     */
-
-    app.post("/purchases", function(req, res) {
-        //console.log(req.body);
-        //creamos un objeto con los datos a insertar
-        var formData = req.body;          
-          
-        PurchaseModel.insertPurchase(formData, function(error, data) {
-            //si el usuario se ha insertado correctamente mostramos su info
-            if (data && data.insertId) {
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
-
+    });  
 
     app.put("/purchases", function(req, res) {
         //almacenamos los datos del formulario en un objeto
@@ -1047,33 +911,6 @@ module.exports = function(app) {
             }            
         });
     });
-
-    /*
-     * metodo: sales
-     * tipo: POST
-     * inserta una nueva venta
-     */
-
-    app.post("/sales", function(req, res) {
-        //console.log(req.body);
-        //creamos un objeto con los datos a insertar
-        var formData = req.body;          
-          
-        SaleModel.insertSale(formData, function(error, data) {
-            //si el usuario se ha insertado correctamente mostramos su info
-            if (data && data.insertId) {
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
-
 
     app.put("/sales", function(req, res) {
         //almacenamos los datos del formulario en un objeto
@@ -1301,33 +1138,6 @@ module.exports = function(app) {
         });
     });
 
-    /*
-     * metodo: companies
-     * tipo: POST
-     * inserta una nueva empresa
-     */
-
-    app.post("/companies", function(req, res) {
-        //console.log(req.body);
-        //creamos un objeto con los datos a insertar
-        var formData = req.body;          
-          
-        CompanyModel.insertCompany(formData, function(error, data) {
-            //si el usuario se ha insertado correctamente mostramos su info
-            if (data && data.insertId) {
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
-
-
     app.put("/companies", function(req, res) {
         //almacenamos los datos del formulario en un objeto
         var formData = req.body;
@@ -1443,33 +1253,6 @@ module.exports = function(app) {
             }            
         });
     });
-
-    /*
-     * metodo: roles
-     * tipo: POST
-     * inserta un nuevo rol
-     */
-
-    app.post("/roles", function(req, res) {
-        //console.log(req.body);
-        //creamos un objeto con los datos a insertar
-        var formData = req.body;          
-          
-        RoleModel.insertRole(formData, function(error, data) {
-            //si el usuario se ha insertado correctamente mostramos su info
-            if (data && data.insertId) {
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
-
 
     app.put("/roles", function(req, res) {
         //almacenamos los datos del formulario en un objeto

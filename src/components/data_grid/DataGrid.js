@@ -66,6 +66,9 @@ class DataGrid extends Component {
                 if(response.msg === 'error'){
                     alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail); 
                 }
+                else if(idRol === 1){
+                    this.setState({ enableBtnNew : true});
+                }
                 else {
                     this.setState({ enableBtnNew : response.msg});
                 }
@@ -80,6 +83,9 @@ class DataGrid extends Component {
                 if(response.msg === 'error'){
                     alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail); 
                 }
+                else if(idRol === 1){
+                    this.setState({ enableBtnDel : true});
+                }
                 else {
                     this.setState({ enableBtnDel : response.msg});
                 }
@@ -87,7 +93,7 @@ class DataGrid extends Component {
             .catch( err => {            
                 alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);                            
             });
-        }             
+        }                   
     }        
   	handleNewButton(){//Boton nuevo registro
         if(this.props.automatica === 'true'){

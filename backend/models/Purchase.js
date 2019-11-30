@@ -129,26 +129,6 @@ PurchaseModel.getPurchasesRows = function(userData, callback) {
     }
 }
 
-//almacenar una compra
-PurchaseModel.insertPurchase = function(userData, callback) {
-    if (connection) {                      
-        connection.query('INSERT INTO purchases SET ?', userData, function(error, result) {            
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                var id = result.insertId;
-                callback(null, {
-                    "insertId": id
-                });                 
-            }
-        });
-    }
-}
-
 //actualizar una compra
 PurchaseModel.updatePurchase = function(userData, callback) {     
     if (connection) { 

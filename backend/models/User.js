@@ -112,7 +112,7 @@ UserModel.getUsers = function(userData, callback) {
                    INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) 
                    INNER JOIN roles AS RL ON (RL.id = R.id_rol) 
                    WHERE 
-                        activo = 1 
+                        R.activo = 1 
                         `+andEmpresa+`
                         AND (
                         R.nombre LIKE \'%`+searchWord+`%\' 
@@ -120,7 +120,7 @@ UserModel.getUsers = function(userData, callback) {
                         OR R.email LIKE \'%`+searchWord+`%\'                         
                         OR R.direccion LIKE \'%`+searchWord+`%\' 
                         OR R.telefono LIKE \'%`+searchWord+`%\') 
-                   ORDER BY R.id LIMIT `+offsetRecord+','+showRecords;        
+                   ORDER BY R.id LIMIT `+offsetRecord+','+showRecords;                
                                
         connection.query(sql, function(error, rows) {
             if (error) {
@@ -182,40 +182,6 @@ UserModel.getUsersRows = function(userData, callback) {
                 });
             } else {
                 callback(null, rows);
-            }
-        });
-    }
-}
-
-//almacenar un usuario
-UserModel.insertUser = function(userData, callback) {
-    if (connection) {  
-        connection.query('INSERT INTO users SET ?', userData, function(error, result) {
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                var id = result.insertId;
-                var sql = `UPDATE users SET 
-                           password = \'`+md5('123456')+`\',                          
-                           nombre = \'`+userData.primer_nombre+' '+userData.segundo_nombre+' '+userData.primer_apellido+' '+userData.segundo_apellido+`\'
-                           WHERE id = `+result.insertId;
-                
-                connection.query(sql , function(error, result) {   
-                    if (error) {
-                        callback(null, {
-                            "msg": "error",
-                            "detail": error.code
-                        });
-                    } else { 
-                        //devolvemos la última id insertada
-                        callback(null, {
-                            "insertId": id
-                        });
-                    }
-                });
             }
         });
     }

@@ -45,25 +45,6 @@ DocumentTypeModel.getDocumentTypesRows = function(userData, callback) {
     }
 }
 
-//almacenar un tipo de documento
-DocumentTypeModel.insertDocumentType = function(userData, callback) {
-    if (connection) {        
-        connection.query('INSERT INTO document_types SET ?', userData, function(error, result) {
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "insertId": result.insertId
-                });
-            }
-        });
-    }
-}
-
 //actualizar un tipo de documento
 DocumentTypeModel.updateDocumentType = function(userData, callback) {     
     if (connection) {

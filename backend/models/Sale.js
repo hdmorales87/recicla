@@ -132,26 +132,6 @@ SaleModel.getSalesRows = function(userData, callback) {
     }
 }
 
-//almacenar una venta
-SaleModel.insertSale = function(userData, callback) {
-    if (connection) {                       
-        connection.query('INSERT INTO sales SET ?', userData, function(error, result) {            
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                var id = result.insertId;
-                callback(null, {
-                    "insertId": id
-                });                 
-            }
-        });
-    }
-}
-
 //actualizar una venta
 SaleModel.updateSale = function(userData, callback) {     
     if (connection) { 

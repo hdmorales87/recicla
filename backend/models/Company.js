@@ -80,26 +80,6 @@ CompanyModel.getCompaniesRows = function(userData, callback) {
     }
 }
 
-//almacenar una empresa
-CompanyModel.insertCompany = function(userData, callback) {
-    if (connection) {                  
-        connection.query('INSERT INTO companies SET ?', userData, function(error, result) {
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                var id = result.insertId;                
-                //devolvemos la última id insertada
-                callback(null, {
-                    "insertId": id
-                }); 
-            }
-        });
-    }
-}
-
 //actualizar una empresa
 CompanyModel.updateCompany = function(userData, callback) {     
     if (connection) {

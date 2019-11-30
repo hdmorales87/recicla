@@ -102,26 +102,6 @@ CustomerModel.getCustomersRows = function(userData, callback) {
     }
 }
 
-//almacenar un usuario
-CustomerModel.insertCustomer = function(userData, callback) {
-    if (connection) {               
-        connection.query('INSERT INTO customers SET ?', userData, function(error, result) {
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                var id = result.insertId;
-                callback(null, {
-                    "insertId": id
-                });                 
-            }
-        });
-    }
-}
-
 //actualizar un usuario
 CustomerModel.updateCustomer = function(userData, callback) {     
     if (connection) { 

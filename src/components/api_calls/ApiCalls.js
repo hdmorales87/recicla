@@ -86,8 +86,11 @@ export function insertarActualizarFila(method,apiField,arrayData){
 	//inserta actualiza una fila en la grilla
 	return axios({
         	    method: method,
-        	    url: path+apiField,
-        	    data: arrayData,
+        	    url: path+'dataGrid',
+        	    data: {
+					arrayData : arrayData,
+					tabla 	  : apiField
+        	    },
         	    withCredentials: true
         	});	
 }

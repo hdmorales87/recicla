@@ -29,7 +29,7 @@ class FormDataGrid extends Component {
         this.handleCancelButton = this.handleCancelButton.bind(this);
         this.handleSaveButton   = this.handleSaveButton.bind(this);
         this.handleConfirmAction = this.handleConfirmAction.bind(this);
-        this.funcionEditDataSelect = this.funcionEditDataSelect.bind(this);        
+        this.funcionEditDataSelect = this.funcionEditDataSelect.bind(this);               
     } 
     componentWillMount(){
         this.props.parametro.formFields.forEach((formFields,i) => {            
@@ -237,7 +237,7 @@ class FormDataGrid extends Component {
                                 })
                             }
                             {
-                                this.props.parametro.enableBtnEdit === true || this.props.parametro.idRow === undefined ?
+                                this.props.parametro.enableBtnEdit === true || this.props.parametro.idRow === 0 ?
                                     <Button id="formGridBtnSave" className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>
                                         GUARDAR
                                     </Button> 

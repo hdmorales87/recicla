@@ -45,25 +45,6 @@ ProductTypeModel.getProductTypesRows = function(userData, callback) {
     }
 }
 
-//almacenar un tipo de compra
-ProductTypeModel.insertProductType = function(userData, callback) {
-    if (connection) {
-        connection.query('INSERT INTO product_types SET ?', userData, function(error, result) {
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "insertId": result.insertId
-                });
-            }
-        });
-    }
-}
-
 //actualizar un tipo de compra
 ProductTypeModel.updateProductType = function(userData, callback) {     
     if (connection) {

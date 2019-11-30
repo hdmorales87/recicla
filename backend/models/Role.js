@@ -86,26 +86,6 @@ RoleModel.getRolesRows = function(userData, callback) {
     }
 }
 
-//almacenar un rol
-RoleModel.insertRole = function(userData, callback) {
-    if (connection) {                  
-        connection.query('INSERT INTO roles SET ?', userData, function(error, result) {
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                var id = result.insertId;                
-                //devolvemos la última id insertada
-                callback(null, {
-                    "insertId": id
-                }); 
-            }
-        });
-    }
-}
-
 //actualizar un rol
 RoleModel.updateRole = function(userData, callback) {     
     if (connection) {
