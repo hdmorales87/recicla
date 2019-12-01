@@ -187,45 +187,6 @@ UserModel.getUsersRows = function(userData, callback) {
     }
 }
 
-//actualizar un usuario
-UserModel.updateUser = function(userData, callback) {     
-    if (connection) {
-        var primer_nombre = connection.escape(userData.primer_nombre)
-        ,   segundo_nombre = connection.escape(userData.segundo_nombre)
-        ,   primer_apellido = connection.escape(userData.primer_apellido)
-        ,   segundo_apellido = connection.escape(userData.segundo_apellido);
-
-        var username = userData.primer_nombre.substr(0,1)+userData.segundo_nombre.substr(0,1)+userData.primer_apellido+userData.segundo_apellido.substr(0,1);    
-
-        var sql = 'UPDATE users SET id_tipo_documento = ' + connection.escape(userData.id_tipo_documento) + 
-               ', documento = ' + connection.escape(userData.documento) + 
-               ', primer_nombre = ' + primer_nombre + 
-               ', segundo_nombre = ' + segundo_nombre + 
-               ', primer_apellido = ' + primer_apellido + 
-               ', segundo_apellido = ' + segundo_apellido + 
-               ', email = ' + connection.escape(userData.email) + 
-               ', direccion = ' + connection.escape(userData.direccion) + 
-               ', telefono = ' + connection.escape(userData.telefono) + 
-               ', id_rol = ' + connection.escape(userData.id_rol) + 
-               ', nombre = \''+userData.primer_nombre+' '+userData.segundo_nombre+' '+userData.primer_apellido+' '+userData.segundo_apellido+'\''+
-               ' WHERE id = ' + connection.escape(userData.id);        
-
-        connection.query(sql, function(error, result) {            
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "msg": "success"
-                });
-            }            
-        });
-    }
-}
-
 //eliminar un usuario pasando la id a eliminar
 UserModel.deleteUser = function(id, callback) {    
     if (connection) {

@@ -45,31 +45,6 @@ DocumentTypeModel.getDocumentTypesRows = function(userData, callback) {
     }
 }
 
-//actualizar un tipo de documento
-DocumentTypeModel.updateDocumentType = function(userData, callback) {     
-    if (connection) {
-        var sql = 'UPDATE document_types SET nombre = ' + connection.escape(userData.nombre) + 
-            ' WHERE id = ' + connection.escape(userData.id);
-
-        console.log(sql);
-
-        connection.query(sql, function(error, result) {
-            console.log(error);
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "msg": "success"
-                });
-            }            
-        });
-    }
-}
-
 //eliminar un tipo de documento pasando la id a eliminar
 DocumentTypeModel.deleteDocumentType = function(id, callback) {    
     if (connection) {

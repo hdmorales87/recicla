@@ -86,30 +86,6 @@ RoleModel.getRolesRows = function(userData, callback) {
     }
 }
 
-//actualizar un rol
-RoleModel.updateRole = function(userData, callback) {     
-    if (connection) {
-        var nombre = connection.escape(userData.nombre);          
-
-        var sql =  'UPDATE roles SET nombre = '+nombre+         
-                   'WHERE id = ' + connection.escape(userData.id);        
-
-        connection.query(sql, function(error, result) {            
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "msg": "success"
-                });
-            }            
-        });
-    }
-}
-
 //eliminar un rol pasando la id a eliminar
 RoleModel.deleteRole = function(id, callback) {    
     if (connection) {

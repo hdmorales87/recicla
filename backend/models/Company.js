@@ -80,37 +80,6 @@ CompanyModel.getCompaniesRows = function(userData, callback) {
     }
 }
 
-//actualizar una empresa
-CompanyModel.updateCompany = function(userData, callback) {     
-    if (connection) {
-        var id_tipo_documento = connection.escape(userData.id_tipo_documento)
-        ,   documento = connection.escape(userData.documento)
-        ,   razon_social = connection.escape(userData.razon_social)
-        ,   nombre_comercial = connection.escape(userData.nombre_comercial);          
-
-        var sql =  'UPDATE companies SET id_tipo_documento = ' + connection.escape(userData.id_tipo_documento) + 
-                   ', documento = ' + connection.escape(userData.documento) + 
-                   ', primer_nombre = ' + primer_nombre + 
-                   ', razon_social = ' + razon_social + 
-                   ', nombre_comercial = ' + nombre_comercial +                                             
-                   ' WHERE id = ' + connection.escape(userData.id);        
-
-        connection.query(sql, function(error, result) {            
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "msg": "success"
-                });
-            }            
-        });
-    }
-}
-
 //eliminar una empresa pasando la id a eliminar
 CompanyModel.deleteCompany = function(id, callback) {    
     if (connection) {

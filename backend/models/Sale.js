@@ -132,32 +132,6 @@ SaleModel.getSalesRows = function(userData, callback) {
     }
 }
 
-//actualizar una venta
-SaleModel.updateSale = function(userData, callback) {     
-    if (connection) { 
-        var sql = 'UPDATE sales SET id_tipo_producto = ' + connection.escape(userData.id_tipo_producto) + 
-               ', fecha_venta = ' + connection.escape(userData.fecha_venta) + 
-               ', factura_venta = ' + connection.escape(userData.factura_venta) + 
-               ', id_cliente = ' + connection.escape(userData.id_cliente) + 
-               ', peso = ' + connection.escape(userData.peso) +                             
-               ' WHERE id = ' + connection.escape(userData.id);        
-
-        connection.query(sql, function(error, result) {            
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "msg": "success"
-                });
-            }            
-        });
-    }
-}
-
 //eliminar una venta pasando la id a eliminar
 SaleModel.deleteSale = function(id, callback) {    
     if (connection) {

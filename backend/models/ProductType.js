@@ -45,33 +45,6 @@ ProductTypeModel.getProductTypesRows = function(userData, callback) {
     }
 }
 
-//actualizar un tipo de compra
-ProductTypeModel.updateProductType = function(userData, callback) {     
-    if (connection) {
-        var sql = 'UPDATE product_types SET nombre = ' + connection.escape(userData.nombre) + ',' +
-            'precio_compra = ' + connection.escape(userData.precio_compra) +   
-            ',precio_venta = ' + connection.escape(userData.precio_venta) +           
-            ' WHERE id = ' + connection.escape(userData.id);
-
-        console.log(sql);
-
-        connection.query(sql, function(error, result) {
-            console.log(error);
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "msg": "success"
-                });
-            }            
-        });
-    }
-}
-
 //eliminar un tipo de compra pasando la id a eliminar
 ProductTypeModel.deleteProductType = function(id, callback) {    
     if (connection) {

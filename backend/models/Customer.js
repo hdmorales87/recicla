@@ -102,33 +102,6 @@ CustomerModel.getCustomersRows = function(userData, callback) {
     }
 }
 
-//actualizar un usuario
-CustomerModel.updateCustomer = function(userData, callback) {     
-    if (connection) { 
-        var sql = 'UPDATE customers SET id_tipo_documento = ' + connection.escape(userData.id_tipo_documento) + 
-               ', documento = ' + connection.escape(userData.documento) + 
-               ', nombre_comercial = ' + connection.escape(userData.nombre_comercial) + 
-               ', razon_social = ' + connection.escape(userData.razon_social) + 
-               ', direccion = ' + connection.escape(userData.direccion) + 
-               ', telefono = ' + connection.escape(userData.telefono) +               
-               ' WHERE id = ' + connection.escape(userData.id);        
-
-        connection.query(sql, function(error, result) {            
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "msg": "success"
-                });
-            }            
-        });
-    }
-}
-
 //eliminar un usuario pasando la id a eliminar
 CustomerModel.deleteCustomer = function(id, callback) {    
     if (connection) {

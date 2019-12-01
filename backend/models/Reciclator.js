@@ -102,34 +102,6 @@ ReciclatorModel.getReciclatorsRows = function(userData, callback) {
     }
 }
 
-//actualizar un usuario
-ReciclatorModel.updateReciclator = function(userData, callback) {     
-    if (connection) { 
-        var sql = 'UPDATE reciclators SET id_tipo_documento = ' + connection.escape(userData.id_tipo_documento) + 
-               ', documento = ' + connection.escape(userData.documento) + 
-               ', nombre = ' + connection.escape(userData.nombre) + 
-               ', celular = ' + connection.escape(userData.celular) + 
-               ', direccion = ' + connection.escape(userData.direccion) + 
-               ', telefono = ' + connection.escape(userData.telefono) + 
-               ', id_tipo_producto = ' + connection.escape(userData.id_tipo_producto) +              
-               ' WHERE id = ' + connection.escape(userData.id);        
-
-        connection.query(sql, function(error, result) {            
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "msg": "success"
-                });
-            }            
-        });
-    }
-}
-
 //eliminar un usuario pasando la id a eliminar
 ReciclatorModel.deleteReciclator = function(id, callback) {    
     if (connection) {

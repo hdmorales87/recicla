@@ -198,30 +198,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });
-
-    app.put("/product_types", function(req, res) {
-        //almacenamos los datos del formulario en un objeto
-        var formData = {
-            id: req.body.id,
-            nombre: req.body.nombre,            
-            precio_compra: req.body.precio_compra,
-            precio_venta: req.body.precio_venta                      
-        };
-        ProductTypeModel.updateProductType(formData, function(error, data) {
-            //si el usuario se ha actualizado correctamente mostramos un mensaje            
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
+    });    
 
     //utilizamos el verbo delete para eliminar un tipo de producto
     app.delete("/product_types", function(req, res) {
@@ -298,28 +275,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });    
-
-    app.put("/document_types", function(req, res) {
-        //almacenamos los datos del formulario en un objeto
-        var formData = {
-            id: req.body.id,
-            nombre: req.body.nombre
-        };
-        DocumentTypeModel.updateDocumentType(formData, function(error, data) {
-            //si el usuario se ha actualizado correctamente mostramos un mensaje            
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
+    });     
 
     //utilizamos el verbo delete para eliminar un usuario
     app.delete("/document_types", function(req, res) {
@@ -425,13 +381,10 @@ module.exports = function(app) {
      * inserta un nuevo tipo de documento
      */
 
-    app.post("/dataGrid", function(req, res) {
-        //console.log(req.body);
-        //creamos un objeto con los datos a insertar
-        console.log(req.body);
+    app.post("/dataGrid", function(req, res) {        
+        //creamos un objeto con los datos a insertar        
         var arrayData = req.body.arrayData;  
-        var tabla = req.body.tabla;         
-          
+        var tabla = req.body.tabla;      
         DataGridModel.insertData(arrayData,tabla, function(error, data) {
             //si el usuario se ha insertado correctamente mostramos su info
             if (data && data.insertId) {
@@ -448,10 +401,11 @@ module.exports = function(app) {
     });
 
 
-    app.put("/users", function(req, res) {
+    app.put("/dataGrid", function(req, res) {
         //almacenamos los datos del formulario en un objeto
-        var formData = req.body;
-        UserModel.updateUser(formData, function(error, data) {
+        var arrayData = req.body.arrayData;  
+        var tabla = req.body.tabla; 
+        DataGridModel.updateData(arrayData,tabla,function(error, data) {
             //si el usuario se ha actualizado correctamente mostramos un mensaje            
             if(data.msg == 'success'){
                 res.status(200).json({
@@ -562,25 +516,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });
-
-    app.put("/customers", function(req, res) {
-        //almacenamos los datos del formulario en un objeto
-        var formData = req.body;
-        CustomerModel.updateCustomer(formData, function(error, data) {
-            //si el usuario se ha actualizado correctamente mostramos un mensaje            
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
+    });    
 
     //utilizamos el verbo delete para eliminar un cliente
     app.delete("/customers", function(req, res) {
@@ -678,25 +614,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });
-
-    app.put("/reciclators", function(req, res) {
-        //almacenamos los datos del formulario en un objeto
-        var formData = req.body;
-        ReciclatorModel.updateReciclator(formData, function(error, data) {
-            //si el usuario se ha actualizado correctamente mostramos un mensaje            
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
+    });    
 
     //utilizamos el verbo delete para eliminar un reciclador
     app.delete("/reciclators", function(req, res) {
@@ -794,25 +712,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });  
-
-    app.put("/purchases", function(req, res) {
-        //almacenamos los datos del formulario en un objeto
-        var formData = req.body;
-        PurchaseModel.updatePurchase(formData, function(error, data) {
-            //si el usuario se ha actualizado correctamente mostramos un mensaje            
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
+    });     
 
     //utilizamos el verbo delete para eliminar una compra
     app.delete("/purchases", function(req, res) {
@@ -911,25 +811,7 @@ module.exports = function(app) {
             }            
         });
     });
-
-    app.put("/sales", function(req, res) {
-        //almacenamos los datos del formulario en un objeto
-        var formData = req.body;
-        SaleModel.updateSale(formData, function(error, data) {
-            //si el usuario se ha actualizado correctamente mostramos un mensaje            
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
-
+    
     //utilizamos el verbo delete para eliminar una venta
     app.delete("/sales", function(req, res) {
         //id del usuario a eliminar        
@@ -1136,25 +1018,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });
-
-    app.put("/companies", function(req, res) {
-        //almacenamos los datos del formulario en un objeto
-        var formData = req.body;
-        CompanyModel.updateCompany(formData, function(error, data) {
-            //si el usuario se ha actualizado correctamente mostramos un mensaje            
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
+    });    
 
     //utilizamos el verbo delete para eliminar una empresa
     app.delete("/companies", function(req, res) {
@@ -1252,25 +1116,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });
-
-    app.put("/roles", function(req, res) {
-        //almacenamos los datos del formulario en un objeto
-        var formData = req.body;
-        RoleModel.updateRole(formData, function(error, data) {
-            //si el usuario se ha actualizado correctamente mostramos un mensaje            
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
+    });   
 
     //utilizamos el verbo delete para eliminar un rol
     app.delete("/roles", function(req, res) {

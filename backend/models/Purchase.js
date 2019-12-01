@@ -129,31 +129,6 @@ PurchaseModel.getPurchasesRows = function(userData, callback) {
     }
 }
 
-//actualizar una compra
-PurchaseModel.updatePurchase = function(userData, callback) {     
-    if (connection) { 
-        var sql = 'UPDATE purchases SET id_tipo_producto = ' + connection.escape(userData.id_tipo_producto) + 
-               ', fecha_compra = ' + connection.escape(userData.fecha_compra) + 
-               ', id_reciclador = ' + connection.escape(userData.id_reciclador) + 
-               ', peso = ' + connection.escape(userData.peso) +                             
-               ' WHERE id = ' + connection.escape(userData.id);        
-
-        connection.query(sql, function(error, result) {            
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "msg": "success"
-                });
-            }            
-        });
-    }
-}
-
 //eliminar una compra pasando la id a eliminar
 PurchaseModel.deletePurchase = function(id, callback) {    
     if (connection) {

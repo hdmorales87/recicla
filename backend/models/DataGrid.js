@@ -23,5 +23,33 @@ DataGridModel.insertData = function(userData,tabla, callback) {
     }
 }
 
+//actualizar un registro
+DataGridModel.updateData = function(userData,tabla, callback) {     
+    if (connection) {
+        var strUpdate = '';
+        for(let i in userData){            
+            if(i!='id'){
+                strUpdate += i+'='+connection.escape(userData[i])+',';
+            }            
+        }
+        strUpdate = strUpdate.slice(0,-1);  
+
+        var sql = 'UPDATE '+tabla+' SET ' + strUpdate + ' WHERE id = ' + userData.id;  
+        connection.query(sql, function(error, result) {            
+            if (error) {
+                callback(null, {
+                    "msg": "error",
+                    "detail": error.code
+                });
+            } else {
+                //devolvemos la última id insertada
+                callback(null, {
+                    "msg": "success"
+                });
+            }            
+        });
+    }
+}
+
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = DataGridModel;
