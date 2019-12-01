@@ -129,36 +129,6 @@ PurchaseModel.getPurchasesRows = function(userData, callback) {
     }
 }
 
-//eliminar una compra pasando la id a eliminar
-PurchaseModel.deletePurchase = function(id, callback) {    
-    if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM purchases WHERE activo = 1 AND id = ' + connection.escape(id);
-        connection.query(sqlExists, function(err, row) {       
-            //si existe la id dela compra a eliminar  
-            if (row[0].cuenta > 0) {
-                var sql = 'UPDATE purchases SET activo = 0 WHERE id = ' + connection.escape(id);                
-                connection.query(sql, function(error, result) {
-                    if (error) {
-                        callback(null, {
-                            "msg": "error",
-                            "detail": error.code
-                        });
-                    } else {
-                        //devolvemos la última id insertada
-                        callback(null, {
-                            "msg": "success"
-                        });
-                    }
-                });
-            } else {
-                callback(null, {
-                    "msg": "notExist"
-                });
-            }
-        });
-    }
-}
-
 //obtener el indicador de compras
 PurchaseModel.indicadorCompras1 = function(userData, callback) {
     if (connection) {         

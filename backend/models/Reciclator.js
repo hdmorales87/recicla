@@ -102,35 +102,5 @@ ReciclatorModel.getReciclatorsRows = function(userData, callback) {
     }
 }
 
-//eliminar un usuario pasando la id a eliminar
-ReciclatorModel.deleteReciclator = function(id, callback) {    
-    if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM reciclators WHERE activo = 1 AND id = ' + connection.escape(id);
-        connection.query(sqlExists, function(err, row) {       
-            //si existe la id del usuario a eliminar  
-            if (row[0].cuenta > 0) {
-                var sql = 'UPDATE reciclators SET activo = 0 WHERE id = ' + connection.escape(id);                
-                connection.query(sql, function(error, result) {
-                    if (error) {
-                        callback(null, {
-                            "msg": "error",
-                            "detail": error.code
-                        });
-                    } else {
-                        //devolvemos la última id insertada
-                        callback(null, {
-                            "msg": "success"
-                        });
-                    }
-                });
-            } else {
-                callback(null, {
-                    "msg": "notExist"
-                });
-            }
-        });
-    }
-}
-
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = ReciclatorModel;

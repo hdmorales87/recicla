@@ -76,8 +76,11 @@ export function cargarFilas(apiField,searchWord,showRecords,offsetRecord,date1,d
 
 export function eliminarFilas(apiField,id){
 	//elimina una fila de la grilla
-	return axios.delete(path+apiField,{            
-        	    data: {id : id},
+	return axios.delete(path+'dataGrid',{            
+        	    data: {
+        	    	id    : id,
+        	    	tabla : apiField
+        	    },
         	    withCredentials: true
         	});
 }

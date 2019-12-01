@@ -51,5 +51,25 @@ DataGridModel.updateData = function(userData,tabla, callback) {
     }
 }
 
+//eliminar un registro pasando la id a eliminar
+DataGridModel.deleteData = function(id,tabla, callback) {    
+    if (connection) {        
+        var sql = 'UPDATE '+tabla+' SET activo = 0 WHERE id = ' + connection.escape(id);                
+        connection.query(sql, function(error, result) {
+            if (error) {
+                callback(null, {
+                    "msg": "error",
+                    "detail": error.code
+                });
+            } else {
+                //devolvemos la última id insertada
+                callback(null, {
+                    "msg": "success"
+                });
+            }
+        });         
+    }
+}
+
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = DataGridModel;

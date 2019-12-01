@@ -198,31 +198,9 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });    
+    }); 
 
-    //utilizamos el verbo delete para eliminar un tipo de producto
-    app.delete("/product_types", function(req, res) {
-        //id del usuario a eliminar        
-        var id = req.body.id;       
-        ProductTypeModel.deleteProductType(id, function(error, data) {
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else if(data.msg == 'notExist') {
-                res.status(200).json({
-                    "msg": "notExist",                    
-                });
-            }
-            else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
-
+    
     /*
      * metodo: document_types
      * tipo: GET
@@ -275,30 +253,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });     
-
-    //utilizamos el verbo delete para eliminar un usuario
-    app.delete("/document_types", function(req, res) {
-        //id del usuario a eliminar        
-        var id = req.body.id;       
-        DocumentTypeModel.deleteDocumentType(id, function(error, data) {
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else if(data.msg == 'notExist') {
-                res.status(200).json({
-                    "msg": "notExist",                    
-                });
-            }
-            else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
+    });        
 
      /*
      * metodo: users
@@ -420,20 +375,17 @@ module.exports = function(app) {
         });
     });
 
-    //utilizamos el verbo delete para eliminar un usuario
-    app.delete("/users", function(req, res) {
-        //id del usuario a eliminar        
-        var id = req.body.id;       
-        UserModel.deleteUser(id, function(error, data) {
+    //utilizamos el verbo delete para eliminar un registro
+    app.delete("/dataGrid", function(req, res) {
+        //id del registro a eliminar        
+        var id = req.body.id;
+        var tabla = req.body.tabla;       
+        DataGridModel.deleteData(id,tabla, function(error, data) {
             if(data.msg == 'success'){
                 res.status(200).json({
                     "msg": "success"
                 });
-            } else if(data.msg == 'notExist') {
-                res.status(200).json({
-                    "msg": "notExist",                    
-                });
-            }
+            } 
             else {
                 res.status(200).json({
                     "msg": "error",
@@ -516,30 +468,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });    
-
-    //utilizamos el verbo delete para eliminar un cliente
-    app.delete("/customers", function(req, res) {
-        //id del usuario a eliminar        
-        var id = req.body.id;       
-        CustomerModel.deleteCustomer(id, function(error, data) {
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else if(data.msg == 'notExist') {
-                res.status(200).json({
-                    "msg": "notExist",                    
-                });
-            }
-            else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
+    });  
 
      /*
      * metodo: reciclators
@@ -613,29 +542,6 @@ module.exports = function(app) {
                     res.status(200).json(data);
                 }                
             }            
-        });
-    });    
-
-    //utilizamos el verbo delete para eliminar un reciclador
-    app.delete("/reciclators", function(req, res) {
-        //id del usuario a eliminar        
-        var id = req.body.id;       
-        ReciclatorModel.deleteReciclator(id, function(error, data) {
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else if(data.msg == 'notExist') {
-                res.status(200).json({
-                    "msg": "notExist",                    
-                });
-            }
-            else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
         });
     });
 
@@ -712,29 +618,6 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });     
-
-    //utilizamos el verbo delete para eliminar una compra
-    app.delete("/purchases", function(req, res) {
-        //id del usuario a eliminar        
-        var id = req.body.id;       
-        PurchaseModel.deletePurchase(id, function(error, data) {
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else if(data.msg == 'notExist') {
-                res.status(200).json({
-                    "msg": "notExist",                    
-                });
-            }
-            else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
     });
 
     /*
@@ -809,29 +692,6 @@ module.exports = function(app) {
                     res.status(200).json(data);
                 }                
             }            
-        });
-    });
-    
-    //utilizamos el verbo delete para eliminar una venta
-    app.delete("/sales", function(req, res) {
-        //id del usuario a eliminar        
-        var id = req.body.id;       
-        SaleModel.deleteSale(id, function(error, data) {
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else if(data.msg == 'notExist') {
-                res.status(200).json({
-                    "msg": "notExist",                    
-                });
-            }
-            else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
         });
     });
 
@@ -1018,29 +878,6 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });    
-
-    //utilizamos el verbo delete para eliminar una empresa
-    app.delete("/companies", function(req, res) {
-        //id del usuario a eliminar        
-        var id = req.body.id;       
-        CompanyModel.deleteCompany(id, function(error, data) {
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else if(data.msg == 'notExist') {
-                res.status(200).json({
-                    "msg": "notExist",                    
-                });
-            }
-            else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
     });
 
     /*
@@ -1116,30 +953,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });   
-
-    //utilizamos el verbo delete para eliminar un rol
-    app.delete("/roles", function(req, res) {
-        //id del usuario a eliminar        
-        var id = req.body.id;       
-        RoleModel.deleteRole(id, function(error, data) {
-            if(data.msg == 'success'){
-                res.status(200).json({
-                    "msg": "success"
-                });
-            } else if(data.msg == 'notExist') {
-                res.status(200).json({
-                    "msg": "notExist",                    
-                });
-            }
-            else {
-                res.status(200).json({
-                    "msg": "error",
-                    "detail": data.detail
-                });
-            }
-        });
-    });
+    });  
 
     /*
      * metodo: listadoPermisos

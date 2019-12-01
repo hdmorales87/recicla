@@ -86,36 +86,6 @@ RoleModel.getRolesRows = function(userData, callback) {
     }
 }
 
-//eliminar un rol pasando la id a eliminar
-RoleModel.deleteRole = function(id, callback) {    
-    if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM roles WHERE activo = 1 AND id = ' + connection.escape(id);
-        connection.query(sqlExists, function(err, row) {       
-            //si existe la id del usuario a eliminar  
-            if (row[0].cuenta > 0) {
-                var sql = 'UPDATE roles SET activo = 0 WHERE id = ' + connection.escape(id);                
-                connection.query(sql, function(error, result) {
-                    if (error) {
-                        callback(null, {
-                            "msg": "error",
-                            "detail": error.code
-                        });
-                    } else {
-                        //devolvemos la última id insertada
-                        callback(null, {
-                            "msg": "success"
-                        });
-                    }
-                });
-            } else {
-                callback(null, {
-                    "msg": "notExist"
-                });
-            }
-        });
-    }
-}
-
 //obtenemos todos los permisos
 RoleModel.getPermisos = function(userData, callback) {    
     if (connection) {     
