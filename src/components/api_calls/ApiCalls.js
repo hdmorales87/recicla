@@ -36,32 +36,34 @@ export function loadComboBoxDataGrid(apiField,where){
 	return axios.get(path+apiField, {withCredentials: true,params: { where : where}});
 }
 
-export function consultarFilas(apiField,searchWord,date1,date2){
+export function consultarFilas(apiField,searchWord,date1,date2,sqlParams){
 	var companyData = globalState.getState().companyData;
 	var id_empresa = 0;
 	if(companyData !== undefined){
 		id_empresa = globalState.getState().companyData[0].id;
 	}	
 	//consulta el numero de filas de la grilla
-	return axios.get(path+apiField+'Rows', {
+	return axios.get(path+'dataGridRows', {
     		    withCredentials: true, 
     		    params: { 
     		        searchWord : searchWord, 
     		        id_empresa : id_empresa,
     		        date1 	   : date1,
-    		        date2      : date2               
+    		        date2      : date2,
+    		        sqlParams  : sqlParams,
+					tabla      : apiField	              
     		    } 
     		});
 }
 
-export function cargarFilas(apiField,searchWord,showRecords,offsetRecord,date1,date2){
+export function cargarFilas(apiField,searchWord,showRecords,offsetRecord,date1,date2,sqlParams){
 	var companyData = globalState.getState().companyData;	
 	var id_empresa = 0;
 	if(companyData !== undefined){
 		id_empresa = globalState.getState().companyData[0].id;
 	}
 	//trae las filas filas de la grilla
-	return axios.get(path+apiField, {
+	return axios.get(path+'dataGrid', {
 				withCredentials: true, 
 				params: { 
 					searchWord   : searchWord,
@@ -69,7 +71,9 @@ export function cargarFilas(apiField,searchWord,showRecords,offsetRecord,date1,d
 					offsetRecord : offsetRecord,
 					id_empresa   : id_empresa,
 					date1        : date1,
-					date2 		 : date2					
+					date2 		 : date2,
+					sqlParams    : sqlParams,
+					tabla        : apiField					
 				} 
 			});
 }

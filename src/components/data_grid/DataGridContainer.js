@@ -39,7 +39,7 @@ class DataGridContainer extends Component {
             }        
         }        
         //Ajax a la API que trae los registros
-        cargarFilas(this.props.apiField,searchWord,showRecords,offsetRecord,date1,date2)        
+        cargarFilas(this.props.apiField,searchWord,showRecords,offsetRecord,date1,date2,this.props.sqlParams)        
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {

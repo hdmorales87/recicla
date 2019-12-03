@@ -3,6 +3,54 @@ var connection = require('../bd/bd');
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var DataGridModel = {};
 
+//obtenemos todas las compras
+DataGridModel.getData = function(userData, callback) {    
+    if (connection) {
+        var searchWord   = userData.searchWord;
+        var showRecords  = userData.showRecords; 
+        var offsetRecord = userData.offsetRecord;
+        var filtroFecha1 = userData.date1; 
+        var filtroFecha2 = userData.date2;
+        var tabla        = userData.tabla;
+        var sqlParams = userData.sqlParams;
+        if(filtroFecha1 == ''){
+            filtroFecha1 = '0000-00-00';
+        }
+        if(filtroFecha2 == ''){
+            filtroFecha2 = '9999-99-99';
+        }
+        var andFechas = '';
+        if(sqlParams.filtroFechas == true){
+            andFechas = ' AND '+sqlParams.filtroFechas+' BETWEEN \''+filtroFecha1+'\' AND \''+filtroFecha2+'\'';
+        }
+        console.log(sqlParams);
+        var sql = `SELECT                        
+                        `+sqlParams.sqlCols+` 
+                   FROM `+tabla+` AS T1  
+                   `+sqlParams.sqlJoin+`
+                   WHERE 
+                        T1.activo = 1
+                        `+andFechas+`
+                        AND T1.id_empresa = `+userData.id_empresa+`
+                        AND (
+                            PT.nombre LIKE \'%`+searchWord+`%\' 
+                            OR R.nombre LIKE \'%`+searchWord+`%\'                                                 
+                            OR P.peso LIKE \'%`+searchWord+`%\')                         
+                   ORDER BY T1.id LIMIT `+offsetRecord+','+showRecords;
+
+        connection.query(sql, function(error, rows) {
+            if (error) {
+                 callback(null, {
+                    "msg": "error",
+                    "detail": error.code
+                });
+            } else {
+                callback(null, rows);
+            }
+        });
+    }
+}
+
 //almacenar un usuario
 DataGridModel.insertData = function(userData,tabla, callback) {
 	console.log(userData+'-->'+tabla);

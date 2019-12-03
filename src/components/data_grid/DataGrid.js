@@ -56,7 +56,14 @@ class DataGrid extends Component {
             offsetRecord : 0,
             resultRows   : 0,
             enableBtnNew : true,
-            enableBtnDel : true
+            enableBtnDel : true,
+            sqlParams    : {
+                'sqlCols'      : this.props.sqlCols,
+                'sqlJoin'      : this.props.sqlJoin,
+                'fieldSearch'  : this.props.fieldSearch,
+                'fieldFechas'  : this.props.fieldFechas,
+                'filtroFechas' : this.props.filtroFechas
+            }            
         } 
         //validacion del permiso de acceso
         var idRol = globalState.getState().idRol;
@@ -154,8 +161,8 @@ class DataGrid extends Component {
                                                              });
         });      
     } 
-    consultaFilas(){//Cuenta Filas         
-        consultarFilas(this.props.apiField,this.state.searchWord,this.state.date1,this.state.date2)
+    consultaFilas(){//Cuenta Filas          
+        consultarFilas(this.props.apiField,this.state.searchWord,this.state.date1,this.state.date2,this.state.sqlParams)
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
@@ -313,7 +320,8 @@ class DataGrid extends Component {
                                            date2 = {this.state.date2}
                                            funcionEditParams = {this.props.funcionEditParams}
                                            enableBtnEdit = {this.state.enableBtnNew}
-                                           enableBtnDel = {this.state.enableBtnDel}/>
+                                           enableBtnDel = {this.state.enableBtnDel}
+                                           sqlParams = {this.state.sqlParams}/>
                     </div> 
                     <div className="table-responsive mb-3">
                         <div style={{float:'left',paddingTop:'8px'}} >
