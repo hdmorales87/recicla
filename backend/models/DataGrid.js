@@ -84,14 +84,38 @@ DataGridModel.getData = function(userData, callback) {
                         `+strSearch+`                     
                    ORDER BY T1.id LIMIT `+offsetRecord+','+showRecords;      
 
-        connection.query(sql, function(error, rows) {
+        connection.query(sql, function(error, rows1) {
             if (error) {
                  callback(null, {
                     "msg": "error",
                     "detail": error.code
                 });
-            } else {
-                callback(null, rows);
+            } else {// el total de filas
+                var sql = `SELECT                        
+                                COUNT(T1.id) AS total 
+                           FROM `+tabla+` AS T1  
+                           `+strJoin+`
+                           WHERE 
+                                T1.activo = 1
+                                `+strWhere+`
+                                `+andFechas+`
+                                `+andEmpresa+`
+                                `+strSearch;      
+
+                connection.query(sql, function(error, rows2) {
+                    if (error) {
+                         callback(null, {
+                            "msg": "error",
+                            "detail": error.code
+                        });
+                    } else {
+                        var result = {
+                            rows  : rows1,
+                            total : rows2
+                        }    
+                        callback(null, result);
+                    }
+                });
             }
         });
     }

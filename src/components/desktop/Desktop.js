@@ -104,7 +104,8 @@ class Desktop extends Component {
                             if (response.msg === "error") {
                                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
                             } 
-                            else{   
+                            else{
+                                response = response.rows;   
                                 this.setState({ loading: false },()=>{
                                     globalState.dispatch({
                                         type   : "userData",
