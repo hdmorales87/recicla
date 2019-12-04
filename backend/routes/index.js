@@ -2,10 +2,8 @@ var UserModel = require('../models/User');
 var DataGridModel = require('../models/DataGrid');
 var CustomerModel = require('../models/Customer');
 var ReciclatorModel = require('../models/Reciclator');
-var ProductTypeModel = require('../models/ProductType');
 var PurchaseModel = require('../models/Purchase');
 var SaleModel = require('../models/Sale');
-var DocumentTypeModel = require('../models/DocumentType');
 var RoleModel = require('../models/Role');
 var MailerModel = require('../models/Mailer');
 var CompanyModel = require('../models/Company');
@@ -144,116 +142,7 @@ module.exports = function(app) {
                 });
             }
         })
-    });
-
-    /*
-     * metodo: product_types
-     * tipo: GET
-     * devuelve todos los tipos de producto 
-     */
-
-    app.get("/product_types", function(req, res) {
-        ProductTypeModel.getProductTypes(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
-
-    /*
-     * metodo: product_typesRows
-     * tipo: GET
-     * devuelve el total de filas de los tipos de producto 
-     */
-
-    app.get("/product_typesRows", function(req, res) {
-        ProductTypeModel.getProductTypesRows(req.query,function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    }); 
-
-    
-    /*
-     * metodo: document_types
-     * tipo: GET
-     * devuelve todos los tipos de documento 
-     */
-
-    app.get("/document_types", function(req, res) {
-        DocumentTypeModel.getDocumentTypes(req.query,function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
-
-    /*
-     * metodo: document_typesRows
-     * tipo: GET
-     * devuelve el total de filas los tipos de documento 
-     */
-
-    app.get("/document_typesRows", function(req, res) {
-        DocumentTypeModel.getDocumentTypesRows(req.query,function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });        
+    });    
 
      /*
      * metodo: dataGrid

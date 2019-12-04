@@ -10,7 +10,14 @@ import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
 
 class DocumentTypes extends Component {
-  	render() {                     
+  	render() {     
+        let sqlParams = { 
+                            fieldSearch : [
+                                'nombre',                                
+                            ],
+                            sqlEmpresa : "false",                            
+                            filtroFechas : "false",                                                 
+                        };                 
         return (//carga el componente que contiene la grilla de datos            
             <DataGrid titulo='Típos de Documento' 
                       funcionClick={this.props.funcionClick} 
@@ -22,6 +29,7 @@ class DocumentTypes extends Component {
                                         field : 'nombre'
                                     },
                                 ]} 
+                      sqlParams = { sqlParams }
                       automatica="true"
                       botonNuevo="true"
                       formFields={[

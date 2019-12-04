@@ -10,7 +10,14 @@ import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
 
 class ProductTypes extends Component {     	  
-  	render() {                      
+  	render() { 
+        let sqlParams = { 
+                            fieldSearch : [
+                                'nombre',                                
+                            ],
+                            sqlEmpresa : "true",                            
+                            filtroFechas : "false",                                                 
+                        };                        
         return (//carga el componente que contiene la grilla de datos   
             <DataGrid titulo='Tipos de Producto' 
                       funcionClick={this.props.funcionClick}   
@@ -31,7 +38,8 @@ class ProductTypes extends Component {
                                         label : 'Precio Venta',
                                         field : 'precio_venta'
                                     },
-                                ]} 
+                                ]}
+                      sqlParams = { sqlParams }                       
                       automatica="true"
                       botonNuevo="true"
                       formFields={[
@@ -55,7 +63,14 @@ class ProductTypes extends Component {
                                         type  : 'text',
                                         validation : 'entero',
                                         required : 'true'
-                                    }
+                                    },
+                                    {
+                                        label : '',
+                                        field : 'id_empresa',
+                                        type  : 'campo_empresa',
+                                        validation : '',
+                                        required : 'true'                                        
+                                    },
                                 ]}                     
                       apiField={'product_types'}
                       mainContainer='ProductTypes'/>             

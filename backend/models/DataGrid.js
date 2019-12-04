@@ -16,10 +16,10 @@ DataGridModel.getData = function(userData, callback) {
         var modo         = userData.mode;         
         try{       
             //parametros
-            var sqlParams = JSON.parse(userData.sqlParams);        
+            var sqlParams = JSON.parse(userData.sqlParams);
             //si valida id de empresa
             var andEmpresa   = ' AND T1.id_empresa = '+userData.id_empresa;
-            if(showRecords == 1 || sqlParams.sqlEmpresa != true){
+            if(showRecords == 1 || sqlParams.sqlEmpresa != 'true'){
                 andEmpresa   = '';
             }
             //si van los campos de fechas
@@ -30,7 +30,7 @@ DataGridModel.getData = function(userData, callback) {
                 filtroFecha2 = '9999-99-99';
             }
             var andFechas = '';
-            if(sqlParams.filtroFechas == true){
+            if(sqlParams.filtroFechas == 'true'){
                 andFechas = ' AND '+sqlParams.fieldFechas+' BETWEEN \''+filtroFecha1+'\' AND \''+filtroFecha2+'\'';
             }
             //va el filtro de busqueda
