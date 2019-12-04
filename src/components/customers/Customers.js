@@ -11,6 +11,30 @@ import DataGrid from '../data_grid/DataGrid';
 
 class Customers extends Component {  	
   	render() {
+        let sqlParams = {
+                            sqlCols : [
+                                'T1.id',
+                                'T1.id_tipo_documento',
+                                'DT.nombre AS tipo_documento',
+                                'T1.documento',
+                                'T1.nombre_comercial',
+                                'T1.razon_social',
+                                'T1.direccion',
+                                'T1.telefono',
+                                'T1.id_empresa'
+                            ],
+                            sqlJoin : [
+                                'INNER JOIN document_types AS DT ON (DT.id = T1.id_tipo_documento)',                                
+                            ],
+                            fieldSearch : [
+                                'T1.documento',
+                                'T1.nombre_comercial',
+                                'T1.razon_social',
+                                'T1.direccion',
+                                'T1.telefono',
+                            ],
+                            sqlEmpresa : "true",                                                
+                        };  
   	  	return (  	  		  
   	  		  <DataGrid titulo='Clientes' 
                       funcionClick={this.props.funcionClick}  
@@ -47,6 +71,7 @@ class Customers extends Component {
                                         field : 'telefono'
                                     },
                                 ]} 
+                      sqlParams = { sqlParams }
                       automatica="true"
                       botonNuevo="true" 
                       botonesExportar="true"

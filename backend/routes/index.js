@@ -1,6 +1,5 @@
 var UserModel = require('../models/User');
 var DataGridModel = require('../models/DataGrid');
-var CustomerModel = require('../models/Customer');
 var ReciclatorModel = require('../models/Reciclator');
 var PurchaseModel = require('../models/Purchase');
 var SaleModel = require('../models/Sale');
@@ -169,28 +168,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });
-
-    app.get("/usersReport", function(req, res) {              
-        UserModel.getUsersReport(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });    
+    });   
 
     /*
      * metodo: dataGrid
@@ -255,158 +233,8 @@ module.exports = function(app) {
                 });
             }
         });
-    });
-
-    /*
-     * metodo: customers
-     * tipo: GET
-     * devuelve todos los clientes
-     */
-
-    app.get("/customers", function(req, res) {              
-        CustomerModel.getCustomers(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
-
-    app.get("/customersReport", function(req, res) {              
-        CustomerModel.getCustomersReport(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
-
-    /*
-     * metodo: customersRows
-     * tipo: GET
-     * devuelve el total de filas de los clientes
-     */
-
-    app.get("/customersRows", function(req, res) {              
-        CustomerModel.getCustomersRows(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });  
-
-     /*
-     * metodo: reciclators
-     * tipo: GET
-     * devuelve todos los recicladores
-     */
-
-    app.get("/reciclators", function(req, res) {              
-        ReciclatorModel.getReciclators(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
-
-    app.get("/reciclatorsReport", function(req, res) {              
-        ReciclatorModel.getReciclatorsReport(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
-
-    /*
-     * metodo: reciclatorsRows
-     * tipo: GET
-     * devuelve el total de filas de los recicladores
-     */
-
-    app.get("/reciclatorsRows", function(req, res) {              
-        ReciclatorModel.getReciclatorsRows(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });    
-
+    }); 
+   
     app.get("/purchasesReport", function(req, res) {              
         PurchaseModel.getPurchasesReport(req.query, function(error, data) {
             if(error) {
@@ -426,64 +254,10 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });    
-
-    /*
-     * metodo: sales
-     * tipo: GET
-     * devuelve todos las ventas
-     */
-
-    app.get("/sales", function(req, res) {              
-        SaleModel.getSales(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
-
+    }); 
+    
     app.get("/salesReport", function(req, res) {              
         SaleModel.getSalesReport(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
-
-    /*
-     * metodo: salesRows
-     * tipo: GET
-     * devuelve el total de filas de las ventas
-     */
-
-    app.get("/salesRows", function(req, res) {              
-        SaleModel.getSalesRows(req.query, function(error, data) {
             if(error) {
                 res.status(200).json({
                     "msg": "error", 
@@ -611,82 +385,7 @@ module.exports = function(app) {
                 });                 
             }        
         });
-    }); 
-       
-    /*
-     * metodo: roles
-     * tipo: GET
-     * devuelve todas los roles
-     */
-
-    app.get("/roles", function(req, res) {              
-        RoleModel.getRoles(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
-
-    app.get("/rolesReport", function(req, res) {              
-        RoleModel.getRolesReport(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
-
-    /*
-     * metodo: rolesRows
-     * tipo: GET
-     * devuelve el total de filas de los roles
-     */
-
-    app.get("/rolesRows", function(req, res) {              
-        RoleModel.getRolesRows(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }                
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });  
+    });       
 
     /*
      * metodo: listadoPermisos

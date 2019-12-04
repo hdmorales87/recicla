@@ -10,7 +10,31 @@ import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
 
 class Sales extends Component {  
-  	render() {       
+  	render() {   
+        let sqlParams = {
+                            sqlCols : [
+                                'T1.id',
+                                '(T1.peso * PT.precio_venta) AS valor_venta',
+                                'DATE_FORMAT(T1.fecha_venta,"%Y-%m-%d") AS fecha_venta',
+                                'PT.id AS id_tipo_producto',
+                                'PT.nombre AS tipo_producto',
+                                'R.id AS id_cliente',
+                                'R.razon_social AS cliente',
+                                'T1.peso',
+                                'T1.id_empresa'
+                            ],
+                            sqlJoin : [
+                                'INNER JOIN product_types AS PT ON (PT.id = T1.id_tipo_producto)', 
+                                'INNER JOIN customers AS R ON (R.id = T1.id_cliente) '
+                            ],
+                            fieldSearch : [
+                                'PT.nombre',
+                                'R.razon_social',
+                                'T1.peso'
+                            ],
+                            sqlEmpresa : "true",
+                            fieldFechas : "T1.fecha_venta"                    
+                        };    
         return (
             <DataGrid titulo='Ventas' 
                       funcionClick={this.props.funcionClick}  
@@ -47,6 +71,7 @@ class Sales extends Component {
                                         field : 'valor_venta'
                                     },                                    
                                 ]}
+                      sqlParams = { sqlParams }
                       automatica="true"
                       botonNuevo="true"
                       botonesExportar="true"

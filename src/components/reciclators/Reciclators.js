@@ -11,6 +11,33 @@ import DataGrid from '../data_grid/DataGrid';
 
 class Reciclators extends Component {  	
   	render() {
+        let sqlParams = {
+                            sqlCols : [
+                                'T1.id',
+                                'T1.id_tipo_documento',
+                                'DT.nombre AS tipo_documento',
+                                'T1.documento',
+                                'T1.nombre',
+                                'T1.direccion',
+                                'T1.telefono',
+                                'T1.celular',
+                                'T1.id_tipo_producto',
+                                'T1.id_empresa',
+                                'PT.nombre AS caracterizacion'
+                            ],
+                            sqlJoin : [
+                                'INNER JOIN product_types AS PT ON (PT.id = T1.id_tipo_producto)', 
+                                'INNER JOIN document_types AS DT ON (DT.id = T1.id_tipo_documento)'                                
+                            ],
+                            fieldSearch : [
+                                'T1.documento',
+                                'T1.nombre',
+                                'T1.direccion',
+                                'T1.telefono',
+                                'T1.celular'
+                            ],
+                            sqlEmpresa : "true",                                                
+                        }; 
   	  	return (  	  		  
   	  		<DataGrid titulo='Recicladores' 
                       funcionClick={this.props.funcionClick}  
@@ -51,7 +78,8 @@ class Reciclators extends Component {
                                         label : 'Caracterizacion',
                                         field : 'caracterizacion'
                                     },
-                                ]} 
+                                ]}
+                      sqlParams = { sqlParams } 
                       automatica="true"
                       botonNuevo="true" 
                       botonesExportar="true"
