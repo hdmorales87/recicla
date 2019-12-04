@@ -13,8 +13,7 @@ DataGridModel.getData = function(userData, callback) {
         var filtroFecha1 = userData.date1; 
         var filtroFecha2 = userData.date2;
         var tabla        = userData.tabla;
-        var modo         = userData.mode; 
-        console.log(userData.sqlParams);
+        var modo         = userData.mode;         
         try{       
             //parametros
             var sqlParams = JSON.parse(userData.sqlParams);        
@@ -124,68 +123,92 @@ DataGridModel.getData = function(userData, callback) {
 
 //almacenar un usuario
 DataGridModel.insertData = function(userData,tabla, callback) {	
-    if (connection) {  
-        connection.query('INSERT INTO '+tabla+' SET ?', userData, function(error, result) {
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "insertId": result.insertId
-                });
-            }
+    try{    
+        if (connection) {  
+            connection.query('INSERT INTO '+tabla+' SET ?', userData, function(error, result) {
+                if (error) {
+                    callback(null, {
+                        "msg": "error",
+                        "detail": error.code
+                    });
+                } else {
+                    //devolvemos la última id insertada
+                    callback(null, {
+                        "insertId": result.insertId
+                    });
+                }
+            });
+        }
+    }
+    catch(e){
+        callback(null, {
+            "msg": "error",
+            "detail": e.message
         });
     }
 }
 
 //actualizar un registro
-DataGridModel.updateData = function(userData,tabla, callback) {     
-    if (connection) {
-        var strUpdate = '';
-        for(let i in userData){            
-            if(i!='id'){
-                strUpdate += i+'='+connection.escape(userData[i])+',';
-            }            
-        }
-        strUpdate = strUpdate.slice(0,-1);  
+DataGridModel.updateData = function(userData,tabla, callback) { 
+    try{    
+        if (connection) {
+            var strUpdate = '';
+            for(let i in userData){            
+                if(i!='id'){
+                    strUpdate += i+'='+connection.escape(userData[i])+',';
+                }            
+            }
+            strUpdate = strUpdate.slice(0,-1);  
 
-        var sql = 'UPDATE '+tabla+' SET ' + strUpdate + ' WHERE id = ' + userData.id;  
-        connection.query(sql, function(error, result) {            
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "msg": "success"
-                });
-            }            
+            var sql = 'UPDATE '+tabla+' SET ' + strUpdate + ' WHERE id = ' + userData.id;  
+            connection.query(sql, function(error, result) {            
+                if (error) {
+                    callback(null, {
+                        "msg": "error",
+                        "detail": error.code
+                    });
+                } else {
+                    //devolvemos la última id insertada
+                    callback(null, {
+                        "msg": "success"
+                    });
+                }            
+            });
+        }
+    }
+    catch(e){
+        callback(null, {
+            "msg": "error",
+            "detail": e.message
         });
     }
 }
 
 //eliminar un registro pasando la id a eliminar
-DataGridModel.deleteData = function(id,tabla, callback) {    
-    if (connection) {        
-        var sql = 'UPDATE '+tabla+' SET activo = 0 WHERE id = ' + connection.escape(id);                
-        connection.query(sql, function(error, result) {
-            if (error) {
-                callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                //devolvemos la última id insertada
-                callback(null, {
-                    "msg": "success"
-                });
-            }
-        });         
+DataGridModel.deleteData = function(id,tabla, callback) { 
+    try{   
+        if (connection) {        
+            var sql = 'UPDATE '+tabla+' SET activo = 0 WHERE id = ' + connection.escape(id);                
+            connection.query(sql, function(error, result) {
+                if (error) {
+                    callback(null, {
+                        "msg": "error",
+                        "detail": error.code
+                    });
+                } else {
+                    //devolvemos la última id insertada
+                    callback(null, {
+                        "msg": "success"
+                    });
+                }
+            });         
+        }
+    }    
+    catch(e){
+        callback(null, {
+            "msg": "error",
+            "detail": e.message
+        });
     }
 }
 
