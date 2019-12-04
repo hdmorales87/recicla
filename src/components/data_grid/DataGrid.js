@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import DataGridContainer from './DataGridContainer';
 import Button from 'react-bootstrap/Button';
-import {consultarFilas,validarPermiso} from '../api_calls/ApiCalls';
+import {cargarFilas,validarPermiso} from '../api_calls/ApiCalls';
 import configJson from '../configuration/configuration.json';
 import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import globalState from '../configuration/GlobalState';
@@ -57,13 +57,7 @@ class DataGrid extends Component {
             resultRows   : 0,
             enableBtnNew : true,
             enableBtnDel : true,
-            sqlParams    : {
-                'sqlCols'      : this.props.sqlCols,
-                'sqlJoin'      : this.props.sqlJoin,
-                'fieldSearch'  : this.props.fieldSearch,
-                'fieldFechas'  : this.props.fieldFechas,
-                'filtroFechas' : this.props.filtroFechas
-            }            
+            sqlParams    : this.props.sqlParams
         } 
         //validacion del permiso de acceso
         var idRol = globalState.getState().idRol;
@@ -161,8 +155,9 @@ class DataGrid extends Component {
                                                              });
         });      
     } 
-    consultaFilas(){//Cuenta Filas          
-        consultarFilas(this.props.apiField,this.state.searchWord,this.state.date1,this.state.date2,this.state.sqlParams)
+    consultaFilas(){//Cuenta Filas
+        let sqlParam = this.state.sqlParams;               
+        cargarFilas(this.props.apiField,this.state.searchWord,1,0,this.state.date1,this.state.date2,sqlParam,'total')
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {

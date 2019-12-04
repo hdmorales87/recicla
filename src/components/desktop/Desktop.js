@@ -96,16 +96,16 @@ class Desktop extends Component {
                             sqlJoin : [
                                 'INNER JOIN document_types AS DT ON (DT.id = T1.id_tipo_documento)', 
                                 'INNER JOIN roles AS RL ON (RL.id = T1.id_rol)' 
-                            ]                                                 
+                            ],
+                            mode : 'rows'                                                 
                         }
-                        cargarFilas('users',usuario,1,0,'','',sqlParams)
+                        cargarFilas('users',usuario,1,0,'','',sqlParams,'rows')
                         .then(res => {
                             var response = res.data; 
                             if (response.msg === "error") {
                                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
                             } 
-                            else{
-                                response = response.rows;   
+                            else{                                  
                                 this.setState({ loading: false },()=>{
                                     globalState.dispatch({
                                         type   : "userData",

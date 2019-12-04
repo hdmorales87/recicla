@@ -10,7 +10,32 @@ import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
 
 class Purchases extends Component {  
-  	render() {       
+  	render() {   
+        let sqlParams = {
+                            sqlCols : [
+                                'T1.id',
+                                '(T1.peso * PT.precio_compra) AS valor_compra',
+                                'DATE_FORMAT(T1.fecha_compra,"%Y-%m-%d") AS fecha_compra',
+                                'PT.id AS id_tipo_producto',
+                                'PT.nombre AS tipo_producto',
+                                'R.id AS id_reciclador',
+                                'R.nombre AS reciclador',
+                                'T1.peso',
+                                'T1.id_empresa'
+                            ],
+                            sqlJoin : [
+                                'INNER JOIN product_types AS PT ON (PT.id = T1.id_tipo_producto)', 
+                                'INNER JOIN reciclators AS R ON (R.id = T1.id_reciclador)'
+                            ],
+                            fieldSearch : [
+                                'PT.nombre',
+                                'R.nombre',
+                                'T1.peso'
+                            ],
+                            sqlEmpresa : "true",                            
+                            filtroFechas : "true", 
+                            fieldFechas : "T1.fecha_compra"                    
+                        };    
         return (
             <DataGrid titulo='Compras' 
                       funcionClick={this.props.funcionClick}  
@@ -42,31 +67,10 @@ class Purchases extends Component {
                                         field : 'valor_compra'
                                     },                                    
                                 ]}
-                      sqlCols = {
-                            'T1.id',
-                            '(T1.peso * PT.precio_compra) AS valor_compra',
-                            'DATE_FORMAT(T1.fecha_compra,"%Y-%m-%d") AS fecha_compra',
-                            'PT.id AS id_tipo_producto',
-                            'PT.nombre AS tipo_producto',
-                            'R.id AS id_reciclador',
-                            'R.nombre AS reciclador',
-                            'T1.peso',
-                            'T1.id_empresa'
-                      }
-                      sqlJoin = {
-                            'INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto)', 
-                            'INNER JOIN reciclators AS R ON (R.id = P.id_reciclador)'
-                      }
-                      fieldSearch = {
-                            'PT.nombre',
-                            'R.nombre',
-                            'P.peso'
-                      }
+                      sqlParams = { sqlParams } 
                       automatica="true"
                       botonNuevo="true"
-                      botonesExportar="true"
-                      filtroFechas="true" 
-                      fieldFechas="T1.fecha_compra"
+                      botonesExportar="true"                      
                       formFields={[
                                     {
                                         label : 'Fecha de Compra',

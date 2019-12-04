@@ -56,7 +56,7 @@ export function consultarFilas(apiField,searchWord,date1,date2,sqlParams){
     		});
 }
 
-export function cargarFilas(apiField,searchWord,showRecords,offsetRecord,date1,date2,sqlParams){
+export function cargarFilas(apiField,searchWord,showRecords,offsetRecord,date1,date2,sqlParams,modo){
 	var companyData = globalState.getState().companyData;	
 	var id_empresa = 0;
 	if(companyData !== undefined){
@@ -73,7 +73,8 @@ export function cargarFilas(apiField,searchWord,showRecords,offsetRecord,date1,d
 					date1        : date1,
 					date2 		 : date2,
 					sqlParams    : sqlParams,
-					tabla        : apiField					
+					tabla        : apiField,
+					mode         : modo					
 				} 
 			});
 }
