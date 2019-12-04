@@ -543,34 +543,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });
-
-    /*
-     * metodo: purchases
-     * tipo: GET
-     * devuelve todos las compras
-     */
-
-    app.get("/purchases", function(req, res) {              
-        PurchaseModel.getPurchases(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
+    });    
 
     app.get("/purchasesReport", function(req, res) {              
         PurchaseModel.getPurchasesReport(req.query, function(error, data) {
@@ -591,34 +564,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });
-
-    /*
-     * metodo: purchasesRows
-     * tipo: GET
-     * devuelve el total de filas de las compras
-     */
-
-    app.get("/purchasesRows", function(req, res) {              
-        PurchaseModel.getPurchasesRows(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
+    });    
 
     /*
      * metodo: sales
