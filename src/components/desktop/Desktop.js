@@ -74,7 +74,31 @@ class Desktop extends Component {
                                 type   : "companyData",
                                 params : response1
                             });
-                        cargarFilas('users',usuario,1,0)
+                        let sqlParams = {
+                            sqlCols : [
+                                'T1.id',
+                                'T1.id_tipo_documento',
+                                'DT.nombre AS tipo_documento',
+                                'T1.documento',
+                                'T1.nombre',
+                                'T1.primer_nombre',
+                                'T1.segundo_nombre',
+                                'T1.primer_apellido',
+                                'T1.segundo_apellido',
+                                'T1.email',
+                                'T1.direccion',
+                                'T1.telefono',
+                                'T1.id_rol',
+                                'RL.nombre AS rol',
+                                'T1.imagen_usuario'
+                            ],
+                            sqlWhere : [ ' AND T1.email = \''+usuario+'\'' ],                            
+                            sqlJoin : [
+                                'INNER JOIN document_types AS DT ON (DT.id = T1.id_tipo_documento)', 
+                                'INNER JOIN roles AS RL ON (RL.id = T1.id_rol)' 
+                            ]                                                 
+                        }
+                        cargarFilas('users',usuario,1,0,'','',sqlParams)
                         .then(res => {
                             var response = res.data; 
                             if (response.msg === "error") {

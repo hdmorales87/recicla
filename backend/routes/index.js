@@ -256,13 +256,13 @@ module.exports = function(app) {
     });        
 
      /*
-     * metodo: users
+     * metodo: dataGrid
      * tipo: GET
-     * devuelve todos los tipos de documento 
+     * devuelve todos los registros 
      */
 
-    app.get("/users", function(req, res) {              
-        UserModel.getUsers(req.query, function(error, data) {
+    app.get("/dataGrid", function(req, res) {              
+        DataGridModel.getData(req.query, function(error, data) {
             if(error) {
                 res.status(200).json({
                     "msg": "error", 

@@ -3,16 +3,24 @@ var connection = require('../bd/bd');
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var DataGridModel = {};
 
-//obtenemos todas las compras
+//obtenemos todas los registros
 DataGridModel.getData = function(userData, callback) {    
     if (connection) {
+        //campos de la grilla
         var searchWord   = userData.searchWord;
         var showRecords  = userData.showRecords; 
         var offsetRecord = userData.offsetRecord;
         var filtroFecha1 = userData.date1; 
         var filtroFecha2 = userData.date2;
         var tabla        = userData.tabla;
-        var sqlParams = userData.sqlParams;
+        //parametros
+        var sqlParams = JSON.parse(userData.sqlParams);        
+        //si valida id de empresa
+        var andEmpresa   = ' AND T1.id_empresa = '+userData.id_empresa;
+        if(showRecords == 1 || sqlEmpresa != true){
+            andEmpresa   = '';
+        }
+        //si van los campos de fechas
         if(filtroFecha1 == ''){
             filtroFecha1 = '0000-00-00';
         }
@@ -23,20 +31,58 @@ DataGridModel.getData = function(userData, callback) {
         if(sqlParams.filtroFechas == true){
             andFechas = ' AND '+sqlParams.filtroFechas+' BETWEEN \''+filtroFecha1+'\' AND \''+filtroFecha2+'\'';
         }
-        console.log(sqlParams);
+        //va el filtro de busqueda
+        var strSearch = '';
+        if(sqlParams.fieldSearch != undefined){
+            var j = 0;
+            for(let i in sqlParams.fieldSearch){
+                if(j > 0){
+                    strSearch += ' OR '; 
+                }
+                strSearch += sqlParams.fieldSearch[i]+' LIKE \'%'+userData.searchWord+'%\'';
+                j++;
+            }
+        }
+        if(strSearch != ''){
+            strSearch = 'AND ('+strSearch+')'; 
+        }
+        //las columnas del query,* por default
+        var strCols = '';        
+        if(sqlParams.sqlCols != undefined){            
+            for(let i in sqlParams.sqlCols){                                        
+                strCols += sqlParams.sqlCols[i]+',';
+            }
+            strCols = strCols.slice(0,-1);  
+        }
+        if(strCols == ''){
+            strCols = '*';
+        }
+        //los joins
+        var strJoin = '';        
+        if(sqlParams.sqlJoin != undefined){            
+            for(let i in sqlParams.sqlJoin){                
+                strJoin += sqlParams.sqlJoin[i]+' ';
+            }
+            strJoin = strJoin.slice(0,-1);  
+        }
+        //si tiene where
+        var strWhere = '';
+        if(sqlParams.sqlWhere != undefined){
+            for(let i in sqlParams.sqlWhere){                
+                strWhere += sqlParams.sqlWhere[i];
+            }              
+        }
         var sql = `SELECT                        
-                        `+sqlParams.sqlCols+` 
+                        `+strCols+` 
                    FROM `+tabla+` AS T1  
-                   `+sqlParams.sqlJoin+`
+                   `+strJoin+`
                    WHERE 
                         T1.activo = 1
+                        `+strWhere+`
                         `+andFechas+`
-                        AND T1.id_empresa = `+userData.id_empresa+`
-                        AND (
-                            PT.nombre LIKE \'%`+searchWord+`%\' 
-                            OR R.nombre LIKE \'%`+searchWord+`%\'                                                 
-                            OR P.peso LIKE \'%`+searchWord+`%\')                         
-                   ORDER BY T1.id LIMIT `+offsetRecord+','+showRecords;
+                        `+andEmpresa+`
+                        `+strSearch+`                     
+                   ORDER BY T1.id LIMIT `+offsetRecord+','+showRecords;      
 
         connection.query(sql, function(error, rows) {
             if (error) {
