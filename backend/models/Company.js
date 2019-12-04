@@ -22,64 +22,6 @@ CompanyModel.getCompany = function(userData, callback) {
     }
 }
 
-//obtenemos todos las compañias
-CompanyModel.getCompanies = function(userData, callback) {    
-    if (connection) {
-        var searchWord   = userData.searchWord;
-        var showRecords  = userData.showRecords; 
-        var offsetRecord = userData.offsetRecord;            
-        connection.query(`SELECT
-                                C.id_tipo_documento, 
-                                DT.nombre AS tipo_documento,
-                                C.documento,
-                                C.razon_social,
-                                C.nombre_comercial
-                          FROM companies AS C
-                          INNER JOIN document_types AS DT ON (DT.id = C.id_tipo_documento)
-                          WHERE 
-                                C.activo = 1
-                                AND (C.documento LIKE \'%`+searchWord+`%\'
-                                OR C.razon_social LIKE \'%`+searchWord+`%\'
-                                OR C.nombre_comercial LIKE \'%`+searchWord+`%\')                       
-                          ORDER BY C.id LIMIT `+offsetRecord+`,`+showRecords, function(error, rows) {
-                                if (error) {
-                                     callback(null, {
-                                        "msg": "error",
-                                        "detail": error.code
-                                    });
-                                } else {
-                                    callback(null, rows);
-                                }
-        });
-    }
-}
-
-//obtenemos la cuenta de las empresas
-CompanyModel.getCompaniesRows = function(userData, callback) {
-    if (connection) {
-        var searchWord   = userData.searchWord; 
-        connection.query(`SELECT 
-                                COUNT(C.id) AS total
-                          FROM companies AS C
-                          INNER JOIN document_types AS DT ON (DT.id = C.id_tipo_documento)
-                          WHERE 
-                                C.activo = 1
-                                AND (C.documento LIKE \'%`+searchWord+`%\'
-                                OR C.razon_social LIKE \'%`+searchWord+`%\'
-                                OR C.nombre_comercial LIKE \'%`+searchWord+`%\')                       
-                          ORDER BY C.id`, function(error, rows) {
-                                if (error) {
-                                     callback(null, {
-                                        "msg": "error",
-                                        "detail": error.code
-                                    });
-                                } else {
-                                    callback(null, rows);
-                                }
-        });
-    }
-}
-
 //obtenemos todas las empresas
 CompanyModel.listadoAccesoEmpresas = function(userData, callback) {    
     if (connection) {   

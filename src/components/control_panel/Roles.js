@@ -51,7 +51,16 @@ class Roles extends Component {
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
         });
     }
-  	render() {                     
+  	render() {  
+        let sqlParams = {                                                                                 
+                            sqlWhere : [
+                                ' AND T1.id > 1 '
+                            ],
+                            fieldSearch : [
+                                'T1.nombre'                                                              
+                            ],
+                            sqlEmpresa : "true"                                                                                                       
+                        }                    
         return (//carga el componente que contiene la grilla de datos            
             <div>
                 <DataGrid titulo='Roles' 
@@ -69,7 +78,8 @@ class Roles extends Component {
                                           icon  : 'settings',
                                           colFuncion : this.colFuncion.bind(this)
                                       }
-                                   ]} 
+                                   ]}
+                          sqlParams = { sqlParams }  
                           automatica="true"
                           botonNuevo="true"
                           formFields={[

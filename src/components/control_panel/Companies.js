@@ -10,7 +10,24 @@ import React, { Component } from 'react';
 import DataGrid from '../data_grid/DataGrid';
 
 class Companies extends Component {
-  	render() {                     
+  	render() {      
+        let sqlParams = {
+                            sqlCols : [
+                                'T1.id_tipo_documento', 
+                                'DT.nombre AS tipo_documento',
+                                'T1.documento',
+                                'T1.razon_social',
+                                'T1.nombre_comercial'
+                            ],                                                      
+                            sqlJoin : [
+                                'INNER JOIN document_types AS DT ON (DT.id = T1.id_tipo_documento)'
+                            ],
+                            fieldSearch : [
+                                'T1.documento',
+                                'T1.razon_social',
+                                'T1.nombre_comercial'                                
+                            ],                                                                                                       
+                        }                 
         return (//carga el componente que contiene la grilla de datos            
             <DataGrid titulo='Empresas' 
                       funcionClick={this.props.funcionClick} 
@@ -37,6 +54,7 @@ class Companies extends Component {
                                         field : 'nombre_comercial'
                                     },
                                 ]} 
+                      sqlParams = { sqlParams } 
                       automatica="true"
                       botonNuevo="true"
                       formFields={[
