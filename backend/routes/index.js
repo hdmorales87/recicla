@@ -1,6 +1,5 @@
 var UserModel = require('../models/User');
 var DataGridModel = require('../models/DataGrid');
-var ReciclatorModel = require('../models/Reciclator');
 var PurchaseModel = require('../models/Purchase');
 var SaleModel = require('../models/Sale');
 var RoleModel = require('../models/Role');
