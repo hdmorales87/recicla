@@ -62,7 +62,38 @@ class Users extends Component {
                                 icon  : 'settings',
                                 colFuncion : this.colFuncion.bind(this)
                             }
-        }              
+        } 
+        let sqlParams = {
+                            sqlCols : [
+                                'T1.id',
+                                'T1.id_tipo_documento',
+                                'DT.nombre AS tipo_documento',
+                                'T1.documento',
+                                'T1.nombre',
+                                'T1.primer_nombre',
+                                'T1.segundo_nombre',
+                                'T1.primer_apellido',
+                                'T1.segundo_apellido',
+                                'T1.email',
+                                'T1.direccion',
+                                'T1.telefono',
+                                'T1.id_rol',
+                                'RL.nombre AS rol',
+                                'T1.imagen_usuario'
+                            ],                                                      
+                            sqlJoin : [
+                                'INNER JOIN document_types AS DT ON (DT.id = T1.id_tipo_documento)', 
+                                'INNER JOIN roles AS RL ON (RL.id = T1.id_rol)' 
+                            ],
+                            fieldSearch : [
+                                'T1.nombre',
+                                'T1.documento',
+                                'T1.email',
+                                'T1.direccion',
+                                'T1.telefono',                                
+                            ],
+                            sqlEmpresa : "true"                                                                           
+                        }             
         return (//carga el componente que contiene la grilla de datos 
             <div>            
                 <DataGrid titulo='Usuarios' 
@@ -100,7 +131,8 @@ class Users extends Component {
                                               field : 'telefono'
                                           },
                                           botonAccesos
-                                       ]} 
+                                       ]}
+                          sqlParams = { sqlParams } 
                           automatica="true"
                           botonNuevo="true"
                           botonesExportar="true"

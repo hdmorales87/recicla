@@ -83,59 +83,6 @@ UserModel.getLogin = function(userData, callback) {
 }
 
 //obtenemos todos los usuarios
-UserModel.getUsers = function(userData, callback) {    
-    if (connection) {
-        var searchWord   = userData.searchWord;
-        var showRecords  = userData.showRecords; 
-        var offsetRecord = userData.offsetRecord; 
-        var andEmpresa   = ' AND R.id_empresa = '+userData.id_empresa;
-        if(showRecords == 1){
-            andEmpresa   = '';
-        }
-        var sql = `SELECT 
-                        R.id,
-                        R.id_tipo_documento,
-                        DT.nombre AS tipo_documento,
-                        R.documento,
-                        R.nombre,
-                        R.primer_nombre,
-                        R.segundo_nombre,
-                        R.primer_apellido,
-                        R.segundo_apellido,
-                        R.email,
-                        R.direccion,
-                        R.telefono,
-                        R.id_rol,
-                        RL.nombre AS rol,
-                        R.imagen_usuario 
-                   FROM users AS R                         
-                   INNER JOIN document_types AS DT ON (DT.id = R.id_tipo_documento) 
-                   INNER JOIN roles AS RL ON (RL.id = R.id_rol) 
-                   WHERE 
-                        R.activo = 1 
-                        `+andEmpresa+`
-                        AND (
-                        R.nombre LIKE \'%`+searchWord+`%\' 
-                        OR R.documento LIKE \'%`+searchWord+`%\' 
-                        OR R.email LIKE \'%`+searchWord+`%\'                         
-                        OR R.direccion LIKE \'%`+searchWord+`%\' 
-                        OR R.telefono LIKE \'%`+searchWord+`%\') 
-                   ORDER BY R.id LIMIT `+offsetRecord+','+showRecords;                
-                               
-        connection.query(sql, function(error, rows) {
-            if (error) {
-                 callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                callback(null, rows);
-            }
-        });
-    }
-}
-
-//obtenemos todos los usuarios
 UserModel.getUsersReport = function(userData, callback) {    
     if (connection) {
         var searchWord   = userData.searchWord;
@@ -147,34 +94,6 @@ UserModel.getUsersReport = function(userData, callback) {
                           OR direccion LIKE \'%`+searchWord+`%\' 
                           OR telefono LIKE \'%`+searchWord+`%\' 
                           ORDER BY id`, function(error, rows) {
-            if (error) {
-                 callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                callback(null, rows);
-            }
-        });
-    }
-}
-
-//obtenemos la cuenta de los tipos de compra
-UserModel.getUsersRows = function(userData, callback) {
-    if (connection) {
-        var searchWord   = userData.searchWord;          
-        connection.query(`SELECT COUNT(U.id) AS total 
-                          FROM users AS U 
-                          INNER JOIN document_types AS DT ON (DT.id = U.id_tipo_documento) 
-                          WHERE
-                            U.activo = 1
-                            AND U.id_empresa = `+userData.id_empresa+`
-                            AND ( 
-                            U.nombre LIKE \'%`+searchWord+`%\' 
-                            OR U.documento LIKE \'%`+searchWord+`%\' 
-                            OR U.email LIKE \'%`+searchWord+`%\'                        
-                            OR U.direccion LIKE \'%`+searchWord+`%\' 
-                            OR U.telefono LIKE \'%`+searchWord+'%\')', function(error, rows) {
             if (error) {
                  callback(null, {
                     "msg": "error",

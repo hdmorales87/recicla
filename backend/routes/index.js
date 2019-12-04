@@ -190,34 +190,7 @@ module.exports = function(app) {
                 }                
             }            
         });
-    });
-
-    /*
-     * metodo: usersRows
-     * tipo: GET
-     * devuelve el total de filas de los usuarios
-     */
-
-    app.get("/usersRows", function(req, res) {              
-        UserModel.getUsersRows(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
+    });    
 
     /*
      * metodo: dataGrid

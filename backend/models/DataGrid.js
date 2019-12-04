@@ -29,8 +29,8 @@ DataGridModel.getData = function(userData, callback) {
             if(filtroFecha2 == ''){
                 filtroFecha2 = '9999-99-99';
             }
-            var andFechas = '';
-            if(sqlParams.filtroFechas == 'true'){
+            var andFechas = '';            
+            if(sqlParams.fieldFechas != undefined){
                 andFechas = ' AND '+sqlParams.fieldFechas+' BETWEEN \''+filtroFecha1+'\' AND \''+filtroFecha2+'\'';
             }
             //va el filtro de busqueda
@@ -99,7 +99,7 @@ DataGridModel.getData = function(userData, callback) {
                                 `+andFechas+`
                                 `+andEmpresa+`
                                 `+strSearch;            
-            }            
+            }      
 
             connection.query(sql, function(error, rows) {
                 if (error) {

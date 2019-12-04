@@ -32,8 +32,7 @@ class Purchases extends Component {
                                 'R.nombre',
                                 'T1.peso'
                             ],
-                            sqlEmpresa : "true",                            
-                            filtroFechas : "true", 
+                            sqlEmpresa : "true",
                             fieldFechas : "T1.fecha_compra"                    
                         };    
         return (
@@ -67,7 +66,8 @@ class Purchases extends Component {
                                         field : 'valor_compra'
                                     },                                    
                                 ]}
-                      sqlParams = { sqlParams } 
+                      sqlParams = { sqlParams }
+                      filtroFechas = "true" 
                       automatica="true"
                       botonNuevo="true"
                       botonesExportar="true"                      
