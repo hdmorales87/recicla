@@ -22,7 +22,8 @@ class DataGridSelect extends Component {
                       funcionEdit = {this.props.params.funcionEdit}
                       funcionEditParams={this.props.params.fetchData}                                        
                       apiField = {this.props.params.apiField}
-                      mainContainer='DataGridSelect'/>             
+                      mainContainer='DataGridSelect'
+                      sqlParams = {this.props.params.sqlParams} />             
         )
     } 
 }

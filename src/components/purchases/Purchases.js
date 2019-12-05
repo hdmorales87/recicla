@@ -34,7 +34,7 @@ class Purchases extends Component {
                             ],
                             sqlEmpresa : "true",
                             fieldFechas : "T1.fecha_compra"                    
-                        };    
+                        };            
         return (
             <DataGrid titulo='Compras' 
                       funcionClick={this.props.funcionClick}  
@@ -111,7 +111,21 @@ class Purchases extends Component {
                                                                                 label : 'Nombre',
                                                                                 field : 'nombre'
                                                                             },
-                                                                        ] 
+                                                                        ],
+                                                         sqlParams : {
+                                                                        sqlCols : [                                
+                                                                            'documento',
+                                                                            'nombre'                                
+                                                                        ],                            
+                                                                        fieldSearch : [
+                                                                            'documento',
+                                                                            'nombre',
+                                                                            'direccion',
+                                                                            'telefono',
+                                                                            'celular'
+                                                                        ],
+                                                                        sqlEmpresa : "true",                                               
+                                                                     } 
                                                       },
                                         validation : '',
                                         required : 'true'                                        

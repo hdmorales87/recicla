@@ -92,7 +92,12 @@ class Reciclators extends Component {
                                         required : 'true',
                                         dinamic : 'true',
                                         apiField : 'document_types',
-                                        valueName : 'nombre'
+                                        valueName : 'nombre',
+                                        sqlParams : {
+                                                        sqlCols : [
+                                                            'nombre'                                
+                                                        ],                                                                                                       
+                                                    } 
                                     },                                    
                                     {
                                         label : 'Documento',

@@ -123,7 +123,21 @@ class Sales extends Component {
                                                                                 label : 'Nombre',
                                                                                 field : 'razon_social'
                                                                             },
-                                                                        ]                                                                                          
+                                                                        ],
+                                                         sqlParams : {
+                                                                        sqlCols : [                                
+                                                                            'documento',
+                                                                            'razon_social'                                
+                                                                        ],                            
+                                                                        fieldSearch : [
+                                                                            'documento',
+                                                                            'nombre_comercial',
+                                                                            'razon_social',
+                                                                            'direccion',
+                                                                            'telefono',
+                                                                        ],
+                                                                        sqlEmpresa : "true",                                               
+                                                                     }                                                                                           
                                                      },
                                         validation : '',
                                         required : 'true'                                        
