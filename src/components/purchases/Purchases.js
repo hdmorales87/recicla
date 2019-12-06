@@ -87,7 +87,14 @@ class Purchases extends Component {
                                         required : 'true',
                                         dinamic : 'true',
                                         apiField : 'product_types',
-                                        valueName : 'nombre'
+                                        valueName : 'nombre',
+                                        sqlParams : {
+                                                        sqlCols : [
+                                                            'id',
+                                                            'nombre'                                
+                                                        ], 
+                                                        andEmpresa : 'true'                                                                                                      
+                                                    }
                                     },                                    
                                     {
                                         label : 'Reciclador',                                        

@@ -145,7 +145,13 @@ class Users extends Component {
                                             required : 'true',
                                             dinamic : 'true',
                                             apiField : 'document_types',
-                                            valueName : 'nombre'
+                                            valueName : 'nombre',
+                                            sqlParams : {
+                                                            sqlCols : [
+                                                                'id',
+                                                                'nombre'                                
+                                                            ],                                                                                                       
+                                                        }
                                         },                                    
                                         {
                                             label : 'Documento',
@@ -191,7 +197,13 @@ class Users extends Component {
                                             dinamic : 'true',
                                             apiField : 'roles',
                                             valueName : 'nombre',
-                                            where : ' AND id_empresa = '+id_empresa
+                                            sqlParams : {
+                                                            sqlCols : [
+                                                                'id',
+                                                                'nombre'                                
+                                                            ],
+                                                            sqlEmpresa : 'true'                                                                                                       
+                                                        }                                            
                                         },
                                         {
                                             label : 'Correo Electronico',

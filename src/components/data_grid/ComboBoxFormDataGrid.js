@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
-import {loadComboBoxDataGrid} from '../api_calls/ApiCalls';
+import {cargarFilas} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 
@@ -23,7 +23,7 @@ class ComboBoxFormDataGrid extends Component {
     componentWillMount() {
         //llenado dinamico del combobox
         if(this.props.dinamic === 'true'){
-            loadComboBoxDataGrid(this.props.apiField,this.props.where)
+            cargarFilas(this.props.apiField,'',15,0,'','',this.props.sqlParams,'rows')
             .then(res => {
                 var response = res.data; 
                 if (response.msg === "error") {

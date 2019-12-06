@@ -66,7 +66,13 @@ class Companies extends Component {
                                         required : 'true',
                                         dinamic : 'true',
                                         apiField : 'document_types',
-                                        valueName : 'nombre'
+                                        valueName : 'nombre',
+                                        sqlParams : {
+                                                        sqlCols : [
+                                                            'id',
+                                                            'nombre'                                
+                                                        ],                                                                                                       
+                                                    }
                                     },                                    
                                     {
                                         label : 'Documento',
