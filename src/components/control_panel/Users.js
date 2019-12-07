@@ -121,6 +121,11 @@ class Users extends Component {
                                           },
                                           {
                                               type  : 'bd',
+                                              label : 'Rol',
+                                              field : 'rol'
+                                          },
+                                          {
+                                              type  : 'bd',
                                               label : 'Direccion',
                                               field : 'direccion'
                                           },

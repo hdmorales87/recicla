@@ -21,7 +21,8 @@ class Sales extends Component {
                                 'R.id AS id_cliente',
                                 'R.razon_social AS cliente',
                                 'T1.peso',
-                                'T1.id_empresa'
+                                'T1.id_empresa',
+                                'T1.factura_venta'
                             ],
                             sqlJoin : [
                                 'INNER JOIN product_types AS PT ON (PT.id = T1.id_tipo_producto)', 
@@ -132,7 +133,8 @@ class Sales extends Component {
                                                                             },
                                                                         ],
                                                          sqlParams : {
-                                                                        sqlCols : [                                
+                                                                        sqlCols : [ 
+                                                                            'id',                                 
                                                                             'documento',
                                                                             'razon_social'                                
                                                                         ],                            
@@ -150,7 +152,7 @@ class Sales extends Component {
                                         required : 'true'                                        
                                     },
                                     {
-                                        label : 'Precio',
+                                        label : 'Peso(Kg)',
                                         field : 'peso',
                                         type  : 'text',
                                         validation : 'entero',

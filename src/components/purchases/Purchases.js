@@ -120,7 +120,8 @@ class Purchases extends Component {
                                                                             },
                                                                         ],
                                                          sqlParams : {
-                                                                        sqlCols : [                                
+                                                                        sqlCols : [ 
+                                                                            'id',                               
                                                                             'documento',
                                                                             'nombre'                                
                                                                         ],                            
@@ -138,7 +139,7 @@ class Purchases extends Component {
                                         required : 'true'                                        
                                     },
                                     {
-                                        label : 'Precio',
+                                        label : 'Peso(Kg)',
                                         field : 'peso',
                                         type  : 'text',
                                         validation : 'entero',
