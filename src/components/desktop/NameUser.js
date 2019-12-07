@@ -26,7 +26,7 @@ class NameUser extends Component {
         this.state = {            
             username    : '',
             companyName : '',
-            imagenUser  : 'default.png',            
+            imagen_usuario  : 'default.png',            
         };
     }    
     componentDidMount(){//traer los datos del store  
@@ -41,9 +41,9 @@ class NameUser extends Component {
             }
         }); 
         this.unsubscribe3 = globalState.subscribe( ()=>{             
-            if(globalState.getState().type==="imageUser"){
-                if(globalState.getState().imageUser !== undefined && globalState.getState().imageUser !== ""){
-                    this.setState({imagenUser : globalState.getState().imageUser});
+            if(globalState.getState().type==="imagen_usuario"){
+                if(globalState.getState().imagen_usuario !== undefined && globalState.getState().imagen_usuario !== ""){
+                    this.setState({imagen_usuario : globalState.getState().imagen_usuario});
                 }
             }
         });       
@@ -130,7 +130,7 @@ class NameUser extends Component {
         			<Dropdown  id="ContenidoDataUser" className="ContenidoUser" onMouseOut={divMouseOut.bind(this,'ContenidoDataUser',configJson.fondoMenu)} onMouseOver={divMouseOver.bind(this,'ContenidoDataUser',configJson.fondoMenu)}>	
         				  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">  	  					 		  
       				    	  <div className="FotoUsuario">
-                          <img alt="imgAvatar" src={path+configJson.folderAvatarUser+this.state.imagenUser+'?'+randomDate} />
+                          <img alt="imgAvatar" src={path+configJson.folderAvatarUser+this.state.imagen_usuario+'?'+randomDate} />
                       </div>
                       <div className="NombreUsuario">
                           <div style={{width:'100%'}}>

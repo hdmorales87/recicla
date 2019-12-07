@@ -120,7 +120,7 @@ class Desktop extends Component {
                                         params : response1[0].razon_social.toUpperCase()
                                     });
                                     globalState.dispatch({
-                                        type   : "imageUser",
+                                        type   : "imagen_usuario",
                                         params : response[0].imagen_usuario
                                     }); 
                                     globalState.dispatch({

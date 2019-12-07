@@ -32,7 +32,7 @@ class FormDataUser extends Component {
                         documento : userData[0].documento,
                         direccion : userData[0].direccion,
                         telefono : userData[0].telefono,
-                        imagenUser  : 'default.png'
+                        imagen_usuario  : 'default.png'
                      }
 
         globalState.dispatch({//cargamos lo datos del formulario y los dejamos disponibles en toda la sesion
@@ -48,7 +48,7 @@ class FormDataUser extends Component {
                         documento : userData[0].documento,
                         direccion : userData[0].direccion,
                         telefono : userData[0].telefono,
-                        imagenUser  : userData[0].imagen_usuario 
+                        imagen_usuario  : userData[0].imagen_usuario 
                      }
         });
     }
@@ -58,7 +58,7 @@ class FormDataUser extends Component {
     componentDidMount(){
         var userData = globalState.getState().userData;    
         if(userData[0].imagen_usuario !== undefined && userData[0].imagen_usuario !== ""){
-            this.setState({imagenUser : userData[0].imagen_usuario});
+            this.setState({imagen_usuario : userData[0].imagen_usuario});
         }
     }
     changeTipoIdentificacion(e){
@@ -86,9 +86,9 @@ class FormDataUser extends Component {
                     if (response.msg === "error") {
                         alertify.alert('Error!', 'Ha ocurrido un error subiendo el archivo!<br />Codigo de Error: '+response.detail);
                     } else {                         
-                        this.setState({imagenUser : response.detail});
+                        this.setState({imagen_usuario : response.detail});
                         globalState.dispatch({
-                                        type   : "imageUser",
+                                        type   : "imagen_usuario",
                                         params : response.detail
                                     });                                  
                     }
@@ -100,6 +100,12 @@ class FormDataUser extends Component {
         } 
     }    
   	render() {
+        let sqlParams = {
+                            sqlCols : [
+                                'id',
+                                'nombre'                                
+                            ],                                                                                                       
+                        };
         var date = new Date();
         var randomDate = date.getTime();  
         var path = "http://"+window.location.hostname+":5000/";              
@@ -109,7 +115,7 @@ class FormDataUser extends Component {
                         <br />
                         <div id="contentImageUser">
                             <div className="divImageUser">
-                                <img id="ImageUser" alt="imageUser" src={path+configJson.folderAvatarUser+this.state.imagenUser+'?'+randomDate} />
+                                <img id="ImageUser" alt="imagen_usuario" src={path+configJson.folderAvatarUser+this.state.imagen_usuario+'?'+randomDate} />
                                 <input id="uploadedImageUser" type="file" name="uploadedImageUser" onChange={this.handleImageUser.bind(this)}/>
                             </div>
                         </div>
@@ -137,7 +143,15 @@ class FormDataUser extends Component {
                                 </Form.Group>                        
                                 <Form.Group controlId="formBasicLastname2">
                                      <Form.Label>Tipo Identificacion</Form.Label>
-                                     <ComboBoxFormDataGrid valueName = "nombre" apiField={'document_types'} dinamic="true" name = "id_tipo_documento" type="select" functionChange={this.changeTipoIdentificacion.bind(this)} value={this.state.id_tipo_documento}/>                                                            
+                                     <ComboBoxFormDataGrid 
+                                        valueName = "nombre" 
+                                        apiField={'document_types'} 
+                                        dinamic="true" 
+                                        name = "id_tipo_documento" 
+                                        type="select" 
+                                        functionChange={this.changeTipoIdentificacion.bind(this)} 
+                                        value={this.state.id_tipo_documento}
+                                        sqlParams = { sqlParams }/>                                                            
                                 </Form.Group>                        
                                 <Form.Group controlId="formBasicDocument">
                                      <Form.Label>Identificacion</Form.Label>
