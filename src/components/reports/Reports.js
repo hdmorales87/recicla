@@ -23,7 +23,7 @@ class Reports extends Component {
     actualizarReportContainer(optionMenu){        
         this.setState({ optionMenu: optionMenu });           
     }
-  	render() {        
+  	render() {                
   	  	return ( 
             <div style={{width:'100%',height:'100%'}}>
                 <div id="reportTbar" className="reportTbar" data-role="reportTbar" os="windows" style={{backgroundColor : configJson.windowColor}}>
@@ -41,7 +41,31 @@ class Reports extends Component {
                                             colsData : ['fecha_compra','tipo_producto','reciclador','peso','valor_compra'],                                                                                      
                                             dateFilter : 'true', 
                                             btnExcel : 'true',
-                                            btnPDF : 'true'                                                                                      
+                                            btnPDF : 'true',
+                                            sqlParams : {
+                                                sqlCols : [
+                                                    'T1.id',
+                                                    '(T1.peso * PT.precio_compra) AS valor_compra',
+                                                    'DATE_FORMAT(T1.fecha_compra,"%Y-%m-%d") AS fecha_compra',
+                                                    'PT.id AS id_tipo_producto',
+                                                    'PT.nombre AS tipo_producto',
+                                                    'R.id AS id_reciclador',
+                                                    'R.nombre AS reciclador',
+                                                    'T1.peso',
+                                                    'T1.id_empresa'
+                                                ],
+                                                sqlJoin : [
+                                                    'INNER JOIN product_types AS PT ON (PT.id = T1.id_tipo_producto)', 
+                                                    'INNER JOIN reciclators AS R ON (R.id = T1.id_reciclador)'
+                                                ],
+                                                fieldSearch : [
+                                                    'PT.nombre',
+                                                    'R.nombre',
+                                                    'T1.peso'
+                                                ],
+                                                sqlEmpresa : "true",
+                                                fieldFechas : "T1.fecha_compra"                    
+                                            }
                                         },                                        
                                     ]}                        
                     />
@@ -59,7 +83,32 @@ class Reports extends Component {
                                             colsHeaders : ['Fecha Venta','Producto','Cliente','Factura','Peso','Valor Venta'],
                                             colsData : ['fecha_venta','tipo_producto','cliente','factura_venta','peso','valor_venta'], 
                                             btnExcel : 'true',
-                                            btnPDF : 'true'                                                                                     
+                                            btnPDF : 'true',
+                                            sqlParams : {
+                                                sqlCols : [
+                                                    'T1.id',
+                                                    '(T1.peso * PT.precio_venta) AS valor_venta',
+                                                    'DATE_FORMAT(T1.fecha_venta,"%Y-%m-%d") AS fecha_venta',
+                                                    'PT.id AS id_tipo_producto',
+                                                    'PT.nombre AS tipo_producto',
+                                                    'R.id AS id_cliente',
+                                                    'R.razon_social AS cliente',
+                                                    'T1.peso',
+                                                    'T1.id_empresa',
+                                                    'T1.factura_venta'
+                                                ],
+                                                sqlJoin : [
+                                                    'INNER JOIN product_types AS PT ON (PT.id = T1.id_tipo_producto)', 
+                                                    'INNER JOIN customers AS R ON (R.id = T1.id_cliente) '
+                                                ],
+                                                fieldSearch : [
+                                                    'PT.nombre',
+                                                    'R.razon_social',
+                                                    'T1.peso'
+                                                ],
+                                                sqlEmpresa : "true",
+                                                fieldFechas : "T1.fecha_venta"                    
+                                            }                                                                                     
                                         },                                        
                                     ]}                        
                     />          

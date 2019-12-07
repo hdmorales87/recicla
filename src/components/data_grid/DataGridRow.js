@@ -61,7 +61,7 @@ class DataGridRow extends React.Component {
                                     </td>
                         }
                         else{
-                            return;
+                            return null;
                         }
                         return field; 
                     })

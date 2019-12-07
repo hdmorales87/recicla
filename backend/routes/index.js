@@ -15,10 +15,8 @@ module.exports = function(app) {
      * prueba de la API
      */
 
-    app.get('/', function(req, res) {
-   		//res.send("Hello World!");
-   		//console.log("hola mundo");
-   		res.send("Por default!!!");
+    app.get('/', function(req, res) {   		
+   		res.send("API trabajando!");
 	});
 
     /*
@@ -43,13 +41,8 @@ module.exports = function(app) {
                 }
                 //si el usuario existe lo mostramos en formato json
                 else if (typeof data !== 'undefined' && data.length > 0) {                  
-                    var id_empresa = data[0].id;                    
-                    //req.session.id_usuario=id_usuario; 
-                    //req.session.save(); 
-                    //req.session.save(function(err) {
-                        //console.log(req.session.id_usuario);                 
-                    res.status(200).json(data);
-                    //});
+                    var id_empresa = data[0].id;  
+                    res.status(200).json(data);                    
                 }                
                 //en otro caso mostramos una respuesta conforme no existe
                 else {
@@ -106,10 +99,7 @@ module.exports = function(app) {
      * chequea si la sesion esta activa 
      */
 
-    app.get('/checkSession', function(req, res) {        
-        //console.log(req.session);
-        //console.log(req.session.id_usuario);
-
+    app.get('/checkSession', function(req, res) { 
         if(req.session.id_usuario) {
             res.status(200).json({
                 "session": "true"
@@ -232,49 +222,7 @@ module.exports = function(app) {
                 });
             }
         });
-    }); 
-   
-    app.get("/purchasesReport", function(req, res) {              
-        PurchaseModel.getPurchasesReport(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    }); 
-    
-    app.get("/salesReport", function(req, res) {              
-        SaleModel.getSalesReport(req.query, function(error, data) {
-            if(error) {
-                res.status(200).json({
-                    "msg": "error", 
-                    "detail" : error.code                  
-                });
-            } else {
-                if(data.msg == 'error'){
-                    res.status(200).json({
-                        "msg": "error",
-                        "detail": data.detail
-                    }); 
-                }
-                else{
-                    res.status(200).json(data);
-                }                
-            }            
-        });
-    });
+    });       
 
     /*
      *  emailPassword
@@ -419,8 +367,7 @@ module.exports = function(app) {
      * guarda los permisos para el rol
      */
 
-    app.post("/guardaPermisos", function(req, res) {
-        //console.log(req.body);
+    app.post("/guardaPermisos", function(req, res) {        
         //creamos un objeto con los datos a insertar
         var formData = req.body;
           
@@ -715,8 +662,7 @@ module.exports = function(app) {
      * guarda los accesos a las empresas para el usuario
      */
 
-    app.post("/guardaAccesoEmpresas", function(req, res) {
-        //console.log(req.body);
+    app.post("/guardaAccesoEmpresas", function(req, res) {        
         //creamos un objeto con los datos a insertar
         var formData = req.body;
           
@@ -765,10 +711,6 @@ module.exports = function(app) {
     //***********************************metodos para debug!!!****************************************//
 
     app.get('/checks', function(req, res) {
-
-        //console.log(req.session);
-        //console.log(req.session.email);
-
         if(req.session.count) {
             req.session.count++;
             //res.end(content);

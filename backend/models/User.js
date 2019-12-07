@@ -82,30 +82,6 @@ UserModel.getLogin = function(userData, callback) {
     }
 }
 
-//obtenemos todos los usuarios
-UserModel.getUsersReport = function(userData, callback) {    
-    if (connection) {
-        var searchWord   = userData.searchWord;
-       // var showRecords  = userData.showRecords; 
-        //var offsetRecord = userData.offsetRecord;       
-        connection.query(`SELECT * FROM users WHERE 
-                          nombre LIKE \'%`+searchWord+`%\' 
-                          OR email LIKE \'%`+searchWord+`%\'                         
-                          OR direccion LIKE \'%`+searchWord+`%\' 
-                          OR telefono LIKE \'%`+searchWord+`%\' 
-                          ORDER BY id`, function(error, rows) {
-            if (error) {
-                 callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                callback(null, rows);
-            }
-        });
-    }
-}
-
 UserModel.checkUsername = function(username, callback) {
     if (connection) {
         var sqlExists = 'SELECT COUNT(*) AS cuenta FROM users WHERE activo = 1 AND email = ' + connection.escape(username);

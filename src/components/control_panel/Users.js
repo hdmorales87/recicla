@@ -51,8 +51,7 @@ class Users extends Component {
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
         });
     }
-    render() {     
-        var id_empresa = globalState.getState().companyData[0].id; 
+    render() {
         var idRol = globalState.getState().idRol;
         var botonAccesos = '';
         if(idRol === 1){

@@ -3,43 +3,6 @@ var connection = require('../bd/bd');
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var SaleModel = {};
 
-//obtenemos todas las ventas
-SaleModel.getSalesReport = function(userData, callback) {    
-    if (connection) {
-        var fecha1   = userData.fecha1;
-        var fecha2   = userData.fecha2;
-
-        connection.query(`SELECT 
-                                P.id,
-                                P.factura_venta,
-                                (P.peso * PT.precio_venta) AS valor_venta,
-                                DATE_FORMAT(P.fecha_venta,"%Y-%m-%d") AS fecha_venta,
-                                PT.id AS id_tipo_producto,
-                                PT.nombre AS tipo_producto,
-                                R.id AS id_cliente,
-                                R.razon_social AS cliente,
-                                P.peso,
-                                P.id_empresa 
-                           FROM sales AS P  
-                           INNER JOIN product_types AS PT ON (PT.id = P.id_tipo_producto) 
-                           INNER JOIN customers AS R ON (R.id = P.id_cliente) 
-                           WHERE 
-                                P.activo = 1
-                                AND P.fecha_venta BETWEEN \'`+fecha1+`\' AND \'`+fecha2+`\'
-                                AND P.id_empresa = `+userData.id_empresa+`                                                
-                           ORDER BY P.fecha_venta`, function(error, rows) {
-            if (error) {
-                 callback(null, {
-                    "msg": "error",
-                    "detail": error.code
-                });
-            } else {
-                callback(null, rows);
-            }
-        });
-    }
-}
-
 //obtener el indicador de ventas
 SaleModel.indicadorVentas1 = function(userData, callback) {
     if (connection) {         

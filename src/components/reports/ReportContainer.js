@@ -12,7 +12,7 @@ import MaterialIcon from 'material-icons-react';
 import ReactToPdf from 'react-to-pdf';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import DatePicker from 'react-date-picker';
-import {cargarDatosReporte} from '../api_calls/ApiCalls';
+import {cargarFilas} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 
@@ -52,8 +52,8 @@ class ReportContainer extends Component {
         fecha1 = new Date(fecha1.getTime() - (fecha1.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
         fecha2 = new Date(fecha2.getTime() - (fecha2.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
 
-        //generacion del reporte     
-        cargarDatosReporte(this.props.optionMenu.table,fecha1,fecha2)
+        //generacion del reporte  
+        cargarFilas(this.props.optionMenu.table,'',100000,0,fecha1,fecha2,this.props.optionMenu.sqlParams,'rows')
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
