@@ -121,8 +121,8 @@ class ResetPasswordForm extends Component {
 	                                            <Form.Label>Repita Password</Form.Label>
 	                                            <Form.Control name = "repitaPassword" type="password" onChange={this.handleRepitaPassword.bind(this)} value={this.state.repitaPassword}/>                               
 	                                      </Form.Group>
-	                                      <Form.Group controlId="formBasicResetPwd" style={{height:'30px',marginTop:'20px',marginBottom:'0px'}}>
-		                                      <Button id="formGridBtnSave" style={{padding:'10px 20px',margin: '20px 0',backgroundColor:configJson.fondoBotonGrilla}} className="float-left mr-3" variant="primary" onClick={this.handleResetPasswordButton.bind(this)} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>
+	                                      <Form.Group controlId="formBasicResetPwd" style={{height:'50px',marginTop:'20px',marginBottom:'0px'}}>
+		                                      <Button id="formGridBtnSave" style={{padding:'10px 20px',margin: '5px 0',backgroundColor:configJson.fondoBotonGrilla}} className="float-left mr-3" variant="primary" onClick={this.handleResetPasswordButton.bind(this)} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>
 	    				  	      					NUEVO PASSWORD
 	    				  	    			  </Button>
 	    				  	    		  </Form.Group>  
