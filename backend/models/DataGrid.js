@@ -19,7 +19,7 @@ DataGridModel.getData = function(userData, callback) {
             var sqlParams = JSON.parse(userData.sqlParams);
             //si valida id de empresa
             var andEmpresa   = ' AND T1.id_empresa = '+userData.id_empresa;
-            if(showRecords == 1 || sqlParams.sqlEmpresa != 'true'){
+            if(sqlParams.sqlEmpresa != 'true'){
                 andEmpresa   = '';
             }
             //si van los campos de fechas
@@ -99,8 +99,7 @@ DataGridModel.getData = function(userData, callback) {
                                 `+andFechas+`
                                 `+andEmpresa+`
                                 `+strSearch;            
-            }      
-
+            }
             connection.query(sql, function(error, rows) {
                 if (error) {
                      callback(null, {

@@ -44,7 +44,7 @@ class ComboBoxFormDataGrid extends Component {
 
   	render() {   
         var valueText = this.props.value;    
-        if(valueText > 0){
+        if(valueText > 0 || (typeof valueText === 'string' && valueText.length > 0)){
             //...
         }
         else{

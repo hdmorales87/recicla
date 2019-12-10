@@ -18,6 +18,7 @@ import ProductTypes from '../control_panel/ProductTypes';
 import Companies from '../control_panel/Companies';
 import Roles from '../control_panel/Roles';
 import Users from '../control_panel/Users';
+import Smtp from '../control_panel/Smtp';
 import FormDataGrid from '../data_grid/FormDataGrid';
 import Reports from '../reports/Reports';
 import WelcomePage from './WelcomePage';
@@ -40,7 +41,8 @@ class Container extends Component {
 			Roles          : Roles,
 			Users 		   : Users,
 			FormDataGrid   : FormDataGrid,			
-			Reports  	   : Reports						  
+			Reports  	   : Reports,
+			Smtp           : Smtp						  
 		} 
 		
   		let ChildComponent = componentList[this.props.componente];		

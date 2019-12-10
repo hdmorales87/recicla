@@ -13,45 +13,52 @@ class Smtp extends Component {
   	render() {      
         let sqlParams = {
                             sqlCols : [
-                                'T1.id_tipo_documento', 
-                                'DT.nombre AS tipo_documento',
-                                'T1.documento',
-                                'T1.razon_social',
-                                'T1.nombre_comercial'
-                            ],                                                      
-                            sqlJoin : [
-                                'INNER JOIN document_types AS DT ON (DT.id = T1.id_tipo_documento)'
+                                'correo', 
+                                'servidor',
+                                'puerto',
+                                'autenticacion',
+                                'password',
+                                'seguridad_smtp'
                             ],
+                            sqlEmpresa : "true",  
                             fieldSearch : [
-                                'T1.documento',
-                                'T1.razon_social',
-                                'T1.nombre_comercial'                                
+                                'correo'                        
                             ],                                                                                                       
                         }                 
         return (//carga el componente que contiene la grilla de datos            
-            <DataGrid titulo='Empresas' 
+            <DataGrid titulo='Configuracion SMTP' 
                       funcionClick={this.props.funcionClick} 
                       parametro={this.props.parametro}
                       colsData={[ 
                                     {
                                         type  : 'bd',
-                                        label : 'Tipo Documento',
-                                        field : 'tipo_documento'
+                                        label : 'Servidor SMTP',
+                                        field : 'servidor'
                                     },
                                     {
                                         type  : 'bd',
-                                        label : 'Documento',
-                                        field : 'documento'
+                                        label : 'Usuario',
+                                        field : 'correo'
                                     },
                                     {
                                         type  : 'bd',
-                                        label : 'Razon Social',
-                                        field : 'razon_social'
+                                        label : 'Password',
+                                        field : 'password'
                                     },
                                     {
                                         type  : 'bd',
-                                        label : 'Nombre Comercial',
-                                        field : 'nombre_comercial'
+                                        label : 'Puerto',
+                                        field : 'puerto',                                        
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Seguridad',
+                                        field : 'seguridad_smtp',                                        
+                                    },
+                                    {
+                                        type  : 'bd',
+                                        label : 'Autenticacion',
+                                        field : 'autenticacion',                                        
                                     },
                                 ]} 
                       sqlParams = { sqlParams } 
@@ -59,42 +66,79 @@ class Smtp extends Component {
                       botonNuevo="true"
                       formFields={[
                                     {
-                                        label : 'Tipo de Documento',
-                                        field : 'id_tipo_documento',
-                                        type  : 'select',
-                                        validation : '',
-                                        required : 'true',
-                                        dinamic : 'true',
-                                        apiField : 'document_types',
-                                        valueName : 'nombre',
-                                        sqlParams : {
-                                                        sqlCols : [
-                                                            'id',
-                                                            'nombre'                                
-                                                        ],                                                                                                       
-                                                    }
-                                    },                                    
-                                    {
-                                        label : 'Documento',
-                                        field : 'documento',
+                                        label : 'Servidor SMTP',
+                                        field : 'servidor',
                                         type  : 'text',
-                                        validation : 'entero',
+                                        validation : '',
                                         required : 'true'                                        
                                     },
                                     {
-                                        label : 'Razon Social',
-                                        field : 'razon_social',
+                                        label : 'Usuario',
+                                        field : 'correo',
                                         type  : 'text',
-                                        validation : 'mayusculas',
-                                        required : 'true'
+                                        validation : 'email',
+                                        required : 'true'                                        
                                     },
                                     {
-                                        label : 'Nombre Comercial',
-                                        field : 'nombre_comercial',
+                                        label : 'Password',
+                                        field : 'password',
                                         type  : 'text',
-                                        validation : 'mayusculas',
-                                        required : 'true'
-                                    }                                                                         
+                                        validation : '',
+                                        required : 'true'                                        
+                                    },
+                                    {
+                                        label : 'Puerto',
+                                        field : 'puerto',
+                                        type  : 'text',
+                                        validation : 'entero',
+                                        required : 'true'                                        
+                                    },                                    
+                                    {
+                                        label : 'Seguridad',
+                                        field : 'seguridad_smtp',
+                                        type  : 'select',
+                                        validation : '',
+                                        required : 'true',
+                                        dinamic : 'false',
+                                        valueName : 'nombre',
+                                        options :  [{
+                                                        id: 'no',
+                                                        nombre: 'Ninguna',
+                                                    },
+                                                    {
+                                                        id: 'tls',
+                                                        nombre: 'TLS', 
+                                                    },
+                                                    {
+                                                        id: 'ssl',
+                                                        nombre: 'SSL', 
+                                                    }],                                        
+                                    },  
+                                    ,                                    
+                                    {
+                                        label : 'Autenticacion',
+                                        field : 'autenticacion',
+                                        type  : 'select',
+                                        validation : '',
+                                        required : 'true',
+                                        dinamic : 'false',
+                                        valueName : 'nombre',
+                                        options :  [{
+                                                        id: 'no',
+                                                        nombre: 'No',
+                                                    },
+                                                    {
+                                                        id: 'si',
+                                                        nombre: 'Si', 
+                                                    }],                                        
+                                    },
+                                    {
+                                        label : '',
+                                        field : 'id_empresa',
+                                        type  : 'campo_empresa',
+                                        validation : '',
+                                        required : 'true'                                        
+                                    },                                                                 
                                 ]}                     
                       apiField={'companies_smtp'}
                       mainContainer='Smtp'/>              

@@ -141,10 +141,8 @@ class FormDataGrid extends Component {
         if(validation === 'numero_texto'){
             ingresado = ingresado.replace(/[^a-zA-Z0-9&]/g,'');
             ingresado = ingresado.toUpperCase();
-        }       
-        
+        }
         this.setState({ [e.target.name]: ingresado });
-            
     }   
     handleDeleteButton(id){//boton eliminar
         alertify.confirm('Confirmacion', 'Esta seguro(a) de eliminar este item?', this.handleConfirmAction.bind(this,id), function(){});
