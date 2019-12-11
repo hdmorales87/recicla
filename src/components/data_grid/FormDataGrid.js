@@ -29,9 +29,10 @@ class FormDataGrid extends Component {
         this.handleCancelButton = this.handleCancelButton.bind(this);
         this.handleSaveButton   = this.handleSaveButton.bind(this);
         this.handleConfirmAction = this.handleConfirmAction.bind(this);
-        this.funcionEditDataSelect = this.funcionEditDataSelect.bind(this);               
-    } 
-    componentWillMount(){
+        this.funcionEditDataSelect = this.funcionEditDataSelect.bind(this); 
+                     
+    }
+    cargarCampos(){
         this.props.parametro.formFields.forEach((formFields,i) => {            
             if(this.props.parametro.idRow !== 0){                
                 if(this.props.parametro.idRow[formFields.field] === '' || this.props.parametro.idRow[formFields.field] === undefined || this.props.parametro.idRow[formFields.field] === null){
@@ -61,6 +62,14 @@ class FormDataGrid extends Component {
                 }                
             }
         });
+    } 
+    componentWillMount(){        
+        this.cargarCampos();
+    }
+    componentDidUpdate(prevProps){
+        if (this.props.parametro !== prevProps.parametro) {           
+            this.cargarCampos();
+        }          
     } 
     componentDidMount(){
         this.setState({windowDataSelectId : ''});
@@ -115,7 +124,7 @@ class FormDataGrid extends Component {
             }
             else {
                 //aqui es donde refresca el datagrid una vez se han hecho los cambios
-                this.props.funcionClick(this.props.parametro.mainContainer);              
+                this.props.funcionClick(this.props.parametro.mainContainer);                
             }
         })
         .catch(function (error) {

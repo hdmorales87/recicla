@@ -96,8 +96,7 @@ class Desktop extends Component {
                             sqlJoin : [
                                 'INNER JOIN document_types AS DT ON (DT.id = T1.id_tipo_documento)', 
                                 'INNER JOIN roles AS RL ON (RL.id = T1.id_rol)' 
-                            ],
-                            mode : 'rows'                                                 
+                            ],                                                                             
                         }
                         cargarFilas('users',usuario,1,0,'','',sqlParams,'rows')
                         .then(res => {
