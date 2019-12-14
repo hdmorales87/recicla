@@ -84,7 +84,7 @@ UserModel.getLogin = function(userData, callback) {
 
 UserModel.checkUsername = function(username, callback) {
     if (connection) {
-        var sqlExists = 'SELECT COUNT(*) AS cuenta FROM users WHERE activo = 1 AND email = ' + connection.escape(username);
+        var sqlExists = 'SELECT COUNT(*) AS cuenta,id_empresa FROM users WHERE activo = 1 AND email = ' + connection.escape(username);
         connection.query(sqlExists, function(err, row) {
             if(err){
                 callback(null, {
@@ -93,7 +93,8 @@ UserModel.checkUsername = function(username, callback) {
             } 
             else if (row[0].cuenta > 0) {
                 callback(null, {
-                    "msg": "true"
+                    "msg": "true",
+                    "id_empresa" : row[0].id_empresa
                 });
             } else {
                 callback(null, {

@@ -344,3 +344,13 @@ export function validarAccesoEmpresas(idUser,idEmpresa){
     		    } 
     		});
 }
+
+export function checkSMTP(email,id_empresa){
+	//envia un correo electronico para verificar la conexion SMTP
+	return axios({
+        	    method: 'post',
+        	    url: path+'checkSMTP',
+        	    data: { 'email': email,'id_empresa': id_empresa },
+        	    withCredentials: true
+        	}); 
+}

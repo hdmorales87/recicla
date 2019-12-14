@@ -54,6 +54,7 @@ class WindowResetPassword extends Component {
                 }
             })
             .catch(function (error) {
+                modalLoadingRstPwd(false,modalLoading); 
                 alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+error);
             });
         }        

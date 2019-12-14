@@ -255,6 +255,34 @@ module.exports = function(app) {
     });
 
     /*
+     *  checkSMTP
+     *  tipo: POST
+     *  envia el mail de prueba SMTP    
+     */
+
+    //utilizamos el verbo post para enviar un correo
+    app.post("/checkSMTP", function(req, res) {
+        //email del usuario a enviar correo
+        MailerModel.checkSMTP(req.body, function(error, data) {
+            if(data.msg == 'success'){
+                res.status(200).json({
+                    "msg": "success"
+                });
+            }
+            else if(data.msg == 'not_found'){
+                res.status(200).json({
+                    "msg": "not_found"
+                });
+            } else if(data.msg == 'error') {
+                res.status(200).json({
+                    "msg": "error",
+                    "detail": data.detail
+                });
+            }            
+        });
+    });
+
+    /*
      *  checkToken
      *  tipo: POST
      *  chequea si el token del usuario es valido   
