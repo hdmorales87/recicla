@@ -3,14 +3,14 @@ Navicat MySQL Data Transfer
 
 Source Server         : SERVIDOR DEMOS
 Source Server Version : 100130
-Source Host           : 127.0.0.1:3306
+Source Host           : localhost:3306
 Source Database       : recicla
 
 Target Server Type    : MYSQL
 Target Server Version : 100130
 File Encoding         : 65001
 
-Date: 2019-11-30 12:18:55
+Date: 2019-12-14 16:48:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,6 +34,27 @@ CREATE TABLE `companies` (
 -- Records of companies
 -- ----------------------------
 INSERT INTO `companies` VALUES ('1', 'EMPRESA DEMO', 'EMPRESA DEMO', '1', '123456', '');
+
+-- ----------------------------
+-- Table structure for companies_smtp
+-- ----------------------------
+DROP TABLE IF EXISTS `companies_smtp`;
+CREATE TABLE `companies_smtp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_empresa` int(11) NOT NULL,
+  `correo` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `servidor` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `puerto` int(11) NOT NULL,
+  `autenticacion` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `password` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `seguridad_smtp` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `activo` bit(1) DEFAULT b'1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of companies_smtp
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for customers
@@ -82,11 +103,18 @@ CREATE TABLE `modulos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- ----------------------------
 -- Records of modulos
 -- ----------------------------
+INSERT INTO `modulos` VALUES ('1', 'dashboard');
+INSERT INTO `modulos` VALUES ('2', 'ventas');
+INSERT INTO `modulos` VALUES ('3', 'compras');
+INSERT INTO `modulos` VALUES ('4', 'clientes');
+INSERT INTO `modulos` VALUES ('5', 'recicladores');
+INSERT INTO `modulos` VALUES ('6', 'informes');
+INSERT INTO `modulos` VALUES ('7', 'administracion');
 
 -- ----------------------------
 -- Table structure for permisos
@@ -99,11 +127,29 @@ CREATE TABLE `permisos` (
   `orden` int(10) DEFAULT NULL,
   `nivel` smallint(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- ----------------------------
 -- Records of permisos
 -- ----------------------------
+INSERT INTO `permisos` VALUES ('1', 'Dashboard', '1', '100', '1');
+INSERT INTO `permisos` VALUES ('2', 'Ingreso Modulo de Ventas', '2', '200', '1');
+INSERT INTO `permisos` VALUES ('3', 'Insertar/Editar Ventas', '2', '210', '2');
+INSERT INTO `permisos` VALUES ('4', 'Eliminar Ventas', '2', '220', '2');
+INSERT INTO `permisos` VALUES ('5', 'Ingreso Modulo de Compras', '3', '300', '1');
+INSERT INTO `permisos` VALUES ('6', 'Insertar/Editar Compras', '3', '310', '2');
+INSERT INTO `permisos` VALUES ('7', 'Eliminar Compras', '3', '320', '2');
+INSERT INTO `permisos` VALUES ('8', 'Ingreso Modulo de Clientes', '4', '400', '1');
+INSERT INTO `permisos` VALUES ('9', 'Insertar/Editar Clientes', '4', '410', '2');
+INSERT INTO `permisos` VALUES ('10', 'Eliminar Clientes', '4', '420', '2');
+INSERT INTO `permisos` VALUES ('11', 'Ingreso Modulo de Recicladores', '5', '500', '1');
+INSERT INTO `permisos` VALUES ('12', 'Insertar/Editar Recicladores', '5', '510', '2');
+INSERT INTO `permisos` VALUES ('13', 'Eliminar Recicladores', '5', '520', '2');
+INSERT INTO `permisos` VALUES ('14', 'Ingreso Modulo de Informes', '6', '600', '1');
+INSERT INTO `permisos` VALUES ('15', 'Ingreso Panel de Control', '7', '700', '1');
+INSERT INTO `permisos` VALUES ('16', 'Tipos de Producto', '7', '705', '2');
+INSERT INTO `permisos` VALUES ('18', 'Usuarios', '7', '715', '2');
+INSERT INTO `permisos` VALUES ('20', 'Roles', '7', '725', '2');
 
 -- ----------------------------
 -- Table structure for product_types
@@ -114,6 +160,7 @@ CREATE TABLE `product_types` (
   `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `precio_compra` int(11) NOT NULL,
   `precio_venta` int(11) DEFAULT NULL,
+  `id_empresa` int(10) DEFAULT NULL,
   `activo` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
@@ -272,3 +319,19 @@ CREATE TABLE `users_companies` (
 -- ----------------------------
 -- Records of users_companies
 -- ----------------------------
+DROP TRIGGER IF EXISTS `users_INSERT`;
+DELIMITER ;;
+CREATE TRIGGER `users_INSERT` BEFORE INSERT ON `users` FOR EACH ROW BEGIN
+        SET NEW.password = MD5('123456');
+        SET NEW.nombre = CONCAT(NEW.primer_nombre,' ',NEW.segundo_nombre,' ',NEW.primer_apellido,' ',NEW.segundo_apellido);
+END
+;;
+DELIMITER ;
+DROP TRIGGER IF EXISTS `user_UPDATE`;
+DELIMITER ;;
+CREATE TRIGGER `user_UPDATE` BEFORE UPDATE ON `users` FOR EACH ROW BEGIN        
+        SET NEW.nombre = CONCAT(NEW.primer_nombre,' ',NEW.segundo_nombre,' ',NEW.primer_apellido,' ',NEW.segundo_apellido);
+END
+;;
+DELIMITER ;
+SET FOREIGN_KEY_CHECKS=1;
