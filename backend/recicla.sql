@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100130
 File Encoding         : 65001
 
-Date: 2019-12-14 16:48:08
+Date: 2019-12-16 14:16:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -50,11 +50,12 @@ CREATE TABLE `companies_smtp` (
   `seguridad_smtp` varchar(255) COLLATE latin1_general_ci NOT NULL,
   `activo` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of companies_smtp
 -- ----------------------------
+INSERT INTO `companies_smtp` VALUES ('1', '1', 'warrior1987@gmail.com', 'smtp.gmail.com', '465', 'si', 'uxcmxfztiqmwjqja', 'ssl', '');
 
 -- ----------------------------
 -- Table structure for customers
@@ -73,11 +74,12 @@ CREATE TABLE `customers` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `customers_document_unique` (`documento`) USING BTREE,
   KEY `customers_id_document_type_foreign` (`id_tipo_documento`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of customers
 -- ----------------------------
+INSERT INTO `customers` VALUES ('1', '2', '856963258', 'CARTONES COLOMBIA', 'CARTONERA DE COLOMBIA SAS', 'CRA 9 23 45', '4458596', '1', '');
 
 -- ----------------------------
 -- Table structure for document_types
@@ -88,12 +90,13 @@ CREATE TABLE `document_types` (
   `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `activo` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of document_types
 -- ----------------------------
 INSERT INTO `document_types` VALUES ('1', 'C.C', '');
+INSERT INTO `document_types` VALUES ('2', 'NIT', '');
 
 -- ----------------------------
 -- Table structure for modulos
@@ -150,6 +153,7 @@ INSERT INTO `permisos` VALUES ('15', 'Ingreso Panel de Control', '7', '700', '1'
 INSERT INTO `permisos` VALUES ('16', 'Tipos de Producto', '7', '705', '2');
 INSERT INTO `permisos` VALUES ('18', 'Usuarios', '7', '715', '2');
 INSERT INTO `permisos` VALUES ('20', 'Roles', '7', '725', '2');
+INSERT INTO `permisos` VALUES ('17', 'Configuracion SMTP', '7', '710', '2');
 
 -- ----------------------------
 -- Table structure for product_types
@@ -163,11 +167,12 @@ CREATE TABLE `product_types` (
   `id_empresa` int(10) DEFAULT NULL,
   `activo` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of product_types
 -- ----------------------------
+INSERT INTO `product_types` VALUES ('1', 'CARTON', '4500', '6000', '1', '');
 
 -- ----------------------------
 -- Table structure for purchases
@@ -184,11 +189,12 @@ CREATE TABLE `purchases` (
   PRIMARY KEY (`id`),
   KEY `purchases_id_type_purchase_foreign` (`id_tipo_producto`) USING BTREE,
   KEY `purchases_id_reciclator_foreign` (`id_reciclador`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of purchases
 -- ----------------------------
+INSERT INTO `purchases` VALUES ('1', '2019-12-16', '1', '1', '10.00', '1', '');
 
 -- ----------------------------
 -- Table structure for reciclators
@@ -209,11 +215,12 @@ CREATE TABLE `reciclators` (
   UNIQUE KEY `reciclators_document_unique` (`documento`) USING BTREE,
   KEY `reciclators_id_document_type_foreign` (`id_tipo_documento`) USING BTREE,
   KEY `reciclators_id_type_purchase_foreign` (`id_tipo_producto`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of reciclators
 -- ----------------------------
+INSERT INTO `reciclators` VALUES ('1', '1', '214124124', 'CARLOS MARIO RENTERIA', 'CLL 56 # 33-25', '4458563', '3159636344', '1', '1', '');
 
 -- ----------------------------
 -- Table structure for roles
@@ -225,13 +232,14 @@ CREATE TABLE `roles` (
   `id_empresa` int(10) DEFAULT NULL,
   `activo` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of roles
 -- ----------------------------
 INSERT INTO `roles` VALUES ('1', 'SUPERUSUARIO', '0', '');
 INSERT INTO `roles` VALUES ('2', 'ADMINISTRADOR', '1', '');
+INSERT INTO `roles` VALUES ('3', 'USUARIO', '1', '');
 
 -- ----------------------------
 -- Table structure for roles_permisos
@@ -242,11 +250,35 @@ CREATE TABLE `roles_permisos` (
   `id_rol` int(10) DEFAULT NULL,
   `id_permiso` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=FIXED;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=FIXED;
 
 -- ----------------------------
 -- Records of roles_permisos
 -- ----------------------------
+INSERT INTO `roles_permisos` VALUES ('1', '2', '1');
+INSERT INTO `roles_permisos` VALUES ('2', '2', '2');
+INSERT INTO `roles_permisos` VALUES ('3', '2', '3');
+INSERT INTO `roles_permisos` VALUES ('4', '2', '4');
+INSERT INTO `roles_permisos` VALUES ('5', '2', '5');
+INSERT INTO `roles_permisos` VALUES ('6', '2', '6');
+INSERT INTO `roles_permisos` VALUES ('7', '2', '7');
+INSERT INTO `roles_permisos` VALUES ('8', '2', '8');
+INSERT INTO `roles_permisos` VALUES ('9', '2', '9');
+INSERT INTO `roles_permisos` VALUES ('10', '2', '10');
+INSERT INTO `roles_permisos` VALUES ('11', '2', '11');
+INSERT INTO `roles_permisos` VALUES ('12', '2', '12');
+INSERT INTO `roles_permisos` VALUES ('13', '2', '13');
+INSERT INTO `roles_permisos` VALUES ('14', '2', '14');
+INSERT INTO `roles_permisos` VALUES ('15', '2', '15');
+INSERT INTO `roles_permisos` VALUES ('16', '2', '16');
+INSERT INTO `roles_permisos` VALUES ('17', '2', '18');
+INSERT INTO `roles_permisos` VALUES ('18', '2', '20');
+INSERT INTO `roles_permisos` VALUES ('19', '3', '1');
+INSERT INTO `roles_permisos` VALUES ('20', '3', '2');
+INSERT INTO `roles_permisos` VALUES ('21', '3', '5');
+INSERT INTO `roles_permisos` VALUES ('22', '3', '8');
+INSERT INTO `roles_permisos` VALUES ('23', '3', '11');
+INSERT INTO `roles_permisos` VALUES ('24', '3', '14');
 
 -- ----------------------------
 -- Table structure for sales
@@ -264,11 +296,12 @@ CREATE TABLE `sales` (
   PRIMARY KEY (`id`),
   KEY `purchases_id_type_purchase_foreign` (`id_tipo_producto`) USING BTREE,
   KEY `purchases_id_reciclator_foreign` (`id_cliente`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sales
 -- ----------------------------
+INSERT INTO `sales` VALUES ('1', '2019-12-16', 'CLG 8569', '1', '1', '20.00', '1', '');
 
 -- ----------------------------
 -- Table structure for users
@@ -289,21 +322,22 @@ CREATE TABLE `users` (
   `telefono` varchar(50) COLLATE utf8_unicode_ci DEFAULT '',
   `token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `id_empresa` int(5) DEFAULT NULL,
-  `imagen_usuario` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `imagen_usuario` varchar(50) COLLATE utf8_unicode_ci DEFAULT '',
   `id_rol` int(10) DEFAULT NULL,
   `activo` bit(1) DEFAULT b'1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_document_unique` (`documento`),
   UNIQUE KEY `users_email_unique` (`email`),
   KEY `users_id_document_type_foreign` (`id_tipo_documento`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', '1', '1113624878', 'Hector', 'David', 'Morales', 'Lopez', 'Hector', 'hector@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'asfasfas', 'asfasfasfasf', 'RnJpIE5vdiAwMSAyMDE5IDIyOjA2OjUyIEdNVCswMDAwIChVVEMp', '1', '1.jpg', '1', '');
+INSERT INTO `users` VALUES ('1', '1', '1113624878', 'HECTOR', 'David', 'Morales', 'Lopez', 'HECTOR David Morales Lopez', 'warrior1987@gmail.com', '183876f12dd23b1765197361b25c20b0', 'asfasfas', 'asfasfasfasf', '', '1', '1.jpg', '1', '');
 INSERT INTO `users` VALUES ('12', '1', '1113456789', 'DIDI', 'ALEX', 'INAGAN', 'ROSERO', 'DIDI ALEX INAGAN ROSERO', 'alexinagan@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'CLL 56 33 95', '4456789', null, '1', '', '2', '');
 INSERT INTO `users` VALUES ('13', '1', '1130661106', 'ERIKA', 'VIVIANA', 'FISCAL', 'CAICEDO', 'ERIKA VIVIANA FISCAL CAICEDO', 'fiscal.erika@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'CLL 45 33 45', '4456789', null, '1', '', '2', '');
+INSERT INTO `users` VALUES ('14', '1', '12345678', 'USUARIO', '', 'DEMO', '', 'USUARIO  DEMO ', 'camilalondono140@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'CLL 45 # 32-25', '4458596', null, '1', '', '3', '');
 
 -- ----------------------------
 -- Table structure for users_companies
