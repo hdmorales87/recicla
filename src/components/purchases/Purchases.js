@@ -154,6 +154,8 @@ class Purchases extends Component {
                                     },
                                 ]}                     
                       apiField = {'purchases'}
+                      permisoInsertUpdate="6"
+                      permisoDelete="7"
                       mainContainer='Purchases'/>             
         )
     } 

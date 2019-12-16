@@ -136,6 +136,8 @@ class Customers extends Component {
                                     },
                                 ]}                     
                       apiField = {'customers'}
+                      permisoInsertUpdate="9"
+                      permisoDelete="10"
                       mainContainer='Customers'/> 	
   	  	);
   	}

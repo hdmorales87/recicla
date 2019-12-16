@@ -161,6 +161,8 @@ class Reciclators extends Component {
                                     },
                                 ]}                     
                       apiField = {'reciclators'}
+                      permisoInsertUpdate="12"
+                      permisoDelete="13"
                       mainContainer='Reciclators'/> 	
   	  	);
   	}
