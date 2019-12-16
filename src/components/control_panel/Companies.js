@@ -13,6 +13,7 @@ class Companies extends Component {
   	render() {      
         let sqlParams = {
                             sqlCols : [
+                                'T1.id',
                                 'T1.id_tipo_documento', 
                                 'DT.nombre AS tipo_documento',
                                 'T1.documento',
