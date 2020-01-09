@@ -125,7 +125,7 @@ class NameUser extends Component {
     render() {
           var date = new Date();
           var randomDate = date.getTime(); 
-          var path = "http://"+window.location.hostname+":5000/";
+          var path = "http://"+window.location.hostname+":5001/";
     	  	return (//carga el menu de opciones del usuario  	  		
         			<Dropdown  id="ContenidoDataUser" className="ContenidoUser" onMouseOut={divMouseOut.bind(this,'ContenidoDataUser',configJson.fondoMenu)} onMouseOver={divMouseOver.bind(this,'ContenidoDataUser',configJson.fondoMenu)}>	
         				  <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">  	  					 		  
