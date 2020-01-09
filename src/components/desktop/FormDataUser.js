@@ -141,7 +141,7 @@ class FormDataUser extends Component {
                                      <Form.Label>Segundo Apellido</Form.Label>
                                      <Form.Control name = "segundo_apellido" type="text" value={this.state.segundo_apellido} onChange={this.handleStateChange.bind(this)}/>                               
                                 </Form.Group>                        
-                                <Form.Group controlId="formBasicLastname2">
+                                <Form.Group controlId="formBasicTypeDocument">
                                      <Form.Label>Tipo Identificacion</Form.Label>
                                      <ComboBoxFormDataGrid 
                                         valueName = "nombre" 
