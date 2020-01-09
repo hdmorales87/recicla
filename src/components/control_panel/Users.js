@@ -12,9 +12,13 @@ import globalState from '../configuration/GlobalState';
 import {guardaAccesoEmpresas} from '../api_calls/ApiCalls';
 import Window from '../window/Window';
 import {modalLoading} from '../configuration/GlobalFunctions';
+import TBar from '../tbar/TBar';
 import alertify from 'alertifyjs';
 
-class Users extends Component {    
+class Users extends Component {
+    retrocederPanel(){
+        this.props.funcionClick('ControlPanel');
+    }    
     colFuncion(idUser){
         globalState.dispatch({
                 type   : "windowAccesoEmpresas",
@@ -84,6 +88,9 @@ class Users extends Component {
                                 'INNER JOIN document_types AS DT ON (DT.id = T1.id_tipo_documento)', 
                                 'INNER JOIN roles AS RL ON (RL.id = T1.id_rol)' 
                             ],
+                            sqlWhere : [
+                                ' AND T1.id_rol > 1 '
+                            ],
                             fieldSearch : [
                                 'T1.nombre',
                                 'T1.documento',
@@ -93,153 +100,171 @@ class Users extends Component {
                             ],
                             sqlEmpresa : "true"                                                                           
                         }             
-        return (//carga el componente que contiene la grilla de datos 
-            <div>            
-                <DataGrid titulo='Usuarios' 
-                          funcionClick={this.props.funcionClick}  
-                          parametro={this.props.parametro}                      
-                          colsData={[ 
-                                          {
-                                              type  : 'bd',
-                                              label : 'Tipo',
-                                              field : 'tipo_documento'
-                                          },
-                                          {
-                                              type  : 'bd',
-                                              label : 'Documento',
-                                              field : 'documento'
-                                          },
-                                          {
-                                              type  : 'bd',
-                                              label : 'Nombre',
-                                              field : 'nombre'
-                                          },
-                                          {
-                                              type  : 'bd',
-                                              label : 'Email',
-                                              field : 'email'
-                                          },
-                                          {
-                                              type  : 'bd',
-                                              label : 'Rol',
-                                              field : 'rol'
-                                          },
-                                          {
-                                              type  : 'bd',
-                                              label : 'Direccion',
-                                              field : 'direccion'
-                                          },
-                                          {
-                                              type  : 'bd',
-                                              label : 'Telefono',
-                                              field : 'telefono'
-                                          },
-                                          botonAccesos
-                                       ]}
-                          sqlParams = { sqlParams } 
-                          automatica="true"
-                          botonNuevo="true"
-                          botonesExportar="true"
-                          formFields={[
-                                        {
-                                            label : 'Tipo de Documento',
-                                            field : 'id_tipo_documento',
-                                            type  : 'select',
-                                            validation : '',
-                                            required : 'true',
-                                            dinamic : 'true',
-                                            apiField : 'document_types',
-                                            valueName : 'nombre',
-                                            sqlParams : {
-                                                            sqlCols : [
-                                                                'id',
-                                                                'nombre'                                
-                                                            ],                                                                                                       
-                                                        }
-                                        },                                    
-                                        {
-                                            label : 'Documento',
-                                            field : 'documento',
-                                            type  : 'text',
-                                            validation : 'entero',
-                                            required : 'true'                                        
-                                        },
-                                        {
-                                            label : 'Primer Nombre',
-                                            field : 'primer_nombre',
-                                            type  : 'text',
-                                            validation : 'mayusculas',
-                                            required : 'true'
-                                        },
-                                        {
-                                            label : 'Segundo Nombre',
-                                            field : 'segundo_nombre',
-                                            type  : 'text',
-                                            validation : 'mayusculas',
-                                            required : 'false'
-                                        },
-                                        {
-                                            label : 'Primer Apellido',
-                                            field : 'primer_apellido',
-                                            type  : 'text',
-                                            validation : 'mayusculas',
-                                            required : 'true'
-                                        },
-                                        {
-                                            label : 'Segundo Apellido',
-                                            field : 'segundo_apellido',
-                                            type  : 'text',
-                                            validation : 'mayusculas',
-                                            required : 'false'
-                                        },
-                                        {
-                                            label : 'Rol de Seguridad',
-                                            field : 'id_rol',
-                                            type  : 'select',
-                                            validation : '',
-                                            required : 'true',
-                                            dinamic : 'true',
-                                            apiField : 'roles',
-                                            valueName : 'nombre',
-                                            sqlParams : {
-                                                            sqlCols : [
-                                                                'id',
-                                                                'nombre'                                
-                                                            ],
-                                                            sqlEmpresa : 'true'                                                                                                       
-                                                        }                                            
-                                        },
-                                        {
-                                            label : 'Correo Electronico',
-                                            field : 'email',
-                                            type  : 'text',
-                                            validation : 'email',
-                                            required : 'true'
-                                        },
-                                        {
-                                            label : 'Direccion',
-                                            field : 'direccion',
-                                            type  : 'text',
-                                            validation : 'mayusculas',
-                                            required : 'true'
-                                        },
-                                        {
-                                            label : 'Telefono',
-                                            field : 'telefono',
-                                            type  : 'text',
-                                            validation : 'mayusculas',
-                                            required : 'true'
-                                        },
-                                        {
-                                            label : '',
-                                            field : 'id_empresa',
-                                            type  : 'campo_empresa',
-                                            validation : '',
-                                            required : 'true'                                        
-                                        },
-                                    ]}                     
-                          apiField = {'users'}
-                          mainContainer='Users'/>
+        return (//carga el componente que contiene la grilla de datos         
+            <div>
+                <TBar
+                    items={[
+                              {
+                                  type : 'boton',
+                                  icon : 'arrow_back',
+                                  width : '100px',
+                                  height : '60px',
+                                  title : 'Atras',
+                                  display : true,
+                                  function : this.retrocederPanel.bind(this)
+                              },
+                          ]}
+                    length = '1'
+                />
+                <div style={{top: "60px",position:"relative"}}>           
+                    <DataGrid titulo='Usuarios' 
+                              funcionClick={this.props.funcionClick}  
+                              parametro={this.props.parametro}                      
+                              colsData={[ 
+                                              {
+                                                  type  : 'bd',
+                                                  label : 'Tipo',
+                                                  field : 'tipo_documento'
+                                              },
+                                              {
+                                                  type  : 'bd',
+                                                  label : 'Documento',
+                                                  field : 'documento'
+                                              },
+                                              {
+                                                  type  : 'bd',
+                                                  label : 'Nombre',
+                                                  field : 'nombre'
+                                              },
+                                              {
+                                                  type  : 'bd',
+                                                  label : 'Email',
+                                                  field : 'email'
+                                              },
+                                              {
+                                                  type  : 'bd',
+                                                  label : 'Rol',
+                                                  field : 'rol'
+                                              },
+                                              {
+                                                  type  : 'bd',
+                                                  label : 'Direccion',
+                                                  field : 'direccion'
+                                              },
+                                              {
+                                                  type  : 'bd',
+                                                  label : 'Telefono',
+                                                  field : 'telefono'
+                                              },
+                                              botonAccesos
+                                           ]}
+                              sqlParams = { sqlParams } 
+                              automatica="true"
+                              botonNuevo="true"
+                              botonesExportar="true"
+                              formFields={[
+                                            {
+                                                label : 'Tipo de Documento',
+                                                field : 'id_tipo_documento',
+                                                type  : 'select',
+                                                validation : '',
+                                                required : 'true',
+                                                dinamic : 'true',
+                                                apiField : 'document_types',
+                                                valueName : 'nombre',
+                                                sqlParams : {
+                                                                sqlCols : [
+                                                                    'id',
+                                                                    'nombre'                                
+                                                                ],                                                                                                       
+                                                            }
+                                            },                                    
+                                            {
+                                                label : 'Documento',
+                                                field : 'documento',
+                                                type  : 'text',
+                                                validation : 'entero',
+                                                required : 'true'                                        
+                                            },
+                                            {
+                                                label : 'Primer Nombre',
+                                                field : 'primer_nombre',
+                                                type  : 'text',
+                                                validation : 'mayusculas',
+                                                required : 'true'
+                                            },
+                                            {
+                                                label : 'Segundo Nombre',
+                                                field : 'segundo_nombre',
+                                                type  : 'text',
+                                                validation : 'mayusculas',
+                                                required : 'false'
+                                            },
+                                            {
+                                                label : 'Primer Apellido',
+                                                field : 'primer_apellido',
+                                                type  : 'text',
+                                                validation : 'mayusculas',
+                                                required : 'true'
+                                            },
+                                            {
+                                                label : 'Segundo Apellido',
+                                                field : 'segundo_apellido',
+                                                type  : 'text',
+                                                validation : 'mayusculas',
+                                                required : 'false'
+                                            },
+                                            {
+                                                label : 'Rol de Seguridad',
+                                                field : 'id_rol',
+                                                type  : 'select',
+                                                validation : '',
+                                                required : 'true',
+                                                dinamic : 'true',
+                                                apiField : 'roles',
+                                                valueName : 'nombre',
+                                                sqlParams : {
+                                                                sqlCols : [
+                                                                    'id',
+                                                                    'nombre'                                
+                                                                ],
+                                                                sqlWhere : [
+                                                                    ' AND id > 1 '
+                                                                ],                                                                                                                                                                 
+                                                            }                                            
+                                            },
+                                            {
+                                                label : 'Correo Electronico',
+                                                field : 'email',
+                                                type  : 'text',
+                                                validation : 'email',
+                                                required : 'true'
+                                            },
+                                            {
+                                                label : 'Direccion',
+                                                field : 'direccion',
+                                                type  : 'text',
+                                                validation : 'mayusculas',
+                                                required : 'true'
+                                            },
+                                            {
+                                                label : 'Telefono',
+                                                field : 'telefono',
+                                                type  : 'text',
+                                                validation : 'mayusculas',
+                                                required : 'true'
+                                            },
+                                            {
+                                                label : '',
+                                                field : 'id_empresa',
+                                                type  : 'campo_empresa',
+                                                validation : '',
+                                                required : 'true'                                        
+                                            },
+                                        ]}                     
+                              apiField = {'users'}
+                              mainContainer='Users'/>
+                 </div>
                  <Window 
                       id = "windowAccesoEmpresas"                      
                       title='Configurar Accesos'
@@ -259,7 +284,6 @@ class Users extends Component {
                       params="" 
                   />
             </div>
-
         )
     } 
 }

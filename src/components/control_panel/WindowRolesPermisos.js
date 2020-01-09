@@ -10,7 +10,6 @@ import React, { Component } from 'react';
 import {listadoPermisos} from '../api_calls/ApiCalls';
 import globalState from '../configuration/GlobalState';
 import alertify from 'alertifyjs';
-//import './windowResetPassword.css';
 
 class WindowRolesPermisos extends Component {
     constructor(props) {        

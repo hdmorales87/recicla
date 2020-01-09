@@ -12,9 +12,13 @@ import Window from '../window/Window';
 import {guardaPermisos} from '../api_calls/ApiCalls';
 import globalState from '../configuration/GlobalState';
 import {modalLoading} from '../configuration/GlobalFunctions';
+import TBar from '../tbar/TBar';
 import alertify from 'alertifyjs';
 
 class Roles extends Component {
+    retrocederPanel(){
+        this.props.funcionClick('ControlPanel');
+    }
     colFuncion(idRow){        
         globalState.dispatch({
                 type   : "windowRolesPermisos",
@@ -63,43 +67,59 @@ class Roles extends Component {
                         }                    
         return (//carga el componente que contiene la grilla de datos            
             <div>
-                <DataGrid titulo='Roles' 
-                          funcionClick={this.props.funcionClick} 
-                          parametro={this.props.parametro} 
-                          colsData={[ 
-                                      {
-                                          type  : 'bd',
-                                          label : 'Nombre',
-                                          field : 'nombre'
-                                      },
-                                      {
-                                          type  : 'manual',
-                                          label : '',
-                                          icon  : 'settings',
-                                          colFuncion : this.colFuncion.bind(this)
-                                      }
-                                   ]}
-                          sqlParams = { sqlParams }  
-                          automatica="true"
-                          botonNuevo="true"
-                          formFields={[
-                                        {
-                                            label : 'Nombre',
-                                            field : 'nombre',
-                                            type  : 'text',
-                                            validation : 'mayusculas',
-                                            required : 'true'
-                                        },
-                                        {
-                                            label : '',
-                                            field : 'id_empresa',
-                                            type  : 'campo_empresa',
-                                            validation : '',
-                                            required : 'true'                                        
-                                        },                                                                        
-                                    ]}                     
-                          apiField={'roles'}
-                          mainContainer='Roles'/>  
+                <TBar
+                    items={[
+                              {
+                                  type : 'boton',
+                                  icon : 'arrow_back',
+                                  width : '100px',
+                                  height : '60px',
+                                  title : 'Atras',
+                                  display : true,
+                                  function : this.retrocederPanel.bind(this)
+                              },
+                          ]}
+                    length = '1'
+                />
+                <div style={{top: "60px",position:"relative"}}> 
+                    <DataGrid titulo='Roles' 
+                              funcionClick={this.props.funcionClick} 
+                              parametro={this.props.parametro} 
+                              colsData={[ 
+                                          {
+                                              type  : 'bd',
+                                              label : 'Nombre',
+                                              field : 'nombre'
+                                          },
+                                          {
+                                              type  : 'manual',
+                                              label : '',
+                                              icon  : 'settings',
+                                              colFuncion : this.colFuncion.bind(this)
+                                          }
+                                       ]}
+                              sqlParams = { sqlParams }  
+                              automatica="true"
+                              botonNuevo="true"
+                              formFields={[
+                                            {
+                                                label : 'Nombre',
+                                                field : 'nombre',
+                                                type  : 'text',
+                                                validation : 'mayusculas',
+                                                required : 'true'
+                                            },
+                                            {
+                                                label : '',
+                                                field : 'id_empresa',
+                                                type  : 'campo_empresa',
+                                                validation : '',
+                                                required : 'true'                                        
+                                            },                                                                        
+                                        ]}                     
+                              apiField={'roles'}
+                              mainContainer='Roles'/>
+                </div>            
                 <Window 
                         id = "windowRolesPermisos"                      
                         title='Configurar Permisos'

@@ -61,6 +61,9 @@ class FormDataGrid extends Component {
                     this.setState({[formFields.field] : ''});                          
                 }                
             }
+            if(formFields.type==='hidden'){
+                this.setState({[formFields.field] : formFields.value}); 
+            }
         });
     } 
     componentWillMount(){        
@@ -167,7 +170,7 @@ class FormDataGrid extends Component {
             else if(response.msg === 'notExist'){
                 alertify.alert('Error!', 'El dato a eliminar no existe!'); 
             }
-            this.props.funcionClick('WelcomePage'); 
+            this.props.funcionClick('WelcomePage');
             this.props.funcionClick(this.props.parametro.mainContainer);
         })
         .catch(function (error) {
@@ -219,13 +222,19 @@ class FormDataGrid extends Component {
                                //cargar dinamicamente los campos, dependiendo si es input o select
                                 this.props.parametro.formFields.map((formFields,i) => {
                                     if(formFields.type === 'text' || formFields.type === 'date'){
-                                        field = <Form.Group key= {i} controlId="formBasicTipoCompra">
+                                        field = <Form.Group key= {i} controlId={"formField_"+formFields.field}>
                                                     <Form.Label>{formFields.label}</Form.Label>
                                                     <Form.Control name = {formFields.field} type={formFields.type} onChange={this.handleStateChange.bind(this,formFields.validation)} value={this.state[formFields.field]}/>                               
-                                               </Form.Group>
+                                                </Form.Group>
+                                    }
+                                    else if(formFields.type === 'textarea'){
+                                        field = <Form.Group key= {i} controlId={"formField_"+formFields.field}>
+                                                    <Form.Label>{formFields.label}</Form.Label>
+                                                    <Form.Control name = {formFields.field} as="textarea" rows={formFields.rows} onChange={this.handleStateChange.bind(this,formFields.validation)} value={this.state[formFields.field]}/>
+                                                </Form.Group>
                                     }                                    
                                     else if(formFields.type === 'select'){
-                                        field = <Form.Group key= {i} controlId="formBasicTipoCompra">
+                                        field = <Form.Group key= {i} controlId={"formField_"+formFields.field}>
                                                     <Form.Label>{formFields.label}</Form.Label>
                                                     <ComboBoxFormDataGrid 
                                                         valueName = {formFields.valueName} 
@@ -237,16 +246,19 @@ class FormDataGrid extends Component {
                                                         functionChange={this.handleStateChange.bind(this,formFields.validation)} 
                                                         value={this.state[formFields.field]} 
                                                         sqlParams={formFields.sqlParams}/>                               
-                                               </Form.Group>
+                                                </Form.Group>
                                     }
                                     else if(formFields.type === 'data_select'){                                           
-                                        field = <Form.Group key= {i} controlId="formBasicTipoCompra">
+                                        field = <Form.Group key= {i} controlId={"formField_"+formFields.field}>
                                                     <input type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
                                                     <Form.Label>{formFields.label}</Form.Label>
                                                     <Form.Control style={{backgroundColor:'#fff'}} name={formFields.dataParams.fetchData.valueField} type="text" onClick={this.handleDataSelect.bind(this,formFields.dataParams)} value={this.state[formFields.dataParams.fetchData.valueField] || 'Seleccione...'} readOnly/>                                
                                                </Form.Group>
                                     }
                                     else if(formFields.type === 'campo_empresa'){
+                                        field = <input key= {i} type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
+                                    }
+                                    else if(formFields.type === 'hidden'){
                                         field = <input key= {i} type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
                                     }
                                     return field;

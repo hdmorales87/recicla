@@ -16,7 +16,6 @@ import globalState from '../configuration/GlobalState';
 import '../../css/alertify.css';
 
 class Smtp extends Component {
-
     constructor(props){
         super(props);
         this.state={
@@ -57,6 +56,9 @@ class Smtp extends Component {
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);                            
         });     
     }
+    retrocederPanel(){
+        this.props.funcionClick('ControlPanel');
+    }
     validaConfiguracion(){
         var email = globalState.getState().userData[0].email;
         var id_empresa = globalState.getState().companyData[0].id;
@@ -85,6 +87,15 @@ class Smtp extends Component {
                     items={[
                               {
                                   type : 'boton',
+                                  icon : 'arrow_back',
+                                  width : '100px',
+                                  height : '60px',
+                                  title : 'Atras',
+                                  display : true,
+                                  function : this.retrocederPanel.bind(this)
+                              },
+                              {
+                                  type : 'boton',
                                   icon : 'done',
                                   width : '100px',
                                   height : '60px',
@@ -94,94 +105,96 @@ class Smtp extends Component {
                               },
                           ]}
                     length = '1'
-                />            
-                <FormDataGrid 
-                    funcionClick = {this.props.funcionClick} 
-                    parametro = {
-                                    {
-                                        idRow : this.state.idRow,
-                                        mainContainer : 'ControlPanel',
-                                        formulario : true,
-                                        titulo : 'Configuracion SMTP',
-                                        apiField : 'companies_smtp', 
-                                        enableBtnEdit : true,                                                                         
-                                        formFields :  [{
-                                                            label : 'Servidor SMTP',
-                                                            field : 'servidor',
-                                                            type  : 'text',
-                                                            validation : '',
-                                                            required : 'true'                                        
-                                                        },
-                                                        {
-                                                            label : 'Usuario',
-                                                            field : 'correo',
-                                                            type  : 'text',
-                                                            validation : 'email',
-                                                            required : 'true'                                        
-                                                        },
-                                                        {
-                                                            label : 'Password',
-                                                            field : 'password',
-                                                            type  : 'text',
-                                                            validation : '',
-                                                            required : 'true'                                        
-                                                        },
-                                                        {
-                                                            label : 'Puerto',
-                                                            field : 'puerto',
-                                                            type  : 'text',
-                                                            validation : 'entero',
-                                                            required : 'true'                                        
-                                                        },                                    
-                                                        {
-                                                            label : 'Seguridad',
-                                                            field : 'seguridad_smtp',
-                                                            type  : 'select',
-                                                            validation : '',
-                                                            required : 'true',
-                                                            dinamic : 'false',
-                                                            valueName : 'nombre',
-                                                            options :  [{
-                                                                            id: 'no',
-                                                                            nombre: 'Ninguna',
-                                                                        },
-                                                                        {
-                                                                            id: 'tls',
-                                                                            nombre: 'TLS', 
-                                                                        },
-                                                                        {
-                                                                            id: 'ssl',
-                                                                            nombre: 'SSL', 
-                                                                        }]                                        
-                                                        },                                  
-                                                        {
-                                                            label : 'Autenticacion',
-                                                            field : 'autenticacion',
-                                                            type  : 'select',
-                                                            validation : '',
-                                                            required : 'true',
-                                                            dinamic : 'false',
-                                                            valueName : 'nombre',
-                                                            options :  [{
-                                                                            id: 'no',
-                                                                            nombre: 'No',
-                                                                        },
-                                                                        {
-                                                                            id: 'si',
-                                                                            nombre: 'Si', 
-                                                                        }],                                        
-                                                        },
-                                                        {
-                                                            label : '',
-                                                            field : 'id_empresa',
-                                                            type  : 'campo_empresa',
-                                                            validation : '',
-                                                            required : 'true'                                        
-                                                        }] 
-                                    }
-                                } 
-                            
-                />  
+                />
+                <div style={{top: "60px",position:"relative"}}>             
+                    <FormDataGrid 
+                        funcionClick = {this.props.funcionClick} 
+                        parametro = {
+                                        {
+                                            idRow : this.state.idRow,
+                                            mainContainer : 'ControlPanel',
+                                            formulario : true,
+                                            titulo : 'Configuracion SMTP',
+                                            apiField : 'companies_smtp', 
+                                            enableBtnEdit : true,                                                                         
+                                            formFields :  [{
+                                                                label : 'Servidor SMTP',
+                                                                field : 'servidor',
+                                                                type  : 'text',
+                                                                validation : '',
+                                                                required : 'true'                                        
+                                                            },
+                                                            {
+                                                                label : 'Usuario',
+                                                                field : 'correo',
+                                                                type  : 'text',
+                                                                validation : 'email',
+                                                                required : 'true'                                        
+                                                            },
+                                                            {
+                                                                label : 'Password',
+                                                                field : 'password',
+                                                                type  : 'text',
+                                                                validation : '',
+                                                                required : 'true'                                        
+                                                            },
+                                                            {
+                                                                label : 'Puerto',
+                                                                field : 'puerto',
+                                                                type  : 'text',
+                                                                validation : 'entero',
+                                                                required : 'true'                                        
+                                                            },                                    
+                                                            {
+                                                                label : 'Seguridad',
+                                                                field : 'seguridad_smtp',
+                                                                type  : 'select',
+                                                                validation : '',
+                                                                required : 'true',
+                                                                dinamic : 'false',
+                                                                valueName : 'nombre',
+                                                                options :  [{
+                                                                                id: 'no',
+                                                                                nombre: 'Ninguna',
+                                                                            },
+                                                                            {
+                                                                                id: 'tls',
+                                                                                nombre: 'TLS', 
+                                                                            },
+                                                                            {
+                                                                                id: 'ssl',
+                                                                                nombre: 'SSL', 
+                                                                            }]                                        
+                                                            },                                  
+                                                            {
+                                                                label : 'Autenticacion',
+                                                                field : 'autenticacion',
+                                                                type  : 'select',
+                                                                validation : '',
+                                                                required : 'true',
+                                                                dinamic : 'false',
+                                                                valueName : 'nombre',
+                                                                options :  [{
+                                                                                id: 'no',
+                                                                                nombre: 'No',
+                                                                            },
+                                                                            {
+                                                                                id: 'si',
+                                                                                nombre: 'Si', 
+                                                                            }],                                        
+                                                            },
+                                                            {
+                                                                label : '',
+                                                                field : 'id_empresa',
+                                                                type  : 'campo_empresa',
+                                                                validation : '',
+                                                                required : 'true'                                        
+                                                            }] 
+                                        }
+                                    } 
+                                
+                    /> 
+                </div> 
             </div>              
         )
     } 

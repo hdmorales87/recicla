@@ -12,7 +12,7 @@ import globalState from '../configuration/GlobalState';
 import configJson from '../configuration/configuration.json';
 import {divMouseOver,divMouseOut} from '../configuration/GlobalFunctions';
 import WindowContainer from './WindowContainer';
-import MaterialIcon from 'material-icons-react';
+import MaterialIcon from 'material-icons-react'; 
 import './window.css';
 
 Modal.setAppElement('#root');
@@ -25,7 +25,7 @@ const customStyles = {
     bottom      : 'auto',
     marginRight : '-50%',
     padding     : '0px',
-    transform   : 'translate(-50%, -50%)',    
+    transform   : 'translate(-50%, -50%)',
   }
 };
 
@@ -41,10 +41,15 @@ class Window extends Component {
         };               
         this.handleCloseModal = this.handleCloseModal.bind(this); 
         this.actualizarContainer = this.actualizarContainer.bind(this);
-        customStyles.content.width  = this.props.width;   
-        customStyles.content.height = this.props.height;        
-        //control de la modal
-        
+        let w = window.innerWidth;
+        if(w <= 1024){
+            customStyles.content.width  = '100%';   
+            customStyles.content.height = '100%'; 
+        }
+        else{
+            customStyles.content.width  = this.props.width;   
+            customStyles.content.height = this.props.height;
+        }
     } 
     componentDidMount(){        
         this.unsubscribe1 = globalState.subscribe( ()=>{           
@@ -61,8 +66,15 @@ class Window extends Component {
     }
     componentWillUpdate(){
         //actualiza las propiedades segun la ventana que se despliegue
-        customStyles.content.width  = this.props.width;   
-        customStyles.content.height = this.props.height; 
+        let w = window.innerWidth;
+        if(w <= 1024){
+            customStyles.content.width  = '100%';   
+            customStyles.content.height = '100%'; 
+        }
+        else{
+            customStyles.content.width  = this.props.width;   
+            customStyles.content.height = this.props.height;
+        } 
     }
      
     handleCloseModal () {

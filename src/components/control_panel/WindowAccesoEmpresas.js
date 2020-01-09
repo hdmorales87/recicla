@@ -1,7 +1,7 @@
 /**
 * CLASS WindowAccesoEmpresas
 *
-* Contiene el componente que lista las empresas
+* Contiene el componente que lista las empresas a las que pùede acceder un usuario
 *
 * @author Hector Morales <warrior1987@gmail.com>
 */
@@ -10,7 +10,6 @@ import React, { Component } from 'react';
 import {listadoAccesoEmpresas} from '../api_calls/ApiCalls';
 import globalState from '../configuration/GlobalState';
 import alertify from 'alertifyjs';
-//import './windowResetPassword.css';
 
 class WindowAccesoEmpresas extends Component {
     constructor(props) {        
