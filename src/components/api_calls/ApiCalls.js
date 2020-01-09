@@ -9,7 +9,7 @@
 import axios from 'axios';
 import globalState from '../configuration/GlobalState';
 
-const path = "http://"+window.location.hostname+":5000/";
+const path = "http://"+window.location.hostname+":5001/";
 
 export function login(id_empresa,username,password){
 	//consulta si el usuario existe con los datos ingresados

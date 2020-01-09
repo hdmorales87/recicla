@@ -3,14 +3,14 @@ Navicat MySQL Data Transfer
 
 Source Server         : SERVIDOR DEMOS
 Source Server Version : 100130
-Source Host           : localhost:3306
+Source Host           : 127.0.0.1:3306
 Source Database       : recicla
 
 Target Server Type    : MYSQL
 Target Server Version : 100130
 File Encoding         : 65001
 
-Date: 2019-12-16 14:16:06
+Date: 2020-01-09 14:49:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -368,4 +368,3 @@ CREATE TRIGGER `user_UPDATE` BEFORE UPDATE ON `users` FOR EACH ROW BEGIN
 END
 ;;
 DELIMITER ;
-SET FOREIGN_KEY_CHECKS=1;
