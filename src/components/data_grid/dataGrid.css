@@ -3,6 +3,10 @@
 	font-size: 15px;
 }
 
+.richTextEditor{
+	min-height: 80px;
+}
+
 @media only screen and (max-width: 800px) {
     /* Force table to not be like tables anymore */
     #no-more-tables table,

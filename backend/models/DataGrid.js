@@ -100,6 +100,9 @@ DataGridModel.getData = function(userData, callback) {
                                 `+andEmpresa+`
                                 `+strSearch;            
             }
+            if(sqlParams.sqlDebug == 'true'){
+                console.log(sql);
+            }
             connection.query(sql, function(error, rows) {
                 if (error) {
                      callback(null, {

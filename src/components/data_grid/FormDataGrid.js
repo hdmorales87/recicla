@@ -9,10 +9,12 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
 import ComboBoxFormDataGrid from './ComboBoxFormDataGrid';
 import configJson from '../configuration/configuration.json';
 import globalState from '../configuration/GlobalState';
 import {divMouseOver,divMouseOut,validarEmail,modalLoading} from '../configuration/GlobalFunctions';
+import RichTextEditor from 'react-rte';
 import Window from '../window/Window';
 import {insertarActualizarFila,eliminarFilas} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
@@ -39,12 +41,20 @@ class FormDataGrid extends Component {
                     if(formFields.type==='campo_empresa'){
                         this.setState({[formFields.field] : globalState.getState().companyData[0].id}); 
                     }
+                    else if(formFields.type==='textarea-rich'){                    
+                        this.setState({[formFields.field] : RichTextEditor.createEmptyValue()});                          
+                    }
                     else{
                         this.setState({[formFields.field] : ''});
                     }
                 }
-                else{         
-                    this.setState({[formFields.field] : this.props.parametro.idRow[formFields.field]});           
+                else{
+                    if(formFields.type==='textarea-rich'){                    
+                        this.setState({[formFields.field] : RichTextEditor.createValueFromString(this.props.parametro.idRow[formFields.field], 'html')});                          
+                    }
+                    else{
+                        this.setState({[formFields.field] : this.props.parametro.idRow[formFields.field]});        
+                    }         
                     if(formFields.type==='data_select'){//adicional pone el texto en el input del data select
                         this.setState({[formFields.dataParams.fetchData.valueField] : this.props.parametro.idRow[formFields.dataParams.fetchData.valueField]});
                     }
@@ -52,10 +62,18 @@ class FormDataGrid extends Component {
             }
             else{
                 if(formFields.type==='select'){
-                    this.setState({[formFields.field] : 1});            
+                    if(formFields.dinamic === 'false'){
+                        this.setState({[formFields.field] : formFields.options[0].id});
+                    }
+                    else{
+                        this.setState({[formFields.field] : 1});
+                    }
                 }
                 else if(formFields.type==='campo_empresa'){
                     this.setState({[formFields.field] : globalState.getState().companyData[0].id});
+                }
+                else if(formFields.type==='textarea-rich'){                    
+                    this.setState({[formFields.field] : RichTextEditor.createEmptyValue()});                          
                 }
                 else{                    
                     this.setState({[formFields.field] : ''});                          
@@ -64,7 +82,7 @@ class FormDataGrid extends Component {
             if(formFields.type==='hidden'){
                 this.setState({[formFields.field] : formFields.value}); 
             }
-        });
+        });        
     } 
     componentWillMount(){        
         this.cargarCampos();
@@ -86,7 +104,17 @@ class FormDataGrid extends Component {
         var errors = 0;            
 
         this.props.parametro.formFields.forEach((formFields,i) => {
-            if((this.state[formFields.field] === undefined || this.state[formFields.field] === '') && formFields.required === 'true'){
+            if(formFields.type==='textarea-rich'){ 
+                if(!this.state[formFields.field].getEditorState().getCurrentContent().hasText()){
+                    alertify.error('Digite el campo '+formFields.label+'!'); 
+                    errors++;
+                    return; 
+                }
+                else{
+                    arrayData[formFields.field] = this.state[formFields.field].toString('html');
+                }                
+            }
+            else if((this.state[formFields.field] === undefined || this.state[formFields.field] === '') && formFields.required === 'true'){
                 alertify.error('Digite el campo '+formFields.label+'!'); 
                 errors++;
                 return;
@@ -136,8 +164,17 @@ class FormDataGrid extends Component {
         });
     }
     //manejo dinamico de los estados, con esto actualizo el valor de cualquier campo para enviarlos a la API
-    handleStateChange(validation,e) {         
-        var ingresado = e.target.value; //validaciones
+    handleStateChange(validation,funcionOnChange,e) {      
+        
+        var ingresado = null; //validaciones   
+
+        if(validation === 'textarea-rich'){
+            ingresado = e;
+        }
+        else{
+            ingresado = e.target.value;
+        }
+
         if(validation === 'mayusculas'){
             ingresado = ingresado.toUpperCase();
         }
@@ -153,8 +190,17 @@ class FormDataGrid extends Component {
         if(validation === 'numero_texto'){
             ingresado = ingresado.replace(/[^a-zA-Z0-9&]/g,'');
             ingresado = ingresado.toUpperCase();
+        }        
+        if(typeof funcionOnChange === 'function'){//la funcion onchange del combo  
+            funcionOnChange(ingresado);           
         }
-        this.setState({ [e.target.name]: ingresado });
+
+        if(validation === 'textarea-rich'){
+            this.setState({ [funcionOnChange]: ingresado });
+        }
+        else{
+            this.setState({ [e.target.name]: ingresado });
+        }
     }   
     handleDeleteButton(id){//boton eliminar
         alertify.confirm('Confirmacion', 'Esta seguro(a) de eliminar este item?', this.handleConfirmAction.bind(this,id), function(){});
@@ -205,11 +251,13 @@ class FormDataGrid extends Component {
     	var titulo = 'Agregar';
         var id = 0;
         var field = '';
+        var field1 = '';
+        var count = 1;        
     	if(this.props.parametro.idRow !== 0){
     		  titulo = 'Editar';
            id = this.props.parametro.idRow.id;
-    	}                 			
-    	return (  //carga dinamica del formulario	  		  	  	
+    	}                             			
+    	return (  //carga dinamica del formulario
     	 	<div className="container">
                <div className="content">
                    <div className="table-responsive mt-4">
@@ -217,24 +265,59 @@ class FormDataGrid extends Component {
                    </div>
                    <hr />
                    <div className="table-responsive mb-3">	
-    			    	<Form>
-                           {
-                               //cargar dinamicamente los campos, dependiendo si es input o select
-                                this.props.parametro.formFields.map((formFields,i) => {
+    			    	<Form>                            
+                            {                                
+                                //cargar dinamicamente los campos, dependiendo si es input o select                                
+                                this.props.parametro.formFields.map((formFields,i) => {                                                                                                                                          
                                     if(formFields.type === 'text' || formFields.type === 'date'){
-                                        field = <Form.Group key= {i} controlId={"formField_"+formFields.field}>
+                                        field = <>{field}<Form.Group as={Col}  controlId={"formField_"+formFields.field}>
                                                     <Form.Label>{formFields.label}</Form.Label>
-                                                    <Form.Control name = {formFields.field} type={formFields.type} onChange={this.handleStateChange.bind(this,formFields.validation)} value={this.state[formFields.field]}/>                               
-                                                </Form.Group>
+                                                    <Form.Control name = {formFields.field} type={formFields.type} onChange={this.handleStateChange.bind(this,formFields.validation,'')} value={this.state[formFields.field]}/>                               
+                                                </Form.Group></>
                                     }
                                     else if(formFields.type === 'textarea'){
-                                        field = <Form.Group key= {i} controlId={"formField_"+formFields.field}>
-                                                    <Form.Label>{formFields.label}</Form.Label>
-                                                    <Form.Control name = {formFields.field} as="textarea" rows={formFields.rows} onChange={this.handleStateChange.bind(this,formFields.validation)} value={this.state[formFields.field]}/>
-                                                </Form.Group>
-                                    }                                    
+                                        if(count%2===0){
+                                            count+=3;
+                                            field1 = field;
+                                            field = '';                                                                                                                               
+                                        } 
+                                        return <div key= {i}> 
+                                                <Form.Row style={{width:'99%'}}>
+                                                    {field1}
+                                                </Form.Row>
+                                                <Form.Row style={{width:'99%'}}>
+                                                    <Form.Group as={Col} key= {i} controlId={"formField_"+formFields.field}>
+                                                        <Form.Label>{formFields.label}</Form.Label>                                                        
+                                                        <Form.Control name = {formFields.field} as="textarea" rows={formFields.rows} onChange={this.handleStateChange.bind(this,formFields.validation,'')} value={this.state[formFields.field]}/>
+                                                    </Form.Group>
+                                                </Form.Row>
+                                               </div>
+                                    }  
+                                    else if(formFields.type === 'textarea-rich'){
+                                        if(count%2===0){
+                                            count+=3;
+                                            field1 = field;
+                                            field = '';                                                                                                                               
+                                        } 
+                                        return <div key= {i}> 
+                                                <Form.Row style={{width:'99%'}}>
+                                                    {field1}
+                                                </Form.Row>
+                                                <Form.Row style={{width:'99%'}}>
+                                                    <Form.Group as={Col} key= {i} controlId={"formField_"+formFields.field}>
+                                                        <Form.Label>{formFields.label}</Form.Label>
+                                                        <RichTextEditor
+                                                            name = {formFields.field}
+                                                            onChange={this.handleStateChange.bind(this,'textarea-rich',formFields.field)} 
+                                                            value={this.state[formFields.field]} 
+                                                            editorClassName="richTextEditor"                                                           
+                                                        />                                                       
+                                                    </Form.Group>
+                                                </Form.Row>
+                                               </div>
+                                    }                                  
                                     else if(formFields.type === 'select'){
-                                        field = <Form.Group key= {i} controlId={"formField_"+formFields.field}>
+                                        field = <>{field}<Form.Group as={Col} controlId={"formField_"+formFields.field}>
                                                     <Form.Label>{formFields.label}</Form.Label>
                                                     <ComboBoxFormDataGrid 
                                                         valueName = {formFields.valueName} 
@@ -242,28 +325,47 @@ class FormDataGrid extends Component {
                                                         apiField={formFields.apiField} 
                                                         dinamic={formFields.dinamic} 
                                                         name = {formFields.field} 
-                                                        type={formFields.type} 
-                                                        functionChange={this.handleStateChange.bind(this,formFields.validation)} 
+                                                        type={formFields.type}                                                         
+                                                        fieldUpdate={formFields.fieldUpdate}
+                                                        valueUpdate={this.state[formFields.fieldUpdate]}
+                                                        functionChange={this.handleStateChange.bind(this,formFields.validation,formFields.onChange)} 
                                                         value={this.state[formFields.field]} 
                                                         sqlParams={formFields.sqlParams}/>                               
-                                                </Form.Group>
+                                                </Form.Group></>
                                     }
                                     else if(formFields.type === 'data_select'){                                           
-                                        field = <Form.Group key= {i} controlId={"formField_"+formFields.field}>
+                                        field = <>{field}<Form.Group as={Col} controlId={"formField_"+formFields.field}>
                                                     <input type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
                                                     <Form.Label>{formFields.label}</Form.Label>
                                                     <Form.Control style={{backgroundColor:'#fff'}} name={formFields.dataParams.fetchData.valueField} type="text" onClick={this.handleDataSelect.bind(this,formFields.dataParams)} value={this.state[formFields.dataParams.fetchData.valueField] || 'Seleccione...'} readOnly/>                                
-                                               </Form.Group>
+                                               </Form.Group></>
                                     }
                                     else if(formFields.type === 'campo_empresa'){
-                                        field = <input key= {i} type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
+                                        return <input key= {i} type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
                                     }
                                     else if(formFields.type === 'hidden'){
-                                        field = <input key= {i} type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
+                                        return <input key= {i} type="hidden" name = {formFields.field} value={this.state[formFields.field]} />
                                     }
-                                    return field;
-                                })
+                                    //organizar las columnas en filas
+                                    if(count%2===0){
+                                        count++;
+                                        field1 = field;
+                                        field = '';                                       
+                                        return <Form.Row style={{width:'99%'}} key= {i}>
+                                                    {field1}
+                                                </Form.Row>;   
+
+                                    }                                    
+                                    else{
+                                        count++;                                                                                
+                                    } 
+                                    return null;                                     
+                                })                                
+                            } 
+                            {
+                                (count%2===0)?<Form.Row style={{width:'99%'}}>{field}</Form.Row>:''                                 
                             }
+                            <Form.Row style={{width:'99%'}}>                        
                             {
                                 this.props.parametro.enableBtnEdit === true || this.props.parametro.idRow === 0 ?
                                     <Button id="formGridBtnSave" className="float-left mr-3" variant="primary" onClick={this.handleSaveButton.bind(this,id)} style={{backgroundColor:configJson.fondoBotonGrilla}} onMouseOut={divMouseOut.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)} onMouseOver={divMouseOver.bind(this,'formGridBtnSave',configJson.fondoBotonGrilla)}>
@@ -280,7 +382,8 @@ class FormDataGrid extends Component {
                                         ELIMINAR
                                     </Button>                                
                                 :  ""                                
-                            }                            
+                            } 
+                            </Form.Row>                           
     				    </Form>
                         <Window   //ventana para el data select
                             id = {this.state.windowDataSelectId}                    
