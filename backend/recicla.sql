@@ -3,14 +3,14 @@ Navicat MySQL Data Transfer
 
 Source Server         : SERVIDOR DEMOS
 Source Server Version : 100130
-Source Host           : 127.0.0.1:3306
+Source Host           : localhost:3306
 Source Database       : recicla
 
 Target Server Type    : MYSQL
 Target Server Version : 100130
 File Encoding         : 65001
 
-Date: 2020-01-09 14:49:42
+Date: 2020-01-16 20:51:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -189,12 +189,13 @@ CREATE TABLE `purchases` (
   PRIMARY KEY (`id`),
   KEY `purchases_id_type_purchase_foreign` (`id_tipo_producto`) USING BTREE,
   KEY `purchases_id_reciclator_foreign` (`id_reciclador`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of purchases
 -- ----------------------------
 INSERT INTO `purchases` VALUES ('1', '2019-12-16', '1', '1', '10.00', '1', '');
+INSERT INTO `purchases` VALUES ('2', '2020-01-01', '1', '1', '40.00', '1', '');
 
 -- ----------------------------
 -- Table structure for reciclators
@@ -334,7 +335,7 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', '1', '1113624878', 'HECTOR', 'David', 'Morales', 'Lopez', 'HECTOR David Morales Lopez', 'warrior1987@gmail.com', '183876f12dd23b1765197361b25c20b0', 'asfasfas', 'asfasfasfasf', '', '1', '1.jpg', '1', '');
+INSERT INTO `users` VALUES ('1', '1', '1113624878', 'HECTOR', 'David', 'Morales', 'Lopez', 'HECTOR David Morales Lopez', 'warrior1987@gmail.com', 'e34e3ecd4740f9e93f93d67726ab645c', 'asfasfas', 'asfasfasfasf', '', '1', '1.jpg', '1', '');
 INSERT INTO `users` VALUES ('12', '1', '1113456789', 'DIDI', 'ALEX', 'INAGAN', 'ROSERO', 'DIDI ALEX INAGAN ROSERO', 'alexinagan@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'CLL 56 33 95', '4456789', null, '1', '', '2', '');
 INSERT INTO `users` VALUES ('13', '1', '1130661106', 'ERIKA', 'VIVIANA', 'FISCAL', 'CAICEDO', 'ERIKA VIVIANA FISCAL CAICEDO', 'fiscal.erika@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'CLL 45 33 45', '4456789', null, '1', '', '2', '');
 INSERT INTO `users` VALUES ('14', '1', '12345678', 'USUARIO', '', 'DEMO', '', 'USUARIO  DEMO ', 'camilalondono140@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'CLL 45 # 32-25', '4458596', null, '1', '', '3', '');
@@ -368,3 +369,4 @@ CREATE TRIGGER `user_UPDATE` BEFORE UPDATE ON `users` FOR EACH ROW BEGIN
 END
 ;;
 DELIMITER ;
+SET FOREIGN_KEY_CHECKS=1;
