@@ -8,14 +8,7 @@
 
 import React, { Component } from 'react';
 import DashboardOption from './DashboardOption';
-import {indicadorCompras1,
-        indicadorVentas1,
-        indicadorGraficoCompras1,
-        indicadorGraficoVentas1,
-        indicadorCompras2,
-        indicadorVentas2,
-        indicadorGraficoCompras2,
-        indicadorGraficoVentas2} from '../api_calls/ApiCalls';
+import {cargarFilas} from '../api_calls/ApiCalls';
 import alertify from 'alertifyjs';
 import '../../css/alertify.css';
 import './dashboard.css';
@@ -44,8 +37,18 @@ class DashboardContainer extends Component {
         //formato de la fecha
         date1 = new Date(date1.getTime() - (date1.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
         date2 = new Date(date2.getTime() - (date2.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
-        //cargar los indicadores      
-        indicadorCompras1(date1,date2)
+        //cargar los indicadores
+        //indicador 1 de compras   
+        let sqlParams = {
+                            sqlCols : [
+                                'COUNT(id) AS total'
+                            ],
+                            sqlWhere : [ ' AND activo = 1' ],    
+                            sqlEmpresa : "true",
+                            fieldFechas : "T1.fecha_compra"                        
+                                                                                                         
+                        }
+        cargarFilas('purchases','',1,0,date1,date2,sqlParams,'rows')
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
@@ -57,51 +60,97 @@ class DashboardContainer extends Component {
         .catch( err => {            
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidorttt!<br />'+err);
         });
-
-        indicadorCompras2(date1,date2)
+        //indicador 2 de compras 
+        sqlParams = {
+                        sqlCols : [
+                            'SUM(T1.peso * PT.precio_compra) AS total',                                
+                        ],
+                        sqlJoin : [
+                            'INNER JOIN product_types AS PT ON (PT.id = T1.id_tipo_producto)',                                 
+                        ],
+                        sqlWhere : [ ' AND T1.activo = 1' ],    
+                        sqlEmpresa : "true",
+                        fieldFechas : "T1.fecha_compra"                        
+                                                                                                     
+                    }
+        cargarFilas('purchases','',1,0,date1,date2,sqlParams,'rows')
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
-            } else {       
-                if(response[0].total !== null){                    
-                    this.setState({ indicadorCompras2: response[0].total }); 
-                }               
+            } else {    
+                if(response[0].total !== null){
+                    this.setState({ indicadorCompras2: response[0].total });
+                }              
             }
         })
         .catch( err => {            
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidorttt!<br />'+err);
-        });
-
-        indicadorVentas1(date1,date2)
+        }); 
+        //indicador 1 de ventas       
+        sqlParams = {
+                            sqlCols : [
+                                'COUNT(id) AS total'
+                            ],
+                            sqlWhere : [ ' AND activo = 1' ],    
+                            sqlEmpresa : "true",
+                            fieldFechas : "T1.fecha_venta"                        
+                                                                                                         
+                        }
+        cargarFilas('sales','',1,0,date1,date2,sqlParams,'rows')
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
-            } else {     
-                this.setState({ indicadorVentas1: response[0].total });                
+            } else {                           
+                this.setState({ indicadorVentas1: response[0].total });                 
             }
         })
         .catch( err => {            
-            alertify.alert('Error!', 'No se ha logrado la conexion con el servidorxxx!<br />'+err);
-        });
-
-        indicadorVentas2(date1,date2)
+            alertify.alert('Error!', 'No se ha logrado la conexion con el servidorttt!<br />'+err);
+        }); 
+        //indicador 2 de ventas 
+        sqlParams = {
+                        sqlCols : [
+                            'SUM(T1.peso * PT.precio_venta) AS total',                                
+                        ],
+                        sqlJoin : [
+                            'INNER JOIN product_types AS PT ON (PT.id = T1.id_tipo_producto)',                                 
+                        ],
+                        sqlWhere : [ ' AND T1.activo = 1' ],    
+                        sqlEmpresa : "true",
+                        fieldFechas : "T1.fecha_venta"                        
+                                                                                                     
+                    }
+        cargarFilas('sales','',1,0,date1,date2,sqlParams,'rows')
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
                 alertify.alert('Error!', 'Ha ocurrido un error accesando a la base de datos!<br />Codigo de Error: '+response.detail);
-            } else {     
+            } else {    
                 if(response[0].total !== null){
-                    this.setState({ indicadorVentas2: response[0].total }); 
-                }                               
+                    this.setState({ indicadorVentas2: response[0].total });
+                }              
             }
         })
         .catch( err => {            
-            alertify.alert('Error!', 'No se ha logrado la conexion con el servidorxxx!<br />'+err);
-        });
-
-        indicadorGraficoCompras1(date1,date2)
+            alertify.alert('Error!', 'No se ha logrado la conexion con el servidorttt!<br />'+err);
+        });      
+        //indicador grafico de compras 1
+        sqlParams = {
+                        sqlCols : [
+                            'COUNT(T1.id) AS total',
+                            'PT.nombre AS tipo_producto',                                
+                        ],
+                        sqlJoin : [
+                            'INNER JOIN product_types AS PT ON (PT.id = T1.id_tipo_producto)',                                 
+                        ],
+                        sqlWhere : [ ' AND T1.activo = 1' ],    
+                        sqlEmpresa : "true",
+                        fieldFechas : "T1.fecha_compra",
+                        sqlGroupBy : "T1.id_tipo_producto"                                            
+                    }
+        cargarFilas('purchases','',20,0,date1,date2,sqlParams,'rows')
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
@@ -117,8 +166,21 @@ class DashboardContainer extends Component {
         .catch( err => {            
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidorrrrrr!<br />'+err);
         });
-
-        indicadorGraficoVentas1(date1,date2)
+        //indicador grafico de ventas 1
+        sqlParams = {
+                        sqlCols : [
+                            'COUNT(T1.id) AS total',
+                            'PT.nombre AS tipo_producto',                                
+                        ],
+                        sqlJoin : [
+                            'INNER JOIN product_types AS PT ON (PT.id = T1.id_tipo_producto)',                                 
+                        ],
+                        sqlWhere : [ ' AND T1.activo = 1' ],    
+                        sqlEmpresa : "true",
+                        fieldFechas : "T1.fecha_venta",
+                        sqlGroupBy : "T1.id_tipo_producto"                                            
+                    }
+        cargarFilas('sales','',20,0,date1,date2,sqlParams,'rows')
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
@@ -127,15 +189,28 @@ class DashboardContainer extends Component {
                 var arrayVentas = [['Producto', 'Total']];                
                 for(var i in response){
                     arrayVentas.push([response[i].tipo_producto,response[i].total]);                    
-                }                             
+                }                                
                 this.setState({ graficoVentas1: arrayVentas })
             }
         })
         .catch( err => {            
-            alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
+            alertify.alert('Error!', 'No se ha logrado la conexion con el servidorrrrrr!<br />'+err);
         });
-
-        indicadorGraficoCompras2(date1,date2)
+        //indicador grafico de compras 2
+        sqlParams = {
+                        sqlCols : [
+                            'SUM(T1.peso * PT.precio_compra) AS total',
+                            'PT.nombre AS tipo_producto',                                
+                        ],
+                        sqlJoin : [
+                            'INNER JOIN product_types AS PT ON (PT.id = T1.id_tipo_producto)',                                 
+                        ],
+                        sqlWhere : [ ' AND T1.activo = 1' ],    
+                        sqlEmpresa : "true",
+                        fieldFechas : "T1.fecha_compra",
+                        sqlGroupBy : "T1.id_tipo_producto"                                            
+                    }
+        cargarFilas('purchases','',20,0,date1,date2,sqlParams,'rows')
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
@@ -150,9 +225,22 @@ class DashboardContainer extends Component {
         })
         .catch( err => {            
             alertify.alert('Error!', 'No se ha logrado la conexion con el servidorrrrrr!<br />'+err);
-        });
-
-        indicadorGraficoVentas2(date1,date2)
+        });      
+        //indicador grafico de ventas 2
+        sqlParams = {
+                        sqlCols : [
+                            'SUM(T1.peso * PT.precio_venta) AS total',
+                            'PT.nombre AS tipo_producto',                                
+                        ],
+                        sqlJoin : [
+                            'INNER JOIN product_types AS PT ON (PT.id = T1.id_tipo_producto)',                                 
+                        ],
+                        sqlWhere : [ ' AND T1.activo = 1' ],    
+                        sqlEmpresa : "true",
+                        fieldFechas : "T1.fecha_venta",
+                        sqlGroupBy : "T1.id_tipo_producto"                                            
+                    }
+        cargarFilas('sales','',20,0,date1,date2,sqlParams,'rows')
         .then(res => {
             var response = res.data; 
             if (response.msg === "error") {
@@ -161,13 +249,13 @@ class DashboardContainer extends Component {
                 var arrayVentas = [['Producto', 'Total']];                
                 for(var i in response){
                     arrayVentas.push([response[i].tipo_producto,response[i].total]);                    
-                }                             
+                }                                
                 this.setState({ graficoVentas2: arrayVentas })
             }
         })
         .catch( err => {            
-            alertify.alert('Error!', 'No se ha logrado la conexion con el servidor!<br />'+err);
-        });
+            alertify.alert('Error!', 'No se ha logrado la conexion con el servidorrrrrr!<br />'+err);
+        }); 
     }
   	render() {
         //LOS TIPOS DE GRAFICO SON PieChart y ColumnChart                    

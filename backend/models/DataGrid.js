@@ -73,7 +73,15 @@ DataGridModel.getData = function(userData, callback) {
                 for(let i in sqlParams.sqlWhere){                
                     strWhere += sqlParams.sqlWhere[i];
                 }              
-            }            
+            } 
+            //si tiene GroupBy
+            var sqlGroupBy = '';
+            if(sqlParams.sqlGroupBy != undefined){
+                for(let i in sqlParams.sqlGroupBy){                
+                    sqlGroupBy += sqlParams.sqlGroupBy[i];
+                } 
+                sqlGroupBy = 'GROUP BY '+sqlGroupBy;             
+            }             
             //modo de visualizacion
             if(modo == 'rows'){                
                 var sql = `SELECT                        
@@ -85,7 +93,8 @@ DataGridModel.getData = function(userData, callback) {
                                 `+strWhere+`
                                 `+andFechas+`
                                 `+andEmpresa+`
-                                `+strSearch+`                     
+                                `+strSearch+
+                           sqlGroupBy+`
                            ORDER BY T1.id LIMIT `+offsetRecord+','+showRecords;                                      
             }
             else if(modo == 'total'){
